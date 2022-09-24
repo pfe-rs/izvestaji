@@ -1,0 +1,63 @@
+{{ define "main" }}
+
+{{ partial "page-title.html" . }}
+
+<!-- Blog Section Start -->
+<section class="blog section" id="blog">
+    <div class="container">
+        <div class="row">
+            <article class="col-12">
+            {{ .Page.Content }}
+            </article>
+        </div>
+        <div class="row">
+            {{ if ne .Params.list false }}
+                {{ range (.Paginator 100).Pages }}
+                <!-- single blog post -->
+                <article class="col-12 col-md-6 col-lg-4">
+                    <div class="post-item">
+                        <a href="{{ .Permalink }}">
+                            {{ if .Site.Params.displayImagesInList }}
+                                {{ $image := .Params.image }}
+                                {{ if not $image }}
+                                    {{ $image = "/images/gallery-default.jpg" }}
+                                {{ end }}
+                                {{ $image := resources.Get $image }}
+                                <div class="post-thumb">
+                                    <img src="{{ $image.Permalink }}" class="img-fluid" alt="{{ .Title }}">
+                                </div>
+                            {{ end }}
+                            <div class="post-title">
+                                <h2 class="mt-0">
+                                    {{ .Title }}
+                                </h2>
+                            </div>
+                        </a>
+                        {{- if not .Date.IsZero -}}
+                        <div class="post-meta">
+                            <span>
+                                <time datetime="{{ .Date }}">
+                                    {{ .Date.Format .Site.Params.dateFormat }}
+                                </time>
+                            </span>
+                        </div>
+                        {{- end -}}
+                        <div class="post-content">
+                            <p>
+                                {{ .Summary }}
+                                <a href="{{ .Permalink }}" tabindex="-1">{{ i18n "procitaj-vise" }}...</a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                <!-- /single blog post -->
+                {{ end }}
+                <div class="col-12 text-center">
+                    {{ template "_internal/pagination.html" . }}
+                </div>
+            </div>
+        {{ end }}
+    </div>
+</section>
+
+{{ end }}

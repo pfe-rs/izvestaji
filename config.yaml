@@ -1,0 +1,26 @@
+baseURL: 'https://pfe-izvestaji.pages.dev'
+languageCode: 'sr-RS'
+theme: navigator
+defaultContentLanguage: sr
+pluralizelisttitles: "false"
+title: "PFE Izveštaji"
+enableRobotsTXT: true
+disableKinds:
+  - taxonomy
+  - term
+params:
+  mainSections:
+    - "2022"
+  dateFormat: "02/01/2006"
+  logo: https://pfe.rs/images/logo.png
+menu:
+  nav:
+    - name: "pocetna"
+      url: ""
+      weight: 1
+    - name: "uputstvo"
+      url: "uputstvo"
+      weight: 2
+    - name: "2022"
+      url: "2022"
+      weight: 3
