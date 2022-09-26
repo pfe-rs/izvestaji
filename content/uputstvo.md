@@ -2,7 +2,43 @@
 title: Uputstvo
 ---
 
-Ovo uputstvo služi vama, polaznicima, kako bi znali kako da počnu sa radom na izveštajima i tehničke detalje oko toga kako da vaš rad pišete, pregledate, formatirate, struktuirate i pošaljete na pregled.
+Ovo uputstvo služi vama, polaznicima, kako bi znali kako da počnete sa radom na izveštajima i imate uvid u tehničke detalje oko toga kako da vaš rad pišete, vidite, formatirate, struktuirate i pošaljete na pregled.
+Iskoristite priliku da postavljate pitanja na diskordu oko bilo kakvih pitanja vezanih za pisanje izveštaja i potrudićemo se da update-ujemo ovaj dokument sa odgovorima na njih.
+
+# Sadržaj
+
+U sledećih par odeljaka je opisano šta treba od sadržaja vaš izveštaj da sadrži. Konkretan sadržaj (tekst, slike, grafici, formule) ne treba da zavisi od tehnologije koju koristimo za prikaz izveštaja.
+
+## Apstrakt
+
+Prva dva odeljka vašeg izveštaja su apstrakt i apstrakt na engleskom, ali **njih treba pisati nakon svih drugih delova**. Apstrakt pretstavlja sažetak vašeg izveštaja i treba (bez objašnjenja) da pretstavi šta ste radili, na koji način i koje rezultate ste postigli.
+
+## Uvod
+
+Uvod treba da sadrži sledeće stvari:
+
+- Opis i motivaciju projekta. Odnosno kako ste došli do ideje i šta ste radili.
+- Pregled literature. Ukratko opišite šta su drugi radili pre vas.
+
+## Aparatura i metoda
+
+U ovom odeljku treba ući u teoriju iza svih metoda koje ste koristili za vaš rad. Potrudite se da koristite reference na kojima je opisan princip rada tih metoda kao dodatan izvor za istraživanje potencijalnih čitalaca.
+
+Detaljan opis aparature ako ste je koristili, uključujući slike, blok diagrame i ostala pomoćna sretstva za jasno predstavljanje toga šta ste koristili.
+
+Posmatrajte ovaj odeljak kao vaš zadatak da čitaoc može da rekreira ono što ste radili.
+
+## Istraživanje i rezultati
+
+U ovom odeljku treba opisati sve rezultate do kojih ste postigli. Ako idalje radite na svom projektu, parcijalni rezultati su potpuno prihvatljivi.
+
+## Zaključak
+
+Zaključak ima za cilj da dodatno prokomentarišete rezultate i napravite pregled rada.
+
+# Tehnički detalji
+
+U narednim odeljcima je opisano na koji način da pišete izveštaj i prikažete ga na lokalnoj mašini i vidite kako će izgledati na sajtu.
 
 ## Potrebni alati
 Sledeći alati su vam potrebni za rad na izveštajima:
