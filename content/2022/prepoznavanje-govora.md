@@ -4,8 +4,6 @@ summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaz
 ---
 ### Apstrakt
 
-Prva dva odeljka vašeg izveštaja su apstrakt i apstrakt na engleskom, ali **njih treba pisati nakon svih drugih delova**. Apstrakt predstavlja sažetak vašeg izveštaja i treba (bez objašnjenja) da predstavi šta ste radili, na koji način i koje rezultate ste postigli.
-
 ### Apstrakt na engleskom
 ### Uvod
 
@@ -18,11 +16,23 @@ Prelazeći kroz literaturu i referentne radove, mnogi su više doprineli pri sam
 Osvrt na naš rad ogleda se u metodama koji su drugi radili pre nas, poput MFCC-a (Mel-Frequency Cepstral Coefficients), logističke regresije, Random Forest-a, SVM-a, XGBoost-a, kao i konvolucionih neuronskih mreža. Do našeg rada, ljudi su fokusirali svoje radove na obradi jednog metoda i testiranju na određenoj bazi. Nasuprot njihovim, naš rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
 ### Aparatura i metoda
 
-U ovom odeljku treba ući u teoriju iza svih metoda koje ste koristili za vaš rad. Potrudite se da koristite reference na kojima je opisan princip rada tih metoda kao dodatan izvor za istraživanje potencijalnih čitalaca.
+Naše rešenje problema prepoznavanja govora svodi se na izradu spektrograma i obradu istih.
 
-Detaljan opis aparature ako ste je koristili, uključujući slike, blok diagrame i ostala pomoćna sredstva za jasno predstavljanje toga šta ste koristili.
+#### Spektrogrami
 
-Posmatrajte ovaj odeljak kao vaš zadatak da čitalac može da rekreira ono što ste radili.
+#### Metode obrade spektrograma
+
+##### Logistička regresija
+
+##### MFCCs
+
+##### Random Forest
+
+##### XGBoost
+
+##### SVM
+
+##### Konvolucione neuronske mreže
 
 ### Istraživanje i rezultati
 
