@@ -22,7 +22,7 @@ Naše rešenje problema prepoznavanja govora svodi se na izradu spektrograma i o
 
 #### Metode obrade spektrograma
 
-##### Logistička regresija
+##### 1. Logistička regresija
 
 Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku on linearne regresije, njene vrednosti su ograničene između 0 i 1. 
 
@@ -41,9 +41,9 @@ Funkcija cene ove metode je logaritamska da bismo dobili konveksnu završnu funk
 Da bi se logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom, nameštajući beta parametre kroz više iteracija tražeći najbolje fitovanu krivu, odakle se biraju najbolje procene parametara. Nakon toga se dobijeni koeficijenti koriste za računanje verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
 
-##### MFCCs
+##### 2. MFCCs
 
-##### Random Forest
+##### 3. Random Forest
 
 Random Forest je klasifikator koji koristi više stabala odlučivanja (Desicion Tree) i njihova pojedinačna predviđanja stapa u jedno konačno.
 
@@ -59,11 +59,11 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 
 2.	Svako stablo dobija neki nasumičan feature na kom će se trenirati, umesto da se trenira na skupu feature-a, što bi zahtevalo i veću dubinu mreže. Ovaj aspekt, zvani Random Subspace Method ili Attribute Bagging, smanjuje korelaciju između stabala i time ih čini nezavisnijim jedne od drugih.
 
-##### XGBoost
+##### 4. XGBoost
 
-##### SVM
+##### 5. SVM
 
-##### Konvolucione neuronske mreže
+##### 6. Konvolucione neuronske mreže
 
 ### Istraživanje i rezultati
 
