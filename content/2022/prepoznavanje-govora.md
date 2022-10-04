@@ -28,13 +28,13 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a primer takve funckije je dat na slici 1.
 
-![Sigmoid](/izvestaji/static/images/1.png)
+![Sigmoid](static\images\1.png)
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorija.
 
 Funkcija cene ove metode je logaritamska da bismo dobili konveksnu završnu funkciju parametara i time postigli da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
-![Funkcija](/izvestaji/static/images/2.png)
+![Funkcija](static\images\2.png)
 
 - hΘ(x) = sigmoid (w*x + b), Y rezultat, x = promenljiva koju posmatramo
 
@@ -51,7 +51,7 @@ Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizo
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
-![Random Forest](/izvestaji/static/images/3.png)
+![Random Forest](static\images\3.png)
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
