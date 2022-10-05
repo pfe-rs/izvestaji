@@ -50,6 +50,7 @@ Transfer funkcija predstavlja odnos između signala upravljačkog sistema i ulaz
 Transfer funkcija (funkcija prenosa) je definisana kao Laplasova transformacija izlazne promenjljive i Laplasove transformacije ulazne promenjljive pod pretpostavkom da su svi početni uslovi jednaki nuli.
 $$G(s)\ =\ \frac{C(s)}{R(s)}$$
 Način na koji se formira transfer funkcija kontrolnog sistema je sledeća:
+
 1. Formiraju se jednačine sistema
 2. Uzimaju se Laplasove transformacije jednačina, pretpostavljajući da su početni uslovi jednaki nuli
 3. Određuju se ulazi i izlazi sistema
@@ -58,3 +59,7 @@ Način na koji se formira transfer funkcija kontrolnog sistema je sledeća:
 Takođe, važno je naglasiti da izlaz i ulaz nekog sistema ne mora nužno da bude istih fizičkih dimenzija.
 
 U radu su korišćene tri transfer funkcije koje se uz data pravila mogu izvesti iz fizičkih jednačina za horizontalno kretanje valjka. To su transfer funkcija ugla inklinacije klatna valjka i napona na motoru, transfer funkcija ugaone brzine klatna valjka i napona na motoru i, na kraju, ugaona brzina valjka i napona motora.
+
+##### PID simulacije
+
+Kako bi se razumeo PID kontroler potrebno je definisati odredjene termine. *Željena vrednost* je obično vrednost koju unosi korisnik. Na primer, za sistem za grejanje to bi bila željena temperatura prostorije. *Izlaz* je kontrolisana vrednost PID kontrolera. U automobilu bi to bila količina goriva koja je potrebna da bi se održavala konstantna brzina. *Greška* je vrednost koju koristi PID kontroler da bi odredio kako da manipuliše izlazom da bi se dostigla željena vrednost. Greška se računa kao razlika između željene vrednosti i trenutne vrednosti sistema.
