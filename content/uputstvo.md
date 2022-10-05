@@ -62,6 +62,8 @@ Izveštaj vašeg projekta nalazi se u `content/[godina]/[ime-projekta].md` fajlu
 - `title`: Naslov vašeg projekta
 - `summary`: Sažet opis vašeg projekta
 
+Ako dodajete slike, unutar `static` direktorijuma napravite direktorijum `images` (ako već ne postoji), zatim u njemu direktorijum za vašu godinu (npr. `2022`), zatim u njemu direktorijum za svoj projekat (npr. `ime-projekta`) i unutar njega stavite sliku (npr. `slika.svg`). Nakon toga, kao putanju do slike možete iskoristiti `/images/2022/ime-projekta/slika.svg`. Preferirajte slike u vektorskim formatima!
+
 Dok vam je pokrenuta `hugo server` komanda, možete otvoriti svoj izveštaj navigacijom do njega kroz glavnu stranu, i nakon uređivanja izveštaja izmene bi trebalo da budu odmah vidljive na strani.
 
 ### Slanje na pregled
