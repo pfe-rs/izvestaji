@@ -48,6 +48,9 @@ Sledeći alati su vam potrebni za rad na izveštajima:
     - [Uputstvo za Linux](https://gohugo.io/getting-started/installing#linux)
     - [Uputstvo za macOS](https://gohugo.io/getting-started/installing#macos)
 
+### Pregled
+Ukoliko vam je bitan samo okviran izgled izveštaja, a ne toliko šta će zapravo biti prikazano na sajtu, unutar VS Code tokom uređivanja Markdown fajlova dostupno je "Open Preview to the Side" dugme, gde možete otvoriti novi prozor sa pregledom fajla koji trenutno uređujete. Ovo možete koristiti dok ne uspete da uspešno pokrenete Hugo i generišete sajt sa izveštajima.
+
 ### Pokretanje
 Nakon što ste preuzeli zahtevane alate, potrebno je da klonirate GitHub repozitorijum sa izveštajima. Otvorite komandnu liniju (Git Bash na Windows, običan terminal na ostalim operativnim sistemima) i pokrenite:
 ```
