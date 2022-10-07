@@ -48,6 +48,9 @@ Sledeći alati su vam potrebni za rad na izveštajima:
     - [Uputstvo za Linux](https://gohugo.io/getting-started/installing#linux)
     - [Uputstvo za macOS](https://gohugo.io/getting-started/installing#macos)
 
+### Pregled
+Ukoliko vam je bitan samo okviran izgled izveštaja, a ne toliko šta će zapravo biti prikazano na sajtu, unutar VS Code tokom uređivanja Markdown fajlova dostupno je "Open Preview to the Side" dugme, gde možete otvoriti novi prozor sa pregledom fajla koji trenutno uređujete. Ovo možete koristiti dok ne uspete da uspešno pokrenete Hugo i generišete sajt sa izveštajima.
+
 ### Pokretanje
 Nakon što ste preuzeli zahtevane alate, potrebno je da klonirate GitHub repozitorijum sa izveštajima. Otvorite komandnu liniju (Git Bash na Windows, običan terminal na ostalim operativnim sistemima) i pokrenite:
 ```
@@ -61,6 +64,8 @@ Nakon što ste otvorili direktorijum, u Terminal meniju izaberite New Terminal k
 Izveštaj vašeg projekta nalazi se u `content/[godina]/[ime-projekta].md` fajlu. Ukoliko ne postoji, možete ga napraviti pokretanjem komande `hugo new [godina]/[ime-projekta].md`. Format u kom se izveštaji pišu jeste [Markdown](https://www.markdownguide.org/), i [primere](#markdown-primeri) njega možete videti u fajlu sa ovim uputstvom nakon što preuzmete repozitorijum (`content/uputstvo.md`). Na vrhu strane nalazi se [YAML](https://yaml.org/) zaglavlje sa sledećim opcijama:
 - `title`: Naslov vašeg projekta
 - `summary`: Sažet opis vašeg projekta
+
+Ako dodajete slike, unutar `static` direktorijuma napravite direktorijum `images` (ako već ne postoji), zatim u njemu direktorijum za vašu godinu (npr. `2022`), zatim u njemu direktorijum za svoj projekat (npr. `ime-projekta`) i unutar njega stavite sliku (npr. `slika.svg`). Nakon toga, kao putanju do slike možete iskoristiti `/images/2022/ime-projekta/slika.svg`. Preferirajte slike u vektorskim formatima!
 
 Dok vam je pokrenuta `hugo server` komanda, možete otvoriti svoj izveštaj navigacijom do njega kroz glavnu stranu, i nakon uređivanja izveštaja izmene bi trebalo da budu odmah vidljive na strani.
 
