@@ -7,16 +7,16 @@ summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaz
 ### Apstrakt na engleskom
 ### Uvod
 
-Projekat "Prepoznavanje govora" pomaže nam da rešimo popularnu dilemu u AI tehnologiji, a to je kako da glas pretvorimo u kucani tekst. Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za speech recognition, već da se i uporede njihova praktičnost i upotreba u praktičnim svrhama. 
+Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da glas pretvorimo u kucani tekst. Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za speech recognition, već da se i uporede njihova praktičnost i upotreba u praktičnim svrhama. 
 
-Naš projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Iz tog formata, drugačijim metodama bi se zvuk prepoznavao sa spektrograma što je zapravo ništa drugo no obična slika. Sa te slike mogu se pokupiti različiti podaci o zvuku zarad preciznijeg prepoznavanja istog.
+Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Iz tog formata, drugačijim metodama bi se zvuk prepoznavao sa spektrograma što je zapravo ništa drugo no obična slika. Sa te slike mogu se pokupiti različiti podaci o zvuku zarad preciznijeg prepoznavanja istog.
 
 Prelazeći kroz literaturu i referentne radove, mnogi su više doprineli pri samoj metodi obrade spektrograma nego pri izradi samih spektrograma. 
 
-Osvrt na naš rad ogleda se u metodama koji su drugi radili pre nas, poput MFCC-a (Mel-Frequency Cepstral Coefficients), logističke regresije, Random Forest-a, SVM-a, XGBoost-a, kao i konvolucionih neuronskih mreža. Do našeg rada, ljudi su fokusirali svoje radove na obradi jednog metoda i testiranju na određenoj bazi. Nasuprot njihovim, naš rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
+Osvrt na rad ogleda se u metodama koje su pokrivene u referentnim radovima, poput MFCC-a (Mel-Frequency Cepstral Coefficients), logističke regresije, Random Forest-a, SVM-a, XGBoost-a, kao i konvolucionih neuronskih mreža. Do ovog projekta, ljudi su fokusirali svoje radove na obradi jednog metoda i testiranju na određenoj bazi. Nasuprot njihovim, ovaj rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
 ### Aparatura i metoda
 
-Naše rešenje problema prepoznavanja govora svodi se na izradu spektrograma i obradu istih.
+Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i obradu istih.
 
 #### Spektrogrami
 
@@ -32,7 +32,7 @@ Ova metoda za klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorija.
 
-Funkcija cene ove metode je logaritamska da bismo dobili konveksnu završnu funkciju parametara i time postigli da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
+Funkcija cene ove metode je logaritamska kako bi se dobila konveksna završna funkcija parametara i time se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
 ![Funkcija](static\images\2.png)
 
@@ -47,7 +47,7 @@ Da bi se logistička regresija dala što bolje rezultate, trenira se MLE (Maximu
 
 Random Forest je klasifikator koji koristi više stabala odlučivanja (Desicion Tree) i njihova pojedinačna predviđanja stapa u jedno konačno.
 
-Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizom grananja. U svakom grananju se posmatra neki parametar koji bi najbolje mogao da razvrsta pristigle podatke u dve podgrane koje se dalje mogu i same deliti. U idealnoj situaciji bismo trebali da svi podaci u svojoj finalnoj podgrani budu isti, ali je to sa ograničenom dubinom mreže uglavnom nemoguće.
+Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizom grananja. U svakom grananju se posmatra neki parametar koji bi najbolje mogao da razvrsta pristigle podatke u dve podgrane koje se dalje mogu i same deliti. U idealnoj situaciji potrebno je da svi podaci u svojoj finalnoj podgrani budu isti, ali je to sa ograničenom dubinom mreže uglavnom nemoguće.
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
@@ -63,13 +63,64 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 
 ##### 5. SVM
 
+Posao SVM klasifikatora je da u N-dimenzionalnom prostoru, gde je N broj parametara, pronađe hiperravan koja na najbolji način klasifikuje sve tačke koje predstavljaju podaci.
+
+Kako postoji velik broj ovih hiperravni, kao optimalnu uzimamo onu kod koje je udaljenost granice odlučivanja podjednako udaljena od podataka svih tipova. Ovim dobijamo veću verovatnoću da će bilo koji naknadno dodati podatak biti pravilno klasifikovan. 
+
+Hiperravni koje ograničavaju zonu udaljenosti od granice odlučivanja na kojoj klasifikator daje vrednosti čija je apsolutna vrednost manja od 1 nazivaju se noseći vektori. To znači da za svaki podatak koji se nalazi unutar tih vektora ne možemo sa sigurnošću reći kojoj klasi pripada.
+
+![SVM1](static\images\5.png)
+
+Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
+
+Za razliku od logističke regresije gde smo sve vrednosti sveli na raspon [0, 1] koristeći sigmoidnu funckiju, ovde sve vrednosti možemo svesti na raspon [-1, 1]. Funkcija gubitka SVM modela je:
+
+$c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases}$
+
+
+Ako su dobijeni i željeni rezultat istog znaka, vrednost funkcije cene je jednaka nuli, dok u suprotnom računamo gubitak. Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije gubitka.
+
+$$
+\min _w \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}
+$$
+
+Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
+
+$$
+\begin{gathered}
+\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k \\
+\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}= \begin{cases}0, & \text { if } y_i\left\langle x_i, w\right\rangle \geq 1 \\
+-y_i x_{i k}, & \text { else }\end{cases}
+\end{gathered}
+$$
+
+Težine ažuriramo zavisno od toga da li je naš klasifikator tačno klasifikovao novi podatak ili ne. Ukoliko jeste, ažuriramo samo gradijent regularizacionog parametra:
+
+$$
+w=w-\alpha \cdot(2 \lambda w)
+$$
+
+U suprotnom, ako je model napravio grešku, moramo da uključimo i funkciju gubitka u račun:
+
+$$
+w=w+\alpha \cdot\left(y_i \cdot x_i-2 \lambda w\right)
+$$
+
 ##### 6. Konvolucione neuronske mreže
 
 ### Istraživanje i rezultati
 
-Rezultati su krajnje očekivani uzimajući u obzir veličinu baze koja je obrađivanja. 
-U ovom odeljku treba opisati sve rezultate do kojih ste došli. Ako i dalje radite na svom projektu, parcijalni rezultati su potpuno prihvatljivi.
+Rezultati su krajnje očekivani uzimajući u obzir veličinu baze koja je obrađivanja. Bez interaktivnog interfejsa, dosadašnji rezultati svode se na tačnost (accuracy) svake metode u radu. 
 
+![Rezultati](static\images\4.png)
+
+Iz tabele iznad može se uočiti kako rezultati dosta variraju jedni od drugih. Konvoluciona neuronska mreža daje maksimalnu preciznost u istim uslovima, dok SVM sa polinomijalnim kernelom daje minimalne, što je neuobičajeno za polinomijanli kernel. 
+
+Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Štelovanje iste urađeno je tako da odlično odgovara ovoj bazi, te su rezultati opravdani. Ostali rezultati dobijeni su od već kompjuterski-obrađenih metoda koje nisu štelovane već implementirane. Iz ovoga se da zaključiti da konvoluciona mreža dobija veliku prednost u odnosu na ostale poređene metode, što ističe njenu versatilnost i primenjlivost.
+
+Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom, na šta utiče dosta faktora: kvalitet i kvantitet baze, kompatibilnost metoda sa bazom, ...
 ### Zaključak
+
+Zavisnost tačnosti od štelovanja metrika metoda po pretpostavci se može predstaviti linearnim grafikom, gde veliki uticaj ima i kvalitet baze podataka. Uz poboljšanje baze i metrika za najuspešnije metode, moguće je očekivati visoke rezultate. Poboljšanje tih parametara može da ima veliku primenu, gledajući na nerasprostranjenost srpskog jezika. 
 
 Zaključak ima za cilj da dodatno prokomentarišete rezultate i napravite pregled rada.
