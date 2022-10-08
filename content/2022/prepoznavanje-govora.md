@@ -122,5 +122,3 @@ Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenj
 ### Zaključak
 
 Zavisnost tačnosti od štelovanja metrika metoda po pretpostavci se može predstaviti linearnim grafikom, gde veliki uticaj ima i kvalitet baze podataka. Uz poboljšanje baze i metrika za najuspešnije metode, moguće je očekivati visoke rezultate. Poboljšanje tih parametara može da ima veliku primenu, gledajući na nerasprostranjenost srpskog jezika. 
-
-Zaključak ima za cilj da dodatno prokomentarišete rezultate i napravite pregled rada.
