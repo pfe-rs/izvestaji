@@ -108,17 +108,42 @@ $$
 
 ##### 6. Konvolucione neuronske mreže
 
+Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću tehnike dubokog učenja. Neuronske mreže rade po principu čovečjeg mozga (odatle i naziv): dobija određene podatke koji se obično nalaze u formatu baze podataka, obrađuje ih i vraća rezultate. Kontrolom rezultata obrade podataka se ta mreža trenira. Ona uči na svojim greškama i poboljšava rezultate obrade.
+
+Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvolucionih slojeva, koristi se 4 slojeva sažimanja, kao i 3 potpuno povezana sloja. 
+
+Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da prepozna.
+
+Za treniranje mreže koriste se dve metode simultano: loss funkcija i back propagation.
+
+Loss funkcija je 
 ### Istraživanje i rezultati
 
 Rezultati su krajnje očekivani uzimajući u obzir veličinu baze koja je obrađivanja. Bez interaktivnog interfejsa, dosadašnji rezultati svode se na tačnost (accuracy) svake metode u radu. 
 
 ![Rezultati](static\images\4.png)
 
-Iz tabele iznad može se uočiti kako rezultati dosta variraju jedni od drugih. Konvoluciona neuronska mreža daje maksimalnu preciznost u istim uslovima, dok SVM sa polinomijalnim kernelom daje minimalne, što je neuobičajeno za polinomijanli kernel. 
+Iz tabele iznad može se uočiti kako rezultati dosta variraju jedni od drugih. Konvoluciona neuronska mreža daje maksimalnu preciznost u istim uslovima, dok SVM sa polinomijalnim kernelom daje minimalne. 
 
-Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Štelovanje iste urađeno je tako da odlično odgovara ovoj bazi, te su rezultati opravdani. Ostali rezultati dobijeni su od već kompjuterski-obrađenih metoda koje nisu štelovane već implementirane. Iz ovoga se da zaključiti da konvoluciona mreža dobija veliku prednost u odnosu na ostale poređene metode, što ističe njenu versatilnost i primenjlivost.
+Svoj potencijal SVM može da pokaže kada je lako odrediti kojoj labeli koji podatak pripada. U ovom slučaju, određene reči mogu lako da se pomešaju na spektrogramu, pa su neke vrednosti vrlo blizu odlučnoj granici i da pomute labele. Iz tog razloga, rezultati su veoma dobri za ovu metodu. 
 
-Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom, na šta utiče dosta faktora: kvalitet i kvantitet baze, kompatibilnost metoda sa bazom, ...
+SVM daje različite rezultate u zavisnosti od svojih kernela. Linearni kernel se najbolje pokazao zato što se usaglašava sa zadatkom koji mu je dat (svaka reč ima dosta odlika na osnovu kojih se labelira), a i u ovom kernelu potrebno je samo da optimizujemo C Regularisation parametar, pa je treniranje brže.
+
+Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Deep learning metode povoljnije su za feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao speech recognition loss funkcija pošto ljudsko uho reaguje logaritamski. Gledajući ova dva faktora u obzir, očekivano je da će performansa CNN-a biti najbolja.
+
+Razlika između regresora i klasifikatora objašnjavaju se samom ulogom regresora i klasifikatora pri povezivanju određenih podataka sa njihovim labelama.
+
+Regresori imaju veću primenu kada je potrebno neku tačnu vrednost dati kao labelu nekom podatku, dok klasifikator stavlja podatak u određenu kategoriju i tako daje labelu. U slučaju speech recognitiona, u FSDD bazi dato je 10 labela, pa klasifikator radi bolji posao da pretpostavi u koju kategoriju labela određeni zvuk spada (cifra od 0 do 9).
+
+Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
+
+![Rezultati](static\images\4.png)
+
+![Rezultati](static\images\4.png)
+
+Prva slika predstavlja spektrogram zvuka iz engleske baze, druga slika je spektrogram zvuka iz srpske baze.
+
+
 ### Zaključak
 
-Zavisnost tačnosti od štelovanja metrika metoda po pretpostavci se može predstaviti linearnim grafikom, gde veliki uticaj ima i kvalitet baze podataka. Uz poboljšanje baze i metrika za najuspešnije metode, moguće je očekivati visoke rezultate. Poboljšanje tih parametara može da ima veliku primenu, gledajući na nerasprostranjenost srpskog jezika. 
+Projekat koristi FSDD bazu podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz ovu i samostalno napravljenu srpsku bazu podataka, ove metode su se pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči, a SVM sa RBF kernelom najmanju. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je tačnost CNN modela značajno veća od ostalih testiranih modela.
