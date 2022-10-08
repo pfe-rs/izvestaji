@@ -60,6 +60,14 @@ Takođe, važno je naglasiti da izlaz i ulaz nekog sistema ne mora nužno da bud
 
 U radu su korišćene tri transfer funkcije koje se uz data pravila mogu izvesti iz fizičkih jednačina za horizontalno kretanje valjka. To su transfer funkcija ugla inklinacije klatna valjka i napona na motoru, transfer funkcija ugaone brzine klatna valjka i napona na motoru i, na kraju, ugaona brzina valjka i napona motora.
 
+TODO: Analiza stabilnosti transfer funkcija
+
 ##### PID simulacije
 
 Kako bi se razumeo PID kontroler potrebno je definisati odredjene termine. *Željena vrednost* je obično vrednost koju unosi korisnik. Na primer, za sistem za grejanje to bi bila željena temperatura prostorije. *Izlaz* je kontrolisana vrednost PID kontrolera. U automobilu bi to bila količina goriva koja je potrebna da bi se održavala konstantna brzina. *Greška* je vrednost koju koristi PID kontroler da bi odredio kako da manipuliše izlazom kako bi se dostigla željena vrednost. Greška se računa kao razlika željene vrednosti i trenutne vrednosti sistema.
+
+U radu su simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na horizontalnu podlogu po kojoj se valjak kreće. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Blok dijagram kontrolnog sistema je predstavljen na slici:
+
+Kao što je u prethodnom poglavlju rečeno, transfer funkcija predstavlja odnos između signala upravljačkog sistema i ulaznog signala, za sve moguće ulazne vrednosti. Ukoliko je transfer funkcija predstavljena preko Laplasovih transformacija onda je takva funkcija prenosa definisana na kontinualnom domenu. Takav oblik transfer funkcija je od koristi prilikom teorijskih analiza kao što je analiza polova i nula. Nazalost, u praksi nam treba diskretna reprezentacija sistema što proizilazi iz toga da mikrokontroler rade isključivo nad diskretnim domenom vrednosti. Postoje razni algoritmi koji vrše željenu konverziju. Jedan od njih, koji je i koriščen u radu, *Zero-order Hold* metoda 
+
+## Istraživanje i rezultati
