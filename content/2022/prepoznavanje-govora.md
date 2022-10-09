@@ -98,7 +98,16 @@ XGBoost (Gradient Boosted Trees), kao i Random Forest, koristi više stabala odl
 
 Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove Boosting. Boosting kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
 
-Dodatak 
+Dodatak Boosting-u ogleda se u loss funkciji. Cost funkcija (funkcija troškova ili gubitka) jeste funkcionalna veza željenog outputa i dobijenog outputa u funkciji, a loss funkcija je srednja vrednost svih cost funkcija.
+
+Najkorišćenija loss funkcija je Cross Entropy Loss. 
+Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest output.
+
+Formula po kojoj se računa Cross Entropy Loss je sledeća:
+
+$H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right)$
+
+XGBoost se u Pythonu implementira bibliotekom xgboost. 
 
 ##### 5. SVM
 
@@ -151,9 +160,41 @@ Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću
 
 Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvolucionih slojeva, koristi se 4 slojeva sažimanja, kao i 3 potpuno povezana sloja. 
 
+Ceo proces može se svesti na sledeće korake: 
+- Spektrogram se prvo obrađuje konvolucijom i ReLU-om
+- Smanjujemo veličinu obrađene slike pooling slojem
+- Ponavljamo ovaj proces
+
+Konvolucija (po čemu nastaje termin konvolucione neuronske mreže) u obradi slike je operator koji predstavlja sužavanje početne slike množenjem iste određenim filterom. 
+
+Konvolucija kao bitne detalje posmatra one koji su mnogo puta uhvaćeni u kernelu. Problem može da se desi kada kernel ne zahvata ivice dosta puta, te može mnogo da smanji određenu sliku, a samim tim i da se reši ivičnih detalja. Ako do te pojave dođe, koristi se tehnika koja se zove padding. 
+
+Padding označava dodavanje piksela na ivice. Samim tim, kada konvolucija radi svoj posao, ona će svojim kernelom mnogo puta pokriti tu površinu. 
+
+ReLU (rectified linear activation function / rectified linear unit) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
+
+![Funkcija](static\images\fja.png)
+
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da prepozna.
 
 Za treniranje mreže koriste se dve metode simultano: loss funkcija i back propagation.
+
+Cost funkcija (funkcija troškova ili gubitka) jeste funkcionalna veza željenog outputa i dobijenog outputa u funkciji, a loss funkcija je srednja vrednost svih cost funkcija.
+
+Najkorišćenija loss funkcija je Cross Entropy Loss. 
+Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest output.
+
+Formula po kojoj se računa Cross Entropy Loss je sledeća:
+
+$H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right)$
+
+Back propagacija je metod smanjenja grešaka u CNN posmatranjem neophodnih promena u prethodnom sloju od aktivacije da bi se u određenom sloju neuroni aktivirali na određen način.
+
+Backpropagation prolazi krroz sve primere i traži sumu svih težina veza među neuronima.
+
+Težine se menjaju u cilju računanja dovoljno dobrog gradient descenta za traženje lokalnog / maksimalnog minimuma ove funkcije, to jest tačnu reč.
+
+![SGD](static\images\sgd.png)
 
 ### Istraživanje i rezultati
 
@@ -175,13 +216,21 @@ Regresori imaju veću primenu kada je potrebno neku tačnu vrednost dati kao lab
 
 Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
 
-![Rezultati](static\images\4.png)
+![Rezultati](static\images\s1.png)
 
-![Rezultati](static\images\4.png)
+![Rezultati](static\images\s2.png)
 
 Prva slika predstavlja spektrogram zvuka iz engleske baze, druga slika je spektrogram zvuka iz srpske baze.
 
+Rezultate vizuelno možemo prikazati matricama konfuzije. 
 
+![Rezultati](static\images\LinearSVM.png)
+
+![Rezultati](static\images\LogisticRegression.png)
+
+![Rezultati](static\images\RandomForest.png)
+
+![Rezultati](static\images\XGB.png)
 ### Zaključak
 
 Projekat koristi FSDD bazu podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz ovu i samostalno napravljenu srpsku bazu podataka, ove metode su se pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči, a SVM sa RBF kernelom najmanju. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je tačnost CNN modela značajno veća od ostalih testiranih modela.
