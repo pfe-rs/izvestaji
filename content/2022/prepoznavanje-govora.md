@@ -134,13 +134,9 @@ $$
 
 Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
 
-$$
-\begin{gathered}
-\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k \\
-\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}= \begin{cases}0, & \text { if } y_i\left\langle x_i, w\right\rangle \geq 1 \\
--y_i x_{i k}, & \text { else }\end{cases}
-\end{gathered}
-$$
+$\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k \\$
+
+$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}= \begin{cases}0, & \text { if } y_i\left\langle x_i, w\right\rangle \geq 1 \\ -y_i x_{i k}, & \text { else }\end{cases}$
 
 Težine ažuriramo zavisno od toga da li je naš klasifikator tačno klasifikovao novi podatak ili ne. Ukoliko jeste, ažuriramo samo gradijent regularizacionog parametra:
 
