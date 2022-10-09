@@ -26,6 +26,8 @@ Boja na grafiku predstavlja amplitudu zvuka u određenom vremenskom trenutku. Pl
 
 Primena spektrograma u ovom radu jeste prepoznavanje fonema reči kako bi, spajanjem istih, reč mogla da se prepozna.
 
+U Python programskom jeziku, zvuk se može transformisati u spektrogram korišćenjem biblioteke Librosa. Ova biblioteka se koristi pri rešavanju problema sa analizom fajlova audio formata. 
+
 #### Metode obrade spektrograma
 
 ##### 1. Logistička regresija
@@ -49,6 +51,31 @@ Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum L
 
 ##### 2. MFCCs
 
+MFCCs (Mel-Frequency Cepstral Coefficients) jesu koeficijenti koji opisuju karakteristike na osnovu spektrograma određenog zvuka. Njihova primena u ovom projketu svodi se na izdvajanje ključnih odlika nekog zvuka kako bi reč mogla da se prepozna. Te odlike se zovu formonti i njih stvara ljudski vokalni trakt prilikom govora, menjajući čist glas koji stvaraju naše glasne žice dok vibriraju. Ove odlike se formiraju u reč.
+
+Kepstar (cepstrum) je spektar spektra. On nastaje inverznom Furijeovom transformacijom logaritmovanog spektra. Formula za nastanak kepstra:
+
+$C(x(t))=F^{-1}[\log (F[x(t)])]$
+
+Proces stvaranja kepstra je sledeći:
+
+1. Na dobijeni signal primenimo diskretnu Furijeovu transformaciju. Ova transformacija nam daje grafik zavisnosti jačine zvuka od frekvencije po sledećoj formuli:
+
+$\begin{aligned} X_k &=\sum_{n=0}^{N-1} x_n \cdot e^{-\frac{i 2 \pi}{N} k n} \\ &=\sum_{n=0}^{N-1} x_n \cdot\left[\cos \left(\frac{2 \pi}{N} k n\right)-i \cdot \sin \left(\frac{2 \pi}{N} k n\right)\right] \end{aligned}$
+
+2. Power spektar logaritmujemo, pa odatle dobijamo spektar koji na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
+
+![Power spectar](static\images\log.png)
+
+3. Po logaritmovanju power spektra, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
+
+Prednost kepstra i Mel-Frequency kepstra jeste u sličnosti y-ose sa ljudskim glasom. Ljudski glas se odlikuje u jačini zvuka koja je logaritamska veličina, kao i kod kepstara.
+
+Mel filter banke ...
+
+U Pythonu, implementacija MFCC-a svodi se na lični odabir koliko odlika zvuka je potrebno izvući za precizna predviđanja. Librosa biblioteka dalje obogućava obradu zvuka kroz kepstre i izvlačenje traženih odlika.
+
+
 ##### 3. Random Forest
 
 Random Forest je klasifikator koji koristi više stabala odlučivanja (Desicion Tree) i njihova pojedinačna predviđanja stapa u jedno konačno.
@@ -66,6 +93,12 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 2.	Svako stablo dobija neki nasumičan feature na kom će se trenirati, umesto da se trenira na skupu feature-a, što bi zahtevalo i veću dubinu mreže. Ovaj aspekt, zvani Random Subspace Method ili Attribute Bagging, smanjuje korelaciju između stabala i time ih čini nezavisnijim jedne od drugih.
 
 ##### 4. XGBoost
+
+XGBoost (Gradient Boosted Trees), kao i Random Forest, koristi više stabala odlučivanja za predviđanje i labeliranje. 
+
+Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove Boosting. Boosting kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
+
+Dodatak 
 
 ##### 5. SVM
 
