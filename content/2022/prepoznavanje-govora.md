@@ -7,11 +7,11 @@ summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaz
 ### Apstrakt na engleskom
 ### Uvod
 
-Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da glas pretvorimo u kucani tekst. Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za speech recognition, već da se i uporede njihova praktičnost i upotreba u praktičnim svrhama. 
+Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za speech recognition, već da se i uporede njihova praktičnost i upotreba u praktičnim svrhama. 
 
 Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Iz tog formata, drugačijim metodama bi se zvuk prepoznavao sa spektrograma što je zapravo ništa drugo no obična slika. Sa te slike mogu se pokupiti različiti podaci o zvuku zarad preciznijeg prepoznavanja istog.
 
-Prelazeći kroz literaturu i referentne radove, mnogi su više doprineli pri samoj metodi obrade spektrograma nego pri izradi samih spektrograma. 
+Prelazeći kroz literaturu i referentne radove, mnogi su više doprineli pri metodi obrade spektrograma nego pri izradi samih spektrograma. 
 
 Osvrt na rad ogleda se u metodama koje su pokrivene u referentnim radovima, poput MFCC-a (Mel-Frequency Cepstral Coefficients), logističke regresije, Random Forest-a, SVM-a, XGBoost-a, kao i konvolucionih neuronskih mreža. Do ovog projekta, ljudi su fokusirali svoje radove na obradi jednog metoda i testiranju na određenoj bazi. Nasuprot njihovim, ovaj rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
 ### Aparatura i metoda
@@ -20,11 +20,17 @@ Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i o
 
 #### Spektrogrami
 
+Spektrogrami su vizuelne reprezentacije jačine signala, to jest glasnoće zvuka u nekom vremenskom intervalu. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvenciju koju možemo posmatrati i kao ton zvuka. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu.
+
+Boja na grafiku predstavlja amplitudu zvuka u određenom vremenskom trenutku. Plava boja na spektrogramu predstavlja niske amplitude, dok crvena boja predstavlja visoke amplitude.
+
+Primena spektrograma u ovom radu jeste prepoznavanje fonema reči kako bi, spajanjem istih, reč mogla da se prepozna.
+
 #### Metode obrade spektrograma
 
 ##### 1. Logistička regresija
 
-Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku on linearne regresije, njene vrednosti su ograničene između 0 i 1. 
+Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku on linearne regresije, vrednosti njenih rezultata su ograničene između 0 i 1. 
 
 Ova metoda za klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a primer takve funckije je dat na slici 1.
 
@@ -38,7 +44,7 @@ Funkcija cene ove metode je logaritamska kako bi se dobila konveksna završna fu
 
 - hΘ(x) = sigmoid (w*x + b), Y rezultat, x = promenljiva koju posmatramo
 
-Da bi se logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom, nameštajući beta parametre kroz više iteracija tražeći najbolje fitovanu krivu, odakle se biraju najbolje procene parametara. Nakon toga se dobijeni koeficijenti koriste za računanje verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
+Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom, nameštajući beta parametre kroz više iteracija tražeći najbolje fitovanu krivu, odakle se biraju najbolje procene parametara. Nakon toga se dobijeni koeficijenti koriste za računanje verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
 
 ##### 2. MFCCs
@@ -116,7 +122,6 @@ Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih
 
 Za treniranje mreže koriste se dve metode simultano: loss funkcija i back propagation.
 
-Loss funkcija je 
 ### Istraživanje i rezultati
 
 Rezultati su krajnje očekivani uzimajući u obzir veličinu baze koja je obrađivanja. Bez interaktivnog interfejsa, dosadašnji rezultati svode se na tačnost (accuracy) svake metode u radu. 
