@@ -8,8 +8,12 @@ summary: Robot u obliku valjka je projekat rađen na letnjem kampu za stare pola
 
 Uvod treba da sadrži sledeće stvari:
 
-- Opis i motivaciju projekta, odnosno kako ste došli do ideje i šta ste radili.
-- Pregled literature. Ukratko opišite šta su drugi radili pre vas.
+Motivacija iza projekta je bila suprotstavljane ideje popularnog robota - balansera. Ideja je bila da pomoću klatna koje uvek teži da se vrati u stabilan položaj 
+robot može biti konstruisan sa manjom preciznošću što bi ubrzalo proces pravljenja u slučaju masovne proizvodenje, kao i vreme dolaska do prvog funkcionalnog prototipa, budući da robot može da radi uz bilo kakav (ne)kontrolisan pogon motora. Takođe zbog oblika robota sve vitalne komponente se sadržane unutar konture, čineći robota izdržljivijim i jednostavnijim za popravku.
+
+Reference su skoro ne postojeće budući da se ideja o robotu dobila bez drugog uzora/slične ideje.
+
+???kako da formulišem da su refernece skoro ne postojeće i da sam sam došao na ideju robota???
 
 
 ### Aparatura i metoda
