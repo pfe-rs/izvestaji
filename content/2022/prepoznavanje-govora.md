@@ -6,41 +6,52 @@ summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaz
 
 ### Apstrakt na engleskom
 ### Uvod
+Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. – Prepoznavanje govora je proces osposobljavanja nekog modela da prepozna i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih, prepoznaje i preduzima određene korake u zavisnosti od rezultata.
 
-Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za speech recognition, već da se i uporede njihova praktičnost i upotreba u praktičnim svrhama. 
+Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za speech recognition, već da se i uporede njihova praktičnost i tačnost. 
 
-Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Iz tog formata, drugačijim metodama bi se zvuk prepoznavao sa spektrograma što je zapravo ništa drugo no obična slika. Sa te slike mogu se pokupiti različiti podaci o zvuku zarad preciznijeg prepoznavanja istog.
+Primena prepoznavanja govora može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, voice dialing, ...
 
-Prelazeći kroz literaturu i referentne radove, mnogi su više doprineli pri metodi obrade spektrograma nego pri izradi samih spektrograma. 
+Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija – ograničen je na prepoznavanje i klasifikaciju svega deset reči. Ceo projekat rađen je u Python programskom jeziku.
 
-Osvrt na rad ogleda se u metodama koje su pokrivene u referentnim radovima, poput MFCC-a (Mel-Frequency Cepstral Coefficients), logističke regresije, Random Forest-a, SVM-a, XGBoost-a, kao i konvolucionih neuronskih mreža. Do ovog projekta, ljudi su fokusirali svoje radove na obradi jednog metoda i testiranju na određenoj bazi. Nasuprot njihovim, ovaj rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
-### Aparatura i metoda
+Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Može se koristiti kao slika čijom obradom dobijamo određene karakteristike zvuka, a u nekim metodama ne možemo koristiti kao sliku, već ručno moramo izvlačiti odlike zvuka.
+
+Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. Uloga ovih metoda može se podeliti u nekoliko kategorija: 
+
+-ekstrakcija odlika zvuka, što je posao za MFCC (Mel-Frequency Cepstral Coefficients); 
+
+-klasifikatori: logistička regresija, Random Forest, SVM, XGBoost;
+
+-kombinacija: upotreba konvolucionih neuronskih mreža (mreža samostalno uči koje odlike zvuka treba da izvuče, da bi ih samostalno i klasifikovala).
+
+Do ovog projekta, metode su testirane na bazama podataka velikog kvaliteta i sa velikim brojem instanci. Nasuprot njihovim, ovaj rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
+### Metode
 
 Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i obradu istih.
 
 #### Spektrogrami
 
-Spektrogrami su vizuelne reprezentacije jačine signala, to jest glasnoće zvuka u nekom vremenskom intervalu. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvenciju koju možemo posmatrati i kao ton zvuka. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu.
+Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvenciju koju možemo posmatrati i kao ton zvuka. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
 
-Boja na grafiku predstavlja amplitudu zvuka u određenom vremenskom trenutku. Plava boja na spektrogramu predstavlja niske amplitude, dok crvena boja predstavlja visoke amplitude.
+Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signala u vremenskom intervalu. Intervali su mali da bi se moglo pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju.
+
+Boja na grafiku predstavlja amplitudu signala u određenom vremenskom trenutku. Plava boja na spektrogramu predstavlja niske amplitude, dok crvena boja predstavlja visoke amplitude.
 
 Primena spektrograma u ovom radu jeste prepoznavanje fonema reči kako bi, spajanjem istih, reč mogla da se prepozna.
-
-U Python programskom jeziku, zvuk se može transformisati u spektrogram korišćenjem biblioteke Librosa. Ova biblioteka se koristi pri rešavanju problema sa analizom fajlova audio formata. 
 
 #### Metode obrade spektrograma
 
 ##### 1. Logistička regresija
 
-Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku on linearne regresije, vrednosti njenih rezultata su ograničene između 0 i 1. 
+Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku od linearne regresije, vrednosti njenih rezultata su ograničene između 0 i 1. 
 
-Ova metoda za klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a primer takve funckije je dat na slici 1.
+Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
 ![Sigmoid](static\images\1.png)
 
-Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorija.
+Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorije.
 
-Funkcija cene ove metode je logaritamska kako bi se dobila konveksna završna funkcija parametara i time se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
+Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
 ![Funkcija](static\images\2.png)
 
@@ -53,32 +64,27 @@ Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum L
 
 MFCCs (Mel-Frequency Cepstral Coefficients) jesu koeficijenti koji opisuju karakteristike na osnovu spektrograma određenog zvuka. Njihova primena u ovom projketu svodi se na izdvajanje ključnih odlika nekog zvuka kako bi reč mogla da se prepozna. Te odlike se zovu formonti i njih stvara ljudski vokalni trakt prilikom govora, menjajući čist glas koji stvaraju naše glasne žice dok vibriraju. Ove odlike se formiraju u reč.
 
-Kepstar (cepstrum) je spektar spektra. On nastaje inverznom Furijeovom transformacijom logaritmovanog spektra. Formula za nastanak kepstra:
+Kepstar (cepstrum) se može intuitivno predstaviti kao spektar spektra. On nastaje inverznom Furijeovom transformacijom logaritmovanog spektra. Formula za nastanak kepstra:
 
 $C(x(t))=F^{-1}[\log (F[x(t)])]$
 
 Proces stvaranja kepstra je sledeći:
 
-1. Na dobijeni signal primenimo diskretnu Furijeovu transformaciju. Ova transformacija nam daje grafik zavisnosti jačine zvuka od frekvencije po sledećoj formuli:
+1. Na dobijeni signal primenimo diskretnu Furijeovu transformaciju. Ova transformacija nam daje funkciju zavisnosti jačine zvuka od frekvencije po sledećoj formuli:
 
 $\begin{aligned} X_k &=\sum_{n=0}^{N-1} x_n \cdot e^{-\frac{i 2 \pi}{N} k n} \\ &=\sum_{n=0}^{N-1} x_n \cdot\left[\cos \left(\frac{2 \pi}{N} k n\right)-i \cdot \sin \left(\frac{2 \pi}{N} k n\right)\right] \end{aligned}$
 
-2. Power spektar logaritmujemo, pa odatle dobijamo spektar koji na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
+Grafik koji dobijemo ovom formulom zove se spektar snage. Spektar snage je pokazatelj amplituda svih sinusoida određenog zvuka u odnosu na frekvenciju tih sinusoida.
 
-![Power spectar](static\images\log.png)
+2. Spektar snage logaritmujemo, pa odatle dobijamo logaritamski spektar snage. On služi da pokaže relativnu važnost svake komponente (amplitude sinusoida) ovog zvuka. Na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
 
-3. Po logaritmovanju power spektra, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
+![Spektar snage](static\images\log.png)
 
-Prednost kepstra i Mel-Frequency kepstra jeste u sličnosti y-ose sa ljudskim glasom. Ljudski glas se odlikuje u jačini zvuka koja je logaritamska veličina, kao i kod kepstara.
-
-Mel filter banke ...
-
-U Pythonu, implementacija MFCC-a svodi se na lični odabir koliko odlika zvuka je potrebno izvući za precizna predviđanja. Librosa biblioteka dalje obogućava obradu zvuka kroz kepstre i izvlačenje traženih odlika.
-
+3. Po logaritmovanju spektra snage, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
 
 ##### 3. Random Forest
 
-Random Forest je klasifikator koji koristi više stabala odlučivanja (Desicion Tree) i njihova pojedinačna predviđanja stapa u jedno konačno.
+Random Forest je klasifikator koji koristi više stabala odlučivanja (Decision Tree) i njihova pojedinačna predviđanja stapa u jedno konačno.
 
 Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizom grananja. U svakom grananju se posmatra neki parametar koji bi najbolje mogao da razvrsta pristigle podatke u dve podgrane koje se dalje mogu i same deliti. U idealnoj situaciji potrebno je da svi podaci u svojoj finalnoj podgrani budu isti, ali je to sa ograničenom dubinom mreže uglavnom nemoguće.
 
@@ -126,7 +132,7 @@ Za razliku od logističke regresije gde smo sve vrednosti sveli na raspon [0, 1]
 $c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases}$
 
 
-Ako su dobijeni i željeni rezultat istog znaka, vrednost funkcije cene je jednaka nuli, dok u suprotnom računamo gubitak. Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije gubitka.
+Ako su dobijeni i željeni rezultat istog znaka, vrednost kriterijumske funkcije je jednaka nuli, dok u suprotnom računamo gubitak. Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije gubitka.
 
 $$
 \min _w \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}
@@ -194,29 +200,31 @@ Težine se menjaju u cilju računanja dovoljno dobrog gradient descenta za traž
 
 ### Istraživanje i rezultati
 
-Rezultati su krajnje očekivani uzimajući u obzir veličinu baze koja je obrađivanja. Bez interaktivnog interfejsa, dosadašnji rezultati svode se na tačnost (accuracy) svake metode u radu. 
+Testiranje metoda vršeno je na dve baze: FSDD i srpske baze kreirane za potrebe projekta.
+
+FSDD baza sadrži engleske cifre od 0 do 9 koje su izgovorene od strane 50 različitih ljudi. Sadrži ukupno 3000 snimaka.
+
+Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde preko 10 ljudi izgovara ove reči različitim naglaskom, intonacijom i slično.
+
+Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža uči tokom epoha treniranja. Baze su podeljene na trening, test i validacionu bazu, tako da je trening set sadržao 70% reči, a test i validacioni set po 15% reči u slučaju obe baze.
+
+Rezultati su prikazani u tabeli ispod.
 
 ![Rezultati](static\images\4.png)
 
-Iz tabele iznad može se uočiti kako rezultati dosta variraju jedni od drugih. Konvoluciona neuronska mreža daje maksimalnu preciznost u istim uslovima, dok SVM sa polinomijalnim kernelom daje minimalne. 
+Metrika ovih rezultata bila je tačnost, zato što je, zbog izbalansirane baza, ovo reprezentativna metrika.
 
-Svoj potencijal SVM može da pokaže kada je lako odrediti kojoj labeli koji podatak pripada. U ovom slučaju, određene reči mogu lako da se pomešaju na spektrogramu, pa su neke vrednosti vrlo blizu odlučnoj granici i da pomute labele. Iz tog razloga, rezultati su veoma dobri za ovu metodu. 
+Rezultati se dele po tome da li metoda koristi duboko učenje ili ne. Posmatrajući tabelu, konvoluciona neuronska mreža je ostvarila najveću tačnost kao metoda sa dubokim učenjem, a XGBoost daje najbolje rezultate među metodama koje ne koriste duboko učenje. Najmanje rezultate daje SVM sa polinomijalnim kernelom.
 
-SVM daje različite rezultate u zavisnosti od svojih kernela. Linearni kernel se najbolje pokazao zato što se usaglašava sa zadatkom koji mu je dat (svaka reč ima dosta odlika na osnovu kojih se labelira), a i u ovom kernelu potrebno je samo da optimizujemo C Regularisation parametar, pa je treniranje brže.
+U FSDD bazi dato je 10 labela, pa klasifikator radi odličan posao da pretpostavi u koju kategoriju labela određeni zvuk spada (cifra od 0 do 9).
 
-Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Deep learning metode povoljnije su za feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao speech recognition loss funkcija pošto ljudsko uho reaguje logaritamski. Gledajući ova dva faktora u obzir, očekivano je da će performansa CNN-a biti najbolja.
+U ovoj bazi podataka, određene reči mogu lako da se pomešaju na spektrogramu, pa su neke vrednosti vrlo blizu odlučnoj granici i da pomute labele. Iz tog razloga, rezultati SVM metode su veoma dobri.
 
-Razlika između regresora i klasifikatora objašnjavaju se samom ulogom regresora i klasifikatora pri povezivanju određenih podataka sa njihovim labelama.
+Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Deep learning metode povoljnije su za feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao speech recognition loss funkcija pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~200Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
 
-Regresori imaju veću primenu kada je potrebno neku tačnu vrednost dati kao labelu nekom podatku, dok klasifikator stavlja podatak u određenu kategoriju i tako daje labelu. U slučaju speech recognitiona, u FSDD bazi dato je 10 labela, pa klasifikator radi bolji posao da pretpostavi u koju kategoriju labela određeni zvuk spada (cifra od 0 do 9).
+Gledajući ova dva faktora u obzir, očekivano je da će performansa CNN-a biti najbolja.
 
 Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
-
-![Rezultati](static\images\s1.png)
-
-![Rezultati](static\images\s2.png)
-
-Prva slika predstavlja spektrogram zvuka iz engleske baze, druga slika je spektrogram zvuka iz srpske baze.
 
 Rezultate vizuelno možemo prikazati matricama konfuzije. 
 
