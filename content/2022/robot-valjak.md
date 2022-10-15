@@ -43,13 +43,13 @@ $$-T + T_f\ =\ \alpha_1(J_1 + J_2 + M_1r^2 + M_2r^2 + M_2d^2 - 2M_2rd)\ +\ \alph
 $$T\ =\ \alpha_1(J_1 - M_2rd + M_2d^) + \alpha_2(J_2 + M2d^2) + M_2gd(\theta_1 + \theta_2)$$
 gde su iskorišćene aproksimacije za male uglove i male ugaone brzine.
 
-#### Simulacije
+#### Modelovanje robota
 
 Simulacije služe da se na što realističniji način predstavi realni svet i dobije bolji uvid u to kako će se sistem ponašati. Pored osećaja za sistem, simulacije omogućavaju lakše testiranje softvera kao i testiranje sistema u različitim prirodnim uslovima.
 
 ##### Transfer funkcije
 
-Transfer funkcija predstavlja odnos između signala upravljačkog sistema i ulaznog signala, za sve moguće ulazne vrednosti. Za bilo koji kontrolni sistem postoji referentni ulaz ili pobuda koji prolazi kroz transfer funkciju kako bi se proizveo odgovor sistema na odgovarajuću pobudu.
+Transfer funkcija predstavlja odnos između signala upravljačkog sistema i ulaznog signala, za sve moguće ulazne vrednosti. Za bilo koji kontrolni sistem postoji referentni ulaz ili pobuda koji prolazi kroz transfer funkciju kako bi se proizveo (simulirao) odgovor sistema na odgovarajuću pobudu.
 
 Transfer funkcija (funkcija prenosa) je definisana kao Laplasova transformacija izlazne promenjljive i Laplasove transformacije ulazne promenjljive pod pretpostavkom da su svi početni uslovi jednaki nuli.
 $$G(s)\ =\ \frac{C(s)}{R(s)}$$
@@ -58,13 +58,35 @@ Način na koji se formira transfer funkcija kontrolnog sistema je sledeća:
 1. Formiraju se jednačine sistema
 2. Uzimaju se Laplasove transformacije jednačina, pretpostavljajući da su početni uslovi jednaki nuli
 3. Određuju se ulazi i izlazi sistema
-4. Na kraju se uzima odnos Laplasove transformacije izlaza i ulaza što je tražena transfer funkcija
+4. Na kraju, odgovrajući odnos Laplasove transformacije izlaza i ulaza predstavlja željenu transfer funkciju
 
-Takođe, važno je naglasiti da izlaz i ulaz nekog sistema ne mora nužno da bude istih fizičkih dimenzija.
+Takođe, važno je naglasiti da izlaz i ulaz nekog sistema ne mora nužno da bude istih fizičkih dimenzija. Na primer, DC motori se pokreću kada se na njihov ulaz dovede konstantan napon, a kao izlaz sistema može da se prati broj obrtaja motora ili obrtni momenat motora. Merne jedinice za date primere bi redom bile (obrtaja po sekundi)/(napon motora) i (Njutn metar)/(napon motora).
 
-U radu su korišćene tri transfer funkcije koje se uz data pravila mogu izvesti iz fizičkih jednačina za horizontalno kretanje valjka. To su transfer funkcija ugla inklinacije klatna valjka i napona na motoru, transfer funkcija ugaone brzine klatna valjka i napona na motoru i, na kraju, ugaona brzina valjka i napona motora.
+TODO: Grafici, polovi i osnovne aritmetičke operacije nad tf
 
-TODO: Analiza stabilnosti transfer funkcija
+U radu se kao pobuda sistema koristio isključivo napon. To bi značilo da je smanjenje ili povećanje ugaone brzine robota prouzrokovano smanjenju ili povećanju referentnog napona na ulazu motora. Kako bi se znalo na koji način treba implementirati odogovarajuće kontrolere potrebno je analizirati stabilnost odgovarajućih transfer funkcija karakterističnih za datog robota, gde kontroler predstavlja sistem koji nezavisno može da održava unete referentne vrednosti zadate od strane korisnika. Na primer, ukoliko bi korisnik želeo da se robot kreće konstantnom ugaonom brzinom $\omega$, kontroler treba samostalno da podešava napon na motoru tkd se ugaona brzina $\omega$ održava konstantnom.
+
+Prva transfer funkcija koja je analizirana u radu je transfer funkcija ugaone brzine robota u zavisnosti od ulaznog napona.
+
+$$\dfrac{\Omega_1}{V} = \dfrac{\ \ \ \ \ \ \ \ \ \ A + Bs^2}{C + Ds + Es^2 + Fs^3}$$  
+$A = -2dgK_tM_2$  
+$B = K_t(-2J_2 + d(-2d+r)M_2)$  
+$C = dgRT_vM_2 - 2dgK_eK_tM_2$  
+$D = -T_vK_eK_t + dgRJ_1M_2 + dgr^2RM_1M_2 + dgr^2RM_2^2$  
+$E = RT_vJ_2 - 2J_2K_eK_t + d^2RT_vM_2 - K_eK_t(J_1 + r^2M_1 + (2d^2 - 3dr + r^2M_2)$  
+$F = d^2RJ_1M_2 + d^2r^2RM_1M_2 + RJ_2(J_1 + r^2(M_1 + M_2))$
+
+Druga transfer funkcija koja je analizirana u radu je transfer funkcija ugaone brzine klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona.
+
+$$\dfrac{\Omega_2}{V} = \dfrac{\ \ \ \ \ \ G +  Fs + Es^2}{A + Bs + Cs^2 + Ds^3}$$  
+$A = dgRT_vM_2 - 2dgK_eK_tM_2$  
+$B = -T_vK_eK_t + dgRJ_1M_2 + dgr^2RM_1M_2 + dgr^2RM_2^2$  
+$C = RT_vJ_2 + d^2RT_vM_2 - K_eK_t(J_1 + 2J_2 + r^2M_1 + (2dd - 3dr + r^2)M_2)$  
+$D = RJ_1J_2 + d^2RJ_1M_2 + d^2r^2RM_1M_2 + r^2RJ_2(M_1 + M_2)$  
+$E = K_t(J_1 + 2J_2 + r^2M_1 + (2d^2 - 3dr + r^2)M_2)$  
+$F = K_tT_v$
+
+Koristeći prethodno dve definisane funkcije mogu se izvesti dve nove transfer funkcije za koje važi da se njihovim diferenciranjem dobijaju polazne transfer funkcije: transfer funkcija ugaonog pređenog puta robota u zavisnosti od napona na ulazu motora i transfer funkcija ugla klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona. Treća, i poslednja, transfer funkcija predstavlja zavisnost ugla inklinacije klatna u odnosu na podlogu i dobija se kao paralelna veza prethodne dve transfer funkcije.
 
 ##### PID simulacije
 
