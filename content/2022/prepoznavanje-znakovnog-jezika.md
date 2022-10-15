@@ -9,10 +9,11 @@ Tip neverbalne komunikacije najčešće korišćen među gluvo-nemim ljudima se 
 
 Značajan broj istraživanja je urađeno na ovu temu - rad [1] se bavio povećavanjem dubina ConvNet-a sa jako malim (3x3) konvolucionim filterima. Pri ovome dobijen je 6.7% validation error. U [2] je razmatran Indijski Znakovni Jezik (ISL). Urađena je detekcija i praćenje šake na osnovu boje kože, potom je korišćen Grid za ekstraktovanje obeležja na kraju čeka su gestikulacije klasifikovane kNN algoritmom. Ovako je dobijena tačnost od 99.7%. Rad [3] bio je fokus na detektovanju položaja u kojima nije pokazan nijedan znak koristeći Novelty Detection, pri čemu je dobijena tačnost od 97.59%.
 
+### Metod
 
-### Baza podataka
+##### Baza podataka
 
-Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [[4]](kaggle.com/datasets/lexset/synthetic-asl-alphabet). Korišćena je sintetička baza zbog velikog broja slika različitih pozadina , osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robustni. Baza se sastoji od 27000 slika dimenzija 512 x 512 piksela podeljena na trening i test setove. Podeljena je na 27 foldera koji predstavljaju 27 klasa. Svako folder sadrži 900 trening i 100 test primera. 
+Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [[4]](kaggle.com/datasets/lexset/synthetic-asl-alphabet). Korišćena je sintetička baza zbog velikog broja slika različitih pozadina , osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robustni. Baza se sastoji od 27000 slika dimenzija 512 x 512 piksela podeljena na trening i test setove. Podeljena je na 27 foldera koji predstavljaju 27 klasa. Svako folder sadrži 900 trening i 100 test primera. Od datih 27 klasa biće izbačene 3 koje predstavljaju prazne pozadine, slovo "j" i slovo "z" jer prazne pozadine ne želimo ja model, a "j" i "z" se pišu pokretom.
 
 ### Literatura
 
