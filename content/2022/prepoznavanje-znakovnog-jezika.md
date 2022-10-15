@@ -21,11 +21,19 @@ Za identifikaciju regiona slike koji je boje k ože, prvo je korišćen MediaPip
 
 $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n})]$$
 
-Na osnovu dobijene pozicije šake slika je isečena i preoblikovana na dimenzije ... Na novodobijenu sliku primenjena je binarizacija i morfološke operacije radi uklanjanja šuma.
+Na osnovu dobijene pozicije šake slika je isečena i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija i morfološke operacije radi uklanjanja šuma.
 
 ##### kNN
 
-Binarizovana slika je podeljena na NxN grid,
+Binarizovana slika je podeljena na NxN grid, gde definišemo feature svakog bloka kao zasićenost - odnos broja belih piskela i cele slike:
+
+$$feature = \frac{P_{bela}}{P_{blok}}$$
+
+Pošto su ovako dobijeni podaci podeljeni na klastere, potreban je efikasan način za njihovu klasifikaciju. Za ovo je korišćen KNN algoritam. Na prethodno fitovanim podacima u Euklidskoj metrici je izdračunata distanca između uzorka i svih fitovanih uzoraka i izabrani su k najbližih. Od tih k uzoraka klasifikator bira klasu koja se najčešće pojavljuje.
+
+##### Rezultati
+
+Na osnovu N i k parametara, izračunata je tačnost metode kao i confusion matrix. Vizuelni prikaz rezultata je dobijen u vidu Heat mape.
 
 ### Literatura
 
