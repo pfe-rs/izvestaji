@@ -22,7 +22,7 @@ Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. U
 
 -klasifikatori: logistička regresija, Random Forest, SVM, XGBoost;
 
--kombinacija: upotreba konvolucionih neuronskih mreža (mreža samostalno uči koje odlike zvuka treba da izvuče, da bi ih samostalno i klasifikovala).
+3. Konvolucione neuronske mreže (CNN) koje inkomponuju proces ekstrakcije karakteristika iz signala, kao i proces klasifikacije 
 
 Do ovog projekta, metode su testirane na bazama podataka velikog kvaliteta i sa velikim brojem instanci. Nasuprot njihovim, ovaj rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
 ### Metode
