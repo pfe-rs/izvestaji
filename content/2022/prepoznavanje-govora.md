@@ -18,7 +18,7 @@ Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaz
 
 Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. Uloga ovih metoda može se podeliti u nekoliko kategorija: 
 
--ekstrakcija odlika zvuka, što je posao za MFCC (Mel-Frequency Cepstral Coefficients); 
+1. Izvlačenje karakteristika iz zvuka pomoću kepstralnih koeficijenata Mel skale (MFCC) 
 
 -klasifikatori: logistička regresija, Random Forest, SVM, XGBoost;
 
