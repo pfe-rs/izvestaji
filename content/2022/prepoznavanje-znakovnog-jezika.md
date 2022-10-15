@@ -18,3 +18,9 @@ dsads
 ![Slika tajne vecere](/images/2022/prepoznavanje-znakovnog-jezika/slika.png)
 
 ## TEST 2 hadsaasadsadsada
+
+####Literatura
+[1]Simonyan, K., Zisserman, A.: Very deep convolutional networks for large-scale image recognition. CoRR abs/1409.1556 (2014), http://arxiv.org/abs/1409. 1556
+[2] https://arxiv.org/ftp/arxiv/papers/2108/2108.10970.pdf
+[3] https://www.robots.ox.ac.uk/ davidc/pubs/NDreview2014.pdf
+[4] https://arxiv.org/pdf/2110.15542.pdf
