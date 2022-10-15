@@ -158,7 +158,7 @@ $$
 
 ##### 6. Konvolucione neuronske mreže
 
-Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću tehnike dubokog učenja. Neuronske mreže rade po principu čovečjeg mozga (odatle i naziv): dobija određene podatke koji se obično nalaze u formatu baze podataka, obrađuje ih i vraća rezultate. Kontrolom rezultata obrade podataka se ta mreža trenira. Ona uči na svojim greškama i poboljšava rezultate obrade.
+Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću tehnike dubokog učenja. Neuronske mreže su inspirisane neuronima i sinapsama u ljudskom mozgu. U konvolucionu neuralnu mrežu pohranjujemo ulazne podatke u vidu spektrograma, nakon čega se oni provlače kroz nekoliko slojeva konvolucije, sažimanja i potpuno povezanih slojeva. Izlaz iz ove mreže se koristi za proračunavanje vrednosti kriterijumske funkcije, na osnovu čega se ažuriraju parametri mreže. Ovaj postupak se potom iterativno ponavlja u cilju minimizacije greške modela.
 
 Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvolucionih slojeva, koristi se 4 slojeva sažimanja, kao i 3 potpuno povezana sloja. 
 
