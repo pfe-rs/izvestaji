@@ -7,13 +7,12 @@ summary: Prepoznavanje znakovnog jezika je projekat rađen na letnjem kampu za s
 
 Tip neverbalne komunikacije najčešće korišćen među gluvo-nemim ljudima se zove znakovni jezik. Ovaj vid komunikacije omogućava prenos informacija bez korišćenja reči, samo pomoću pokreta i gestikulacija. Međutim, znakovni jezik nije poznat široj populaciji što otežava njegovo razumevanje. Da bi se prevazišao ovaj problem, predlažemo korišćenje savremene tehnologije.
 
-Značajan broj istraživanja je urađeno na ovu temu -
+Značajan broj istraživanja je urađeno na ovu temu - rad [1] se bavio povećavanjem dubina ConvNet-a sa jako malim (3x3) konvolucionim filterima. Pri ovome dobijen je 6.7% validation error. U [2] je razmatran Indijski Znakovni Jezik (ISL). Urađena je detekcija i praćenje šake na osnovu boje kože, potom je korišćen Grid za ekstraktovanje obeležja na kraju čeka su gestikulacije klasifikovane kNN algoritmom. Ovako je dobijena tačnost od 99.7%. Rad [3] bio je fokus na detektovanju položaja u kojima nije pokazan nijedan znak koristeći Novelty Detection, pri čemu je dobijena tačnost od 97.59%.
 
 Ovo je paragraf
 koji zelim da testiram
 da vidim nesto
 dsads
-
 
 ![Slika tajne vecere](/images/2022/prepoznavanje-znakovnog-jezika/slika.png)
 
