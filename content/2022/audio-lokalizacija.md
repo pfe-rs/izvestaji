@@ -41,15 +41,20 @@ Ona nam omogućava da odredimo TOF zvuka izmedju dva čvora, a kako znamo brzinu
 ##### Trilateracija 
 Pošto su nam poznate udaljenosti svakog pojedinačnog čvora od traženog, 
 
-#### Simulacija
+#### Simulacija 
+<!---ovde trenutno pise kako ide simulacija za TOA--->
 Simulacija nam pomaže da utvrdimo koji parametri najviše utiču na grešku i da isprobamo kako bi se sistem ponašao pri različitim uslovima.
 Kako bi napravili simulaciju sistema potrebno je da uradimo sledeće:
-1.  Modulacije _(Modulation)_ 
+1.  Modulacije _(Modulation)_ -- iz poznatih lokacija svih čvorova pravimo simulirane signale koji potiču od jednog čvora čija će se lokacija izračunati kroz demodulaciju
     - Kašnjenje -- simulira propagiranje signala kroz prostor 
     - Diskretizacija -- simulira ADC 
     - Šum -- simulira buku
     - Opadanje amplitude _(Fade)_ -- simulira slabljenje signala srazmerno distanci
-2.  Demod
+2.  Demodulacije _(Demodulation)_ -- iz dobijenih modulisanih signala i lokacija svih čvorova sem onog od kojeg potiče signal dolazimo do informacije o poziciji nepoznatog čvora
+    - Kroskorelacija -- dobijamo informaciju o trenutku u kom je signal detektovan 
+    - Ranging -- Putem TOA metode izračunavamo vreme leta a pošto nam je poznata brzina zvuka i vreme leta možemo da izračunamo udaljenost do nepoznatog čvora
+    - Trilateracija -- kroz poznate lokacije tri čvora i njihove odgovarajuće udaljenosti računamo oblast u kojoj se nalazi nepoznati čvor
+
 
 #### Aparatura
 Za izradu hardverskog sistema potrebna je sledeća aparatura:
@@ -92,4 +97,3 @@ na kraju
 Zaključak ima za cilj da dodatno prokomentarišete rezultate i napravite pregled rada. 
 
 $$V=\frac{S}{t}$$
-
