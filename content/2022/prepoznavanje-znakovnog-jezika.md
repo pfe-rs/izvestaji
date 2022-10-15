@@ -14,15 +14,6 @@ koji zelim da testiram
 da vidim nesto
 dsads
 
-## Test
-
-Želim samo da testiram kako radi submitovanje, pa evo malo škrabanja radi toga.
-
-![Slika sa alternativnim tekstom](https://pfe.rs/images/logo.png)
-
-1. jedan
-2. dva
-3. tri
 
 ![Slika tajne vecere](/images/2022/prepoznavanje-znakovnog-jezika/slika.png)
 
