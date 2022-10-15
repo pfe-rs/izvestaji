@@ -20,7 +20,7 @@ Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. U
 
 1. Izvlačenje karakteristika iz zvuka pomoću kepstralnih koeficijenata Mel skale (MFCC) 
 
--klasifikatori: logistička regresija, Random Forest, SVM, XGBoost;
+2. Klasifikatori, kojima su prosleđene MFCC karakteristike: Logistička regresija, Random Forest, SVM, XGBoost;
 
 3. Konvolucione neuronske mreže (CNN) koje inkomponuju proces ekstrakcije karakteristika iz signala, kao i proces klasifikacije 
 
