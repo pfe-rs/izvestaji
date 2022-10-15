@@ -214,3 +214,68 @@ Ta funkcija vrši simulaciju kretanja muve pomoću mreže koju je dobila i vrać
 Za svaki gen nakon izvršavanja pomenute funkcije računamo fitnes tako što uzmemo da je fitnes jednak visini bube u poslednjem trenutku simulacije.
 Nakon što ovo uradimo za svaku bubu, funkcija se završava.
 Zatim se u fajlu geneticAlgo.py dešava stvaranje nove generacije gena za muve i zatim se opet pokreće naša fitnes funkcija sa novim genima.
+
+### Istraživanje i rezultati
+- Cilj nam je bio da naučimo bubu da leti što više po y koordinati.
+
+Prvi način koji smo koristili za procenu neuralnih mreža je bio da na postavimo da fitnes mreže bude jednak proseku visine bube u toku simulacije, tj. proseku y koordinate bube.
+Dužinu simulacije smo ograničili na 3 sekunde.
+Za simulacije 1 sekunde bube je bilo potrebno značajno manje od 1 sekunde realnog vremena.
+Ovo je značajno uticalo na brzinu treniranja.
+
+Kada smo pokrenuli kod, program je često pucao i na grafiku bube se videlo kako se u nekim delovima veoma brzo menja visina bube, kao što se može videti na sledećem grafiku: 
+
+**Na svim graficima (osim ako drugačije nije naznačeno) će se nalaziti zavisnost visine bube od vremena proteklog od početka simulacije.**
+
+![slika](/images/2022/simulacija-muve/Figure_3.png)
+
+Zaključili smo da je problem bio u tome što smo pomerali krila bube pomoću neuralne mreže svake milisekunde simulacije što je dovelo do toga da buba pokušava da pravi prebrze pokrete koji su mogli da postave odrećene promenjive na vrednosti koje odgovaraju beskonačnosti zbog kojih bi pri kasnijim proračunima došlo do pucanja programa.
+
+Nakon što smo podesili da se krila kontrolišu na svakih 10 milisekundi, ovaj problem se više nije dešavao.
+Dobili smo sledeći grafik:
+
+![slika](/images/2022/simulacija-muve/Figure_4.png)
+
+Sa grafika se vidi da je buba uspela da proizvodi pokrete koji predstavljaju mahanje krilima, ali previše dopušta sebi da padne pre nego što opet napravi zamah krilima.
+Ovo se takođe može protumačiti kao da buba nije naučila da optimalno vraća krila gore, tj. u poziciju odakle može da krene novi zamah, što je rezultovalo dodatnim spuštanjem visine.
+
+Promenili smo program tako da nam fitnes bude jednak samo visini bube po y osi u poslednjem trenutku simjulacije, ovo je značanjno poboljšalo visinu koju je buba dostizala (2-3 puta).
+Grafik je onda izgledao ovako:
+
+![slika](/images/2022/simulacija-muve/Figure_8.png)
+
+Vidi se da je buba uspela da nauči da na optimalan način vrati krila gore, bez da se dodatno spusti.
+
+Nakon svakih x generacija smo čuvali sve podatke o položajima buba u generaciji što nam je omogućavalo da rekonstruišemo 3d prikaz simulacije.
+Zapazili smo da buba kreće ukoso, pa smo odlučili da to popravimo.
+Promenili smo malo fitnes bube:
+
+$ fitness = Y_t - (\frac{1}{T} * \sum_{i = 1}^{T}(X_i)) * \frac{1}{5} - (\frac{1}{T} * \sum_{i = 1}^{T}(Y_i)) * \frac{1}{5}$
+
+X, Y i Z su nizovi koordinata u svakoj milisekundi simulacije
+
+T je vreme trajanja simulacije u milisekundama
+
+Jednostavnije, fitnes nam je visina bube u poslednjem trenutku od koje oduzimamo prosečno odstupanje x i z koordinate bube od 0 podeljeno sa 5, jer nam je to nije toliko bitno koliko i visina bube.
+
+Nakon treniranja 50 generacija buba na 3 sekunde dobili smo sledeći grafik koji predstavlja fitnes u odnosu na broj generacija:
+
+![slika](/images/2022/simulacija-muve/fitness7.png)
+
+**Imati na umu da fitnes više ne predstavlja samo visinu bube** 
+
+Sledeći grafik predstavlja fitnes u odnosu na broj generacija, nakon treniranja od 1000 generacija:
+
+![slika](/images/2022/simulacija-muve/figure1000.png)
+
+Na kraju smo produžili dužinu simulacije na 30 sekundi i dobili smo sledeći video na kome se veoma lepo vidi buba maše krilima i kako se ne kreće toliko po x i z osama.
+
+### Zaključak
+Videli smo da se na ovaj način mogu postići prilično realni rezultati i da je algoritam sposoban da nauči ono što zahtevamo od njega.
+
+Ova ideja može da se proširi i da se iskoristi da se napravi kontroler za bubu pomoću koga će korisnik moći da odredi u kom smeru će se buba kretati.
+Buba bi trebalo da isprati komande koje joj korisnik zada.
+Ovo se može postići korišćenjem više mreža koje treniramo pomoću istog algoritma ali sa drugačijim fitnes funkcijama.
+Trebalo bi istrenirati mrežu gde buba lebdi oko jedne tačke, i mreže za kretanje u sva četiri pravca (ili 6 pravaca u slučaju da oćemo da podržimo i kretanje po y osi).
+Za treniranje možemo da koristimo i različite početne parametre za bubu, tj. buba neće kretati uvek iz stanja mirovanja. Ovo sve može da se spoji u kontroler.
+
