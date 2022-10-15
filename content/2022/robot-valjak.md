@@ -84,7 +84,7 @@ $D = RJ_1J_2 + d^2RJ_1M_2 + d^2r^2RM_1M_2 + r^2RJ_2(M_1 + M_2)$
 $E = K_t(J_1 + 2J_2 + r^2M_1 + (2d^2 - 3dr + r^2)M_2)$  
 $F = K_tT_v$
 
-Koristeći prethodno dve definisane funkcije mogu se izvesti dve nove transfer funkcije za koje važi da se njihovim diferenciranjem dobijaju polazne transfer funkcije: transfer funkcija ugaonog pređenog puta robota u zavisnosti od napona na ulazu motora i transfer funkcija ugla klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona. Treća, i poslednja, transfer funkcija predstavlja zavisnost ugla inklinacije klatna u odnosu na podlogu i dobija se kao paralelna veza prethodne dve transfer funkcije.
+Koristeći prethodno dve definisane funkcije mogu se izvesti dve nove transfer funkcije za koje važi da se njihovim diferenciranjem dobijaju polazne transfer funkcije: transfer funkcija ugaonog pređenog puta robota u zavisnosti od napona na ulazu motora i transfer funkcija ugla klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona. Treća, i poslednja, transfer funkcija predstavlja zavisnost ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora i dobija se kao paralelna veza prethodne dve transfer funkcije.
 
 ##### PID simulacije
 
@@ -114,3 +114,9 @@ Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrok
 
 
 ## Istraživanje i rezultati
+
+Tokom rada na projektu, uspešno je realizovana hardverska implementacija robota i prikupljeni su podaci o tome kako sistem reaguje na uzastopne odskočne odzive. Tokom istraživanja su izmerena tri odskočna odziva koja odgovaraju redom transfer funkcijama ugaone brzine robota u zavisnosti od ulaznog napona motora, ugaone brzine klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona motora i ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora.
+
+Prilikom dizajniranja klatna valjka centar mase korpe i komponenti (baterije, arduino i ostali moduli) se ne nalazi u osnosimetričnoj ravni korpe već je blago izbačen sa strane što dovodi do toga da nula u merenju inklinacije ugla nije prava nula. Takođe, ovome je potpomogla i činjenica da se na DC motoru nalazi reducer zbog kog ne postoji prava nula već postoji interval uglova koji mogu biti prava nula. Za male uglove moment zemljine teže na klatno se izjednačava sa momentom sile koju reducer proizvodi na klatno. Drugim rečima, javalja se mali interval oko prave nule za koje se klatno nalazi u indiferentnoj ravnoteži i u kojoj krajnji položaj zavisi isključivo od početnog impulsa. Ukoliko je veći početni impuls veća je i greška merenja ugla inklinacije. Ovaj fenomen se može predstaviti na grafiku ispod gde se vidi da robot konstantno *driftuje* u jednu stranu. Za dalji rad na ovom robotu treba da se poravna centar mase sistema kao i da se poveća masa klatna kako bi se smanji opseg uglova koji mogu biti prava nula i na taj način postići preciznija merenja.
+
+Druga dva merenja predstavljaju kako u realnom sistemu napon na motoru utiče na ugaonu brzinu klatna i ugao inklinacije klatna. Takođe, jedan od ciljeva ovog projekta je bila i numerička identifikacija sistema koja nažalost nije urađena zbog gore navedenih problema kao i nedostatka vremena, ali idalje ostaje kao mogućnost za neki budući rad na sličnu temu.
