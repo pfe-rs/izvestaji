@@ -17,11 +17,12 @@ Za bazu podataka korišćena je baza sintetički generisanih slika američkog zn
 
 ##### Obrada baze
 
-Za identifikaciju regiona slike koji je boje k ože, prvo je korišćen MediaPipe Holistic pipeline za ekstraktovanje 21 ključnih tačaka obe šake (ukupno 42 koordinata). Na osnovu HSV vrednosti u koordinatama tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci.
+Da bi se detektovao ceo region slike na kome se nalazi šaka, a samim tim i znak šake klasifikovao, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože. Za olakšanje ovog procesa ekstraktovane su 21 ključne tačke šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a. Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti dobijenih 42 tačaka, pri čemu su dobijeni neprecizni rezultati. Drugi način bio je odredjivanje koordinate sredine šake i uzimanje njene vrednosti, što nije radilo jer se često nalazila senka na tom delu slike. Finalni i najprecizniji način je bio uzimanje celog opsega ovih tačaka.
+Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci.
 
 $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n})]$$
 
-Na osnovu dobijene pozicije šake slika je isečena i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija i morfološke operacije radi uklanjanja šuma.
+Na osnovu dobijene pozicije šake slika je isečena oko nje i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija i morfološke operacije radi uklanjanja šuma.
 
 ##### kNN
 
