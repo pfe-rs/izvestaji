@@ -14,7 +14,7 @@ Primena prepoznavanja govora može se uočiti u mnogim svakodnevnim radnjama: au
 
 Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija – ograničen je na prepoznavanje i klasifikaciju svega deset reči. Ceo projekat rađen je u Python programskom jeziku.
 
-Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Može se koristiti kao slika čijom obradom dobijamo određene karakteristike zvuka, a u nekim metodama ne možemo koristiti kao sliku, već ručno moramo izvlačiti odlike zvuka.
+Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike, čijom obradom možemo da izvučemo određene karakteristike iz zvuka. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.```
 
 Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. Uloga ovih metoda može se podeliti u nekoliko kategorija: 
 
