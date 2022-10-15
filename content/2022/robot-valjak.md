@@ -6,8 +6,6 @@ summary: Robot u obliku valjka je projekat rađen na letnjem kampu za stare pola
 
 ### Uvod
 
-Uvod treba da sadrži sledeće stvari:
-
 Motivacija iza projekta je bila suprotstavljane ideje popularnog robota - balansera. Ideja je bila da pomoću klatna koje uvek teži da se vrati u stabilan položaj 
 robot može biti konstruisan sa manjom preciznošću što bi ubrzalo proces pravljenja u slučaju masovne proizvodenje, kao i vreme dolaska do prvog funkcionalnog prototipa, budući da robot može da radi uz bilo kakav (ne)kontrolisan pogon motora. Takođe zbog oblika robota sve vitalne komponente se sadržane unutar konture, čineći robota izdržljivijim i jednostavnijim za popravku.
 
@@ -95,5 +93,24 @@ Kako bi se razumeo PID kontroler potrebno je definisati odredjene termine. *Žel
 U radu su simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na horizontalnu podlogu po kojoj se valjak kreće. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Blok dijagram kontrolnog sistema je predstavljen na slici:
 
 Kao što je u prethodnom poglavlju rečeno, transfer funkcija predstavlja odnos između signala upravljačkog sistema i ulaznog signala, za sve moguće ulazne vrednosti. Ukoliko je transfer funkcija predstavljena preko Laplasovih transformacija onda je takva funkcija prenosa definisana na kontinualnom domenu. Takav oblik transfer funkcija je od koristi prilikom teorijskih analiza kao što je analiza polova i nula. Nazalost, u praksi nam treba diskretna reprezentacija sistema što proizilazi iz toga da mikrokontroler rade isključivo nad diskretnim domenom vrednosti. Postoje razni algoritmi koji vrše željenu konverziju. Jedan od njih, koji je i koriščen u radu, *Zero-order Hold* metoda 
+
+### Hardver
+
+Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrokontrolera, senzora, elektromehanickih uredjaja(motora), napajanja i slicno.
+
+#### Lista uredjaja
+
+1. MPU6050 IMU(Inertial Mesurement Unit)
+2. Arduino Nano
+3. HC05 Bluetooth modul
+4. L298N Dual H-Most za kontrolu DC Motora
+5. LM2598 DC-DC Stepdown regulator napona
+6. JGA25-370 DC motor
+7. 4S1P Li-ion baterija
+8. E38S6G5 Opticki inkrementalni enkoder
+
+
+
+
 
 ## Istraživanje i rezultati
