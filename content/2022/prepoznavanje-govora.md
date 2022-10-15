@@ -31,7 +31,7 @@ Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i o
 
 #### Spektrogrami
 
-Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvenciju koju možemo posmatrati i kao ton zvuka. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
+Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvencijske komponente prisutne u signalu, dok boja označava jačinu svake od tih komponenti. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
 
 Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signala u vremenskom intervalu. Intervali su mali da bi se moglo pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju.
 
