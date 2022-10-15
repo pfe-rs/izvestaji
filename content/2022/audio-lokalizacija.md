@@ -25,10 +25,17 @@ Uvod treba da sadrži sledeće stvari:
 #### Metode
 ##### Metode izracunavanja distance:
 
-1.  TOA _(Time of arrival)_ - metoda kojom se meri vreme stizanja signala od čvora, zahteva da je vreme izmedju čvorova sinhronizovano, oduzimanjem vremena početka prenošenja signala od vremena stizanja dobija se vreme putovanja, TOF _(Time of flight)_ 
+1.  TOA _(Time of arrival)_ - metoda kojom se meri vreme stizanja signala od čvora, zahteva da je vreme izmedju čvorova sinhronizovano, oduzimanjem vremena početka ( $T_1$) prenošenja signala od vremena stizanja ( $T_2$) dobija se vreme putovanja _(Time of flight, $TOF$)_ 
+$$TOF= T_2-T_1$$
     
-2. RTT _(Round trip time)_ - metoda u kojoj čvor koji primi signal odmah pošalje povratni signal, a čvor koji je započeo prenos meri vreme izmedju početka slanja i primanja povratnog signala, ne zahteva sinhronizovano vreme izmedju čvorova i vreme koje je izmereno je jednako 2 * vreme putovanja + vreme koje je potrebno drugom čvoru da potvrdi signal i pošalje povratni odgovor.
+
+2. RTT _(Round trip time)_ - metoda u kojoj čvor koji primi signal odmah pošalje povratni signal, a čvor koji je započeo prenos meri vreme izmedju početka slanja i primanja povratnog signala, ne zahteva sinhronizovano vreme izmedju čvorova. 
+Vreme koje je izmereno ( $T_1$) je jednako duploj vrednosti vremena putovanja ( $TOF$) i vremena koje je potrebno drugom čvoru da potvrdi signal i pošalje povratni odgovor ( $T_2$).
 Ovakav sistem zahteva da svi čvorovi u sistemu imaju mogućnost primanja i transmitovanja signala, tjst. da je svaki čvor opremljen sa zvučnikom i mikrofonom. 
+
+<!---T1 pocetak snimanja, -->
+$$TOF=\frac{T_1-T_2}{2}$$
+
 <!--- za rtt dodati neki grafik i objasnjenje za bip bip--->
 ##### Metode za komunikaciju između čvorova
 <!--- medijumi po kojima mozemo da transferujemo podatke, kako mozemo da reusujemo sistem mikrofona i zvucnika ili bilo koji drugi dostupan na uredjaju za gotov hardver/esp--->
@@ -36,8 +43,14 @@ Ovakav sistem zahteva da svi čvorovi u sistemu imaju mogućnost primanja i tran
 <!---trilateracija, mozda da navedemo one koje ne koristimo-->
 
 ##### Kroskorelacija 
-Kroskorelacija _(Cross corelation)_ je metoda kojom se racuna slicnost dva signala. 
-Ona nam omogućava da odredimo TOF zvuka izmedju dva čvora, a kako znamo brzinu zvuka i vezu izmedju brzine, vremena i predjenog puta, možemo da odredimo razdaljinu izmedju dva čvora.
+
+Kako bi odredili TOF koristimo metodu kroskorelacije  _(Cross corelation)_.
+Kroskorelacija prvo odredjuje sličnost dva signala tako što pojedinačne članove dobijenog signala množi sa odgovarajućim članom izvornog signala a potom sve dobijene proizvode sumira i dobijenu sumu pamti u niz. 
+Nakon toga, izvorni signal se pomera za jedno mesto u desno, tako što se na početak doda nula i ceo proces se ponavlja, a novodobijena suma se pamti na sledećem mestu u nizu. 
+Zatim se odredjuje pozicija maksimuma dobijenog niza. Kada nju pomnožimo sa brzinom odabiranja ( $F_s$) dobijamo TOF.
+
+
+
 ##### Trilateracija 
 Pošto su nam poznate udaljenosti svakog pojedinačnog čvora od traženog, 
 
