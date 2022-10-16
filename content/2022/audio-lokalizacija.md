@@ -66,7 +66,7 @@ $$s=v*TOF$$
 ##### Trilateracija 
 
 Trilateracija je metoda kojom se dobija lokacija čvora presecanjem tri kružnice. 
-aCentar svake od kružnica se nalazi u jednom od poznatih čvorova, a poluprečnik svake odgovara udaljenosti centra kružnice od nepoznatog čvora.
+Centar svake od kružnica se nalazi u jednom od poznatih čvorova, a poluprečnik svake odgovara udaljenosti centra kružnice od nepoznatog čvora.
 
 #### Simulacija 
 <!---ovde trenutno pise kako ide simulacija za TOA--->
