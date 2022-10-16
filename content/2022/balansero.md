@@ -30,7 +30,7 @@ Cilj ovog projekta je da se modelira, simulira i implementira samobalansirajući
 kombinaciju akcelerometara i žiroskopa. U njemu postoji I2C kolo koje služi za komunikaciju između senzora i mikrokontrolera. IMU se nalazi na dnu robota kako bi se postigla precizna rezolucija za merenje nagibnog ugla robota.
 ![imu](
     <p align="center">
-  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/uno.png" width="350" title="hover text">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/uno.png" width="350">
   
 </p>
 )
