@@ -163,7 +163,7 @@ Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću
 Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvolucionih slojeva, koristi se 4 slojeva sažimanja, kao i 3 potpuno povezana sloja. 
 
 Ceo proces može se svesti na sledeće korake: 
-- Spektrogram se prvo obrađuje konvolucijom i ReLU-om
+- Na ulaznu sliku se primenjuje dvodimenzionalnih konvolucija sa prethodno definisanim brojem kanala a potom i ReLU aktivaciona funkcija.
 - Smanjujemo veličinu obrađene slike slojem sažimanja (eng. _maximum pooling_).
 - Ponavljamo ovaj proces
 
