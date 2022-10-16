@@ -60,7 +60,7 @@ digitalni) i nakon dobijanja svih varijabli, kontroliše ugaonu brzinu točkova 
 
 -**DC motor** (12V) sa jednom osovinom   
 
-## Metode:
+## Metode
 
 ### Filtri
 
@@ -119,9 +119,8 @@ Jednačina PID kontrolera je:
 <p align="center">
   <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy%20simulacija.gif" width="350">
   </p>
-  
 
-
+Robot se stabilizuje na datu poziciju (tačka koja se pomera putem strelica na tastaturi).
 
 - Koristili smo dva PID kontrolera.
 
@@ -130,7 +129,7 @@ Jednačina PID kontrolera je:
   </p>
   
 
-P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju. 
+P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju.
 
 ## Zaključak
 
