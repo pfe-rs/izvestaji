@@ -35,7 +35,7 @@ rotacionu brzinu točkova sa enkodera. Vrši obradu signala (pretvara signal iz 
 digitalni) i nakon dobijanja svih varijabli, kontroliše ugaonu brzinu točkova pomoću dva PWM signala.
 ![uno](images\2022\balansero\uno.jpg)
 
->**PWM** (Pulse-width modulation) je tehnika dobijanja analognih vrednosti pomoću digitalnih impulsa konstantne amplitude. PWM signali pomažu u regulaciji napona, što je važno jer se povećavanjem napona povećava i rotaciona brzina elektromotora. Digitalni izlaz PWM-a se sastoji od niza visokih (“uključenih”) i niskih (“isključenih”) impulsa i pomoću njih se kontroliše motor.
+**PWM** (Pulse-width modulation) je tehnika dobijanja analognih vrednosti pomoću digitalnih impulsa konstantne amplitude. PWM signali pomažu u regulaciji napona, što je važno jer se povećavanjem napona povećava i rotaciona brzina elektromotora. Digitalni izlaz PWM-a se sastoji od niza visokih (“uključenih”) i niskih (“isključenih”) impulsa i pomoću njih se kontroliše motor.
 
 -**Roatacioni enkoder** je elektromehanički uređaj koji pretvara ugaoni položaj ili kretanje osovine u analogne ili digitalne izlazne signale.
 
@@ -89,8 +89,6 @@ Međutim, imali smo problema sa ??? te smo na robota implementirali drugi kontro
 
 PID kontroler je stabilizator koji se sastoji iz tri zasebna kontrolera - P (proporcionalni), I (integralni) i D (derivacioni tj. izvodni) kontroler. Oni primaju grešku na ulazu, a na izlazu daju napon koji se šalje na motor i time kontroliše robot.
 Jednačina PID kontrolera je:
-
-
 
 
 ## Istraživanje i rezultati
