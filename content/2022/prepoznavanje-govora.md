@@ -164,7 +164,7 @@ Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvol
 
 Ceo proces može se svesti na sledeće korake: 
 - Spektrogram se prvo obrađuje konvolucijom i ReLU-om
-- Smanjujemo veličinu obrađene slike pooling slojem
+- Smanjujemo veličinu obrađene slike slojem sažimanja (eng. _maximum pooling_).
 - Ponavljamo ovaj proces
 
 Konvolucija (po čemu nastaje termin konvolucione neuronske mreže) u obradi slike je operator koji predstavlja sužavanje početne slike množenjem iste određenim filterom. 
