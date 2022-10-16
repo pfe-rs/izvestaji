@@ -10,15 +10,21 @@ summary: Balansero, balansirajući robot, je projekat rađen na letnjem kampu 20
 ## Sadržaj
 
 1. Apstrakt
-2. Uvod
-3. Aparatura
-4. Metode
-5. Istraživanje i rezultati
-6. Zaključak
+2. Grafički apstrakt
+3. Uvod
+4. Aparatura
+5. Metode
+6. Istraživanje i rezultati
+7. Zaključak
 
 
 ## Apstrakt
 
+## Grafički apstrakt
+
+<p align="left">
+<img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/graficki%20prikaz.jpg" width="350">
+  </p>
 
 ## Uvod 
 
