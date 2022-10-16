@@ -17,7 +17,14 @@ Za bazu podataka korišćena je baza sintetički generisanih slika američkog zn
 
 ##### Predprocesing
 
-Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Svaka slika je rotirana za do $\pm$ 25%, raširena po x-osi za do 30%, raširena po x-osi za do 30%, zumirana za do 30% i u 50% slučajeva preslikana u ondnosu na vertikalu.Key
+Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Na svakoj slici su primenjene sledeće transformacije:
+
+- rotacija a za do $\pm$ 25%
+- širenje po x-osi za do 30%
+- širenje po y-osi za do 30%
+- zumiranje za do 30%
+- U 50% slučajeva preslikavanje u odnosu na vertikalu
+
 ![Augmentacija baze](/images/2022/prepoznavanje-znakovnog-jezika/data_augmentation.png)
 
 #### Klasifikacija ključnih tačaka
@@ -33,11 +40,11 @@ Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je spektar za 
 
 $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n})]$$
 
-Na osnovu dobijene pozicije šake slika je isečena oko nje i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija i morfološke operacije radi uklanjanja šuma.
+Na osnovu dobijene pozicije šake slika je isečena oko nje i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija i morfološke operacije, eroziju i dilataciju, radi uklanjanja šuma.
 
 #### Obrada baze za ASL Keypoint Classification
 
-Baza ove mreže se sastoji od koordinata ključnih tačaka šake. Za njihovu detekciju korišćena je MediaPipe Holistic metoda. Prilikom njene primene treshold za detektovanje tačaka šake je smanjen jer za određene položaje šake ona nije bivala detektovana. Na svaku sliku baze je pojedinačno primenjena detekcija ključnih tačaka i novodobijene slike su sačuvane u novu bazu. Nova baza je imala 63 parametra za svaku sliku:
+Baza ove mreže se sastoji od koordinata ključnih tačaka šake. Za njihovu detekciju korišćena je MediaPipe Holistic metoda. Prilikom njene primene prag za detektovanje tačaka šake je smanjen sa 0.5 na 0.3 jer za određene položaje šake ona nije bivala detektovana. Na svaku sliku baze je pojedinačno primenjena detekcija ključnih tačaka i novodobijene slike su sačuvane u novu bazu. Nova baza je imala 63 parametra za svaku sliku:
 
 - X - x koordinata svake tačke, 21 ukupno
 - Y - y koordinata svake tačke, 21 ukupno
@@ -45,18 +52,16 @@ Baza ove mreže se sastoji od koordinata ključnih tačaka šake. Za njihovu det
 
 ### kNN - k Nearest Neighboors
 
-Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože.
+Binarizovana slika je podeljena na NxN mrežu, gde definišemo obeležje svakog polja kao zasićenost - udeo belih piskela unutar polja:
 
-Binarizovana slika je podeljena na NxN grid, gde definišemo obeležje svakog bloka kao zasićenost - odnos broja belih piskela i cele slike:
+$$obeležje = \frac{P_{bela}}{P_{polje}}$$
 
-$$obeležje = \frac{P_{bela}}{P_{blok}}$$
-
-Pošto su ovako dobijeni podaci podeljeni na klastere, potreban je efikasan način za njihovu klasifikaciju. Za ovo je korišćen KNN algoritam. Na prethodno fitovanim podacima u Euklidskoj metrici je izdračunata distanca između uzorka i svih fitovanih uzoraka i izabrani su k najbližih. Od tih k uzoraka klasifikator bira klasu koja se najčešće pojavljuje.
+Pod predpostavkom da su ovako dobijeni podaci podeljeni na klastere, potreban je način za njihovu klasifikaciju. Za ovo je korišćen KNN algoritam. Na prethodno fitovanim podacima u Euklidskoj metrici je izdračunata distanca između uzorka i svih fitovanih uzoraka i izabrani su k najbližih. Od tih k uzoraka klasifikator bira klasu koja se najčešće pojavljuje.
 
 ##### Rezultati
 
-Na osnovu N i k parametara, izračunata je tačnost metode kao i confusion matrix. Vizuelni prikaz rezultata je dobijen u vidu Heat mape.
-![Heat mapa](/images/2022/prepoznavanje-znakovnog-jezika/heatmap.png)
+Na osnovu N i k parametara, izračunate su tačnost metode u svakom od slučajeva. Vizuelni prikaz rezultata je dobijen u vidu mape intenziteta.
+![Mapa intenziteta](/images/2022/prepoznavanje-znakovnog-jezika/heatmap.png)
 Preciznost je rasla srazmerno parametrimu N i obrnuto srazmerno parametru k, pri čemu je najbolji rezultat dobijen za k = 1 i N = 20.
 
 ### ASL Keypoint Classification
@@ -69,8 +74,8 @@ Korišćena je jednostavna mreža sa četiri dense sloja.
 Dobijen je loss od 0.19 i preciznost od 95.6%.
 ![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/training_graph.png)
 ![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph.png)
-Confusion Matrix predstavlja matricu oznake svake slika u odnosu na pripisanu oznaku. Najveća pogrešna vrednost je dobijena pripisivanjem slova E slovu O - šest puta.
-![Confusion Matrix](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix.png)
+Matrica konfuzije predstavlja tabelu oznake svake od slika u odnosu na pripisanu oznaku. Najveća pogrešna vrednost je dobijena pripisivanjem slova E slovu O - šest puta.
+![Matrica konfuzije](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix.png)
 
 ### Extended MNIST - CNN
 
@@ -83,8 +88,8 @@ _Nova arhitektura mreže slika_
 Ovako izmenjenom mrežom je dobijen loss od 0.18 i accuracy od 96.25%.
 ![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/loss_graph.png)
 ![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph_MNIST.png)
-Confusion Matrix za ovaj metod ukazuje na najviše mešanja slova F slovom W.
-![Confusion Matrix](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix_MNIST.png)
+Matrica konfuzije za ovaj metod ukazuje na najviše mešanja slova F slovom W.
+![Matrica konfuzije](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix_MNIST.png)
 
 ### EfficientNetB3
 
