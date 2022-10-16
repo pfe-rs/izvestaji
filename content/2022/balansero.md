@@ -28,7 +28,12 @@ Cilj ovog projekta je da se modelira, simulira i implementira samobalansirajući
 
 -**IMU** (Inercijalni navigacioni sistem MPU6050) senzor koji meri ugao nagiba i ugaonu brzinu koristeći
 kombinaciju akcelerometara i žiroskopa. U njemu postoji I2C kolo koje služi za komunikaciju između senzora i mikrokontrolera. IMU se nalazi na dnu robota kako bi se postigla precizna rezolucija za merenje nagibnog ugla robota.
-![imu](images\2022\balansero\mpu.jpg)
+![imu](
+    <p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/uno.png" width="350" title="hover text">
+  
+</p>
+)
 
 -**Mikrokontroler (Arduino Uno)** očitava izmereni ugao i brzinu sa senzora i očitava
 rotacionu brzinu točkova sa enkodera. Vrši obradu signala (pretvara signal iz analognog u
