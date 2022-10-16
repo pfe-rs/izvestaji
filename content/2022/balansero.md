@@ -2,7 +2,10 @@
 title: Balansero
 summary: Balansero, balansirajući robot, je projekat rađen na letnjem kampu 2022. godine od Katarine Nedić i Anđele Pantelić.
 ---
-![balans](images\2022\balansero\P1270385.jpg)
+  <p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/robot.jpg" width="350">
+  </p>
+
 
 ## Sadržaj
 
@@ -28,7 +31,12 @@ Cilj ovog projekta je da se modelira, simulira i implementira samobalansirajući
 
 -**IMU** (Inercijalni navigacioni sistem MPU6050) senzor koji meri ugao nagiba i ugaonu brzinu koristeći
 kombinaciju akcelerometara i žiroskopa. U njemu postoji I2C kolo koje služi za komunikaciju između senzora i mikrokontrolera. IMU se nalazi na dnu robota kako bi se postigla precizna rezolucija za merenje nagibnog ugla robota.
-![imu](images\2022\balansero\mpu.jpg)
+![imu](
+    <p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/uno.png" width="350">
+  
+</p>
+)
 
 -**Mikrokontroler (Arduino Uno)** očitava izmereni ugao i brzinu sa senzora i očitava
 rotacionu brzinu točkova sa enkodera. Vrši obradu signala (pretvara signal iz analognog u
@@ -92,6 +100,15 @@ Jednačina PID kontrolera je:
 
 
 ## Istraživanje i rezultati
+
+- Simulacija fuzzy kontrolera
+
+![simulacija]( <p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy%20simulacija.gif" width="350">
+  </p>
+  )
+
+
 
 - Koristili smo dva PID kontrolera.
 ![PID kontroleri](https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png)
