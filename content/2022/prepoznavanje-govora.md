@@ -47,13 +47,13 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
-![Sigmoid](izvestaji/static/images/1.png)
+![Sigmoid](static/images/1.png)
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression) .
 
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
-![Funkcija](izvestaji/static/images/2.png)
+![Funkcija](static/images/2.png)
 
 - hΘ(x) = sigmoid (w*x + b), Y rezultat, x = promenljiva koju posmatramo
 
@@ -78,7 +78,7 @@ Grafik koji dobijemo ovom formulom zove se spektar snage. Spektar snage je pokaz
 
 2. Spektar snage logaritmujemo, pa odatle dobijamo logaritamski spektar snage. On služi da pokaže relativnu važnost svake komponente (amplitude sinusoida) ovog zvuka. Na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
 
-![Spektar snage](izvestaji/static/images/log.png)
+![Spektar snage](static/images/log.png)
 
 3. Po logaritmovanju spektra snage, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
 
@@ -90,7 +90,7 @@ Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizo
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
-![Random Forest](izvestaji/static/images/3.png)
+![Random Forest](static/images/3.png)
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
@@ -123,7 +123,7 @@ Kako postoji velik broj ovih hiperravni, kao optimalnu uzimamo onu kod koje je u
 
 Hiperravni koje ograničavaju zonu udaljenosti od granice odlučivanja na kojoj klasifikator daje vrednosti čija je apsolutna vrednost manja od 1 nazivaju se noseći vektori. To znači da za svaki podatak koji se nalazi unutar tih vektora ne možemo sa sigurnošću reći kojoj klasi pripada.
 
-![SVM1](izvestaji/static/images/5.png)
+![SVM1](static/images/5.png)
 
 Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
 
@@ -175,7 +175,7 @@ Padding označava dodavanje piksela na ivice. Samim tim, kada konvolucija radi s
 
 ReLU (rectified linear activation function / rectified linear unit) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
-![Funkcija](izvestaji/static/images/fja.png)
+![Funkcija](static/images/fja.png)
 
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da prepozna.
 
@@ -196,7 +196,7 @@ Backpropagation prolazi krroz sve primere i traži sumu svih težina veza među 
 
 Težine se menjaju u cilju računanja dovoljno dobrog gradient descenta za traženje lokalnog / maksimalnog minimuma ove funkcije, to jest tačnu reč.
 
-![SGD](izvestaji/static/images/sgd.png)
+![SGD](static/images/sgd.png)
 
 ### Istraživanje i rezultati
 
@@ -210,7 +210,7 @@ Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža u
 
 Rezultati su prikazani u tabeli ispod.
 
-![Rezultati](izvestaji/static/images/4.png)
+![Rezultati](static/images/4.png)
 
 Metrika ovih rezultata bila je tačnost, zato što je, zbog izbalansirane baza, ovo reprezentativna metrika.
 
@@ -228,13 +228,13 @@ Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenj
 
 Rezultate vizuelno možemo prikazati matricama konfuzije. 
 
-![Rezultati](izvestaji/static/images/LinearSVM.png)
+![Rezultati](static/images/LinearSVM.png)
 
-![Rezultati](izvestaji/static/images/LogisticRegression.png)
+![Rezultati](static/images/LogisticRegression.png)
 
-![Rezultati](izvestaji/static/images/RandomForest.png)
+![Rezultati](static/images/RandomForest.png)
 
-![Rezultati](izvestaji/static/images/XGB.png)
+![Rezultati](static/images/XGB.png)
 ### Zaključak
 
 Projekat koristi FSDD bazu podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz ovu i samostalno napravljenu srpsku bazu podataka, ove metode su se pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči, a SVM sa RBF kernelom najmanju. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je tačnost CNN modela značajno veća od ostalih testiranih modela.
