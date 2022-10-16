@@ -14,18 +14,18 @@ Prva dva odeljka vašeg izveštaja su apstrakt i apstrakt na engleskom, ali **nj
 
 ### Grafički apstrakt
 
-Grafički apstrakt je siže vašeg rada u jednoj slici. Služi da čitaocu na direktan i vizualni način predstavi ključne elemente rada.
+Grafički apstrakt je siže vašeg rada u jednoj slici. Služi da čitaocu na direktan i vizuelan način predstavi ključne elemente rada.
 
 Vi birate šta su ključni elementi rada. Slika ne treba da bude previše složena, što znači da ne mora da obuhvati baš sve što ste radili - naći balans između jednostavnosti slike i njene sveobuhvatnosti. Neko će više istaći blok šemu metoda, neko same rezultate, neko eksperimentalnu postavku itd.
 
-Uz grafički apstrakt uključuje se i opis ispod slike, koji u ovom slučau može biti malo duži (do nekoliko rečenica) ali je poželjno da i sama slika sadrži tekst (posebno ako se sastoji iz više blokova i veza između njih)
+Uz grafički apstrakt uključuje se i opis ispod slike, koji u ovom slučaju može biti malo duži (do nekoliko rečenica) ali je poželjno da i sama slika sadrži tekst (posebno ako se sastoji iz više blokova i veza između njih).
 
-Ako grafički apstrakt nije čisto vektorska slika, obavezno ga renderovati u što većoj rezoluciji - ovo je neophodno da bi se ta slika mogla staviti na poster, recimo.
+Ako grafički apstrakt nije čisto vektorska slika, obavezno ga napraviti u što većoj rezoluciji - ovo je neophodno da bi se ta slika mogla staviti na poster, recimo.
 Dakle, bar 20x15 cm u 300dpi, odnosno nekih 2400x1800 pixela.
 
 #### Primeri
 
-Ovde su predstavljeni primeri grafičkih apstrakata. Cilj je bilo prikazati raznovrsnost, nisu svi navdeni apstrakti nužno “najbolji”. Neki od navedenih slika nemaju prateći tekst - to je loša praksa, treba pisati prateći tekst - te slike su ovde navedene zato što su ok vizuelni primeri.
+Ovde su predstavljeni primeri grafičkih apstrakata. Cilj je bilo prikazati raznovrsnost, nisu svi navdeni apstrakti nužno “najbolji”. Neki od navedenih slika nemaju prateći tekst - to je loša praksa, treba pisati prateći tekst - te slike su ovde navedene zato što su okej vizuelni primeri.
 
 Jedna varijanta koja predstavlja vizualizovanu blok šemu sistema.
 
