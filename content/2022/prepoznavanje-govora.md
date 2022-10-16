@@ -6,7 +6,7 @@ summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaz
 
 ### Apstrakt na engleskom
 ### Uvod
-Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. – Prepoznavanje govora je proces osposobljavanja nekog modela da prepozna i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih, prepoznaje i preduzima određene korake u zavisnosti od rezultata.
+Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Prepoznavanje govora je proces osposobljavanja nekog modela da prepozna i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih, prepoznaje i preduzima određene korake u zavisnosti od rezultata.
 
 Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za prepoznavanje govora, već da se i uporede njihova praktičnost i tačnost. 
 
@@ -45,7 +45,7 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
-$ \sigma ( \vec{z} )_{i}=\frac{e^{z_{i}}}{\sum_{j=1}^{K} e^{z_{j}}} $
+$ \sigma (z)_{i}=\frac{e^{z_{i}}}{\sum_{j=1}^{K} e^{z_{j}}} $
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression) .
 
