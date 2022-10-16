@@ -26,7 +26,7 @@ U referentnoj metodi(Menze et al. 2015) su predložene tri različite strategije
 
 Polje kretanja se određuje nad parom slika; referentnoj slici i ciljanoj slici (slici koja je uslikana nekoliko trenutaka nakon referentne). Referentnu sliku želimo da pomoću vektora protoka pretvorimo u ciljanu sliku.
 
-Ciljana slika se deli na ćelije jednakih veličina. Za svaku ćeliju se koristi nasumična k-d šuma (eng: *randomized k-d tree forest*) za deskriptore piksela koji pripadaju toj ćeliji. To je efikasna struktura za nalaženje $K$ piksela najbližih datom pikselu, po sličnosti deskriptora računatih DAISY algoritmom. Za razliku od referentne metode koja čuva sve k-d šume tokom generisanja predloga, naša metoda pravi k-d šumu za jednu ćeliju, iskoristi je za nalaženje najsličnijih piksela u ćelijama u okolini i više je ne čuva. Time svaki piksel dobije ukupno $M$ predloga destinacije vektora protoka, po $K$ iz svake okolne ćelije.
+Ciljana slika se deli na ćelije jednakih veličina. Za svaku ćeliju se koristi nasumična k-d šuma (eng: *randomized k-d tree forest*) za deskriptore piksela koji pripadaju toj ćeliji. To je efikasna struktura za nalaženje $K$ piksela najbližih datom pikselu, po sličnosti deskriptora računatih DAISY algoritmom. Za razliku od referentne metode koja čuva sve k-d šume tokom generisanja predloga, naša metoda pravi k-d šumu za jednu ćeliju, iskoristi je za nalaženje najsličnijih piksela u ćelijama u okolini i više je ne čuva. Time svaki piksel dobije ukupno $M$ predloga destinacije vektora protoka, po $K$ iz svake okolne ćelije. Za pravljenje k-d šuma koristi se algoritam iz biblioteke FLANN.
 
 Kako susedni pikseli često imaju sličan vektor protoka, dodatno se uzima $N$ nasumičnih piksela iz lokalne Gausove distribucije centrirane na referentnom pikselu i u skup predloga se dodaju vektori protoka čija je destinacija piksel koji najbolje odgovara izabranom pikselu. Naša metoda ne dodaje vektor u skup predloga u slučaju da je već prisutan, za razliku od referentne metode koja dodaje sledeći najbolji vektor protoka tog piksela. Zbog toga ne mora da sortira sve predloge iz datog piksela, čime dobija na efikasnosti.
 
@@ -41,14 +41,32 @@ Jedna je da se u SIFT-u za konvolucije gradijenata u određenim smerovima korist
 $$G_o = \left(\frac{\partial I}{\partial o} \right) ^+ $$ 
 
 Gde $+$ znači da su samo pozitivne vrednosti sačuvane da bi se održala polarnost intenziteta promena. Nad svakom mapom orijentacija, koja predstavlja gradijentne norme za taj pravac na svim lokacijama piksela, se nekoliko puta vrši Gausova konvolucija sa kernelima različitih standardnih devijacija da bi se dobile konvoluirane orijentacione mape. Efikasnost DAISY algoritma proizilazi upravo odavde, zato što su Gausovi filteri razdvojivi i zato se konvolucije mogu vršiti vrlo efikasno. Ovo znači da se konvolucije sa velikim kernelom mogu računati iz nekoliko uzastopnih konvolucija sa manjim kernelima. Stoga se smanjuje količina računanja.
+
 Na svakoj lokaciji piksela, njegova okolina je podeljena u krugove različitih veličina lociranih na seriji koncentričnih prstenova. Prečnik svakog kruga je proporcionalan njegovoj udaljenosti od centraknog piksela i standardna devijacija Gausovog kernela je proporcionalna veličini kruga. Unutar svakog kruga je napravljen vektor sabiranjem svih 
 
 Postoje 4 glavna parametra koji određuju izgled DAISY deskriptora: prečnik oblasti komšija ($R$), broj izdvojenih orijentacija ($o$), broj konvolucionih orijentacionih prstenova ($r$) i broj krugova na svakom prstenu ($c$).
 
+Menhetn norma razlike deskriptorskih vektora početnog i krajnjeg piksela vektora protoka se čuva kao *cena* tog vektora protoka. Odseca se iznad granične vrednosti $τ_φ$ i koristi se u daljim proračunima.
+
 ### Random Field Model
+
+Polje protoka je modelirano kao Markovljev slučajni proces. Problem procene pokreta je sveden na minimizaciju zbira cena vektora protoka i *cene slaganja* dva vektora protoka svaka dva susedna piksela, koja je definisana kao Menhetn norma njihove razlike. Kao i cena vektora protoka, odsečena je odozgo sa $τ_ψ$, što omogućava efikasnije izvršavanje programa i izbegavanje neproporcionalnog uticaja oštrih prekida. U svakom trenutku se čuva trenutno polje protoka, i ukupna cena se postepeno smanjuje odabirom bolje kombinacije vektora protoka iz skupa vektora svakog piksela. Ovo se radi pomoću spuštanja po blokovima koordinata (eng: *block coordinate descent), nalaženjem minimalnog zbira cena u pojedinačnom redu ili koloni piksela na slici. Ovo ne garantuje nalaženje globalnog minimuma cene, što je NP-težak problem, ali garantuje smanjivanje ukupne cene slike u svakom koraku spuštanja.
+
+(Dodati LaTex)
 
 ### Pronalaženje optimalnih vektora
 
+U pojedinačnom redu piksela je potrebno naći minimalan zbir cena vektora protoka i cena slaganja, uzimajući u obzir trenutno stanje polja protoka u susedna dva reda. Cene na koje treba paziti su cene vektora protoka, cena slaganja sa pikselima iz susednih redova i cena slaganja sa pikselima iz istog reda.
+
+Problem minimizacije je rešen dinamičkom matricom, čije su koordinate pozicija piksela u redu i redni broj trenutnog predloga vektora protoka. Naime, algoritam kreće od jednog kraja reda piksela, i u matrici čuva najmanju kumulativnu cenu kombinacije vektora protoka koja se završava datim predlogom datog piksela. Sami vektori protoka koji sačinjavaju tu kombinaciju se ne čuvaju, već se najbolja kombinacija rekonstruiše idući unazad kroz matricu nakon što se popuni do kraja. Stari predlozi vektora se zamene novim i kreće se sa obradom sledećeg reda.
+
+(Objašnjenje k-skupova)
+
+Iako deluje da mogu biti od pomoći, u originalnom radu je pokazano da korišćenje algoritama detekcije ivica daje gore rezultate.
+
+### Baza podataka
+
+(Malo o bazi)
 
 ### Postprocesiranje
 
