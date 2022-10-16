@@ -2,10 +2,10 @@
 title: Balansero
 summary: Balansero, balansirajući robot, je projekat rađen na letnjem kampu 2022. godine od Katarine Nedić i Anđele Pantelić.
 ---
-![balansero]( <p align="center">
+  <p align="center">
   <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/robot.jpg" width="350">
   </p>
-  )
+
 
 ## Sadržaj
 
