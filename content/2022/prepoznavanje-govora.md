@@ -14,15 +14,15 @@ Primena prepoznavanja govora može se uočiti u mnogim svakodnevnim radnjama: au
 
 Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: Vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
 
-Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Može se koristiti kao slika čijom obradom dobijamo određene karakteristike zvuka, a u nekim metodama ne možemo koristiti kao sliku, već ručno moramo izvlačiti odlike zvuka.
+Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike, čijom obradom možemo da izvučemo određene karakteristike iz zvuka. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.```
 
 Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. Uloga ovih metoda može se podeliti u nekoliko kategorija: 
 
--ekstrakcija odlika zvuka, što je posao za MFCC (Mel-Frequency Cepstral Coefficients); 
+1. Izvlačenje karakteristika iz zvuka pomoću kepstralnih koeficijenata Mel skale (MFCC) 
 
--klasifikatori: logistička regresija, Random Forest, SVM, XGBoost;
+2. Klasifikatori, kojima su prosleđene MFCC karakteristike: Logistička regresija, Random Forest, SVM, XGBoost;
 
--kombinacija: upotreba konvolucionih neuronskih mreža (mreža samostalno uči koje odlike zvuka treba da izvuče, da bi ih samostalno i klasifikovala).
+3. Konvolucione neuronske mreže (CNN) koje inkomponuju proces ekstrakcije karakteristika iz signala, kao i proces klasifikacije 
 
 ### Metode
 
@@ -30,8 +30,7 @@ Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i o
 
 #### Spektrogrami
 
-Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvenciju koju možemo posmatrati i kao ton zvuka. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
-
+Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvencijske komponente prisutne u signalu, dok boja označava jačinu svake od tih komponenti. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
 
 Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signala u vremenskom intervalu. Intervali su mali da bi se moglo pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju.
 
@@ -46,15 +45,15 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
-![Sigmoid](static\images\Sigmoid.svg)
+![Sigmoid](static\images\1.png)
 
-![Softmax](static\images\Softmax.svg)
-
-Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorije.
+Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression) .
 
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
-$$ CE = -\sum_{i}^{C}t_{i}log(f(s)_{i}) $$
+![Funkcija](static\images\2.png)
+
+- hΘ(x) = sigmoid (w*x + b), Y rezultat, x = promenljiva koju posmatramo
 
 Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom, nameštajući beta parametre kroz više iteracija tražeći najbolje fitovanu krivu, odakle se biraju najbolje procene parametara. Nakon toga se dobijeni koeficijenti koriste za računanje verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
@@ -77,7 +76,7 @@ Grafik koji dobijemo ovom formulom zove se spektar snage. Spektar snage je pokaz
 
 2. Spektar snage logaritmujemo, pa odatle dobijamo logaritamski spektar snage. On služi da pokaže relativnu važnost svake komponente (amplitude sinusoida) ovog zvuka. Na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
 
-![Spektar snage](images\log.png)
+![Spektar snage](static\images\log.png)
 
 3. Po logaritmovanju spektra snage, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
 
@@ -89,7 +88,7 @@ Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizo
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
-![Random Forest](static\images\RandomForest.svg)
+![Random Forest](static\images\3.png)
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
@@ -122,7 +121,7 @@ Kako postoji velik broj ovih hiperravni, kao optimalnu uzimamo onu kod koje je u
 
 Hiperravni koje ograničavaju zonu udaljenosti od granice odlučivanja na kojoj klasifikator daje vrednosti čija je apsolutna vrednost manja od 1 nazivaju se noseći vektori. To znači da za svaki podatak koji se nalazi unutar tih vektora ne možemo sa sigurnošću reći kojoj klasi pripada.
 
-![SVM1](static\images\5.png)
+![SVM1](static/images/5.png)
 
 Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
 
@@ -157,16 +156,14 @@ $$
 
 ##### 6. Konvolucione neuronske mreže
 
-Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću tehnike dubokog učenja. Neuronske mreže rade po principu čovečjeg mozga (odatle i naziv): dobija određene podatke koji se obično nalaze u formatu baze podataka, obrađuje ih i vraća rezultate. Kontrolom rezultata obrade podataka se ta mreža trenira. Ona uči na svojim greškama i poboljšava rezultate obrade.
+Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću tehnike dubokog učenja. Neuronske mreže su inspirisane neuronima i sinapsama u ljudskom mozgu. U konvolucionu neuralnu mrežu pohranjujemo ulazne podatke u vidu spektrograma, nakon čega se oni provlače kroz nekoliko slojeva konvolucije, sažimanja i potpuno povezanih slojeva. Izlaz iz ove mreže se koristi za proračunavanje vrednosti kriterijumske funkcije, na osnovu čega se ažuriraju parametri mreže. Ovaj postupak se potom iterativno ponavlja u cilju minimizacije greške modela.
 
 Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvolucionih slojeva, koristi se 4 slojeva sažimanja, kao i 3 potpuno povezana sloja. 
 
 Ceo proces može se svesti na sledeće korake: 
-1. Na ulaznu sliku se primenjuje više dvodimenzionalnih konvolucija sa prethodno definisanim brojem kanala a potom i ReLU aktivaciona funkcija.
-2. Smanjujemo veličinu obrađene slike slojem sažimanja (eng. maximum pooling)
-3. Ponavljamo ovaj proces
-
-Ovaj proces se ponavlja 4 puta, gde se poslednji sloj konvolucije ne prati slojem sažimanja.
+- Spektrogram se prvo obrađuje konvolucijom i ReLU-om
+- Smanjujemo veličinu obrađene slike pooling slojem
+- Ponavljamo ovaj proces
 
 Konvolucija (po čemu nastaje termin konvolucione neuronske mreže) u obradi slike je operator koji predstavlja obradu početne slike množenjem iste određenim filterom. 
 
@@ -176,7 +173,7 @@ Sažimanje označava dodavanje piksela na ivice. Samim tim, kada konvolucija rad
 
 ReLU (rectified linear activation function / rectified linear unit) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
-![Funkcija](static\images\ReLU.svg)
+![Funkcija](static\images\fja.png)
 
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da prepozna.
 
@@ -196,7 +193,7 @@ Propagacija unazad prolazi kroz sve slojeve i menja parametre mreže u svakom ko
 
 Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradient spusta za traženje lokalnog / maksimalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
 
-![SGD](static\images\sgd.png)
+![SGD](static/images/sgd.png)
 
 ### Istraživanje i rezultati
 
@@ -210,7 +207,7 @@ Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža u
 
 Rezultati su prikazani u tabeli ispod.
 
-![Rezultati](static\images\Tabela.svg)
+![Rezultati](static\images\4.png)
 
 Metrika ovih rezultata bila je tačnost, zato što je, zbog izbalansirane baza, ovo reprezentativna metrika.
 
@@ -228,13 +225,13 @@ Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenj
 
 Rezultate vizuelno možemo prikazati matricama konfuzije. 
 
-![Rezultati](static\images\LinearSVM.png)
+![Rezultati](static/images/LinearSVM.png)
 
-![Rezultati](static\images\LogisticRegression.png)
+![Rezultati](static/images/LogisticRegression.png)
 
-![Rezultati](static\images\RandomForest.png)
+![Rezultati](static/images/RandomForest.png)
 
-![Rezultati](static\images\XGB.png)
+![Rezultati](static/images/XGB.png)
 ### Zaključak
 
 Projekat koristi FSDD bazu podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz ovu i samostalno napravljenu srpsku bazu podataka, ove metode su se pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči, a SVM sa RBF kernelom najmanju. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je tačnost CNN modela značajno veća od ostalih testiranih modela.
