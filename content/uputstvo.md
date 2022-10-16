@@ -12,6 +12,60 @@ U sledećih par odeljaka je opisano šta treba od sadržaja vaš izveštaj da sa
 
 Prva dva odeljka vašeg izveštaja su apstrakt i apstrakt na engleskom, ali **njih treba pisati nakon svih drugih delova**. Apstrakt predstavlja sažetak vašeg izveštaja i treba (bez objašnjenja) da predstavi šta ste radili, na koji način i koje rezultate ste postigli.
 
+### Grafički apstrakt
+
+Grafički apstrakt je siže vašeg rada u jednoj slici. Služi da čitaocu na direktan i vizualni način predstavi ključne elemente rada.
+
+Vi birate šta su ključni elementi rada. Slika ne treba da bude previše složena, što znači da ne mora da obuhvati baš sve što ste radili - naći balans između jednostavnosti slike i njene sveobuhvatnosti. Neko će više istaći blok šemu metoda, neko same rezultate, neko eksperimentalnu postavku itd.
+
+Uz grafički apstrakt uključuje se i opis ispod slike, koji u ovom slučau može biti malo duži (do nekoliko rečenica) ali je poželjno da i sama slika sadrži tekst (posebno ako se sastoji iz više blokova i veza između njih)
+
+Ako grafički apstrakt nije čisto vektorska slika, obavezno ga renderovati u što većoj rezoluciji - ovo je neophodno da bi se ta slika mogla staviti na poster, recimo.
+Dakle, bar 20x15 cm u 300dpi, odnosno nekih 2400x1800 pixela.
+
+#### Primeri
+
+Ovde su predstavljeni primeri grafičkih apstrakata. Cilj je bilo prikazati raznovrsnost, nisu svi navdeni apstrakti nužno “najbolji”. Neki od navedenih slika nemaju prateći tekst - to je loša praksa, treba pisati prateći tekst - te slike su ovde navedene zato što su ok vizuelni primeri.
+
+Jedna varijanta koja predstavlja vizualizovanu blok šemu sistema.
+
+Izvor: http://www.sciencedirect.com/science/article/pii/S0262885611000436
+
+![gap1](/images/uputstvo/gap1.png)
+
+Primer gde je tema rada konstrukcija izvesnog senzora pH vrednosti. Autori su se smisleno odlučili za grafički apstrakt iz dva dela: prikaz šeme senzora i prikaz rezultata (karakteristika senzora)
+
+Izvor: http://www.sciencedirect.com/science/article/pii/S0167931716301484
+
+![gap2](/images/uputstvo/gap2.png)
+
+Grafički apstrakt koji se sastoji iz dva dela. Autor je želeo da istakne sam algoritam koji je koristio (gornji deo) ali i šta taj njegov pristup omogućava kao rezultat (donji deo). Obratite pažnju na dobro korišćenje opisa uz sliku.
+
+Izvor: https://arxiv.org/pdf/1702.02175.pdf
+
+![gap3](/images/uputstvo/gap3.png)
+
+Vrlo kratka varijanta koja objašnjava suštinu. Obratite pažnju na korišćenje pratećeg opisa slike.
+
+Izvor:
+https://arxiv.org/pdf/1612.07828.pdf
+
+![gap4](/images/uputstvo/gap4.png)
+
+Isti izvor, ali varijanta koja u prvi plan ističe metod.
+
+![gap5](/images/uputstvo/gap5.png)
+
+Jednostavna blok šema algoritma sa pratećim formulama. Ako je u samom algoritmu suština ne mora ništa više fensi.
+
+![gap6](/images/uputstvo/gap6.png)
+
+Jednostavna upravljačka petlja sa prikazom aparature i algoritma u jednom.
+
+Izvor: http://www.sciencedirect.com/science/article/pii/S0957415817301423
+
+![gap7](/images/uputstvo/gap7.png)
+
 ### Uvod
 
 Uvod treba da sadrži sledeće stvari:
