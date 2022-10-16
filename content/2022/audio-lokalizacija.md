@@ -25,11 +25,11 @@ Uvod treba da sadrži sledeće stvari:
 #### Metode
 ##### Metode izracunavanja distance:
 
-1.  TOA _(Time of arrival)_ - metoda kojom se meri vreme stizanja signala od čvora, zahteva da je vreme izmedju čvorova sinhronizovano, oduzimanjem vremena početka ( $T_1$) prenošenja signala od vremena stizanja ( $T_2$) dobija se vreme putovanja _(Time of flight, $TOF$)_ 
+1.  TOA _(Time of arrival)_ - metoda kojom se meri vreme stizanja signala od čvora, zahteva da je vreme između čvorova sinhronizovano, oduzimanjem vremena početka ( $T_1$) prenošenja signala od vremena stizanja ( $T_2$) dobija se vreme putovanja _(Time of flight, $TOF$)_ 
 $$TOF= T_2-T_1$$
     
 
-2. RTT _(Round trip time)_ - metoda u kojoj čvor koji primi signal odmah pošalje povratni signal, a čvor koji je započeo prenos meri vreme izmedju početka slanja i primanja povratnog signala, ne zahteva sinhronizovano vreme izmedju čvorova. 
+2. RTT _(Round trip time)_ - metoda u kojoj čvor koji primi signal odmah pošalje povratni signal, a čvor koji je započeo prenos meri vreme između početka slanja i primanja povratnog signala, ne zahteva sinhronizovano vreme između čvorova. 
 Vreme koje je izmereno ( $T_1$) je jednako duploj vrednosti vremena putovanja ( $TOF$) i vremena koje je potrebno drugom čvoru da potvrdi signal i pošalje povratni odgovor ( $T_2$).
 Ovakav sistem zahteva da svi čvorovi u sistemu imaju mogućnost primanja i transmitovanja signala, tjst. da je svaki čvor opremljen sa zvučnikom i mikrofonom. 
 
@@ -38,21 +38,35 @@ $$TOF=\frac{T_1-T_2}{2}$$
 
 <!--- za rtt dodati neki grafik i objasnjenje za bip bip--->
 ##### Metode za komunikaciju između čvorova
-<!--- medijumi po kojima mozemo da transferujemo podatke, kako mozemo da reusujemo sistem mikrofona i zvucnika ili bilo koji drugi dostupan na uredjaju za gotov hardver/esp--->
+<!--- Audio/ EM--->
+<!--- medijumi po kojima mozemo da transferujemo podatke, kako mozemo da reusujemo sistem mikrofona i zvucnika ili bilo koji drugi dostupan na uređaju za gotov hardver/esp--->
+Za svaku od navedenih metoda je potrebno da čvorovi imaju neki vid komunikacije.
+<!--- dopisati sta mozemo da koristimo za komunikaciju--->
+###### Sinhronizacija    
+<!--- ova recenica kasnije, prvo objasnjenje i spomenut --->
+Kada se uspostavi kanal komunikacije između čvorova, on se takođe može koristiti za sinhronizaciju čvorova u metodama koje to zahtevaju.
+<!--- takodje ovde ostale ideje kao eksterna sinhronizacija kroz impuls, itd--->
+U slučaju TOA metode, čvorovi moraju da budu precizno sinhronizovani, snimanje na svim čvorovima treba da bude započeto u trenutku kada nepoznati čvor počne da emituje signal.
+
+<!--potrebna je precizna sinhronizacija čvorova koju možemo da ostvarimo ako koristimo --->
+
 ##### Metode za pronalaženje lokacije čvorova
-<!---trilateracija, mozda da navedemo one koje ne koristimo-->
+<!---trilateracija, spomenemo eventualno koje sve postoje-->
 
 ##### Kroskorelacija 
-
+<!--- dopisati negde za refleksije,multipath i eho i kako uticu na merenja ukoliko zeznu --->
 Kako bi odredili TOF koristimo metodu kroskorelacije  _(Cross corelation)_.
-Kroskorelacija prvo odredjuje sličnost dva signala tako što pojedinačne članove dobijenog signala množi sa odgovarajućim članom izvornog signala a potom sve dobijene proizvode sumira i dobijenu sumu pamti u niz. 
+Kroskorelacija prvo određuje sličnost dva signala tako što pojedinačne članove dobijenog signala množi sa odgovarajućim članom izvornog signala a potom sve dobijene proizvode sumira i dobijenu sumu pamti u niz. 
 Nakon toga, izvorni signal se pomera za jedno mesto u desno, tako što se na početak doda nula i ceo proces se ponavlja, a novodobijena suma se pamti na sledećem mestu u nizu. 
-Zatim se odredjuje pozicija maksimuma dobijenog niza. Kada nju pomnožimo sa brzinom odabiranja ( $F_s$) dobijamo TOF.
+Zatim se određuje pozicija maksimuma dobijenog niza. Kada nju pomnožimo sa brzinom odabiranja ( $F_s$) dobijamo TOF.
+Kako nam je poznata veza između pređenog puta ($s$), brzine ($v$) i vremena ( $TOF$), kao i brzina zvuka, možemo dobiti razdaljinu između dva čvora.
 
-
+$$s=v*TOF$$
 
 ##### Trilateracija 
-Pošto su nam poznate udaljenosti svakog pojedinačnog čvora od traženog, 
+
+Trilateracija je metoda kojom se dobija lokacija čvora presecanjem tri kružnice. 
+aCentar svake od kružnica se nalazi u jednom od poznatih čvorova, a poluprečnik svake odgovara udaljenosti centra kružnice od nepoznatog čvora.
 
 #### Simulacija 
 <!---ovde trenutno pise kako ide simulacija za TOA--->
@@ -82,15 +96,15 @@ aktivan vs pasivan piezo buzzer, rang na kojima proizvode najveci spl, rezonantn
 
 za mikrofone i pretpojacala prvo o mikrofonima, 
 o 
-pc - pc sistem isto raspisati, mozda premestiti mikrokontroleri u opcije za sisteme tjst nama treba samo izvor zvuka i mikrofon u teoriji a sad nesto treba to da snimi i pusti takodje
+pc - pc sistem isto raspisati, mozda premestiti mikrokontroleri u opcije za sisteme tjst nama treba samo izvor zvuka i mikrofon u teoriji a sad nesto treba to da snimi i pusti takođe
 
 pretpojacala spojiti sa adc-om najbolje, seme, ono sto smo digitalizovali, itd, sve oko njih, potrebe za njima i njihove funkcije
 
 
 
-takodje biranje signala, duzine, modulacije, frekvencija, sample rate itd itd isto u vezi sa ovim stvarima
+takođe biranje signala, duzine, modulacije, frekvencija, sample rate itd itd isto u vezi sa ovim stvarima
 
-za hardver oko esp-esp sistema takodje i napajanja, itd
+za hardver oko esp-esp sistema takođe i napajanja, itd
 filteri i uticaj suma, hardware vs software filtriranje
 
 --->
