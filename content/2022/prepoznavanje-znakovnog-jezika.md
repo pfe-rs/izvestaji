@@ -13,7 +13,7 @@ Značajan broj istraživanja je urađeno na ovu temu - rad [[1]](http://arxiv.or
 
 Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. Sastoji se od 27 znakova, za svako od 27 slova engleskog alfabeta, od kojih su dva takođe i pokreti, slovo J i slovo Z.
 ![ASL](/images/2022/prepoznavanje-znakovnog-jezika/asll.png)
-Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [[4]](kaggle.com/datasets/lexset/synthetic-asl-alphabet). Korišćena je sintetička baza zbog velikog broja slika različitih pozadina , osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robustni. Baza se sastoji od 27000 slika dimenzija 512 x 512 piksela podeljena na trening i test setove. Podeljena je na 27 foldera koji predstavljaju 27 klasa. Svaki folder sadrži 900 trening i 100 test primera.
+Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [[4]](kaggle.com/datasets/lexset/synthetic-asl-alphabet). Korišćena je sintetička baza zbog velikog broja slika različitih pozadina , osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robustni. Primenjena je ista podela na trening i test podatke kao kod autora baze.
 
 ##### Predprocesing
 
@@ -22,24 +22,14 @@ Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Svaka slika je r
 
 #### Klasifikacija ključnih tačaka
 
-<<<<<<< Updated upstream
 Klasifikacija znaka koji je pokazan je realizovan prvo kroz određivanje pozicije šake. Za olakšanje ovog procesa ekstraktovane su 21 ključne tačke šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
-=======
-Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože. Za olakšanje ovog procesa ekstraktovane su 21 ključne tačke šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
-
->>>>>>> Stashed changes
 ![ASL](/images/2022/prepoznavanje-znakovnog-jezika/acab.PNG)
 
 #### Obrada baze za kNN
 
 Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože.
 Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti dobijenih 42 tačaka, pri čemu su dobijeni neprecizni rezultati. Drugi način bio je odredjivanje koordinate sredine šake i uzimanje njene vrednosti, što nije radilo jer se često nalazila senka na tom delu slike. Finalni i najprecizniji način je bio uzimanje celog opsega ovih tačaka.
-Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci.
-<<<<<<< Updated upstream
-=======
-
-Za identifikaciju regiona slike koji je boje kože, prvo je korišćen MediaPipe Holistic pipeline za ekstraktovanje 21 ključnih tačaka obe šake (ukupno 42 koordinata). Na osnovu HSV vrednosti u koordinatama tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci.
->>>>>>> Stashed changes
+Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci:
 
 $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n})]$$
 
@@ -72,22 +62,29 @@ Preciznost je rasla srazmerno parametrimu N i obrnuto srazmerno parametru k, pri
 ### ASL Keypoint Classification
 
 Ovaj metod za klasifikaciju koristi klasifikacionu _fully connected_ neuralnu mrežu čiji su ulazi koordinate krucijalnih tačaka šake.
-
-#### Neuralna mreža
-
-Korišćena je jednostavna mreža, sa svim potpuno povezanim dense slojevima.
+Korišćena je jednostavna mreža sa četiri dense sloja.
 
 #### Rezultati
 
+Dobijen je loss od 19.9% i preciznost od 95.6%.
 ![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/training_graph.png)
 ![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph.png)
+Confusion Matrix predstavlja matricu oznake svake slika u odnosu na pripisanu oznaku. Najveća pogrešna vrednost je dobijena pripisivanjem slova E slovu O - šest puta.
 ![Confusion Matrix](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix.png)
 
 ### Extended MNIST - CNN
 
-![Confusion Matrix](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix_MNIST.png)
+Sastavljena je konvoluciona neuronska mreža po uzoru na MNIST-ov model klasifikacije ASL-a. Ulazni podaci za ovu mrežu su znatno manji od korišćene baze što je rezultovalo u dodavanje dodatna tri konvoluciona sloja i uklanjanje dropout funkcija.
+
+_Nova arhitektura mreže slika_
+
+#### Rezultati
+
+Ovako izmenjenom mrežom je dobijen loss od 18% i accuracy od 96.25%.
 ![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/loss_graph.png)
 ![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph_MNIST.png)
+Confusion Matrix za ovaj metod ukazuje na najviše mešanja slova F slovom W.
+![Confusion Matrix](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix_MNIST.png)
 
 ### EfficientNetB3
 
@@ -103,4 +100,4 @@ Korišćena je jednostavna mreža, sa svim potpuno povezanim dense slojevima.
 
 [4] [Synthetic ASL Alphabet](kaggle.com/datasets/lexset/synthetic-asl-alphabet)
 
-[5] [MediaPipe] (https://google.github.io/mediapipe/solutions/holistic.html)
+[5] [MediaPipe](https://google.github.io/mediapipe/solutions/holistic.html)
