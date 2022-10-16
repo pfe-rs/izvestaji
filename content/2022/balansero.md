@@ -8,17 +8,21 @@ summary: Balansero, balansirajući robot, je projekat rađen na letnjem kampu 20
 
 1. Apstrakt
 2. Uvod
-3. Aparatura i metode
-4. Istraživanje i rezultati
-5. Zaključak
+3. Aparatura
+4. Metode
+5. Istraživanje i rezultati
+6. Zaključak
+
+
+## Apstrakt
 
 
 ## Uvod 
 
-Samobalansirajući robot predstavlja stabilizaciju dinamičkog sistema koji radi po principu inverznog klatna. Ovakvi roboti koriste sistem upravljanja povratnom spregom u zatvorenoj petlji - što znači da se podaci iz senzora pokreta u realnom vremenu koriste za kontrolu motora i brzu kompenzaciju promene ugla kako bi se robot održao uspravno.
+Samobalansirajući robot predstavlja stabilizaciju dinamičkog sistema koji radi po principu inverznog klatna. Ovakvi roboti koriste sistem upravljanja povratnom spregom u zatvorenoj petlji - podaci iz senzora pokreta u realnom vremenu se koriste za kontrolu motora i brzu kompenzaciju promene ugla kako bi se robot održao uspravno.
 Cilj ovog projekta je da se modelira, simulira i implementira samobalansirajući robot.
 
-## Aparatura i metode
+## Aparatura 
 
 ##### *Od aparature koristile smo:*
 
@@ -41,25 +45,64 @@ digitalni) i nakon dobijanja svih varijabli, kontroliše ugaonu brzinu točkova 
 
 -**DC motor** (12V) sa jednom osovinom   
 
-##### *Metode:*
+## Metode:
+
+### Filtri
 
 Za projektovanje upravljanja koriste se filteri u cilju dobijanja što preciznijih rezultata.
 
->**Komplemetarni filter** je vrsta filtra
+**Komplemetarni filtar** je vrsta filtra
 koja kombinuje merenja više senzora u unapred
 određenim proporcijama. Prvo se računaju uglovi koji daju samo akcelerometar i žiroskop.
-![filter](images\2022\balansero\komplementarni.png)
-
-Kada se izračuna ugao potrebno je podatke sa
+![filter](images\2022\balansero\komplementarni.png) Kada se izračuna ugao potrebno je podatke sa
 akcelerometra filtrirati filterom niskih učestalosti, odnosno podatke sa žiroskopa filterom
 visokih učestalosti.
 
 **Niskofrekventni filtar** ima za cilj da propusti samo niskofrekventne promene signala sa senzora na izlaz filtera, a da one visokofrekventne ukloni. Nedostatak
 ovog filtra je kašnjenje koje se javlja zbog postepene, a ne skokovite promene izlaza.
 
-**Visokofrekventni filter** propušta
+**Visokofrekventni filtar** propušta
 visokofrekventne promene na izlaz, dok one niskofrekventne eliminiše. Uloga visokofrekventnog filtra je da otkloni proces akumulacije greške usled integracije, odnosno da minimizuje ovaj efekat.
 ![lpf](images\2022\balansero\lpf.png)
+
+
+### Kontroleri
+Stabilizacija balansera postiže se implementacijom kontrolera. 
+- **FLC kontroler**
+
+Fuzzy-logic kontroler je stabilizator koji se bavi algortimima koji simuliraju ljudsko razmišljanje i donošenje odluka. Radi po setu pravila po principu *ako – onda* (eng. *if – then*), koja se intuitivno određuju. 
+
+Kontroler prolazi kroz dve faze - fuzifikaciju i defuzifikaciju. U prvoj on prevodi veličinu greške (odstupanja trenutnog položaja od stabilnog, željenog položaja) sa točkova u fuzzy oblik. Fazifikovana vrednost greške se ubacuje u set prethodno određenih pravila. Neophodno je izračunati udeo te greške u svakom od pravila, a potom geometrijskom sredinom dobiti precizni izlazni rezultat. Taj proces nazivamo defuzifikacijom. Izlazna vrednost - napon, šalje se na motor, kontrolišu se točkovi - kreću se u određenom smeru i određenom ugaonom brzinom čime se postiže ispravljanje greške - robot  balansira. 
+ 
+Fuzzy kontroler je vrlo intuitivan. Pravila izgledaju poput: 
+- Ako je ugaona brzina **velika** i klatno pada **brzo ulevo**, onda robot treba da se pomeri **jako u levu stranu**. 
+- Ako je ugaona brzina **mala** i klatno pada **sporo ulevo**, onda robot treba da se pomeri **slabo u levu stranu**. 
+- Ako je ugaona brzina **mala** i klatno pada **sporo udesno**, onda robot treba da se pomeri **slabo u desnu stranu**. 
+
+Ove komande nisu precizne, pomalo su mutne - *fuzzy*, ali zbog preklapanja pravila, preciznost izlaza je velika. Ona se povećava sa povećanjem pravila i svih mogućih kombinacija, kao i sa većim preklapanjem. Na primer, u nekom trenutku, robota će biti potrebno pomeriti 53% slabo u desnu stranu, 25% srednje jako u desnu stranu i 22% malo u levu stranu. Pošto zadata pravila imaju određene vrednosti, robot će biti poslat tačno određenom jačinom u tačno određenom pravcu. 
+ 
+FLC kontroler smo uspešno implementirali u simulaciji. 
+Međutim, imali smo problema sa ??? te smo na robota implementirali drugi kontroler - PID. 
+
+
+- **PID kontroler**
+
+PID kontroler je stabilizator koji se sastoji iz tri zasebna kontrolera - P (proporcionalni), I (integralni) i D (derivacioni tj. izvodni) kontroler. Oni primaju grešku na ulazu, a na izlazu daju napon koji se šalje na motor i time kontroliše robot.
+Jednačina PID kontrolera je:
+
+
+
+
+## Istraživanje i rezultati
+
+- Koristili smo dva PID kontrolera.
+![PID kontroleri](images\2022\balansero\pid-blocks.png)
+
+P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju. 
+
+## Zaključak
+
+## Reference
 
 
 
