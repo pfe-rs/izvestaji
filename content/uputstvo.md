@@ -14,10 +14,11 @@ Prva dva odeljka vašeg izveštaja su apstrakt i apstrakt na engleskom, ali **nj
 
 ### Uvod
 
-Uvod treba da sadrži sledeće stvari:
+Uvod ne treba da bude dug. Treba da bude jasan. Ne idite od 'Kulina Bana'. Nije cilj da pokažete sve što znate i šta ste sve pročitali, nego da čitaoca što je moguće jasnije uvedete u problem kojim se bavite. Ali, uvod treba da bude tako napisan da čitalac ne mora da se upoznaje sa drugim člancima i publikacijama da bi razumeo ono što ste radili. Izuzetno, ukoliko smatrate da vaš rad ima vrlo netipičnu teorijsku osnovu možete i uvod malo proširiti ali ipak veći deo stvari treba da ide u metodu.
 
-- Opis i motivaciju projekta, odnosno kako ste došli do ideje i šta ste radili.
-- Pregled literature. Ukratko opišite šta su drugi radili pre vas.
+U uvodu ne navodite vaše rezultate, već samo prethodne rezultate drugih autora.
+
+Na kraju uvoda: CILJ. Prethodni deo teksta ovog poglavlja već treba da pruži citaocu jasnu motivaciju zašto ste se opredelili za izabrani problem. Ovde samo, što je moguće jasnije, eksplicirate šta vam je bio cilj da uradite (razmotrite, dobijete). Sastavni deo cilja su i hipoteze koje eventualno pokušavate da dokažete - navedite ih ovde.
 
 ### Aparatura i metoda
 
@@ -33,7 +34,9 @@ U ovom odeljku treba opisati sve rezultate do kojih ste došli. Ako i dalje radi
 
 ### Zaključak
 
-Zaključak ima za cilj da dodatno prokomentarišete rezultate i napravite pregled rada.
+Obavezno je da imate zaključak u jedan do dva pasusa kao posebnu celinu. Nije bitno da li su zaključci već jasni iz ostatka teksta, ova sekcija ih mora navesti jer ljudi kad čitaju radove obično idu redom: gledam slike (zato je bitan grafički apstrakt) - pročitam apstrakt - pročitam zaključak - pročitam ostalo.
+
+Dajete sažetu ocenu šta se postiglo s obzirom na postavljeni cilj. Ističete doprinos vašeg rada u kontekstu ranije objavljenih rezultata. Navodite otvorena pitanja i dileme, kao i smernice za dalji rad.
 
 ## Tehnički detalji
 
