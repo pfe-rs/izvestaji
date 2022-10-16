@@ -139,6 +139,10 @@ P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju.
 
 ## Zaključak
 
+### Analiza problema prenosa
+Balansirajući robot je imao poteškoća pri stabilizaciji zbog previše velikog šuma usled jakog potresanja osovine robota koje je prouzrokovao motor. Senzori nisu mogli da dovoljno dobro očitaju grešku čak i pored filtera, te kontroler nije davao dobre izlaze dovoljno brzo.
+
+
 ## Reference
 
 
