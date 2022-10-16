@@ -99,6 +99,11 @@ Fuzzy-logic kontroler je stabilizator koji se bavi algortimima koji simuliraju l
 
 Kontroler prolazi kroz dve faze - fuzifikaciju i defuzifikaciju. U prvoj on prevodi veličinu greške (odstupanja trenutnog položaja od stabilnog, željenog položaja) sa točkova u fuzzy oblik. Fazifikovana vrednost greške se ubacuje u set prethodno određenih pravila. Neophodno je izračunati udeo te greške u svakom od pravila, a potom geometrijskom sredinom dobiti precizni izlazni rezultat. Taj proces nazivamo defuzifikacijom. Izlazna vrednost - napon, šalje se na motor, kontrolišu se točkovi - kreću se u određenom smeru i određenom ugaonom brzinom čime se postiže ispravljanje greške - robot  balansira. 
  
+<p align="left">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy-kontroler.png" width="350">
+  </p>
+
+
 Fuzzy kontroler je vrlo intuitivan. Pravila izgledaju poput: 
 - Ako je ugaona brzina **velika** i klatno pada **brzo ulevo**, onda robot treba da se pomeri **jako u levu stranu**. 
 - Ako je ugaona brzina **mala** i klatno pada **sporo ulevo**, onda robot treba da se pomeri **slabo u levu stranu**. 
@@ -106,8 +111,8 @@ Fuzzy kontroler je vrlo intuitivan. Pravila izgledaju poput:
 
 Ove komande nisu precizne, pomalo su mutne - *fuzzy*, ali zbog preklapanja pravila, preciznost izlaza je velika. Ona se povećava sa povećanjem pravila i svih mogućih kombinacija, kao i sa većim preklapanjem. Na primer, u nekom trenutku, robota će biti potrebno pomeriti 53% slabo u desnu stranu, 25% srednje jako u desnu stranu i 22% malo u levu stranu. Pošto zadata pravila imaju određene vrednosti, robot će biti poslat tačno određenom jačinom u tačno određenom pravcu. 
  
-FLC kontroler smo uspešno implementirali u simulaciji. 
-Međutim, imali smo problema sa ??? te smo na robota implementirali drugi kontroler - PID. 
+FLC kontroler uspešno radi u simulaciji.
+Međutim, taj težak je težak za implementaciju i nije bio pogodan za naš sistem, te smo na robota implementirali drugi kontroler - PID. 
 
 
 - **PID kontroler**
@@ -131,13 +136,13 @@ PID kontroler je stabilizator koji se sastoji iz tri zasebna kontrolera - P (pro
 
 Robot se stabilizuje na datu poziciju (tačka koja se pomera putem strelica na tastaturi).
 
-- Koristili smo dva PID kontrolera.
+- Koristili smo tri PID kontrolera.
 
 <p align="left">
   <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png" width="450">
   </p>
   
-P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju.
+Prvi (C1) dobija vrednosti o veličini ugla robota i potom računa njegovu grešku. Drugi (C2) određuje potrebnu ugaonu brzinu, a treći (C3) - postavlja C3 na željenu poziciju. 
 
 ## Zaključak
 
