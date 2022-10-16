@@ -97,6 +97,7 @@ Kao što je u prethodnom poglavlju rečeno, transfer funkcija predstavlja odnos 
 ### Hardver
 
 Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrokontrolera, senzora, elektromehanickih uredjaja(motora), napajanja i slicno.
+*Sema za povezivanje pojedincanih komponenti je prilozena na kraju dokumenta*
 
 #### Lista uredjaja
 
@@ -108,6 +109,34 @@ Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrok
 6. JGA25-370 DC motor
 7. 4S1P Li-ion baterija
 8. E38S6G5 Opticki inkrementalni enkoder
+
+#### Princip rada
+
+##### Arduino Nano i HC05
+
+Uredjaj koji vrsi prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p cip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomocu UART-a na BAUD rate-u od 9600 bitova po sekundi, omogucavajuci bezicni prenos podataka. Napaja se pomocu napona od 5 volti sa mikrokontrolera. *Paznja! iako modul radi na 5V prihvata napon na signalnim pinovima (RX,TX) je ogranicen na 3.3V, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera(5V) spustio na odgovarajuci nivo*
+
+##### MPU6050
+
+MPU6050 je akcelerometar i ziroskop koji se koristi za merenje ugla inklinacije tega robota. MPU6050 je sa mikrokontrolerom povezan pomocu I2C protokola i napaja se pomocu 5 volti sa mikrokontrolera. Ovaj senzor mikrokontroleru dostavlja podatke sa ziroskopa i akcelerometra pomocu kojih se u softveru izracunava ugao inklinacije koji je neophodan za odredjivanje ugaonog ubrzanja robota i PID kontrolu.
+
+##### Li-ion baterija i LM2598 Stepdown regulator
+
+Napajanje koje se u projektu koristi su 4 redno vezane Samsung 18650-35E Litijum-jonske baterije zbog svog kapaciteta od 5000mAh (miliamper casova) i maksimalne struje 2A (Ampera) koje mogu propustiti. Baterije se pune eksternim punjacem pomocu balansirajuceg konektora na njima. Napon sa baterije se sprovodi do LM2598 regulatora gde se napon spusta na 12V kako bi dalje mogao da se dovede do H-mosta, buduci da je u trenutnoj konfiguraciji njegov napon ogranicen na maksimum od 12V. Potom se struja iz H-mosta pomocu njegovog integrisanog regulatora spusta na 5V i dovodi do mikrokontrolera i ostalih senzora. Napon baterije se meri na mikrokontroleru kroz naponski razdelnik kako bi se napon od 16.8V spustio na 5V koji su bezbedni za mikrokontroler koji proverava trenutan napon/preostali kapacitet baterije.
+*Procenjena maksimalna snaga potrosena u robotu je $12V * ~2A(Maksimalna utrosena struja celog robota) = 24W$ nakon regulatora, imajuci ovo u vidu struja koja protice kroz bateriju se moze izracunati kao $I = P/V$ gde je I - struja kroz bateriju, P - Utrosena snaga i V - napon baterije, gde je I = 24W / 16.8V(Nominalni napon baterije) = ~1.42A gde je onda minimalno vreme rada robota 5000mAh / 1.42A = ~3.5h +/- 10%(zbog gresaka u merenju, efikasnosti regulatora...)*
+
+##### DC motor i L298N H-most
+
+Buduci da pinovi mikrokontrlera nemaju snagu da pokrenu motor, kao pokretac motora se postavlja H-most koji pomocu signala koje dobija od strane mikrokontrolera pokrece motor. Dva signala koje H-most dobija su digitalni signali : 
+
+1. Koji svojim naponom od 0V ili 5V odredjuje smer i 
+2. Koji koristeci PWM(Pulse Width Modulation) brzim paljenjem i gasenjem kontrolise napon koji je doveden do motora od 0-12V
+
+JGA25370 je DC motor koji radi na naponu od V=12V i Maksimalnoj struji od I=2A (U stanju zakocenja osovine). Motor u sebi poseduje reduktor koji umanjuje broj obrtaja motora u sekundi ali povecava obrtni momenat gde je broj obrtaja $RPM_max = 250$ obrtaja u minutu i obrtni momenat $T = 1.4kg/cm$. Ovaj motor je jedina komponenta koja pokrece robota.
+
+##### E38S6G5 Opticki inkrementalni enkoder
+
+E38S6G5 je opticki enkoder koji se koristi za merenje predjenog puta robota. E38S6G5 ima rezoluciju od 600 pulseva po obrtaju osovine sto nam daje preciznost od  0.6 stepeni ili ~0.01rad. Princip rada optickog enkodera je da se analizom izlaznih talasa moz odrediti da li se enkoder okrenuo u pozitivnom ili negativnom smeru. U konkretnom slucaju na pin 3 mikrokontrolera je povezan 1. od 2 izlaza enkodera, prilikom svake rastuce ivice ovog pina mikrokontroler belezi napon na 2. izlazu enkodera, u slucaju da je on pozitivan mikrokontroler to belezi kao obrt u pozitivnom smeru, a u slucaju da je napon negativam mikrokontroler to belezi kao obtr u negativnom smeru. Kada za svaki ovaj dogadjaj od nekog brojaca saberemo ili oduzmemo 1 mozemo dobiti predjeni put. *Ovo nije realni predjeni put buduci da se ne uracunava veoma potencijalni zanos robota u slucaju da stoji u mestu, u softveru se ovo resava oduzimanjem ugla inklinacije od predjenog puta.*
 
 
 
