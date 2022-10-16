@@ -14,20 +14,20 @@ Značajan broj istraživanja je urađeno na ovu temu - rad [[1]](http://arxiv.or
 Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. Sastoji se od 27 znakova, za svako od 27 slova engleskog alfabeta, od kojih su dva takođe i pokreti, slovo J i slovo Z.
 ![ASL](/images/2022/prepoznavanje-znakovnog-jezika/asll.png)
 Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [[4]](kaggle.com/datasets/lexset/synthetic-asl-alphabet). Korišćena je sintetička baza zbog velikog broja slika različitih pozadina , osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robustni. Baza se sastoji od 27000 slika dimenzija 512 x 512 piksela podeljena na trening i test setove. Podeljena je na 27 foldera koji predstavljaju 27 klasa. Svaki folder sadrži 900 trening i 100 test primera.
-Augmentacija -
-![Augmentacija baze](/images/2022/prepoznavanje-znakovnog-jezika/data_augmentation.png)
 
 ##### Predprocesing
 
-Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Svaka slika je rotirana za do $\pm$ 25%, raširena po x-osi za do 30%, raširena po x-osi za do 30%, zumirana za do 30% i u 50% slučajeva preslikana u ondnosu na vertikalu.
+Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Svaka slika je rotirana za do $\pm$ 25%, raširena po x-osi za do 30%, raširena po x-osi za do 30%, zumirana za do 30% i u 50% slučajeva preslikana u ondnosu na vertikalu.Key
+![Augmentacija baze](/images/2022/prepoznavanje-znakovnog-jezika/data_augmentation.png)
 
-### kNN - k Nearest Neighboors
+#### Klasifikacija ključnih tačaka
 
-##### Obrada baze
-
-Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože. Za olakšanje ovog procesa ekstraktovane su 21 ključne tačke šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
+Klasifikacija znaka koji je pokazan je realizovan prvo kroz određivanje pozicije šake. Za olakšanje ovog procesa ekstraktovane su 21 ključne tačke šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
 ![ASL](/images/2022/prepoznavanje-znakovnog-jezika/acab.PNG)
 
+#### Obrada baze za kNN
+
+Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože.
 Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti dobijenih 42 tačaka, pri čemu su dobijeni neprecizni rezultati. Drugi način bio je odredjivanje koordinate sredine šake i uzimanje njene vrednosti, što nije radilo jer se često nalazila senka na tom delu slike. Finalni i najprecizniji način je bio uzimanje celog opsega ovih tačaka.
 Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci.
 
@@ -35,7 +35,17 @@ $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n
 
 Na osnovu dobijene pozicije šake slika je isečena oko nje i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija i morfološke operacije radi uklanjanja šuma.
 
-##### kNN
+#### Obrada baze za ASL Keypoint Classification
+
+Baza ove mreže se sastoji od koordinata ključnih tačaka šake. Za njihovu detekciju korišćena je MediaPipe Holistic metoda. Prilikom njene primene treshold za detektovanje tačaka šake je smanjen jer za određene položaje šake ona nije bivala detektovana. Na svaku sliku baze je pojedinačno primenjena detekcija ključnih tačaka i novodobijene slike su sačuvane u novu bazu. Nova baza je imala 63 parametra za svaku sliku:
+
+- X - x koordinata svake tačke, 21 ukupno
+- Y - y koordinata svake tačke, 21 ukupno
+- Z - dubina svake tačke, 21 ukupno
+
+### kNN - k Nearest Neighboors
+
+Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože.
 
 Binarizovana slika je podeljena na NxN grid, gde definišemo obeležje svakog bloka kao zasićenost - odnos broja belih piskela i cele slike:
 
@@ -49,15 +59,9 @@ Na osnovu N i k parametara, izračunata je tačnost metode kao i confusion matri
 ![Heat mapa](/images/2022/prepoznavanje-znakovnog-jezika/heatmap.png)
 Preciznost je rasla srazmerno parametrimu N i obrnuto srazmerno parametru k, pri čemu je najbolji rezultat dobijen za k = 1 i N = 20.
 
-### American Sign Language Keypoint Classification
+### ASL Keypoint Classification
 
-#### Obrada Baze
-
-Baza ove mreže se sastoji od koordinata ključnih tačaka šake. Za njihovu detekciju korišćena je MediaPipe Holistic metoda. Prilikom njene primene treshold za detektovanje tačaka šake je smanjen jer za određene položaje šake ona nije bivala detektovana. Na svaku sliku baze je pojedinačno primenjena detekcija ključnih tačaka i novodobijene slike su sačuvane u novu bazu. Nova baza je imala 63 parametra za svaku sliku:
-
-- X - x koordinata svake tačke, 21 ukupno
-- Y - y koordinata svake tačke, 21 ukupno
-- Z - dubina svake tačke, 21 ukupno
+Ovaj metod za klasifikaciju koristi klasifikacionu _fully connected_ neuralnu mrežu čiji su ulazi koordinate krucijalnih tačaka šake.
 
 #### Neuralna mreža
 
@@ -78,15 +82,6 @@ Korišćena je jednostavna mreža, sa svim potpuno povezanim dense slojevima.
 ### EfficientNetB3
 
 ### Zaključak
-
-### Keypoint Classification
-
-Ovaj metod za klasifikaciju koristi klasifikacionu *fully connected* neuralnu mrežu čiji su ulazi koordinate krucijalnih tačaka šake. 
-
-##### Obrada baze
-
-
-
 
 ### Literatura
 
