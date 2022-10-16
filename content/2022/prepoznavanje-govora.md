@@ -45,7 +45,7 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
-$$ \sigma ( \vec{z} )_{i}=\frac{e^{z_{i}}}{\sum_{j=1}^{K} e^{z_{j}}} $$
+$ \sigma ( \vec{z} )_{i}=\frac{e^{z_{i}}}{\sum_{j=1}^{K} e^{z_{j}}} $
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression) .
 
