@@ -96,7 +96,7 @@ Jednačina PID kontrolera je:
 ## Istraživanje i rezultati
 
 - Koristili smo dva PID kontrolera.
-![PID kontroleri](static\images\2022\balansero\pid-blocks.png)
+![PID kontroleri](https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png)
 
 P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju. 
 
