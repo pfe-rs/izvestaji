@@ -12,7 +12,7 @@ summary: Balansero, balansirajući robot, je projekat rađen na letnjem kampu 20
 1. Apstrakt
 2. Grafički apstrakt
 2. Uvod
-3. Aparatura
+  3. Aparatura
 4. Metode
 5. Istraživanje i rezultati
 6. Zaključak
@@ -36,14 +36,14 @@ Cilj ovog projekta je da se modelira, simulira i implementira samobalansirajući
 -**Mikrokontroler _(Arduino Uno)_** koristi se za izradu interaktivnih prototipa. Ima 14 digitalnih ulazno/izlaznih p inova i 6 analognih ulaza. Radi na 5V i komunicira preko USB-porta.
 
 -**IMU** (Inercijalni navigacioni sistem MPU6050) senzor koji meri ugao nagiba i ugaonu brzinu koristeći
-kombinaciju akcelerometara i žiroskopa. U njemu postoji I2C kolo koje služi za komunikaciju između senzora i mikrokontrolera. IMU se nalazi na dnu robota kako bi se postigla precizna rezolucija za merenje nagibnog ugla robota.
+kombinaciju akcelerometara i žiroskopa. U njemu postoji I2C kolo koje služi za komunikaciju između senzora i mikrokontrolera. IMU je postavljen na dno robota.
 
 <p align="left">
 <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/mpu.jpg" width="350">
   </p>
 
 
--**Roatacioni enkoder** je elektromehanički uređaj koji pretvara ugaoni položaj ili kretanje osovine u analogne ili digitalne izlazne signale.
+-**Roatacioni enkoder** je elektromehanički uređaj koji pretvara ugaoni položaj ili kretanje osovine u analogne tj. digitalne izlazne signale.
 
 
 -**Arduino motor kontroler** (l298n) pomoću koga upravljamo motor
@@ -55,13 +55,6 @@ kombinaciju akcelerometara i žiroskopa. U njemu postoji I2C kolo koje služi za
 -**DC motor** (12V) sa jednom osovinom   
 
 ## Metode
-
--**Arduino** očitava izmereni ugao i brzinu sa senzora i očitava
-rotacionu brzinu točkova sa enkodera. Vrši obradu signala (pretvara signal iz analognog u
-digitalni) i nakon dobijanja svih varijabli, kontroliše ugaonu brzinu točkova pomoću dva PWM signala.
-![uno](images\2022\balansero\uno.jpg)
-
-**PWM** _(Pulse-width modulation)_ je tehnika dobijanja analognih vrednosti pomoću digitalnih impulsa konstantne amplitude. PWM signali pomažu u regulaciji napona, što je važno jer se povećavanjem napona povećava i rotaciona brzina elektromotora. Digitalni izlaz PWM-a se sastoji od niza visokih (“uključenih”) i niskih (“isključenih”) impulsa i pomoću njih se kontroliše motor.
 
 -**Arduino** očitava izmereni ugao i brzinu sa senzora i očitava
 rotacionu brzinu točkova sa enkodera. Vrši obradu signala (pretvara signal iz analognog u
