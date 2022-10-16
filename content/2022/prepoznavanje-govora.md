@@ -45,7 +45,7 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
-![Sigmoid](static\images\1.png)
+$$ \sigma ( \vec{z} )_{i}=\frac{e^{z_{i}}}{\sum_{j=1}^{K} e^{z_{j}}} $$
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression) .
 
@@ -161,9 +161,9 @@ Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću
 Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvolucionih slojeva, koristi se 4 slojeva sažimanja, kao i 3 potpuno povezana sloja. 
 
 Ceo proces može se svesti na sledeće korake: 
-- Spektrogram se prvo obrađuje konvolucijom i ReLU-om
-- Smanjujemo veličinu obrađene slike pooling slojem
-- Ponavljamo ovaj proces
+1. Spektrogram se prvo obrađuje konvolucijom i ReLU-om
+2. Smanjujemo veličinu obrađene slike pooling slojem
+3. Ponavljamo ovaj proces
 
 Konvolucija (po čemu nastaje termin konvolucione neuronske mreže) u obradi slike je operator koji predstavlja obradu početne slike množenjem iste određenim filterom. 
 
