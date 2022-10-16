@@ -48,17 +48,15 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
-![Sigmoid](static\images\1.png)
+![Sigmoid](static\images\Sigmoid.svg)
 
-![Softmax](static\images\softmax.png)
+![Softmax](static\images\Softmax.svg)
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorije.
 
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
-![Funkcija](images/2.png)
-
-- hΘ(x) = sigmoid (w*x + b), Y rezultat, x = promenljiva koju posmatramo
+$$ CE = -\sum_{i}^{C}t_{i}log(f(s)_{i}) $$
 
 Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom, nameštajući beta parametre kroz više iteracija tražeći najbolje fitovanu krivu, odakle se biraju najbolje procene parametara. Nakon toga se dobijeni koeficijenti koriste za računanje verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
@@ -69,13 +67,13 @@ MFCCs (Mel-Frequency Cepstral Coefficients) jesu koeficijenti koji opisuju karak
 
 Kepstar (cepstrum) se može intuitivno predstaviti kao spektar spektra. On nastaje inverznom Furijeovom transformacijom logaritmovanog spektra. Formula za nastanak kepstra:
 
-$C(x(t))=F^{-1}[\log (F[x(t)])]$
+$$ C(x(t))=F^{-1}[\log (F[x(t)])] $$
 
 Proces stvaranja kepstra je sledeći:
 
 1. Na dobijeni signal primenimo diskretnu Furijeovu transformaciju. Ova transformacija nam daje funkciju zavisnosti jačine zvuka od frekvencije po sledećoj formuli:
 
-$\begin{aligned} X_k &=\sum_{n=0}^{N-1} x_n \cdot e^{-\frac{i 2 \pi}{N} k n} \\ &=\sum_{n=0}^{N-1} x_n \cdot\left[\cos \left(\frac{2 \pi}{N} k n\right)-i \cdot \sin \left(\frac{2 \pi}{N} k n\right)\right] \end{aligned}$
+$$ \begin{aligned} X_k &=\sum_{n=0}^{N-1} x_n \cdot e^{-\frac{i 2 \pi}{N} k n} \\ &=\sum_{n=0}^{N-1} x_n \cdot\left[\cos \left(\frac{2 \pi}{N} k n\right)-i \cdot \sin \left(\frac{2 \pi}{N} k n\right)\right] \end{aligned} $$
 
 Grafik koji dobijemo ovom formulom zove se spektar snage. Spektar snage je pokazatelj amplituda svih sinusoida određenog zvuka u odnosu na frekvenciju tih sinusoida.
 
@@ -93,7 +91,7 @@ Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizo
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
-![Random Forest](static\images\3.png)
+![Random Forest](static\images\RandomForest.svg)
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
@@ -114,7 +112,7 @@ Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačni
 
 Formula po kojoj se računa Cross Entropy Loss je sledeća:
 
-$H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right)$
+$$ H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right) $$
 
 XGBoost se u Pythonu implementira bibliotekom xgboost. 
 
@@ -132,7 +130,7 @@ Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru t
 
 Funkcija gubitka SVM modela je:
 
-$c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases}$
+$$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases} $$
 
 
 Ako su dobijeni i željeni rezultat istog znaka, vrednost kriterijumske funkcije je jednaka nuli, dok u suprotnom računamo gubitak. Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije gubitka.
@@ -143,9 +141,9 @@ $$
 
 Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
 
-$\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k \\$
+$$ \frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k \\ $$
 
-$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}= \begin{cases}0, & \text { if } y_i\left\langle x_i, w\right\rangle \geq 1 \\ -y_i x_{i k}, & \text { else }\end{cases}$
+$$ \frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}= \begin{cases}0, & \text { if } y_i\left\langle x_i, w\right\rangle \geq 1 \\ -y_i x_{i k}, & \text { else }\end{cases} $$
 
 Težine ažuriramo zavisno od toga da li je naš klasifikator tačno klasifikovao novi podatak ili ne. Ukoliko jeste, ažuriramo samo gradijent regularizacionog parametra:
 
@@ -180,7 +178,7 @@ Sažimanje označava dodavanje piksela na ivice. Samim tim, kada konvolucija rad
 
 ReLU (rectified linear activation function / rectified linear unit) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
-![Funkcija](static\images\fja.png)
+![Funkcija](static\images\ReLU.svg)
 
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da prepozna.
 
@@ -192,7 +190,7 @@ Najkorišćenija loss funkcija je Cross Entropy Loss. Potrebno nam je da minimiz
 
 Formula po kojoj se računa Cross Entropy Loss je sledeća:
 
-$H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right)$
+$$ H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right) $$
 
 Propagacija unazad je metod smanjenja grešaka u CNN posmatranjem neophodnih promena vrednosti parametara mreže u svakom sloju kako bi se neuroni aktivirali na određen način.
 
@@ -214,7 +212,7 @@ Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža u
 
 Rezultati su prikazani u tabeli ispod.
 
-![Rezultati](static\images\4.png)
+![Rezultati](static\images\Tabela.svg)
 
 Metrika ovih rezultata bila je tačnost, zato što je, zbog izbalansirane baza, ovo reprezentativna metrika.
 
