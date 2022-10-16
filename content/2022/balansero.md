@@ -116,15 +116,19 @@ Jednačina PID kontrolera je:
 
 - Simulacija fuzzy kontrolera
 
-![simulacija]( <p align="center">
+<p align="center">
   <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy%20simulacija.gif" width="350">
   </p>
-  )
+  
 
 
 
 - Koristili smo dva PID kontrolera.
-![PID kontroleri](https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png)
+
+<p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png" width="350">
+  </p>
+  
 
 P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju. 
 
