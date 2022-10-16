@@ -49,7 +49,7 @@ Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju 
 
 ![Sigmoid](static\images\1.png)
 
-Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorije.
+Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression) .
 
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
