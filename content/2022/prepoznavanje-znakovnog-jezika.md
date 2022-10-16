@@ -7,7 +7,7 @@ summary: Prepoznavanje znakovnog jezika je projekat rađen na letnjem kampu za s
 
 Tip neverbalne komunikacije najčešće korišćen među gluvo-nemim ljudima se zove znakovni jezik. Ovaj vid komunikacije omogućava prenos informacija bez korišćenja reči, samo pomoću pokreta i gestikulacija. Međutim, znakovni jezik nije poznat široj populaciji što otežava njegovo razumevanje. Da bi se prevazišao ovaj problem, predloženo je korišćenje savremene tehnologije.
 
-Značajan broj istraživanja je urađeno na ovu temu - rad [[1]](http://arxiv.org/abs/1409.1556) se bavio povećavanjem dubina ConvNet-a sa jako malim (3x3) konvolucionim filterima. Pri ovome dobijen je 6.7% validation error. U [[2]](https://arxiv.org/ftp/arxiv/papers/2108/2108.10970.pdf) je razmatran Indijski Znakovni Jezik (ISL). Urađena je detekcija i praćenje šake na osnovu boje kože, potom je korišćen Grid za ekstraktovanje obeležja na kraju čeka su gestikulacije klasifikovane kNN algoritmom. Ovako je dobijena tačnost od 99.7%. Rad [[3]](https://arxiv.org/pdf/2110.15542.pdf) bio je fokus na detektovanju položaja u kojima nije pokazan nijedan znak koristeći Novelty Detection, pri čemu je dobijena tačnost od 97.59%.
+Značajan broj istraživanja je urađeno na ovu temu - rad [[1]](http://arxiv.org/abs/1409.1556) se bavio povećavanjem dubina ConvNet-a sa jako malim (3x3) konvolucionim filterima. U [[2]](https://arxiv.org/ftp/arxiv/papers/2108/2108.10970.pdf) je razmatran Indijski Znakovni Jezik (ISL). Urađena je detekcija, praćenje i binarizacija šake na osnovu boje kože nako čega je korišćen grid za ekstraktovanje obeležja. Gestikulacije su klasifikovane kNN algoritmom. Rad [[3]](https://arxiv.org/pdf/2110.15542.pdf) je fokusiran na detektovanje položaja u kojima nije pokazan nijedan znak koristeći Novelty Detection.
 
 ### Baza podataka
 
@@ -22,7 +22,12 @@ Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Svaka slika je r
 
 #### Klasifikacija ključnih tačaka
 
+<<<<<<< Updated upstream
 Klasifikacija znaka koji je pokazan je realizovan prvo kroz određivanje pozicije šake. Za olakšanje ovog procesa ekstraktovane su 21 ključne tačke šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
+=======
+Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože. Za olakšanje ovog procesa ekstraktovane su 21 ključne tačke šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
+
+>>>>>>> Stashed changes
 ![ASL](/images/2022/prepoznavanje-znakovnog-jezika/acab.PNG)
 
 #### Obrada baze za kNN
@@ -30,6 +35,11 @@ Klasifikacija znaka koji je pokazan je realizovan prvo kroz određivanje pozicij
 Za detektovanje celog regiona slike na kome se nalazi šaka, a samim tim i klasifikovanje znaka šake, tražena je boja kože. Vrednost ove boje će biti predstavljena kao opseg - različit je za svaku sliku jer se u bazi mogu pronaći slike sa senkama i slike šaka drugačijih tonova kože.
 Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti dobijenih 42 tačaka, pri čemu su dobijeni neprecizni rezultati. Drugi način bio je odredjivanje koordinate sredine šake i uzimanje njene vrednosti, što nije radilo jer se često nalazila senka na tom delu slike. Finalni i najprecizniji način je bio uzimanje celog opsega ovih tačaka.
 Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci.
+<<<<<<< Updated upstream
+=======
+
+Za identifikaciju regiona slike koji je boje kože, prvo je korišćen MediaPipe Holistic pipeline za ekstraktovanje 21 ključnih tačaka obe šake (ukupno 42 koordinata). Na osnovu HSV vrednosti u koordinatama tačaka određen je spektar za koji klasifikujemo tačku kao da pripada šaci.
+>>>>>>> Stashed changes
 
 $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n})]$$
 
