@@ -66,7 +66,7 @@ Korišćena je jednostavna mreža sa četiri dense sloja.
 
 #### Rezultati
 
-Dobijen je loss od 19.9% i preciznost od 95.6%.
+Dobijen je loss od 0.19 i preciznost od 95.6%.
 ![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/training_graph.png)
 ![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph.png)
 Confusion Matrix predstavlja matricu oznake svake slika u odnosu na pripisanu oznaku. Najveća pogrešna vrednost je dobijena pripisivanjem slova E slovu O - šest puta.
@@ -80,13 +80,24 @@ _Nova arhitektura mreže slika_
 
 #### Rezultati
 
-Ovako izmenjenom mrežom je dobijen loss od 18% i accuracy od 96.25%.
+Ovako izmenjenom mrežom je dobijen loss od 0.18 i accuracy od 96.25%.
 ![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/loss_graph.png)
 ![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph_MNIST.png)
 Confusion Matrix za ovaj metod ukazuje na najviše mešanja slova F slovom W.
 ![Confusion Matrix](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix_MNIST.png)
 
 ### EfficientNetB3
+
+Za poboljšanje konvolucionih neuronskih mreža česta je praksa skaliranje po jednoj od sledeće tri dimenzije - dubina, širina i veličina slike. U [6] je predložen novi state-of-the-art način skaliranja mreže, u kome se dobija balans ove tri dimenzije skalirajući svaku od njih istom konstantom. Ovako je razvijeno osam mreža EfficientNetB0 do EfficientNetB7.
+Radi poklapanja rezolucije slika iz baze i ulaznih podataka mreže implementirana je EfficientNetB3 mreža.
+
+_arhitektura_
+
+#### Rezultati
+
+Korišćenjem EfficientNetB3 dobijen je loss od 0.44 i preciznost od 99%.
+
+_grafici_
 
 ### Zaključak
 
@@ -101,3 +112,5 @@ Confusion Matrix za ovaj metod ukazuje na najviše mešanja slova F slovom W.
 [4] [Synthetic ASL Alphabet](kaggle.com/datasets/lexset/synthetic-asl-alphabet)
 
 [5] [MediaPipe](https://google.github.io/mediapipe/solutions/holistic.html)
+
+[6] [Tan, Mingxing, and Quoc Le. "Efficientnet: Rethinking model scaling for convolutional neural networks." International conference on machine learning. PMLR, 2019.](https://arxiv.org/pdf/1905.11946.pdf)
