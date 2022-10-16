@@ -118,7 +118,7 @@ Međutim, taj težak je težak za implementaciju i nije bio pogodan za naš sist
 - **PID kontroler**
 
 <p align="left">
-  <img src=https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid%20kontroler.png" width="350">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid%20kontroler.png" width="350">
   </p>
 
 PID kontroler je stabilizator koji se sastoji iz tri zasebna kontrolera - P (proporcionalni), I (integralni) i D (derivacioni tj. izvodni) kontroler. Oni primaju grešku na ulazu, a na izlazu daju napon koji se šalje na motor i time kontroliše robot.
