@@ -112,8 +112,11 @@ Međutim, imali smo problema sa ??? te smo na robota implementirali drugi kontro
 
 - **PID kontroler**
 
+<p align="left">
+  <img src=https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid%20kontroler.png" width="350">
+  </p>
+
 PID kontroler je stabilizator koji se sastoji iz tri zasebna kontrolera - P (proporcionalni), I (integralni) i D (derivacioni tj. izvodni) kontroler. Oni primaju grešku na ulazu, a na izlazu daju napon koji se šalje na motor i time kontroliše robot.
-Jednačina PID kontrolera je:
 
 
 
@@ -122,7 +125,7 @@ Jednačina PID kontrolera je:
 
 - Simulacija fuzzy kontrolera
 
-<p align="center">
+<p align="left">
   <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy%20simulacija.gif" width="350">
   </p>
 
@@ -130,11 +133,10 @@ Robot se stabilizuje na datu poziciju (tačka koja se pomera putem strelica na t
 
 - Koristili smo dva PID kontrolera.
 
-<p align="center">
-  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png" width="350">
+<p align="left">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png" width="450">
   </p>
   
-
 P1 ispravlja grešku ugla, a P2 šalje robota na željenu poziciju.
 
 ## Zaključak
