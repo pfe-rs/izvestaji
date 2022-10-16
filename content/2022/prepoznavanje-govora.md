@@ -8,11 +8,11 @@ summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaz
 ### Uvod
 Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. – Prepoznavanje govora je proces osposobljavanja nekog modela da prepozna i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih, prepoznaje i preduzima određene korake u zavisnosti od rezultata.
 
-Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za speech recognition, već da se i uporede njihova praktičnost i tačnost. 
+Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za prepoznavanje govora, već da se i uporede njihova praktičnost i tačnost. 
 
-Primena prepoznavanja govora može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, voice dialing, ...
+Primena prepoznavanja govora može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, ...
 
-Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija – ograničen je na prepoznavanje i klasifikaciju svega deset reči. Ceo projekat rađen je u Python programskom jeziku.
+Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: Vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
 
 Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Može se koristiti kao slika čijom obradom dobijamo određene karakteristike zvuka, a u nekim metodama ne možemo koristiti kao sliku, već ručno moramo izvlačiti odlike zvuka.
 
@@ -24,7 +24,6 @@ Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. U
 
 -kombinacija: upotreba konvolucionih neuronskih mreža (mreža samostalno uči koje odlike zvuka treba da izvuče, da bi ih samostalno i klasifikovala).
 
-Do ovog projekta, metode su testirane na bazama podataka velikog kvaliteta i sa velikim brojem instanci. Nasuprot njihovim, ovaj rad ima dosta limitiranu bazu, te i sami rezultati variraju u odnosu na već dobijene.
 ### Metode
 
 Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i obradu istih.
@@ -33,11 +32,13 @@ Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i o
 
 Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvenciju koju možemo posmatrati i kao ton zvuka. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
 
+![spec](static\images\spec.png)
+
 Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signala u vremenskom intervalu. Intervali su mali da bi se moglo pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju.
 
 Boja na grafiku predstavlja amplitudu signala u određenom vremenskom trenutku. Plava boja na spektrogramu predstavlja niske amplitude, dok crvena boja predstavlja visoke amplitude.
 
-Primena spektrograma u ovom radu jeste prepoznavanje fonema reči kako bi, spajanjem istih, reč mogla da se prepozna.
+![spec2](static\images\spec2.png)
 
 #### Metode obrade spektrograma
 
@@ -49,11 +50,13 @@ Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju 
 
 ![Sigmoid](static\images\1.png)
 
+![Softmax](static\images\softmax.png)
+
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. To često nije dovoljno, pa se koristi multinomijalna logistička regresija (ili Softmax Regression) koja može da razlikuje više od dve različite kategorije.
 
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
-![Funkcija](static\images\2.png)
+![Funkcija](images/2.png)
 
 - hΘ(x) = sigmoid (w*x + b), Y rezultat, x = promenljiva koju posmatramo
 
@@ -78,7 +81,7 @@ Grafik koji dobijemo ovom formulom zove se spektar snage. Spektar snage je pokaz
 
 2. Spektar snage logaritmujemo, pa odatle dobijamo logaritamski spektar snage. On služi da pokaže relativnu važnost svake komponente (amplitude sinusoida) ovog zvuka. Na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
 
-![Spektar snage](static\images\log.png)
+![Spektar snage](images\log.png)
 
 3. Po logaritmovanju spektra snage, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
 
@@ -127,7 +130,7 @@ Hiperravni koje ograničavaju zonu udaljenosti od granice odlučivanja na kojoj 
 
 Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
 
-Za razliku od logističke regresije gde smo sve vrednosti sveli na raspon [0, 1] koristeći sigmoidnu funckiju, ovde sve vrednosti možemo svesti na raspon [-1, 1]. Funkcija gubitka SVM modela je:
+Funkcija gubitka SVM modela je:
 
 $c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases}$
 
@@ -163,15 +166,17 @@ Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću
 Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvolucionih slojeva, koristi se 4 slojeva sažimanja, kao i 3 potpuno povezana sloja. 
 
 Ceo proces može se svesti na sledeće korake: 
-- Spektrogram se prvo obrađuje konvolucijom i ReLU-om
-- Smanjujemo veličinu obrađene slike pooling slojem
-- Ponavljamo ovaj proces
+1. Na ulaznu sliku se primenjuje više dvodimenzionalnih konvolucija sa prethodno definisanim brojem kanala a potom i ReLU aktivaciona funkcija.
+2. Smanjujemo veličinu obrađene slike slojem sažimanja (eng. maximum pooling)
+3. Ponavljamo ovaj proces
 
-Konvolucija (po čemu nastaje termin konvolucione neuronske mreže) u obradi slike je operator koji predstavlja sužavanje početne slike množenjem iste određenim filterom. 
+Ovaj proces se ponavlja 4 puta, gde se poslednji sloj konvolucije ne prati slojem sažimanja.
 
-Konvolucija kao bitne detalje posmatra one koji su mnogo puta uhvaćeni u kernelu. Problem može da se desi kada kernel ne zahvata ivice dosta puta, te može mnogo da smanji određenu sliku, a samim tim i da se reši ivičnih detalja. Ako do te pojave dođe, koristi se tehnika koja se zove padding. 
+Konvolucija (po čemu nastaje termin konvolucione neuronske mreže) u obradi slike je operator koji predstavlja obradu početne slike množenjem iste određenim filterom. 
 
-Padding označava dodavanje piksela na ivice. Samim tim, kada konvolucija radi svoj posao, ona će svojim kernelom mnogo puta pokriti tu površinu. 
+Konvolucija kao bitne detalje posmatra one koji su mnogo puta uhvaćeni u kernelu. Problem može da se desi kada kernel ne zahvata ivice dosta puta, te može mnogo da smanji određenu sliku, a samim tim i da se reši ivičnih detalja. Ako do te pojave dođe, koristi se tehnika koja se zove sužavanje. 
+
+Sažimanje označava dodavanje piksela na ivice. Samim tim, kada konvolucija radi svoj posao, ona će svojim kernelom mnogo puta pokriti tu površinu. 
 
 ReLU (rectified linear activation function / rectified linear unit) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
@@ -179,22 +184,21 @@ ReLU (rectified linear activation function / rectified linear unit) je funkcija 
 
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da prepozna.
 
-Za treniranje mreže koriste se dve metode simultano: loss funkcija i back propagation.
+Za treniranje mreže koriste se dve metode simultano (propagacija unapred i unazad), kao i jedna funkcija (kriterijumska funkcija)
 
-Cost funkcija (funkcija troškova ili gubitka) jeste funkcionalna veza željenog outputa i dobijenog outputa u funkciji, a loss funkcija je srednja vrednost svih cost funkcija.
+Kritetijumska funkcija (eng. cost funkcija) jeste funkcionalna veza željenog outputa i dobijenog outputa u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške.
 
-Najkorišćenija loss funkcija je Cross Entropy Loss. 
-Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest output.
+Najkorišćenija loss funkcija je Cross Entropy Loss. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
 
 Formula po kojoj se računa Cross Entropy Loss je sledeća:
 
 $H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right)$
 
-Back propagacija je metod smanjenja grešaka u CNN posmatranjem neophodnih promena u prethodnom sloju od aktivacije da bi se u određenom sloju neuroni aktivirali na određen način.
+Propagacija unazad je metod smanjenja grešaka u CNN posmatranjem neophodnih promena vrednosti parametara mreže u svakom sloju kako bi se neuroni aktivirali na određen način.
 
-Backpropagation prolazi krroz sve primere i traži sumu svih težina veza među neuronima.
+Propagacija unazad prolazi kroz sve slojeve i menja parametre mreže u svakom koraku.
 
-Težine se menjaju u cilju računanja dovoljno dobrog gradient descenta za traženje lokalnog / maksimalnog minimuma ove funkcije, to jest tačnu reč.
+Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradient spusta za traženje lokalnog / maksimalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
 
 ![SGD](static\images\sgd.png)
 
