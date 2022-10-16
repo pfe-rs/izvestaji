@@ -2,7 +2,10 @@
 title: Balansero
 summary: Balansero, balansirajući robot, je projekat rađen na letnjem kampu 2022. godine od Katarine Nedić i Anđele Pantelić.
 ---
-![balansero](https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/robot.jpg)
+![balansero]( <p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/robot.jpg" width="350">
+  </p>
+  )
 
 ## Sadržaj
 
@@ -99,6 +102,15 @@ Jednačina PID kontrolera je:
 
 
 ## Istraživanje i rezultati
+
+- Simulacija fuzzy kontrolera
+
+![simulacija]( <p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy%20simulacija.gif" width="350">
+  </p>
+  )
+
+
 
 - Koristili smo dva PID kontrolera.
 ![PID kontroleri](https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png)
