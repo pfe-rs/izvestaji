@@ -60,9 +60,9 @@ U pojedinačnom redu piksela je potrebno naći kombinaciju vektora protoka iz pr
 
 Problem minimizacije je rešen dinamičkom matricom, čije su koordinate pozicija piksela u redu i redni broj trenutnog predloga u tom pikselu. Naime, algoritam kreće od početka reda piksela, i u matrici čuva najmanju od kumulativnih cena svih kombinacija u delu reda od početnog do datog piksela, koje se završavaju predlogom datog rednog broja u tom pikselu. Sami vektori protoka koji sačinjavaju tu kombinaciju se ne čuvaju, već se najbolja kombinacija rekonstruiše idući unazad kroz matricu nakon što se popuni do kraja. Stari predlozi vektora se zamene novim i kreće se sa obradom sledećeg reda.
 
-(Objašnjenje k-skupova)
+Bez modifikacija algoritma, bilo bi neophodno računati cene slaganja svakog para vektora protoka iz svaka dva susedna piksela u redu. Radi optimizacije možemo koristiti činjenicu da su cene slaganja odsečene. Naša metoda pre BCD-a za svaki par susednih piksela pravi *k-skupove* koji za svaki predlog jednog od njih čuvaju redne brojeve predloga drugog piksela koji daju cenu slaganja manju od granične vrednosti, $τ_ψ$. Algoritam mora da računa samo cene slaganja za predloge prisutne u k-skupovima. Zbog raznovrsnosti predloga, velika većina cena slaganja je odsečena, što čini k-skupove malim i ubrzava algoritam. ((Dodati LaTex + objasnjenja))
 
-Iako deluje da mogu biti od pomoći, u originalnom radu je pokazano da korišćenje algoritama detekcije ivica daje gore rezultate.
+Iako deluje da mogu biti od pomoći, u originalnom radu je pokazano da korišćenje algoritama detekcije ivica u ovom delu programa daje gore rezultate, tako da nisu korišćeni.
 
 ### Baza podataka
 
