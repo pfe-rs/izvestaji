@@ -56,9 +56,9 @@ Polje protoka je modelirano kao Markovljev slučajni proces. Problem procene pok
 
 ### Pronalaženje optimalnih vektora
 
-U pojedinačnom redu piksela je potrebno naći minimalan zbir cena vektora protoka i cena slaganja, uzimajući u obzir trenutno stanje polja protoka u susedna dva reda. Cene na koje treba paziti su cene vektora protoka, cena slaganja sa pikselima iz susednih redova i cena slaganja sa pikselima iz istog reda.
+U pojedinačnom redu piksela je potrebno naći kombinaciju vektora protoka iz predloga koja će dati minimalan zbir cena vektora protoka i cena slaganja, uzimajući u obzir trenutno stanje polja protoka u susedna dva reda. Cene na koje treba paziti su cene vektora protoka, cena slaganja sa pikselima iz susednih redova i cena slaganja sa pikselima iz istog reda.
 
-Problem minimizacije je rešen dinamičkom matricom, čije su koordinate pozicija piksela u redu i redni broj trenutnog predloga vektora protoka. Naime, algoritam kreće od jednog kraja reda piksela, i u matrici čuva najmanju kumulativnu cenu kombinacije vektora protoka koja se završava datim predlogom datog piksela. Sami vektori protoka koji sačinjavaju tu kombinaciju se ne čuvaju, već se najbolja kombinacija rekonstruiše idući unazad kroz matricu nakon što se popuni do kraja. Stari predlozi vektora se zamene novim i kreće se sa obradom sledećeg reda.
+Problem minimizacije je rešen dinamičkom matricom, čije su koordinate pozicija piksela u redu i redni broj trenutnog predloga u tom pikselu. Naime, algoritam kreće od početka reda piksela, i u matrici čuva najmanju od kumulativnih cena svih kombinacija u delu reda od početnog do datog piksela, koje se završavaju predlogom datog rednog broja u tom pikselu. Sami vektori protoka koji sačinjavaju tu kombinaciju se ne čuvaju, već se najbolja kombinacija rekonstruiše idući unazad kroz matricu nakon što se popuni do kraja. Stari predlozi vektora se zamene novim i kreće se sa obradom sledećeg reda.
 
 (Objašnjenje k-skupova)
 
