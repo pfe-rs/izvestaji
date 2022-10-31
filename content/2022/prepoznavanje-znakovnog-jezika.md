@@ -104,11 +104,7 @@ _grafici_
 
 ### Zaključak
 
-### Keypoint Classification
-
-Ovaj metod za klasifikaciju koristi klasifikacionu _fully connected_ neuralnu mrežu čiji su ulazi koordinate krucijalnih tačaka šake.
-
-##### Obrada baze
+Urađeno je poređenje metoda kNN, ASL-KC, CNN i EfficientNetB3 pri prepoznavanju američkog znakovnog jezika. Pokazalo se da metodi kNN treba najviše dorađivanja, uključujući drugačiji način binarizacije šake i samog traženja boje kože. Najbolju uspešnost je imala EfficientNetB3 metoda sa 99% tačnosti. Metode ASL-KC i CNN su imale visoke rezultate sa 95.6% i 96.25%, dok im je vreme treniranja bilo značajno kraće.
 
 ### Literatura
 
