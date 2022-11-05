@@ -12,39 +12,48 @@ summary: Simulacija muve je projekat rađen na letnjem kampu za stare polaznike 
 ### Uvod
 
 Cilj projekta "Simulacija muve" je da implementiramo fizičku simulaciju i unutar nje pomoću ML-a naučimo muvu da leti.
-Za učenje muve koristimo neuralnu mrežu, napisanu u potpunosti u NumPy-u,  u kombinaciji sa genetskim algoritmom.
+Za učenje muve koristimo neuralnu mrežu u kombinaciji sa genetskim algoritmom.
 Neuralne mreže i genetski algoritmi se često koriste za treniranje simulacija, kao npr. simulacija hodanja ili trčanja.
-U našem slučaju, ML koristimo za pomeranje krila muve što onda dovodi do pomeranja muve zbog simulacije sile otpora vazduha na muvu.
+U našem slučaju, napravili smo ML model koji koristimo za kontrolisanje krila muve što onda dovodi do pomeranja muve zbog simulacije sile otpora vazduha na muvu.
 
 ### Aparatura i metoda - Simulacija fizike
 
 #### Kinematika
 
 Sam model muve predstavljen je pozicijama karakterističnih tačaka u lokalnom 3D prostoru.
-Klasu muve možemo smatrati jednim lokalnim koordinatnim sistemom.
-Taj lokalni koordinatni sistem ima svoju poziciju, i brzinu u globalnom koordinatnom sistemu i na njemu primenjujemo zakone pravolinijskog i rotacionog ravnomernog ubrzanog (ili usporenog) kretanja.
-Lokalne koordinate muve konvertujemo u globalni koordinatni sistem pomoću *homogenous transformation matrices*, radi prikaza u 3D prostoru i daljeg računanja u dinamici.
+Krila su definisana pomoću koordinata 3 tačke koje predstavljaju ravan krila.
+Telo muve čini 8 tačaka, jedna za svako teme kvadra koji čini telo muve.
+Model muve možemo smatrati jednim lokalnim koordinatnim sistemom.
+Taj lokalni koordinatni sistem ima svoju poziciju, i brzinu u globalnom koordinatnom sistemu i na njemu se primenjuju zakoni pravolinijskog i rotacionog ravnomernog promenljivog kretanja.
+Lokalne koordinate muve se konvertuju u globalni koordinatni sistem pomoću homogenih matrica translacije i rotacije, radi prikaza u 3D prostoru i daljeg računanja u dinamici.
 
-**Voditi računa o redosledu operacija množenja matrica!** $M = T \times R\times S$ , gde je  $T$ matrica translacije, $R$ matrica rotacije i $S$ matrica skaliranja.
+Vektor koji predstavlja poziciju neke tačke muve u globalnom prostoru dobijamo tako što vektor lokalnih koordinata pomnožimo matricom $M$
+Matricu $M$ dobijamo množenjem matrica translacije gde je pomeraj zapravo pozicija muve i matricu rotacije gde je ugao rotacije ugao rotacije muve oko koordinatnog početka njenog lokalnog koordinatnog sistema.
 
-Simulacija kinematike se vrši sa vremenskim stepenom od 1ms.
-Radi preciznije simulacije bržih pokreta mougće je još smanjiti $dt$, ali time se usporava brzina treniranja simulacije.
+$M = T \times R$, gde je  $T$ matrica translacije, $R$ matrica rotacije.
+
+Sličan metod se koristi i za rotaciju krila u lokalnom koordinatnom sistemu muve.
+Umesto da tačka oko koje se krilo rotira bude koordinatni početak, za tačku rotacije se uzima "zglob" tj. tačka kojom je krilo povezano sa telom muve.
+Rotacija krila je ograničena svojim maksimalnim uglom i brzinom pomeranja, kako krilo ne bi moglo da pravi pokrete koji su nemogući u pravom životu.
 
 #### Dinamika
 
 Drugi deo fizičke simulacije jeste dinamika.
-Originalna zamisao je bila da simuliramo vazduh kao fluid, ali zbog kompleksnosti programa i brzine treniranja neuralne mreže smo odustali od te ideje.
-Umesto toga, koristili smo jednačinu sile otpora sredine.
+Originalna zamisao je bila da simuliramo vazduh kao fluid, ali zbog kompleksnosti programa i brzine treniranja neuralne mreže smo pojednostavili model, tj. koristili smo jednačinu sile otpora sredine.
 
-$$\overrightarrow{F} = \frac{1}{2}\rho \overrightarrow{v}|v|C_DA$$
+$$\textbf{F} = \frac{1}{2}\rho \textbf{v}|\textbf{v}|C_D\textbf{A}$$
 
 $C_D$ je koeficijent sile otpora,
 On je konstanta koja zavisi od oblika tela i njegovog ugla u odnosu na pravac kretanja.
 Umesto računanja tog koeficijenta za svaki ugao, ili uzimanja poznatih tabličnih vrednosti, u formulu smo dodali kosinus od ugla krila kao aproksimaciju.
 
+$\textbf{A}$ predstavlja vektor projekcija površine krila na x, y i z osu globalnog koordinatnog sistema, dok je $\textbf{v}$ vektor komponenti brzine krila po istim osama.
+$\rho$ je gustina vazduha.
+
 Druga aproksimacija koja je korištena je kod računanja momenata sila i ugaonog ubrzanja.
 Umesto da se uvek izračunava osa oko koje se rotira muva, za osu rotacije uvek uzimamo centar mase muve.
 
+Iz sila otpora sredine i gravitacione sile, možemo da izračunamo linearno i rotaciono ubrzanje sistema muve, iz čega se dobija linearna i ugaona brzinu muve za svaki vremenski period $dt$.
 
 ### Aparatura i metoda - ML
 U našem projektu koristimo neuronsku mrežu za kontrolisanje muve, dok pomoću genetskog algoritma unapređujemo mrežu.
@@ -65,7 +74,7 @@ Ovde ću opisati implementaciju vektorizovane mreže i algoritama koji su prilag
 Razlika između ta dva načina implementiranja jeste to što je nevektorizovana mreža implementirana pomoću mnogo "for" petlji i ne može da se paralelizuje izvršavanje koda pomoću više jezgara ili niti, dok je vektorizovana mreža implementirana pomoću vektora i vektorskih operacija koje su optimizovane da se izvršavaju na više jezgara ili niti čime je izvršavanje značajno brže.
 
 #### Opis interfejsa za treniranje
-Algorigam traži da korisnik inicijalizuje populaciju tipa Population nad kojom će posle pozvati funkciju run.
+Algoritam traži da korisnik inicijalizuje populaciju tipa Population nad kojom će posle pozvati funkciju run.
 Prilikom inicijalizovanja populacije treba da se prosledi broj jedinki u populaciji i arhitektura mreže, dok se prilikom poziva funkcije run nad populacijom prosleđuju fitnes funkcija i ostali parametri kao što su šansa za mutaciju gena, nazivi fajlova u kojima će se čuvati geni najboljih mreža, način na koji će se čuvati itd.
 
 Fitnes funkcija je funkcija koju implementira korisnik i koja treba da odredi koliko je dobar svaki gen tj. mreža za određeni zadatak.
@@ -262,6 +271,9 @@ Sledeći grafik predstavlja fitnes u odnosu na broj generacija, nakon treniranja
 ![slika](/images/2022/simulacija-muve/figure1000.png)
 
 Na kraju smo produžili dužinu simulacije na 30 sekundi i dobili smo sledeći video na kome se veoma lepo vidi buba maše krilima i kako se ne kreće toliko po x i z osama.
+
+Simulacija kinematike se vrši sa vremenskim stepenom od 1ms.
+Radi preciznije simulacije bržih pokreta mougće je još smanjiti $dt$, ali time se usporava brzina treniranja simulacije.
 
 ### Zaključak
 Videli smo da se na ovaj način mogu postići prilično realni rezultati i da je algoritam sposoban da nauči ono što zahtevamo od njega.
