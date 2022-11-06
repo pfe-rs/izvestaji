@@ -12,9 +12,9 @@ Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćen
 
 Primena prepoznavanja govora može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, ...
 
-Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: Vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
+Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
 
-Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike, čijom obradom možemo da izvučemo određene karakteristike iz zvuka. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.```
+Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike, čijom obradom možemo da izvučemo određene karakteristike iz zvuka. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.
 
 Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. Uloga ovih metoda može se podeliti u nekoliko kategorija: 
 
@@ -36,6 +36,7 @@ Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signa
 
 Boja na grafiku predstavlja amplitudu signala u određenom vremenskom trenutku. Plava boja na spektrogramu predstavlja niske amplitude, dok crvena boja predstavlja visoke amplitude.
 
+![spektrogram](static\images\2.png)
 
 #### Metode obrade spektrograma
 
@@ -45,23 +46,17 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
 
-$\sigma(\vec{z})_i=\frac{e^{zi}}{\sum{j=1}^K e^{z_j}}$
+![Sigmoid](static\images\Sigmoid.svg)
 
-$$
-\sigma(\vec{z})_i=\frac{e^{zi}}{\sum{j=1}^K e^{z_j}}
-$$
+Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression). Na sledećoj slici prikazana je Softmax funkcija.
 
-$\begin{equation}
-\sigma(\vec{z})_i=\frac{e^{zi}}{\sum{j=1}^K e^{z_j}}
-\end{equation}$
-
-Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression) .
+![Softmax](static\images\Softmax.svg)
 
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
-![Funkcija](static\images\2.png)
-
-- hΘ(x) = sigmoid (w*x + b), Y rezultat, x = promenljiva koju posmatramo
+$$\begin{equation}
+\sigma(\vec{z})_i=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1} 
+\end{equation}$$
 
 Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom, nameštajući beta parametre kroz više iteracija tražeći najbolje fitovanu krivu, odakle se biraju najbolje procene parametara. Nakon toga se dobijeni koeficijenti koriste za računanje verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
