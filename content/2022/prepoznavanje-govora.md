@@ -44,7 +44,7 @@ Boja na grafiku predstavlja amplitudu signala u određenom vremenskom trenutku. 
 
 Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku od linearne regresije, vrednosti njenih rezultata su ograničene između 0 i 1. 
 
-Ova metoda za binarnu klasifikaciju ne koristi linearnu već sigmoidnu funkciju bilo kog tipa, a softmax funkciju kada imamo slučaj sa više klasa.Primer sigmoidne funckije je dat na slici 1.
+U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu funkciju. U slučaju više klasa, koristi se softmax funkcija. Sigmoidna i softmax funckija prikazane su na slici:
 
 ![Sigmoid](static\images\Sigmoid.svg)
 
@@ -112,7 +112,7 @@ Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačni
 
 Formula po kojoj se računa Cross Entropy Loss je sledeća:
 
-$$ H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right) $$
+$L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log (1-\sigma(\mathbf{w} \cdot \mathbf{x}+b))]$
 
 XGBoost se u Pythonu implementira bibliotekom xgboost. 
 
@@ -166,9 +166,9 @@ Konvoluciona neuronska mreža korišćena u ovom projektu sastoji se iz 5 konvol
 Ceo proces može se svesti na sledeće korake: 
 1. Spektrogram se prvo obrađuje konvolucijom i ReLU-om
 2. Smanjujemo veličinu obrađene slike pooling slojem
-3. Ponavljamo ovaj proces
+3. Ponavljamo ovaj proces 4 puta
 
-Konvolucija (po čemu nastaje termin konvolucione neuronske mreže) u obradi slike je operator koji predstavlja obradu početne slike množenjem iste određenim filterom. 
+Napomena: poslednji sloj konvolucije nije praćen slojem sažimanja.
 
 Konvolucija kao bitne detalje posmatra one koji su mnogo puta uhvaćeni u kernelu. Problem može da se desi kada kernel ne zahvata ivice dosta puta, te može mnogo da smanji određenu sliku, a samim tim i da se reši ivičnih detalja. Ako do te pojave dođe, koristi se tehnika koja se zove sužavanje. 
 
@@ -188,7 +188,7 @@ Najkorišćenija loss funkcija je Cross Entropy Loss. Potrebno nam je da minimiz
 
 Formula po kojoj se računa Cross Entropy Loss je sledeća:
 
-$$ H_p(q)=-\frac{1}{N} \sum_{i=1}^N y_i \cdot \log \left(p\left(y_i\right)\right)+\left(1-y_i\right) \cdot \log \left(1-p\left(y_i\right)\right) $$
+$$L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log (1-\sigma(\mathbf{w} \cdot \mathbf{x}+b))]$$
 
 Propagacija unazad je metod smanjenja grešaka u CNN posmatranjem neophodnih promena vrednosti parametara mreže u svakom sloju kako bi se neuroni aktivirali na određen način.
 
