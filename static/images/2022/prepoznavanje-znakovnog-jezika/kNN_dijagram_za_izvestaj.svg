@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1133.9 566.9" style="enable-background:new 0 0 1133.9 566.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#D72229;}
+	.st1{font-family:'MyriadPro-Regular';}
+	.st2{font-size:21.0938px;}
+	.st3{font-size:21.5085px;}
+	.st4{fill:none;stroke:#DD2626;stroke-width:13;stroke-miterlimit:10;}
+	.st5{fill:#DD2626;}
+	.st6{font-size:20.6552px;}
+	.st7{font-size:19.8518px;}
+	.st8{fill:#FFFFFF;}
+	.st9{font-size:38.9445px;}
+	.st10{font-size:53.3204px;}
+	.st11{fill:#FF0000;}
+	.st12{stroke:#FF0000;stroke-miterlimit:10;}
+	.st13{fill:#FFFFFF;stroke:#FF0000;stroke-miterlimit:10;}
+	.st14{fill:none;stroke:#FF0000;stroke-width:5;stroke-miterlimit:10;}
+	.st15{stroke:#FF0000;}
+	.st16{font-size:12.0415px;}
+	.st17{fill:none;}
+</style>
+<symbol  id="Arrow_7" viewBox="-8.5 -47.2 17 94.4">
+	<polygon class="st0" points="8.5,-21.8 0,-47.2 -8.5,-21.8 -3.4,-21.8 -3.4,47.2 2.7,47.2 2.7,-21.8 	"/>
+</symbol>
+<image style="overflow:visible;" width="506" height="440" xlink:href="9DA79B8D.png"  transform="matrix(0.2941 0 0 0.293 115.0054 24.8668)">
+</image>
+<image style="overflow:visible;" width="506" height="452" xlink:href="9DA79B8F.png"  transform="matrix(0.2941 0 0 0.2872 116.7632 225.8434)">
+</image>
+<image style="overflow:visible;" width="160" height="91" xlink:href="9DA79B8A.png"  transform="matrix(0.519 0 0 0.9126 362.3023 249.578)">
+</image>
+<image style="overflow:visible;" width="1" height="1" xlink:href="9DA79B8B.png"  transform="matrix(83.0463 0 0 83.0463 362.3023 431.9531)">
+</image>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(2.1946 0 0 -0.5439 184.3543 189.3316)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(2.4483 0 0 -0.5897 403.6109 382.1284)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(1.739990e-06 -2.4483 -0.6952 -4.178888e-07 313.5442 290.5428)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(2.4483 0 0 -0.7014 806.0329 186.8947)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(1.600170e-06 -2.4483 -0.6394 -4.178888e-07 494.0874 290.2301)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(1.600170e-06 -2.4483 -0.6394 -4.178888e-07 911.5875 288.0894)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(2.4483 0 0 0.658 806.7206 382.8516)" style="overflow:visible;"/>
+<text transform="matrix(1 0 0 1 208.8271 182.4307)"><tspan x="0" y="0" class="st1 st2">Keypoint</tspan><tspan x="0" y="25.3" class="st1 st2">Detection</tspan></text>
+<text transform="matrix(1.0389 0 0 1 287.3853 333.002)"><tspan x="0" y="0" class="st1 st3">Crop</tspan><tspan x="15.3" y="25.8" class="st1 st3">&amp;</tspan><tspan x="-6.2" y="51.6" class="st1 st3">Resize</tspan></text>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(2.4483 0 0 0.6828 584.2048 195.2344)" style="overflow:visible;"/>
+<g>
+	<g>
+		<path class="st4" d="M585,402.4l-0.4,44.1c-1.8,14.8-14.2,26.5-29.2,27.3l-100.1-0.1"/>
+		<g>
+			<polygon class="st5" points="564.2,408.3 585.3,372.6 605.7,408.7 			"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1.0212 0 0 1 330.1045 541.8311)" class="st1 st6">Skin Color Range</text>
+<text transform="matrix(1 0 0 1 385.293 479.5254)" class="st1 st2">HSV</text>
+<text transform="matrix(1 0 0 1 638.0859 281.793)"><tspan x="0" y="0" class="st1 st2">Binarised</tspan><tspan x="0" y="25.3" class="st1 st2">Image</tspan></text>
+<path d="M782.8,445.3c6.3,2.1,15.1,3.4,24.8,3.4s18.5-1.3,24.8-3.4c5.5-1.8,8.9-4.1,8.9-6.3c0-2.2-3.4-4.4-8.9-6.3
+	c-6.3-2.1-15.1-3.4-24.8-3.4s-18.5,1.3-24.8,3.4C771.1,436.7,770.8,441.3,782.8,445.3z M830.1,499.1c2.1,0,3.8,1.7,3.9,3.8
+	c0,2.1-1.7,3.8-3.8,3.9s-3.8-1.7-3.9-3.8c0,0,0,0,0,0C826.3,500.8,828,499.1,830.1,499.1C830.1,499.1,830.1,499.1,830.1,499.1z
+	 M830.1,477.7c2.1,0,3.8,1.7,3.8,3.8c0,2.1-1.7,3.8-3.8,3.8c-2.1,0-3.8-1.7-3.8-3.7C826.3,479.5,828,477.8,830.1,477.7
+	C830.1,477.7,830.1,477.7,830.1,477.7z M830.1,455.5c2.1,0,3.8,1.7,3.8,3.8s-1.7,3.8-3.8,3.8c-2.1,0-3.8-1.7-3.8-3.8c0,0,0,0,0,0
+	C826.4,457.2,828.1,455.5,830.1,455.5L830.1,455.5z M841.4,489.8c-2.3,1.5-4.8,2.7-7.4,3.5c-6.8,2.3-16,3.7-26.3,3.7
+	s-19.5-1.4-26.4-3.7c-2.6-0.8-5.1-2-7.4-3.5v14.4c0.4,2,3.8,4.1,8.9,5.8c6.3,2.1,15.1,3.4,24.8,3.4s18.5-1.3,24.8-3.4
+	c3.8-1.3,6.6-2.7,8-4.2c1.1-1.2,1-2.1,1-3.5V489.8L841.4,489.8z M769.1,439.1c0-4.5,4.7-8.3,12.2-10.8c6.8-2.3,16.1-3.7,26.4-3.7
+	s19.5,1.4,26.3,3.7c6.8,2.3,11.4,5.7,12.1,9.6c0.1,0.3,0.1,0.5,0.1,0.8v66.2c0,4.6-8.8,8.6-12.3,9.8c-6.8,2.3-16.1,3.7-26.3,3.7
+	s-19.6-1.4-26.4-3.7c-3.6-1.2-12.2-5.1-12.2-9.8v-1.5C769.1,481.9,769.1,460.5,769.1,439.1z M774,483c0.4,2,3.8,4.1,8.9,5.8
+	c6.3,2.1,15.1,3.4,24.8,3.4s18.5-1.3,24.8-3.4c5.5-1.8,8.9-4.1,8.9-6.3l0,0v-14c-2.3,1.5-4.8,2.7-7.5,3.5
+	c-6.8,2.3-16.1,3.7-26.3,3.7s-19.5-1.4-26.3-3.7c-2.6-0.8-5.1-2-7.4-3.5V483z M774,461.8c0.4,2,3.8,4.1,8.9,5.8
+	c6.3,2.1,15.1,3.4,24.8,3.4s18.5-1.3,24.8-3.4c5.5-1.8,8.9-4.1,8.9-6.3l0,0v-15c-2.3,1.5-4.8,2.7-7.5,3.5c-6.8,2.3-16,3.7-26.3,3.7
+	s-19.5-1.4-26.4-3.7c-2.6-0.8-5.1-2-7.4-3.5L774,461.8L774,461.8z"/>
+<text transform="matrix(1 0 0 1 738.2861 536.9824)" class="st1 st7">defining dataset</text>
+<g>
+	<rect x="756.5" y="236" width="99.5" height="95"/>
+	<text transform="matrix(0.7992 0 0 1 775.9346 297.1787)" class="st8 st1 st9">kNN</text>
+</g>
+<text transform="matrix(1 0 0 1 966.9902 306.8008)" class="st1 st10">“P”</text>
+<g>
+	<rect x="541.7" y="249.1" width="83.2" height="83.2"/>
+	<path class="st8" d="M554.6,315.3c0,0-2.9,6.4,0,10.5s5.3,0,5.3,0l11.1-25.2c0,0,10,23.4,11.1,23.4s5.3,5.3,7.6,5.9s4.7,1.2,4.7,0
+		s8.2,2.3,8.2,2.3h22.2v-28.7c0,0-27.5-40.4-27-47.5c0.6-7-13.5-4.7-13.5-4.7s-39.8-2.3-40.4,0.6s-2.3,13.5,8.8,14.1
+		s11.1,0.6,11.1,0.6s-11.1,4.7,0,18.8L554.6,315.3z"/>
+	<polygon points="568.7,269 578.1,269 573.4,273.7 	"/>
+</g>
+<g>
+	<path class="st11" d="M624.9,249.1v83.2h-83.2v-83.2H624.9 M629.9,244.1h-5h-83.2h-5v5v83.2v5h5h83.2h5v-5v-83.2V244.1L629.9,244.1
+		z"/>
+</g>
+<g>
+	<path class="st11" d="M445.5,249.6v83.2h-83.2v-83.2H445.5 M450.5,244.6h-5h-83.2h-5v5v83.2v5h5h83.2h5v-5v-83.2V244.6L450.5,244.6
+		z"/>
+</g>
+<g>
+	<path class="st11" d="M263.8,24.9v128.3H115V24.9H263.8 M268.8,19.9h-5H115h-5v5v128.3v5h5h148.8h5v-5V24.9V19.9L268.8,19.9z"/>
+</g>
+<g>
+	<path class="st11" d="M265.6,226.4v128.3H116.8V226.4H265.6 M270.6,221.4h-5H116.8h-5v5v128.3v5h5h148.8h5v-5V226.4V221.4
+		L270.6,221.4z"/>
+</g>
+<g>
+	<path class="st11" d="M444.9,431.4v83.2h-83.2v-83.2H444.9 M449.9,426.4h-5h-83.2h-5v5v83.2v5h5h83.2h5v-5v-83.2V426.4L449.9,426.4
+		z"/>
+</g>
+<rect x="541.6" y="48.4" class="st12" width="83.2" height="83.2"/>
+<path class="st13" d="M554.5,114.6c0,0-2.9,6.4,0,10.5s5.3,0,5.3,0l11.1-25.2c0,0,10,23.4,11.1,23.4s5.3,5.3,7.6,5.9s4.7,1.2,4.7,0
+	s8.2,2.3,8.2,2.3h22.2v-28.7c0,0-27.5-40.4-27-47.5s-13.5-4.7-13.5-4.7s-39.8-2.3-40.4,0.6c-0.6,2.9-2.3,13.5,8.8,14.1
+	c11.1,0.6,11.1,0.6,11.1,0.6s-11.1,4.7,0,18.8L554.5,114.6z"/>
+<polygon class="st12" points="568.6,68.3 578,68.3 573.3,73 "/>
+<rect x="541.9" y="48.5" class="st14" width="27.7" height="27.7"/>
+<rect x="569.6" y="48.5" class="st14" width="27.7" height="27.7"/>
+<rect x="597.4" y="48.5" class="st14" width="27.7" height="27.7"/>
+<rect x="541.9" y="76.2" class="st14" width="27.7" height="27.7"/>
+<rect x="569.6" y="76.2" class="st14" width="27.7" height="27.7"/>
+<rect x="597.4" y="76.2" class="st14" width="27.7" height="27.7"/>
+<rect x="541.9" y="103.9" class="st14" width="27.7" height="27.7"/>
+<rect x="569.6" y="103.9" class="st14" width="27.7" height="27.7"/>
+<rect x="597.4" y="103.9" class="st14" width="27.7" height="27.7"/>
+<g>
+	<rect x="757.4" y="48" class="st14" width="27.7" height="27.7"/>
+	<rect x="785.2" y="48" class="st14" width="27.7" height="27.7"/>
+	<rect x="812.9" y="48" class="st14" width="27.7" height="27.7"/>
+	<rect x="757.4" y="75.7" class="st14" width="27.7" height="27.7"/>
+	<rect x="785.2" y="75.7" class="st14" width="27.7" height="27.7"/>
+	<rect x="812.9" y="75.7" class="st14" width="27.7" height="27.7"/>
+	<rect x="757.4" y="103.4" class="st14" width="27.7" height="27.7"/>
+	<rect x="785.2" y="103.4" class="st14" width="27.7" height="27.7"/>
+	<rect x="812.9" y="103.4" class="st14" width="27.7" height="27.7"/>
+	<text transform="matrix(0.9245 0 0 1 764.2666 64.7891)" class="st15 st1 st16">0.8</text>
+	<text transform="matrix(0.9245 0 0 1 764.1528 121.0684)" class="st15 st1 st16">0.2</text>
+	<text transform="matrix(0.9245 0 0 1 764.1528 93.5293)" class="st15 st1 st16">0.2</text>
+	<text transform="matrix(0.9245 0 0 1 792.8638 64.8184)" class="st15 st1 st16">0.9</text>
+	<text transform="matrix(0.9245 0 0 1 792.8638 121.0684)" class="st15 st1 st16">0.7</text>
+	<text transform="matrix(0.9245 0 0 1 792.2778 92.9434)" class="st15 st1 st16">1.0</text>
+	<text transform="matrix(0.9245 0 0 1 819.8169 92.9434)" class="st15 st1 st16">0.7</text>
+	<text transform="matrix(0.9245 0 0 1 820.4028 64.8184)" class="st15 st1 st16">0.1</text>
+	<text transform="matrix(0.9245 0 0 1 820.9888 121.0684)" class="st15 st1 st16">1.0</text>
+</g>
+<use xlink:href="#Arrow_7"  width="17" height="94.4" x="-8.5" y="-47.2" transform="matrix(1.600170e-06 -2.4483 -0.6394 -4.178888e-07 691.6714 93.3053)" style="overflow:visible;"/>
+<rect x="335.8" y="373.4" class="st17" width="6.6" height="3.3"/>
+</svg>
