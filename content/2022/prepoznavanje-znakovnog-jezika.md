@@ -41,7 +41,7 @@ $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n
 
 Na osnovu dobijene pozicije šake slika je isečena oko nje i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija na osnovu dobijenog HSV opsega i morfološke operacije, erozija i dilatacija, radi uklanjanja šuma.
 
-![kNN binarizovano](/images/2022/prepoznavanje-znakovnog-jezika/kNN_binarised.PNG)
+![kNN binarizovano](/images/2022/prepoznavanje-znakovnog-jezika/kNN_binarised.png)
 
 #### Obrada baze za Keypoint Classification
 
