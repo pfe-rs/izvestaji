@@ -11,7 +11,7 @@ Značajan broj istraživanja je urađeno na ovu temu - rad [[1]](http://arxiv.or
 
 ### Baza podataka
 
-Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. Sastoji se od 26 znakova, za svako od 26 slova engleskog alfabeta, od kojih su dva takođe i pokreti, slovo J i slovo Z.
+Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. Sastoji se od 26 znakova, za svako od 26 slova engleskog alfabeta, od kojih dva sadrže pokret, slovo J i slovo Z.
 
 ![ASL](/images/2022/prepoznavanje-znakovnog-jezika/asll.png)
 
@@ -74,47 +74,52 @@ Preciznost je rasla srazmerno parametrimu N i obrnuto srazmerno parametru k, pri
 
 ### Keypoint Classification
 
-Ovaj metod za klasifikaciju koristi klasifikacionu _fully connected_ neuralnu mrežu čiji su ulazi koordinate krucijalnih tačaka šake.
-Korišćena je jednostavna mreža sa četiri dense sloja.
+Ovaj metod za cilj ima da klasifikuje sliku na osnovu koordinata ključnih tačaka šake. Kao klasifikator koristi _fully connected_ čiji je ulaz koordinate ključnih tačaka, a izlaz jedna od 24 klase. Korišćena je jednostavna mreža sa četiri _dense_ sloja. Metod je radjen sa i bez procene dubine ugradjene u MediaPipe Holistic metodu koja je korišćena za nalaženje ključnih tačaka.
 
 #### Rezultati
 
-Dobijen je loss od 0.19 i preciznost od 95.6%.
-![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/training_graph.png)
-![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph.png)
-Matrica konfuzije predstavlja tabelu oznake svake od slika u odnosu na pripisanu oznaku. Najveća pogrešna vrednost je dobijena pripisivanjem slova E slovu O - šest puta.
+U slučaju kada je korišćena aproksimacija dubine dobijena je preciznost od 95.6%, dok je preciznost bez nje bila znatno manja, 85.8%. Razlika izmedju ova dva primera verovatno bi bila primetnija u realnoj primeni kada nisu sve slike šaka na sličnoj udaljenosti od same šake. Grafici rezultata u daljem radu prikazani su samo za bolju od dve metode. 
+
+![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/graph_together_aslkc.png)
+
+Matrica konfuzije predstavlja raspodelu učestalosti klasifikacije po klasama. Korisna je za primećivanje da li je neka klasa često pogrešno klasifikovana i kao šta. na datoj matrici konfuzije najveća pogrešna vrednost je dobijena pripisivanjem slova "E" slovu "O" - šest puta.
+
 ![Matrica konfuzije](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix.png)
 
 ### Extended MNIST - CNN
 
-Sastavljena je konvoluciona neuronska mreža po uzoru na MNIST-ov model klasifikacije ASL-a. Ulazni podaci za ovu mrežu su znatno manji od korišćene baze što je rezultovalo u dodavanje dodatna tri konvoluciona sloja i uklanjanje dropout funkcija.
+Ovaj metod bazira se na klasifikaciji pomoću konvolucione neuralne mreže. Model je građen po uzoru na konvolucioni klasifikacioni model za MNIST bazu podataka za ASL. Ova baza sadrži _grayscale_ slike znatno manjih dimenzija od korišćene baze (28x28) pa je za adaptaciju modela za slike većih dimenzija sa tri umesto jednog kanala potrebno proširiti mrežu. Ovo proširenje postignuto je dodavanjem dodatna tri konvoluciona sloja i uklanjanjem _dropout_ funkcija izmedju slojeva radi manje osetljivosti pri treniranju.
 
 _Nova arhitektura mreže slika_
 
 #### Rezultati
 
-Ovako izmenjenom mrežom je dobijen loss od 0.18 i accuracy od 96.25%.
-![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/loss_graph.png)
-![Grafik preciznosti](/images/2022/prepoznavanje-znakovnog-jezika/accuracy_graph_MNIST.png)
-Matrica konfuzije za ovaj metod ukazuje na najviše mešanja slova F slovom W.
+Ovako izmenjenom mrežom je dobijena preciznost od 96.25%. Iako precizniji od prethodnog metoda klasifikator za ovaj metod se znatno duže trenira.
+
+![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/graph_together_emnist.png)
+
 ![Matrica konfuzije](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix_MNIST.png)
 
 ### EfficientNetB3
 
-Za poboljšanje konvolucionih neuronskih mreža česta je praksa skaliranje po jednoj od sledeće tri dimenzije - dubina, širina i veličina slike. U [[6]](https://arxiv.org/pdf/1905.11946.pdf) je predložen novi state-of-the-art način skaliranja mreže, u kome se dobija balans ove tri dimenzije skalirajući svaku od njih istom konstantom. Ovako je razvijeno osam mreža EfficientNetB0 do EfficientNetB7.
+Za poboljšanje konvolucionih neuronskih mreža česta je praksa skaliranje po jednoj od sledeće tri dimenzije - dubina, širina i veličina slike. U [[6]](https://arxiv.org/pdf/1905.11946.pdf) predložen je state-of-the-art način skaliranja mreže, u kome se dobija balans ove tri dimenzije skalirajući svaku od njih istom konstantom. Ovako je razvijeno osam mreža EfficientNetB0 do EfficientNetB7.
 Radi poklapanja rezolucije slika iz baze i ulaznih podataka mreže implementirana je EfficientNetB3 mreža.
 
 _arhitektura_
 
 #### Rezultati
 
-Korišćenjem EfficientNetB3 dobijen je loss od 0.44 i preciznost od 99%.
+Korišćenjem EfficientNetB3 mreže dobijena je preciznost od 99%. Zbog kompleksnosti mreže njeno treniranje je izuzetno sporo.
 
 _grafici_
 
 ### Zaključak
 
-Urađeno je poređenje metoda kNN, KC, CNN i EfficientNetB3 pri prepoznavanju američkog znakovnog jezika. Pokazalo se da metodi kNN treba najviše dorađivanja, uključujući drugačiji način binarizacije šake i samog traženja boje kože. Najbolju uspešnost je imala EfficientNetB3 metoda sa 99% tačnosti. Metode KC i CNN su imale visoke rezultate sa 95.6% i 96.25%, dok im je vreme treniranja bilo značajno kraće.
+Urađeno je poređenje metoda kNN, KC, CNN i EfficientNetB3 pri prepoznavanju američkog znakovnog jezika. Pokazalo se da je metodi kNN potrebno najviše dorade. Ova dorada bi primarno uključivala drugačiji sistem binarizacije šake kao i dublje ispitivanje raspodele klasa i da li se fičeri ASL-a uopšte raspoređuju po klasterima kao što je to slučaj za indijski znakovni jezik. Najbolju uspešnost je imala EfficientNetB3 metoda sa 99% tačnosti. Metode KC i CNN su imale visoke rezultate sa 95.6% i 96.25%, dok im je vreme treniranja bilo značajno kraće.
+
+### Dalji rad
+
+Dalji rad na projektu bi uključivao skaliranje klasifikatora slike na video zapise. Ovaj problem donosi dodatan zadatak detektovanja lažnih znakova, trenutaka kada je šaka u kadru ali je u procesu pomeranja iz jednog znaka u drugi pa bi čitanje bilo kog slova bilo pogrešno. Ovaj problem rešava se kroz poredjenje sigurnosti mreže u izabranu klasu kao i uvodjenjem novih metrika kao _latent_cognizance_ priloženih u radu [[3]](https://arxiv.org/pdf/2110.15542.pdf). Nakon uspešne implementacije klasifikatora na video snimke dodatno poboljšanje postiglo bi se implementacijom _natural language processing_ modela pomoću kojih se mogu ukloniti nepreciznosti pri prevodu.
 
 ### Literatura
 
