@@ -68,9 +68,9 @@ Pod predpostavkom da su ovako dobijeni podaci podeljeni na klastere, potreban je
 
 ##### Rezultati
 
-Na osnovu N i k parametara, izračunate su tačnost metode u svakom od slučajeva. Vizuelni prikaz rezultata je dobijen u vidu mape intenziteta.
+Na osnovu N i k parametara, izračunata je tačnost metode u svakom od slučajeva. Vizuelni prikaz rezultata je dobijen u vidu mape intenziteta. Ispostavlja se da preciznost raste srazmerno parametrimu N i obrnuto srazmerno parametru k, pri čemu je najbolji rezultat dobijen za k = 1 i N = 20, sa preciznošću od 56%.
+
 ![Mapa intenziteta](/images/2022/prepoznavanje-znakovnog-jezika/heatmap.png)
-Preciznost je rasla srazmerno parametrimu N i obrnuto srazmerno parametru k, pri čemu je najbolji rezultat dobijen za k = 1 i N = 20, sa preciznošću od 56%.
 
 ### Keypoint Classification
 
