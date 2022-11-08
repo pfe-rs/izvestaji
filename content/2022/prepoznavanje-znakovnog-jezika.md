@@ -33,7 +33,7 @@ Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Na svakoj slici 
 
 Klasifikacija znaka koji je pokazan je realizovan prvo kroz određivanje pozicije šake. Za olakšanje ovog procesa ekstraktovana su 21 ključna tačka šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
 
-![ACAB](/images/2022/prepoznavanje-znakovnog-jezika/acab.PNG)
+![ACAB](/images/2022/prepoznavanje-znakovnog-jezika/acab-Copy.PNG)
 
 Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti dobijene 21 tačke, pri čemu su dobijeni neprecizni rezultati. Drugi način bio je odredjivanje koordinate sredine šake i uzimanje njene vrednosti, što nije radilo jer se često nalazila senka na tom delu slike. Finalni i najprecizniji način je bio uzimanje celog opsega ovih tačaka. Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je opseg takav da ja najmanji moguć a da u njega i dalje spadaju sve HSV vrednosti ključnih tašaka:
 
