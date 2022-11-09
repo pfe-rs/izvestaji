@@ -46,7 +46,7 @@ Na svakoj lokaciji piksela, njegova okolina je podeljena u krugove različitih v
 
 Postoje 4 glavna parametra koji određuju izgled DAISY deskriptora: prečnik oblasti komšija ($R$), broj izdvojenih orijentacija ($o$), broj konvolucionih orijentacionih prstenova ($r$) i broj krugova na svakom prstenu ($c$).
 
-Menhetn norma razlike deskriptorskih vektora početnog i krajnjeg piksela nekog predloga rednog broja %l_p$ u pikselu $p$ se čuva kao *cena* tog vektora protoka, $\varphi_{\mathbf{p}}\left(l_{\mathbf{p}}\right)$. Odseca se iznad granične vrednosti $\tau_\phi$ i koristi se u daljim proračunima.
+Menhetn norma razlike deskriptorskih vektora početnog i krajnjeg piksela nekog predloga rednog broja $l_p$ u pikselu $p$ se čuva kao *cena* tog vektora protoka, $\varphi_{\mathbf{p}}\left(l_{\mathbf{p}}\right)$. Odseca se iznad granične vrednosti $\tau_\phi$ i koristi se u daljim proračunima.
 
 ### Random Field Model
 
