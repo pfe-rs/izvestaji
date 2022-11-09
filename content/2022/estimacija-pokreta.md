@@ -46,23 +46,62 @@ Na svakoj lokaciji piksela, njegova okolina je podeljena u krugove različitih v
 
 Postoje 4 glavna parametra koji određuju izgled DAISY deskriptora: prečnik oblasti komšija ($R$), broj izdvojenih orijentacija ($o$), broj konvolucionih orijentacionih prstenova ($r$) i broj krugova na svakom prstenu ($c$).
 
-Menhetn norma razlike deskriptorskih vektora početnog i krajnjeg piksela vektora protoka se čuva kao *cena* tog vektora protoka. Odseca se iznad granične vrednosti $\tau_\phi$ i koristi se u daljim proračunima.
+Menhetn norma razlike deskriptorskih vektora početnog i krajnjeg piksela nekog predloga rednog broja %l_p$ u pikselu $p$ se čuva kao *cena* tog vektora protoka, $\varphi_{\mathbf{p}}\left(l_{\mathbf{p}}\right)$. Odseca se iznad granične vrednosti $\tau_\phi$ i koristi se u daljim proračunima.
 
 ### Random Field Model
 
-Polje protoka je modelirano kao Markovljev slučajni proces. Problem procene pokreta je sveden na minimizaciju zbira cena vektora protoka i *cene slaganja* dva vektora protoka svaka dva susedna piksela, koja je definisana kao Menhetn norma njihove razlike. Kao i cena vektora protoka, odsečena je odozgo sa $\tau_\psi$, što omogućava efikasnije izvršavanje programa i izbegavanje neproporcionalnog uticaja oštrih prekida. U svakom trenutku se čuva trenutno polje protoka, i ukupna cena se postepeno smanjuje odabirom bolje kombinacije vektora protoka iz skupa vektora svakog piksela. Ovo se radi pomoću spuštanja po blokovima koordinata (eng: *block coordinate descent), nalaženjem minimalnog zbira cena u pojedinačnom redu ili koloni piksela na slici. Ovo ne garantuje nalaženje globalnog minimuma cene, što je NP-težak problem, ali garantuje smanjivanje ukupne cene slike u svakom koraku spuštanja.
+Za par predloga $l_{\mathbf{p}}$ i $l_{\mathbf{q}}$ susednih piksela $p$ i $q$ definišemo *cenu slaganja* $\psi_{\mathbf{p}, \mathbf{q}}\left(l_{\mathbf{p}}, l_{\mathbf{q}}\right)$ kao Menhetn normu njihove razlike.
 
-(Dodati LaTex)
+
+Kao i cena vektora protoka, odsečena je odozgo sa $\tau_\psi$.
+
+Polje protoka je modelirano kao Markovljev slučajni proces. Problem procene pokreta je sveden na minimizaciju zbira cena vektora protoka i cena slaganja.
+
+$$
+\lambda \sum_{\mathbf{p}} \varphi_{\mathbf{p}}\left(l_{\mathbf{p}}\right)+\sum_{\mathbf{p} \sim \mathbf{q}} \psi_{\mathbf{p}, \mathbf{q}}\left(l_{\mathbf{p}}, l_{\mathbf{q}}\right)
+$$
+
+Vrednost $\lambda$ je težinski faktor i u programu je jednak 0.05. Simbolima $p$ i $q$ su označeni pikseli na slici, susedni u desnoj sumi.
 
 ### Pronalaženje optimalnih vektora
 
+U svakom trenutku se čuva trenutno polje protoka, i ukupna cena se postepeno smanjuje odabirom bolje kombinacije vektora protoka iz skupa vektora svakog piksela. To se radi pomoću spuštanja po blokovima koordinata (eng: *block coordinate descent), nalaženjem minimalnog zbira cena u pojedinačnom redu ili koloni piksela na slici. Ovo ne garantuje nalaženje globalnog minimuma cene, što je NP-težak problem, ali garantuje smanjivanje ukupne cene slike u svakom koraku spuštanja.
+
 U pojedinačnom redu piksela je potrebno naći kombinaciju vektora protoka iz predloga koja će dati minimalan zbir cena vektora protoka i cena slaganja, uzimajući u obzir trenutno stanje polja protoka u susedna dva reda. Cene na koje treba paziti su cene vektora protoka, cena slaganja sa pikselima iz susednih redova i cena slaganja sa pikselima iz istog reda.
 
-Problem minimizacije je rešen dinamičkom matricom, čije su koordinate pozicija piksela u redu i redni broj trenutnog predloga u tom pikselu. Naime, algoritam kreće od početka reda piksela, i u matrici čuva najmanju od kumulativnih cena svih kombinacija u delu reda od početnog do datog piksela, koje se završavaju predlogom datog rednog broja u tom pikselu. Sami vektori protoka koji sačinjavaju tu kombinaciju se ne čuvaju, već se najbolja kombinacija rekonstruiše idući unazad kroz matricu nakon što se popuni do kraja. Stari predlozi vektora se zamene novim i kreće se sa obradom sledećeg reda.
+Problem minimizacije je rešen dinamičkom matricom $C$, čije su koordinate pozicija piksela u redu i redni broj trenutnog predloga u tom pikselu. Matrica se popunjava po jednačini:
 
-Bez modifikacija algoritma, bilo bi neophodno računati cene slaganja svakog para vektora protoka iz svaka dva susedna piksela u redu. Radi optimizacije možemo koristiti činjenicu da su cene slaganja odsečene. Naša metoda pre BCD-a za svaki par susednih piksela pravi *k-skupove* koji za svaki predlog jednog od njih čuvaju redne brojeve predloga drugog piksela koji daju cenu slaganja manju od granične vrednosti, $\tau_\psi$. Algoritam mora da računa samo cene slaganja za predloge prisutne u k-skupovima. Zbog raznovrsnosti predloga, velika većina cena slaganja je odsečena, što čini k-skupove malim i ubrzava algoritam. ((Dodati LaTex + objasnjenja))
+$$
+\begin{aligned}
+\mathbf{C}(x, l) &=\lambda \varphi_{(x, y)}(l)+\psi_{(x, y),(x, y-1)}\left(l, l_{x, y-1}^*\right)+\psi_{(x, y),(x, y+1)}\left(l, l_{x, y+1}^*\right) \\
+&+\min _{k \in L(x)}\left(\psi_{(x, y),(x-1, y)}(l, k)+\mathbf{C}(x-1, k)\right)
+\end{aligned}
+$$
+
+Algoritam kreće od početka reda piksela, i u $\mathbf{C}(x, l)$ čuva najmanju od kumulativnih cena svih kombinacija u delu reda od početnog do piksela rednog broja $x$, koje se završavaju predlogom $l$ tog piksela. Predlozi označeni $l_{x, y}^*$ su trenutni predlozi iz susednih redova na lokaciji $(x,y)$, a $L(x)$ skup predloga piksela $x$. Sami vektori protoka koji sačinjavaju tu kombinaciju se ne čuvaju, već se najbolja kombinacija rekonstruiše idući unazad kroz matricu nakon što se popuni do kraja. Stari predlozi vektora se zamene novim i kreće se sa obradom sledećeg reda.
+
+Drugi sabirak se ne računa grubom silom, već pomoću *k-skupova*.
+
+### K-skupovi
+
+Bez modifikacija algoritma, bilo bi neophodno računati cene slaganja svakog para vektora protoka iz svaka dva susedna piksela u redu. Radi optimizacije možemo koristiti činjenicu da su cene slaganja odsečene. Naša metoda pre BCD-a za svaki par susednih piksela pravi k-skupove koji za svaki predlog jednog od njih čuvaju redne brojeve predloga drugog piksela koji daju neodsečenu cenu slaganja $\psi^*$ manju od granične vrednosti, $\tau_\psi$.
+
+$$
+\mathcal{K}_{\mathbf{p}, \mathbf{q}, l}={k \in L(x) | \psi^*<\tau_\psi\right\}
+$$
+
+Algoritam mora da računa samo cene slaganja za predloge prisutne u k-skupovima. Zbog raznovrsnosti predloga, velika većina cena slaganja je odsečena, što čini k-skupove malim i ubrzava algoritam. Kao drugi sabirak u jednačini popunjavanja matrice se koristi minimum vrednosti $a$ i $b$, gde je $a$ najbolja vrednost dobijena koristeći predloge iz trenutnog k-skupa, a $b$ vrednost koja podrazumeva oštri prekid.
+
+$$
+a = \min _{k \in \mathcal{K}_{(x, y),(x-1, y), l}}\left(\psi_{(x, y),(x-1, y)}(l, k)+\mathbf{C}(x-1, k)\right)
+$$
+
+$$ 
+b=\tau_\psi+\min _{k \in L(x)}\left(\mathbf{C}(x-1, k)\right)
+$$
 
 Iako deluje da mogu biti od pomoći, u originalnom radu je pokazano da korišćenje algoritama detekcije ivica u ovom delu programa daje gore rezultate, tako da nisu korišćeni.
+
 
 ### Baza podataka
 
