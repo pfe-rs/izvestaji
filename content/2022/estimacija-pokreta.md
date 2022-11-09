@@ -127,6 +127,10 @@ Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vr
 |6| 4.33|18.20|
 |7|4.30|18.15|
 
+![Srednja greska](/images/2022/estimacija-pokreta/a.svg)
+
+![Ppp](/images/2022/estimacija-pokreta/b.svg)
+
 ## Literatura
 
 Roth, S., Black, M.J.: On the spatial statistics of optical flow. IJCV 74(1), 33–50 (2007)
