@@ -87,7 +87,7 @@ Drugi sabirak se ne računa grubom silom, već pomoću *k-skupova*.
 Bez modifikacija algoritma, bilo bi neophodno računati cene slaganja svakog para vektora protoka iz svaka dva susedna piksela u redu. Radi optimizacije možemo koristiti činjenicu da su cene slaganja odsečene. Naša metoda pre BCD-a za svaki par susednih piksela pravi k-skupove koji za svaki predlog jednog od njih čuvaju redne brojeve predloga drugog piksela koji daju neodsečenu cenu slaganja $\psi^*$ manju od granične vrednosti, $\tau_\psi$.
 
 $$
-\mathcal{K}_{\mathbf{p}, \mathbf{q}, l}={k \in L(x) | \psi^*<\tau_\psi\right\}
+\mathcal{K}_{\mathbf{p}, \mathbf{q}, l}=\{ k \in L(x) | \psi_{\mathbf{p}, \mathbf{q}}^*(l,k)<\tau_\psi \}
 $$
 
 Algoritam mora da računa samo cene slaganja za predloge prisutne u k-skupovima. Zbog raznovrsnosti predloga, velika većina cena slaganja je odsečena, što čini k-skupove malim i ubrzava algoritam. Kao drugi sabirak u jednačini popunjavanja matrice se koristi minimum vrednosti $a$ i $b$, gde je $a$ najbolja vrednost dobijena koristeći predloge iz trenutnog k-skupa, a $b$ vrednost koja podrazumeva oštri prekid.
