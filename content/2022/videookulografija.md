@@ -90,7 +90,7 @@ Konvertovanjem RGB vrednosti piksela slike koje zauzimaju 24 bita u grayscale  p
 Na slici 3 može se videti kako slika izgleda u RGB prostoru i njen sivi ekvivalent.
 
  
- ![RGB u GRAYSCALE](/images/2022/videookulografija/RGBtoGRAY.jpg)(slika 3)
+![RGB u GRAYSCALE](/images/2022/videookulografija/RGBtoGRAY.jpg)(slika 3)
 
 
 #### 3.2.1.2. Zamućivanje
