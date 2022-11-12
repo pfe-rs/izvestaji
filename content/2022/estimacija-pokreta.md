@@ -2,23 +2,21 @@
 title: Estimacija pokreta
 summary: Estimacija pokreta pomoću optical flow je projekat rađen na letnjem kampu za stare polaznike 2022. godine od Milice Gojak i Novaka Stijepića.
 ---
-[to do]: <ubaci reference, objasni CRF, ubaci slike, postprocessing>
 
 ## Uvod
 
 Procena kretanja je proces određivanja vektora kretanja koji opisuju prelazak jedne slike u drugu. Predstavlja jedan od osnovnih problema oblasti kompjuterske vizije.
 
-Većina metoda definiše problem estimacije kao problem minimizacije energije. 
+Klasična formulacija estimacije optičkog protoka definiše problem kao kontinualni variacijski problem optimizacije energija. Kako bi mogli da se reše slučajevi sa pomerajima većim od nekoliko piksela koristi se metod od gurbe ka finijim estimacijama[^1]. Nažalost, ovaj metod često dovodi do nedostataka oštrih promena, diskontinuiteta, optičkog proteka koji postoje u pravom polju kretanja naručito pri opisivanju kretanja u blizini ivica. Stoga je veliko broj istraživača fokusiran na preformulaciju problema ne bi li bili dopušteni diskontinuiteti.
 
-Uprkos njihovim uspesima, ovaj i mnogi drugi pristupi su ograničeni činjenicom da je prostorna regularnost modelirana kao konveksna funkcija. Pretpostavka pomaže optimizaciji, mada dobijenom polju kretanja (eng. *flow field*)
-nedostaju oštri prekidi koji postoje u pravom polju kretanja, naročito pri opisivanju kretanja u blizini granica.
-Veliki broj istraživača je fokusiran na preformulaciju problema ne bi li bili dopušteni diskontinuiteti.
+Jedan smer pri rešavanju problema jeste modeliranje protoka korišćenjem Markovljevih slučajnih procesa[^2] [^3]
 
-Roth i Black su proučavali prostorne statistike optičkog protoka i nagovestili da konveksne energije koje koristi većina pristupa estimaciji obezbeđuju samo aproksimaciju statistika protoka. Predlažu korišćenje Markovljevih slučajnih procesa, ali zbog nekonveksnih energija dobijanje zaključka ostaje vrlo izazovan problem i polja kretanja procenjena korišćenjem pristupa kontinualne optimizacije još uvek pate od izglađenih diskontinuiteta.
 
-U oblasti *stereo matching*-a ove poteškoće su prepoznate i potreba za nekonveksnim energetskim funkcijama je razrešena. Korišćenje funkcija je olakšano modeliranjem diskretnih optimizacionih algoritama, poput *graph cut*-ova ili *message passing* koje su često bile u mogućnosti da ostvare približno globalan optimum. Većina stereo tehnika sa najboljim rezultatima se oslanja na diskretnu optimizaciju za minimizaciju energije a ne konveksnih funkcija. Iako se estimacija dispariteta može posmatrati i kao ograničeni slučaj optičkog protoka, malo autora je pokušalo da koristi diskretnu optimizaciju za estimaciju optičkog protoka.
+Sledeći primere iz *stereo matching*-a optimizacija energija se može olakšati korišćenjem diskretnih optimizacionih algoritama , poput *graph cut*-ova ili *message passing* koje su često bile u mogućnosti da ostvare približno globalan optimum.
 
-U referentnoj metodi(Menze et al. 2015) su predložene tri različite strategije optimizacije diskretnog pristupa. Cilj rada je bio ispitivanje uticaja različitih algoritama na preciznost određivanja optičkog prootka.
+U oblasti *stereo matching*-a ove poteškoće su prepoznate i potreba za nekonveksnim energetskim funkcijama je razrešena. Korišćenje funkcija je olakšano modeliranjem diskretnih optimizacionih algoritama, poput *graph cut*-ova[^4] ili *message passing*-a [^5] koje su često bile u mogućnosti da ostvare približno globalan optimum. Iako se estimacija dispariteta može posmatrati i kao ograničeni slučaj optičkog protoka, malo autora je pokušalo da koristi diskretnu optimizaciju za estimaciju optičkog protoka.
+
+U referentnoj metodi [^6] su predložene tri različite strategije optimizacije diskretnog pristupa. Cilj rada je bio ispitivanje uticaja različitih algoritama na preciznost određivanja optičkog protoka.
 
 ## Metod
 
@@ -26,7 +24,7 @@ U referentnoj metodi(Menze et al. 2015) su predložene tri različite strategije
 
 Polje kretanja se određuje nad parom slika; referentnoj slici i ciljanoj slici (slici koja je uslikana nekoliko trenutaka nakon referentne). Referentnu sliku želimo da pomoću vektora protoka pretvorimo u ciljanu sliku.
 
-Ciljana slika se deli na ćelije visine $h$ i širine $w$. Svaki piksel referentne slike treba dobiti po $K$ predloga destinacije vektora protoka iz svake okolne ćelije ciljane slike, čime se dobija raznovrstan skup predloga od kojih će se kasnije birati konačni vektor protoka. Okolne ćelije definišemo kao ćelije u pravougaoniku širine $5w$ i visine $5h$, centriranom na referentnoj ćeliji. Za svaku ćeliju se koristi nasumična k-d šuma (eng: *randomized k-d tree forest*) za deskriptore piksela koji pripadaju toj ćeliji. To je efikasna struktura za nalaženje $K$ piksela najbližih datom pikselu, po sličnosti deskriptora računatih DAISY algoritmom. Za razliku od referentne metode koja čuva sve k-d šume tokom generisanja predloga, naša metoda pravi k-d šumu za jednu ćeliju, iskoristi je za nalaženje najsličnijih piksela u ćelijama u okolini i više je ne čuva. Za pravljenje k-d šuma koristi se algoritam iz biblioteke FLANN[^10].
+Ciljana slika se deli na ćelije visine $h$ i širine $w$. Svaki piksel referentne slike treba dobiti po $K$ predloga destinacije vektora protoka iz svake okolne ćelije ciljane slike, čime se dobija raznovrstan skup predloga od kojih će se kasnije birati konačni vektor protoka. Okolne ćelije definišemo kao ćelije u pravougaoniku širine $5w$ i visine $5h$, centriranom na referentnoj ćeliji. Za svaku ćeliju se koristi nasumična k-d šuma (eng: *randomized k-d tree forest*) za deskriptore piksela koji pripadaju toj ćeliji. To je efikasna struktura za nalaženje $K$ piksela najbližih datom pikselu, po sličnosti deskriptora računatih DAISY algoritmom. Za razliku od referentne metode koja čuva sve k-d šume tokom generisanja predloga, naša metoda pravi k-d šumu za jednu ćeliju, iskoristi je za nalaženje najsličnijih piksela u ćelijama u okolini i više je ne čuva. Za pravljenje k-d šuma koristi se algoritam iz biblioteke FLANN[^7].
 
 Menhetn norma razlike deskriptorskih vektora početnog i krajnjeg piksela nekog predloga rednog broja $l$ u pikselu $(x,y)$ se čuva kao *cena* tog vektora protoka, $\varphi_{(x,y)}(l)$. Odseca se iznad granične vrednosti $\tau_\phi$ i koristi se u daljim proračunima. Vektori protoka između piksela koji su slični po DAISY algoritmu imaju malu cenu. 
 
@@ -36,19 +34,9 @@ Susedni pikseli često imaju sličan vektor protoka. Zato se dodatno uzima $N$ n
 
 #### DAISY
 
-DAISY je algoritam koji pretvara lokalne regione slike u niskodimenzionalne invarijantne deskriptore koji mogu da se koriste za uparivanje i klasifikaciju.
+DAISY[^8] je algoritam koji pretvara lokalne regione slike u niskodimenzionalne invarijantne deskriptore koji mogu da se koriste za uparivanje i klasifikaciju.
 
-Slično SIFT deskriptoru, DAISY je 3D histogram gradijenata lokacija i orijentacija. Razlika leži u dva aspekta. 
-Jedna je da se u SIFT-u za konvolucije gradijenata u određenim smerovima koriste težinske sume normi gradijenata, dok DAISY koristi nekolino Gausovih filtera. Ovo doprinosi efikasnom računanju deskriptora na svakoj lokaciji piksela, zato što histogram treba da se izračuna samo jednom po regiji i može se koristiti za sve okolne piksele. Druga razlika je da DAISY koristi kružnu konfiguraciju komšija umesto pravougaone koje koristi SIFT. Za datu ulaznu sliku $I$, određen broj mapa orijentacija $G_o$, jedna za svaki procenjeni pravac $o$, su prvo izračunati. Formalno su definisani kao:
-
-
-$$G_o = \left(\frac{\partial I}{\partial o} \right) ^+ $$ 
-
-Gde $+$ znači da su samo pozitivne vrednosti sačuvane da bi se održala polarnost intenziteta promena. Nad svakom mapom orijentacija, koja predstavlja gradijentne norme za taj pravac na svim lokacijama piksela, se nekoliko puta vrši Gausova konvolucija sa kernelima različitih standardnih devijacija da bi se dobile konvoluirane orijentacione mape. Efikasnost DAISY algoritma proizilazi upravo odavde, zato što su Gausovi filteri razdvojivi i zato se konvolucije mogu vršiti vrlo efikasno. Ovo znači da se konvolucije sa velikim kernelom mogu računati iz nekoliko uzastopnih konvolucija sa manjim kernelima. Stoga se smanjuje količina računanja.
-
-Na svakoj lokaciji piksela, njegova okolina je podeljena u krugove različitih veličina lociranih na seriji koncentričnih prstenova. Prečnik svakog kruga je proporcionalan njegovoj udaljenosti od centraknog piksela i standardna devijacija Gausovog kernela je proporcionalna veličini kruga. Unutar svakog kruga je napravljen vektor sabiranjem svih 
-
-Postoje 4 glavna parametra koji određuju izgled DAISY deskriptora: prečnik oblasti komšija ($R$), broj izdvojenih orijentacija ($o$), broj konvolucionih orijentacionih prstenova ($r$) i broj krugova na svakom prstenu ($c$).
+Direkto inspirisan SIFT-om [^9] gleda se gradient intenziteta piksela po određenim orijenracijama, ali kako se u SIFT-u za datu karakterističnu tačku računaju gradienti nad  pravougaonim prozorom, DAISY komšije deli po krugovima različitih veličina čiji se centri nalaze na seriji koncentričnih prstenova. Prečnik svakog kruga je proporcionalan njegovom rastojanju od karakteristične tačke. Poenta ovakve podele komšija je u tome da se vektor koji opisuje tačku može izracunati vrlo brzo pomoću Gausovskih konvolucija i upravo zato je DAISY vrlo koristan za računanje deskriptora za svaki piksel.
 
 ### Random Field Model
 
@@ -96,9 +84,11 @@ $$
 
 ### Baza podataka
 
-(Malo o bazi)
+Za evaluaciju programa korisćena je KITTI[^10] baza za optički protok. Podaci su usnimljeni u Karlsrueru, gradu u Nemačkoj. Baza se sastoji iz 200 scena u trening setu i 200 scena u test setu. Svaka scena se sastoji iz dve sekvence uzastopnih slika, referentne i ciljane slike.
 
 ### Postprocesiranje
+
+Ranije opisani algoritam dodeljuje svaki piksel referentne slike pikselu ciljane slike. Kao unapređenje algoritma vrši se izbacivanje piksela na osnovu dva kriterijuma: provere konzistentnosti i uklanjanja malih segmenata, nakon čega se primenjuje EpicFlow[^11]. Provera konzistentnosti se vrši tako što se računa optički protok unapred kao i unazad, u suprotnom poretku od datog u bazi podataka i vektor protoka se izbacuje ako je odstupanje vektora protoka veće od definisanog praga. Zatim se izbacuju mali segmenti od najviše 100 piksela koji odstupaju od kretanja okolnih piksela usled pretpostavke da se radi o kretanju većih celina i da izolovani segmenti odgovaraju pogrešnoj proceni. Kako bi se dobilo u potpunosti definisano polje protoka koristi se EpicFlow algoritam koji pikselima koji nemaju definisan protok računa isti uzimajući u obzir okolne piksele i ivice slike sa hipotezom da ivice slike definišu granice kretanja, odnosno da pikseli sa suprotne strane ivice odgovaraju kretaju različitih objekata.
 
 ## Rezultati
 
@@ -124,8 +114,30 @@ Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vr
 
 ## Literatura
 
+[^1] Brox, T., Bruhn, A., Papenberg, N., Weickert, J.: High accuracy optical flow
+estimation based on a theory for warping. In: Proc. of the European Conf. on
+Computer Vision (ECCV). (2004)
 Roth, S., Black, M.J.: On the spatial statistics of optical flow. IJCV 74(1), 33–50 (2007)
 
-prepravi brojeve milice!
+[^2] M. J. Black and P. Anandan. The robust estimation of multiple motions: Parametric and piecewise-smooth flow fields. CVIU, 63(1):75–
+104, 1996
 
-[10]: Muja, M., & Lowe, D. (2009). Flann-fast library for approximate nearest neighbors user manual. Computer Science Department, University of British Columbia, Vancouver, BC, Canada, 5.
+[^3] F. Heitz and P. Bouthemy. Multimodal estimation of discontinuous optical flow using Markov random fields. TPAMI, 15(12):1217–
+1232, 1993.
+
+[^4] Y. Boykov, O. Veksler, and R. Zabih. Fast approximate energy minimization via graph cuts. TPAMI, 23(11):1222–1239, 2001
+
+[^5] J. Sun, N.-N. Zhen, and H.-Y. Shum. Stereo matching using belief
+propagation. TPAMI, 25(7):787–800, 2003.
+
+[^6] M. Menze, C. Heipke, A. Geiger. Discrete optimization for optical flow. German Conference on Pattern Recognition, 16-28
+
+[^7]: Muja, M., & Lowe, D. (2009). Flann-fast library for approximate nearest neighbors user manual. Computer Science Department, University of British Columbia, Vancouver, BC, Canada, 5.
+
+[^8] Tola, E., Lepetit, V., & Fua, P. (2010). DAISY: An Efficient Dense Descriptor Applied to Wide-Baseline Stereo. IEEE Transactions on Pattern Analysis and Machine Intelligence, 32(5), 815–830.
+
+[^9] Lowe, D. G. (1999). Object recognition from local scale-invariant features. Proceedings of the Seventh IEEE International Conference on Computer Vision.
+
+[^10] [KITTI Flow 2015](https://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow)
+
+[^11] Revaud, J., Weinzaepfel, P., Harchaoui, Z., & Schmid, C. (2015). Epicflow: Edge-preserving interpolation of correspondences for optical flow. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 1164-1172).
