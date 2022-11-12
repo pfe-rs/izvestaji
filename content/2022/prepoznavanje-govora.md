@@ -200,11 +200,15 @@ Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradient spusta z
 
 ### Istraživanje i rezultati
 
-Testiranje metoda vršeno je na dve baze: FSDD i srpske baze kreirane za potrebe projekta.
+Testiranje metoda vršeno je na dve baze: FSDD baze i baze srpskih reči, koja je kreirana za potrebe projekta.
 
 FSDD baza sadrži engleske cifre od 0 do 9 koje su izgovorene od strane 50 različitih ljudi. Sadrži ukupno 3000 snimaka.
 
-Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde preko 10 ljudi izgovara ove reči različitim naglaskom, intonacijom i slično.
+Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde je 29 ljudi izgovaralo ove reči različitim naglaskom i intonacijom.
+
+U FSDD bazi podataka, svaka osoba je izgovorila svaku reč u proseku 47 puta, kako bi ukupno bilo 3000 snimaka, što čini vrlo balansiranu bazu podataka. U srpskoj bazi, 10 reči je rečeno od strane 27 ljudi, dok su dve osobe ponovile izgovaranje ovih 10 reči 13 i 10 puta. Njihovih snimaka je 130 i 100, pa otuda i 500 snimaka u bazi. Korišćeni su drugačiji izgovori i intonacije zbog raznovrsnosti. Baza je slabije balansirana, što se odrazuje na same rezultate testiranja.
+
+U bazi srpskih reči, u uređenoj trojci gluva - glava - plava očekuju se češće greške pri klasifikaciji. To se može očekivati jer su drugi i poslednja dva glasa isti. Takođe, kako su „P“ i „G“ oba praskavi suglasnici, to jest isti su po mestu tvorbe, veća je verovatnoća pojavljivanja greške.
 
 Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža uči tokom epoha treniranja. Baze su podeljene na trening, test i validacionu bazu, tako da je trening set sadržao 70% reči, a test i validacioni set po 15% reči u slučaju obe baze.
 
@@ -212,17 +216,11 @@ Rezultati su prikazani u tabeli ispod.
 
 ![Rezultati](static\images\4.png)
 
-Metrika ovih rezultata bila je tačnost, zato što je, zbog izbalansirane baza, ovo reprezentativna metrika.
+Metrika ovih rezultata bila je tačnost. Zbog balansirane baze, ovo predstavlja zaista reprezentativnu metriku.
 
-Rezultati se dele po tome da li metoda koristi duboko učenje ili ne. Posmatrajući tabelu, konvoluciona neuronska mreža je ostvarila najveću tačnost kao metoda sa dubokim učenjem, a XGBoost daje najbolje rezultate među metodama koje ne koriste duboko učenje. Najmanje rezultate daje SVM sa polinomijalnim kernelom.
+Odvojeno možemo posmatrati rezultate metoda sa dubokim učenjem i one bez dubokog učenja. Iz tabele se može uočiti da je konvoluciona neuronska mreža ostvarila najveću tačnost kao metoda sa dubokim učenjem, a XGBoost daje najbolje rezultate među metodama koje ne koriste duboko učenje.
 
-U FSDD bazi dato je 10 labela, pa klasifikator radi odličan posao da pretpostavi u koju kategoriju labela određeni zvuk spada (cifra od 0 do 9).
-
-U ovoj bazi podataka, određene reči mogu lako da se pomešaju na spektrogramu, pa su neke vrednosti vrlo blizu odlučnoj granici i da pomute labele. Iz tog razloga, rezultati SVM metode su veoma dobri.
-
-Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Deep learning metode povoljnije su za feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao speech recognition loss funkcija pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~200Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
-
-Gledajući ova dva faktora u obzir, očekivano je da će performansa CNN-a biti najbolja.
+Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Deep learning metode same vrše feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao speech recognition loss funkcija pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~200Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
 
 Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
 
@@ -237,4 +235,4 @@ Rezultate vizuelno možemo prikazati matricama konfuzije.
 ![Rezultati](static/images/XGB.png)
 ### Zaključak
 
-Projekat koristi FSDD bazu podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz ovu i samostalno napravljenu srpsku bazu podataka, ove metode su se pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči, a SVM sa RBF kernelom najmanju. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je tačnost CNN modela značajno veća od ostalih testiranih modela.
+Projekat "Prepoznavanje govora" pokazuje načine rešavanja popularne dileme pretvaranja glasa u kucani tekst. Koristi se FSDD baza podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz FSDD, koristi se i samostalno napravljena baza podataka koja se sastoji od srpskih reči, gde je dokazano, testiranjem metoda, da su se ove metode pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je u ovoj oblasti AI tehnologije, zbog lakoće snalaženja sa ogromnom količinom podataka i smanjivanjem broja parametara bez gubljenja bitnih informacija, CNN najpraktičnija metoda za rad, što znači da se dalja istraživanja mogu usmeravati u primeni ove metode.
