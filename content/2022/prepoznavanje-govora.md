@@ -3,26 +3,27 @@ title: Prepoznavanje govora
 summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaznike 2022. godine od Dimitrija Pešića i Lazara Zubovića.
 ---
 ### Apstrakt
+Prepoznavanje govora predstavlja jedan od najvećih izazova tehnologije. Sve veća potreba za digitalizacijom dovodi do potrebom za širenjem znanja u ovom polju. Dosadašnja istraživanja pokazuju efikasnost i tačnost prepoznavanja govora mnogih metoda sa i bez deep learning metode, ne fokusirajući se toliko na pojašnjenja razlika u rezultatima koji su dobijeni. Ovaj rad se fokusira na posmatranju i upoređivanju metoda poput konvolucionih neuronskih mreža i raznih klasifikatora podataka koji ne koriste deep learning tehniku kako bi se utvrdilo šta je najbolji pristup za identifikovanje reči. Testirajući na FSDD bazi reči i bazi podataka koja se sastoji od srpskih reči, utvrđeno je da najprecizniji način za obradu audio zapisa konvoluciona neuronska mreža, pa je najoptimalnije dalja istraživanja voditi u tom smeru.
 
 ### Apstrakt na engleskom
 ### Uvod
-Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Prepoznavanje govora je proces osposobljavanja nekog modela da prepozna i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih, prepoznaje i preduzima određene korake u zavisnosti od rezultata.
+Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Prepoznavanje govora je proces osposobljavanja nekog modela da identifikuje i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih i identifikuje izgovorenu reč.
 
 Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za prepoznavanje govora, već da se i uporede njihova praktičnost i tačnost. 
 
-Primena prepoznavanja govora može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, ...
+Primena projekta može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, ...
 
-Ovaj projekat se bavi prepoznavanjem konkretnih reči i njihova klasifikacija. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
+Ovaj projekat se bavi raspoznavanjem konkretnih reči i njihova klasifikacija. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
 
-Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike, čijom obradom možemo da izvučemo određene karakteristike iz zvuka. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.
+Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike gde korišćeni klasifikatori obrađuju zvuk i pronalaze određene karakteristike. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.
 
 Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. Uloga ovih metoda može se podeliti u nekoliko kategorija: 
 
-1. Izvlačenje karakteristika iz zvuka pomoću kepstralnih koeficijenata Mel skale (MFCC) 
+1. Izvlačenje karakteristika iz zvuka pomoću kepstralnih koeficijenata Mel skale (MFCC);
 
 2. Klasifikatori, kojima su prosleđene MFCC karakteristike: Logistička regresija, Random Forest, SVM, XGBoost;
 
-3. Konvolucione neuronske mreže (CNN) koje inkomponuju proces ekstrakcije karakteristika iz signala, kao i proces klasifikacije 
+3. Konvolucione neuronske mreže (CNN) koje inkomponuju proces ekstrakcije karakteristika iz signala, kao i proces klasifikacije.
 
 ### Metode
 
@@ -178,7 +179,7 @@ ReLU (rectified linear activation function / rectified linear unit) je funkcija 
 
 ![Funkcija](static\images\fja.png)
 
-Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da prepozna.
+Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da raspozna.
 
 Za treniranje mreže koriste se dve metode simultano (propagacija unapred i unazad), kao i jedna funkcija (kriterijumska funkcija)
 
@@ -206,7 +207,7 @@ FSDD baza sadrži engleske cifre od 0 do 9 koje su izgovorene od strane 50 razli
 
 Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde je 29 ljudi izgovaralo ove reči različitim naglaskom i intonacijom.
 
-U FSDD bazi podataka, svaka osoba je izgovorila svaku reč u proseku 47 puta, kako bi ukupno bilo 3000 snimaka, što čini vrlo balansiranu bazu podataka. U srpskoj bazi, 10 reči je rečeno od strane 27 ljudi, dok su dve osobe ponovile izgovaranje ovih 10 reči 13 i 10 puta. Njihovih snimaka je 130 i 100, pa otuda i 500 snimaka u bazi. Korišćeni su drugačiji izgovori i intonacije zbog raznovrsnosti. Baza je slabije balansirana, što se odrazuje na same rezultate testiranja.
+U FSDD bazi podataka, 6 osoba je izgovorila svaku reč 50 puta, kako bi ukupno bilo 3000 snimaka, što čini vrlo balansiranu bazu podataka. U srpskoj bazi, 10 reči je rečeno od strane 27 ljudi, dok su dve osobe ponovile izgovaranje ovih 10 reči 13 i 10 puta. Njihovih snimaka je 130 i 100, pa otuda i 500 snimaka u bazi. Korišćeni su drugačiji izgovori i intonacije zbog raznovrsnosti. Baza je slabije balansirana, što se odrazuje na same rezultate testiranja.
 
 U bazi srpskih reči, u uređenoj trojci gluva - glava - plava očekuju se češće greške pri klasifikaciji. To se može očekivati jer su drugi i poslednja dva glasa isti. Takođe, kako su „P“ i „G“ oba praskavi suglasnici, to jest isti su po mestu tvorbe, veća je verovatnoća pojavljivanja greške.
 
@@ -233,6 +234,15 @@ Rezultate vizuelno možemo prikazati matricama konfuzije.
 ![Rezultati](static/images/RandomForest.png)
 
 ![Rezultati](static/images/XGB.png)
+
+Prikazane su matrice konfuzije na FSDD bazi za XGBoost, SVM, Random Forest i logističku regresiju.
+
+Iz ovih matrica konfutije može se primetiti kako, ma koja se metoda koristi, brojevi dva, tri i četiri uvek imaju najveću tačnost pronalaženja. 
+
+Brojevi 9 i 1 su često mešani pri klasifikaciji ova četiri modela. Njihov izgovor može se protumačiti kao sličan ("one" i "nine") pa su ova dva broja par sa najvećim sličnostima u karakteristikama.
+
+U svim metodama, broj 6 se pokazao kao najteže klasifikovan i u svim metodama mešan je sa brojevima 3 i 8, što ima manje fizičkog smisla od brojeva 1 i 9 ("six","three","eight").
+
 ### Zaključak
 
 Projekat "Prepoznavanje govora" pokazuje načine rešavanja popularne dileme pretvaranja glasa u kucani tekst. Koristi se FSDD baza podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz FSDD, koristi se i samostalno napravljena baza podataka koja se sastoji od srpskih reči, gde je dokazano, testiranjem metoda, da su se ove metode pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je u ovoj oblasti AI tehnologije, zbog lakoće snalaženja sa ogromnom količinom podataka i smanjivanjem broja parametara bez gubljenja bitnih informacija, CNN najpraktičnija metoda za rad, što znači da se dalja istraživanja mogu usmeravati u primeni ove metode.
