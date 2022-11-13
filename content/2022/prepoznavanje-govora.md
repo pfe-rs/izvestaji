@@ -33,7 +33,7 @@ Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i o
 
 Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvencijske komponente prisutne u signalu, dok boja označava jačinu svake od tih komponenti. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
 
-Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signala u vremenskom intervalu. Intervali su mali da bi se moglo pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju.
+Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signala u vremenskom intervalu. Intervali su mali, te se može pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju u okviru jednog intervala.
 
 Boja na grafiku predstavlja amplitudu signala u određenom vremenskom trenutku. Plava boja na spektrogramu predstavlja niske amplitude, dok crvena boja predstavlja visoke amplitude.
 
@@ -106,7 +106,7 @@ XGBoost (Gradient Boosted Trees), kao i Random Forest, koristi više stabala odl
 
 Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove Boosting. Boosting kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
 
-Dodatak Boosting-u ogleda se u loss funkciji. Cost funkcija (funkcija troškova ili gubitka) jeste funkcionalna veza željenog outputa i dobijenog outputa u funkciji, a loss funkcija je srednja vrednost svih cost funkcija.
+Dodatak Boosting-u ogleda se u loss funkciji. Cost funkcija (kriterijumska funkcija) jeste usrednjena vrednost svih funkcija greške (loss function), a loss funkcija je funkcionalna veza željenog outputa i dobijenog outputa u funkciji.
 
 Najkorišćenija loss funkcija je Cross Entropy Loss. 
 Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest output.
@@ -134,7 +134,7 @@ Funkcija gubitka SVM modela je:
 $$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases} $$
 
 
-Ako su dobijeni i željeni rezultat istog znaka, vrednost kriterijumske funkcije je jednaka nuli, dok u suprotnom računamo gubitak. Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije gubitka.
+Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije gubitka.
 
 $$
 \min _w \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}
@@ -243,7 +243,9 @@ Brojevi 9 i 1 su često mešani pri klasifikaciji ova četiri modela. Njihov izg
 
 U svim metodama, broj 6 se pokazao kao najteže klasifikovan i u svim metodama mešan je sa brojevima 3 i 8, što ima manje fizičkog smisla od brojeva 1 i 9 ("six","three","eight").
 
+XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste deep learning tehniku. Bolje rezultate dobijamo zato što su Decision tree algoritmi jednostavni za implementaciju i zaista precizni. Mogu se dobiti odlični rezultati u minimizaciji greški u prepoznavanju korišćenjem tehnike stabla odlučivanja pri obradi karakteristika zvuka. Gledajući u tabelu, XGBoost je imao veću preciznost od Random Forest klasifikatora. Ovo se može objasniti "obrezivanjem drveća" koje XGBoost radi, to jest Boosting kojim poboljšava klasifikaciju. XGBoost pokušava da smanji kriterijumsku funkciju modela koji obrađuje podatke, dok se Random Forest ne fokusira na te parametre i ne optimizuje model tako da to odgovara loše balansiranoj bazi podataka. 
 
+Konvoluciona neuronska mreža, kao metoda koja koristi duboko učenje, prevazišla je rezultate običnih metoda. Metode sa dubokim učenjem imaju bolju primenu u ovoj oblasti tehnologije zbog sličnosti ovih algoritama ljudskom mozgu. Jednostavnost struktura algoritama je glavna mana u primeni mašinskog učenja za klasifikovanje zvuka, kao i to što je neophodna veća intervencija čoveka pri podešavanjima algoritama i metoda. 
 
 ### Zaključak
 
