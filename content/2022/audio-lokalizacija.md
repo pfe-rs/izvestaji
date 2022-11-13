@@ -23,6 +23,41 @@ Uvod treba da sadrži sledeće stvari:
 
 ### Aparatura i metoda
 #### Metod
+##### Koraci <!---mora neki bolji naziv i mozda da se smanje svi sledeci naslovi za jedan stepen--->
+<!--- blok dijagram citave price ovde takodje, mozda i podeljena dva sadrzaja za TOA i RTT--->
+<!--- TOA slucaj--->
+TOA:
+1. Genrisanje signala <!--- u smislu na mcu ili pc-u, gen fajla, ovo isto dodati u metode vrv --->
+2. Sinhronizacija
+3. Snimanje i emitovanje signala
+4. Izracunavanje distance koristeći TOA metodu <!--- putem TOA kroz kroskorelaciju--->
+5. Razmena izračunatih distanci sa drugim čvorovima <!--- komunikacija --->
+6. Pronalaženje lokacije putem trilateracije  <!--- putem trilateracije --->
+
+
+<!---ovde mozda umesto ovih naziva bukvalno nazivi dole oblasti vrv bolje--->
+<!--- RTT ---> 
+<!--- takodje mozda za oba slucaja dodati korake koji se rade jednom kao inicijalizacija, tjst ovde recimo pronalazenje čvorova i dodeljivanje id-ova --->
+RTT:
+1. Generisanje signala
+2. Komunikacija sa drugim čvorovima 
+    * Signaliziranje drugim čvorovima da počnu da snimaju
+    <!---* Drugi čvorovi primaju signal, salju ACK i krecu da snimaju, * glavni cvor prima ack i krece da snima,
+    ovaj paragraf mozda skloniti i samo predstaviti kroz blok dijagram --->
+    * Signalizacija drugim čvorovima da se glavni čvor sprema da emituje signal
+    * Glavni čvor emituje signal
+    * Signalizacija ostalim čvorovima da je glavni čvor gotov
+    * Prvi sledeći čvor emituje signal i nakon toga signalizira ostalim čvorovima kraj transmisije i kraj snimanja
+    <!--- izmedju ovih slanja se ostavlja mali period vremena kako bi se uverili da svi udaljeni čvorovi prime signal --->
+    <!--- opcija dva je da se čvorovi prvo dogovore kao za neke time slotove u kojima treba da posalju signal, tjst da --->
+    
+3. Kroskorelacija
+4. Računanje ETOA vrednosti pronalaženjem razlike vrhova kroskorelacije
+5. Razmenjivanje ETOA vrednosti sa ostalim čvorovima
+6. Računanje udaljenosti putem RTT metode <!--- bip bip --->
+7. Trilateracija
+
+
 ##### Izračunavanja distance
 
 1.  TOA (eng. _Time of arrival_) - metoda kojom se meri vreme stizanja signala od čvora, zahteva da je vreme između čvorova sinhronizovano, oduzimanjem vremena početka ($T_1$) prenošenja signala od vremena stizanja ($T_2$) dobija se vreme putovanja (eng. _Time of flight_, $\mathit{TOF}$) 
@@ -60,37 +95,56 @@ Kroskorelacija prvo određuje sličnost dva signala tako što pojedinačne član
 Nakon toga, izvorni signal se pomera za jedno mesto u desno, tako što se na početak doda nula i ceo proces se ponavlja, a novodobijena suma se pamti na sledećem mestu u nizu. 
 Zatim se određuje pozicija maksimuma dobijenog niza. Kada nju pomnožimo sa brzinom odabiranja ($F_s$) dobijamo TOF.
 Kako nam je poznata veza između pređenog puta ($s$), brzine ($v$) i vremena ($\mathit{TOF}$), kao i brzina zvuka, možemo dobiti razdaljinu između dva čvora:
-
 $$s = v \cdot \mathit{TOF}$$
+<!---ovo je kroskorelacija i racunanje distance iz toga--->
 ##### Trilateracija 
 
 Trilateracija je metoda kojom se dobija lokacija čvora presecanjem tri kružnice. 
 Centar svake od kružnica se nalazi u jednom od poznatih čvorova, a poluprečnik svake odgovara udaljenosti centra kružnice od nepoznatog čvora.
+Ako su ($x, y$) koordinate traženog čvora, ($x_1, y_1$), ($x_2, y_2$), ($x_3, y_3$) koordinate tri poznata čvora, a $r_1$, $r_2$, $r_3$ razdaljina između traženog čvora i svakog od poznatih čvorova, redom onda važi sledeće:
+$$(x-x_1)^2 + (y-y_1)^2= r_1^2$$
+$$(x-x_2)^2 + (y-y_2)^2= r_2^2$$
+$$(x-x_3)^2 + (y-y_3)^2= r_3^2$$
+Rešavanjem sistema jednačina se dobija:
+$$x=\frac{c\cdot e - f\cdot b}{e\cdot a - b\cdot d}$$
+$$y=\frac{c\cdot d - a\cdot f}{c\cdot d - a\cdot f}$$
+gde je:
+$$a = -2\cdot x_1 + 2\cdot x_2$$
+$$b = -2\cdot y_1 + 2\cdot y_2$$
+$$c = r_1^2 - r_2^2 - x_1^2 + x_2^2 - y_1^2 + y_2^2$$
+$$d = -2\cdot x_2 + 2\cdot x_3$$
+$$e = -2\cdot y_2 + 2\cdot y_3$$
+$$f = r_2^2 - r_3^2 - x_2^2 + x_3^2 - y_2^2 + y_3^2$$
+
 
 #### Simulacija 
-<!---ovde trenutno pise kako ide simulacija za TOA--->
+<!---ovde trenutno pise samo kako ide simulacija za TOA--->
 Simulacija nam pomaže da utvrdimo koji parametri najviše utiču na grešku i da isprobamo kako bi se sistem ponašao pri različitim uslovima.
-Kako bi napravili simulaciju sistema potrebno je da uradimo sledeće:
+Kako bi napravili simulaciju TOA sistema potrebno je da uradimo sledeće:
 1.  Modulacije (eng. _Modulation_) -- iz poznatih lokacija svih čvorova pravimo simulirane signale koji potiču od jednog čvora čija će se lokacija izračunati kroz demodulaciju
     - Kašnjenje -- simulira propagiranje signala kroz prostor
-    - Diskretizacija -- simulira ADC 
-    - Šum -- simulira buku
-    - Opadanje amplitude (eng. _Fade_) -- simulira slabljenje signala srazmerno distanci
+    - Diskretizacija -- simulira ADC <!---SQNR--->
+    - Šum -- simulira buku <!---SNR--->
+    - Opadanje amplitude (eng. _Fade_) -- simulira slabljenje signala srazmerno distanci <!---manji SNR, teze za kroskorelaciju--->
+Ove četiri modulacije efektivno simuliraju šta se dešava u koracima od 1 do 3 u slučaju TOA metode.
 
-2.  Demodulacije (eng. _Demodulation_) -- iz dobijenih modulisanih signala i lokacija svih čvorova sem onog od kojeg potiče signal dolazimo do informacije o poziciji nepoznatog čvora
-    - Kroskorelacija (eng. _Cross correlation_) -- dobijamo informaciju o trenutku u kom je signal detektovan
+
+2.  Demodulacije (eng. _Demodulation_) -- iz dobijenih modulisanih signala i lokacija svih čvorova sem onog od kojeg potiče signal dolazimo do informacije o poziciji nepoznatog čvora primenjivajući korake od 3 do 6 za TOA slučaj.
+
+<!---    - Kroskorelacija (eng. _Cross correlation_) -- dobijamo informaciju o trenutku u kom je signal detektovan
     - Računanje udaljenosti -- Putem TOA metode izračunavamo vreme leta a pošto nam je poznata brzina zvuka i vreme leta možemo da izračunamo udaljenost do nepoznatog čvora
     - Trilateracija -- kroz poznate lokacije tri čvora i njihove odgovarajuće udaljenosti računamo oblast u kojoj se nalazi nepoznati čvor
-
+Ova tri koraka --->
 
 #### Aparatura
 Za izradu hardverskog sistema potrebna je sledeća aparatura:
-* Mikrokontroleri (eng. _MCU_)
+* Mikrokontroleri (eng. _MCU_) <!--- za svu aparaturu dodati neke seme kao konstrukcija i tako to--->
 * Izvori zvuka
 * mikrofoni sa pretpojačalima
 <!--- 
+moze jedan blok dijagram hardvera sa sve slikama sta se desava, tipa signal pa pojacavanje pa bias pa clip itd, pa adc, pa dma itd itd.
 za mcu o biranju kontrolera, potrebni parametri, sample rate, adc dma, rang ADC-a, atten, spiffs, memorija potrebna za cuvanje toga, zasto koristimo vise mikrokontrolera, nelinearnost ADC-a, greska adc-a, najbolje citava sekcija za ADC,itd itd ...
-
+ADC blok dijagram?
 za izvore zvuka o opcijama, zvucnik vs piezo buzzer, 
 aktivan vs pasivan piezo buzzer, rang na kojima proizvode najveci spl, rezonantna, zavisnost signala i mikrofona od ovoga
 
@@ -113,11 +167,11 @@ filteri i uticaj suma, hardware vs software filtriranje
 
 ### Istraživanje i rezultati
 <!---
-parcijalne rezultate treba bolje izmeriti, labelirati i zapisati u 
+parcijalne rezultate treba bolje izmeriti, labelirati i zapisati, 
 ---->
 U ovom odeljku treba opisati sve rezultate do kojih ste došli. 
 Ako i dalje radite na svom projektu, parcijalni rezultati su potpuno prihvatljivi.
-### Zaključak
+### Zaključak   
 <!---
 na kraju
 --->
