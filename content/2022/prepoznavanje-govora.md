@@ -243,6 +243,8 @@ Brojevi 9 i 1 su često mešani pri klasifikaciji ova četiri modela. Njihov izg
 
 U svim metodama, broj 6 se pokazao kao najteže klasifikovan i u svim metodama mešan je sa brojevima 3 i 8, što ima manje fizičkog smisla od brojeva 1 i 9 ("six","three","eight").
 
+
+
 ### Zaključak
 
 Projekat "Prepoznavanje govora" pokazuje načine rešavanja popularne dileme pretvaranja glasa u kucani tekst. Koristi se FSDD baza podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, MFCCs, CNN, Random Forest, XGBoost i logistička regresija. Uz FSDD, koristi se i samostalno napravljena baza podataka koja se sastoji od srpskih reči, gde je dokazano, testiranjem metoda, da su se ove metode pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči. Tačnost između metoda varira od 51.45% do 97.28%, pa je zaključak ovog rada da je u ovoj oblasti AI tehnologije, zbog lakoće snalaženja sa ogromnom količinom podataka i smanjivanjem broja parametara bez gubljenja bitnih informacija, CNN najpraktičnija metoda za rad, što znači da se dalja istraživanja mogu usmeravati u primeni ove metode.
