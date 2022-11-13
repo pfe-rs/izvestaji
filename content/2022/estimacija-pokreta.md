@@ -36,7 +36,7 @@ Susedni pikseli često imaju sličan vektor protoka. Zato se dodatno uzima $N$ n
 
 DAISY[^8] je algoritam koji pretvara lokalne regione slike u niskodimenzionalne invarijantne deskriptore koji mogu da se koriste za uparivanje i klasifikaciju.
 
-Direkto inspirisan SIFT-om [^9] gleda se gradient intenziteta piksela po određenim orijenracijama, ali kako se u SIFT-u za datu karakterističnu tačku računaju gradienti nad  pravougaonim prozorom, DAISY komšije deli po krugovima različitih veličina čiji se centri nalaze na seriji koncentričnih prstenova. Prečnik svakog kruga je proporcionalan njegovom rastojanju od karakteristične tačke. Poenta ovakve podele komšija je u tome da se vektor koji opisuje tačku može izracunati vrlo brzo pomoću Gausovskih konvolucija i upravo zato je DAISY vrlo koristan za računanje deskriptora za svaki piksel.
+Direktno inspirisan SIFT-om,[^9] gleda se gradijent intenziteta piksela po određenim orijentacijama, ali kako se u SIFT-u za datu karakterističnu tačku računaju gradienti nad pravougaonim prozorom, DAISY komšije deli po krugovima različitih veličina čiji se centri nalaze na seriji koncentričnih prstenova. Prečnik svakog kruga je proporcionalan njegovom rastojanju od karakteristične tačke. Poenta ovakve podele komšija je u tome da se vektor koji opisuje tačku može izračunati vrlo brzo pomoću Gausovskih konvolucija i upravo zato je DAISY vrlo koristan za računanje deskriptora za svaki piksel.
 
 ### Random Field Model
 
