@@ -14,7 +14,7 @@ Jedan smer pri rešavanju problema jeste modeliranje protoka korišćenjem Marko
 
 Sledeći primere iz *stereo matching*-a optimizacija energija se može olakšati korišćenjem diskretnih optimizacionih algoritama , poput *graph cut*-ova ili *message passing* koje su često bile u mogućnosti da ostvare približno globalan optimum.
 
-U oblasti *stereo matching*-a ove poteškoće su prepoznate i potreba za nekonveksnim energetskim funkcijama je razrešena. Korišćenje funkcija je olakšano modeliranjem diskretnih optimizacionih algoritama, poput *graph cut*-ova[^4] ili *message passing*-a [^5] koje su često bile u mogućnosti da ostvare približno globalan optimum. Iako se estimacija dispariteta može posmatrati i kao ograničeni slučaj optičkog protoka, malo autora je pokušalo da koristi diskretnu optimizaciju za estimaciju optičkog protoka.
+U oblasti *stereo matching*-a ove poteškoće su prepoznate i potreba za nekonveksnim energetskim funkcijama je razrešena. Korišćenje funkcija je olakšano modeliranjem diskretnih optimizacionih algoritama, poput *graph cut*-ova[^4] ili *message passing*-a[^5] koje su često bile u mogućnosti da ostvare približno globalan optimum. Iako se estimacija dispariteta može posmatrati i kao ograničeni slučaj optičkog protoka, malo autora je pokušalo da koristi diskretnu optimizaciju za estimaciju optičkog protoka.
 
 U referentnoj metodi [^6] su predložene tri različite strategije optimizacije diskretnog pristupa. Cilj rada je bio ispitivanje uticaja različitih algoritama na preciznost određivanja optičkog protoka.
 
