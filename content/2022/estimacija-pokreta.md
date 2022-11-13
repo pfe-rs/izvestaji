@@ -7,7 +7,7 @@ summary: Estimacija pokreta pomoću optical flow je projekat rađen na letnjem k
 
 Procena kretanja je proces određivanja vektora kretanja koji opisuju prelazak jedne slike u drugu. Predstavlja jedan od osnovnih problema oblasti kompjuterske vizije.
 
-Klasična formulacija estimacije optičkog protoka definiše problem kao kontinualni variacijski problem optimizacije energija. Kako bi mogli da se reše slučajevi sa pomerajima većim od nekoliko piksela koristi se metod od gurbe ka finijim estimacijama[^1]. Nažalost, ovaj metod često dovodi do nedostataka oštrih promena, diskontinuiteta, optičkog proteka koji postoje u pravom polju kretanja naručito pri opisivanju kretanja u blizini ivica. Stoga je veliko broj istraživača fokusiran na preformulaciju problema ne bi li bili dopušteni diskontinuiteti.
+Klasična formulacija estimacije optičkog protoka definiše problem kao kontinualni varijacijski problem optimizacije energija. Kako bi mogli da se reše slučajevi sa pomerajima većim od nekoliko piksela koristi se metod od grube ka finijim estimacijama.[^1] Nažalost, ovaj metod često dovodi do nedostataka oštrih promena, diskontinuiteta, optičkog protoka koji postoje u pravom polju kretanja naročito pri opisivanju kretanja u blizini ivica. Stoga je veliki broj istraživača fokusiran na preformulaciju problema ne bi li bili dopušteni diskontinuiteti.
 
 Jedan smer pri rešavanju problema jeste modeliranje protoka korišćenjem Markovljevih slučajnih procesa[^2] [^3]
 
