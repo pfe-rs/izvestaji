@@ -114,30 +114,30 @@ Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vr
 
 ## Literatura
 
-[^1] Brox, T., Bruhn, A., Papenberg, N., Weickert, J.: High accuracy optical flow
+[^1]: Brox, T., Bruhn, A., Papenberg, N., Weickert, J.: High accuracy optical flow
 estimation based on a theory for warping. In: Proc. of the European Conf. on
 Computer Vision (ECCV). (2004)
 Roth, S., Black, M.J.: On the spatial statistics of optical flow. IJCV 74(1), 33–50 (2007)
 
-[^2] M. J. Black and P. Anandan. The robust estimation of multiple motions: Parametric and piecewise-smooth flow fields. CVIU, 63(1):75–
+[^2]: M. J. Black and P. Anandan. The robust estimation of multiple motions: Parametric and piecewise-smooth flow fields. CVIU, 63(1):75–
 104, 1996
 
-[^3] F. Heitz and P. Bouthemy. Multimodal estimation of discontinuous optical flow using Markov random fields. TPAMI, 15(12):1217–
+[^3]: F. Heitz and P. Bouthemy. Multimodal estimation of discontinuous optical flow using Markov random fields. TPAMI, 15(12):1217–
 1232, 1993.
 
-[^4] Y. Boykov, O. Veksler, and R. Zabih. Fast approximate energy minimization via graph cuts. TPAMI, 23(11):1222–1239, 2001
+[^4]: Y. Boykov, O. Veksler, and R. Zabih. Fast approximate energy minimization via graph cuts. TPAMI, 23(11):1222–1239, 2001
 
-[^5] J. Sun, N.-N. Zhen, and H.-Y. Shum. Stereo matching using belief
+[^5]: J. Sun, N.-N. Zhen, and H.-Y. Shum. Stereo matching using belief
 propagation. TPAMI, 25(7):787–800, 2003.
 
-[^6] M. Menze, C. Heipke, A. Geiger. Discrete optimization for optical flow. German Conference on Pattern Recognition, 16-28
+[^6]: M. Menze, C. Heipke, A. Geiger. Discrete optimization for optical flow. German Conference on Pattern Recognition, 16-28
 
 [^7]: Muja, M., & Lowe, D. (2009). Flann-fast library for approximate nearest neighbors user manual. Computer Science Department, University of British Columbia, Vancouver, BC, Canada, 5.
 
-[^8] Tola, E., Lepetit, V., & Fua, P. (2010). DAISY: An Efficient Dense Descriptor Applied to Wide-Baseline Stereo. IEEE Transactions on Pattern Analysis and Machine Intelligence, 32(5), 815–830.
+[^8]: Tola, E., Lepetit, V., & Fua, P. (2010). DAISY: An Efficient Dense Descriptor Applied to Wide-Baseline Stereo. IEEE Transactions on Pattern Analysis and Machine Intelligence, 32(5), 815–830.
 
-[^9] Lowe, D. G. (1999). Object recognition from local scale-invariant features. Proceedings of the Seventh IEEE International Conference on Computer Vision.
+[^9]: Lowe, D. G. (1999). Object recognition from local scale-invariant features. Proceedings of the Seventh IEEE International Conference on Computer Vision.
 
-[^10] [KITTI Flow 2015](https://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow)
+[^10]: [KITTI Flow 2015](https://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow)
 
-[^11] Revaud, J., Weinzaepfel, P., Harchaoui, Z., & Schmid, C. (2015). Epicflow: Edge-preserving interpolation of correspondences for optical flow. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 1164-1172).
+[^11]: Revaud, J., Weinzaepfel, P., Harchaoui, Z., & Schmid, C. (2015). Epicflow: Edge-preserving interpolation of correspondences for optical flow. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 1164-1172).
