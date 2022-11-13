@@ -9,7 +9,7 @@ Procena kretanja je proces određivanja vektora kretanja koji opisuju prelazak j
 
 Klasična formulacija estimacije optičkog protoka definiše problem kao kontinualni varijacijski problem optimizacije energija. Kako bi mogli da se reše slučajevi sa pomerajima većim od nekoliko piksela koristi se metod od grube ka finijim estimacijama.[^1] Nažalost, ovaj metod često dovodi do nedostataka oštrih promena, diskontinuiteta, optičkog protoka koji postoje u pravom polju kretanja naročito pri opisivanju kretanja u blizini ivica. Stoga je veliki broj istraživača fokusiran na preformulaciju problema ne bi li bili dopušteni diskontinuiteti.
 
-Jedan smer pri rešavanju problema jeste modeliranje protoka korišćenjem Markovljevih slučajnih procesa[^2] [^3]
+Jedan smer pri rešavanju problema jeste modeliranje protoka korišćenjem Markovljevih slučajnih procesa.[^2] [^3]
 
 
 Sledeći primere iz *stereo matching*-a optimizacija energija se može olakšati korišćenjem diskretnih optimizacionih algoritama , poput *graph cut*-ova ili *message passing* koje su često bile u mogućnosti da ostvare približno globalan optimum.
