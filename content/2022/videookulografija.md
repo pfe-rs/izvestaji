@@ -1,11 +1,24 @@
 ---
-title: Detekcija zenice korišćenjem videookulografije
+title: Primena i implementacija algoritma za detekciju zenica baziranog na obradi slike
 summary: Projekat iz videookulografije rađen na letnjem kampu za stare polaznike 2022. godine od Anje Kovačev i Lenke Milojčević.
 ---
-**Autori** - Anja Kovačev i Lenka Milojčević
+**Autori** 
 
 
-**Mentori** - Milomir Stefanović i Pavle Pađin
+Anja Kovačev, učenica IV razreda Tehničke škole u Kikindi
+
+
+Lenka Milojčević, učenica III razreda Gimnazije u Kraljevu
+
+
+**Mentori** 
+
+
+Milomir Stefanović, diplomirani inženjer elektrotehnke i računarstva, PFE
+
+
+Pavle Pađin, student Elektrotehničkog fakulteta u Beogradu
+
 
 
 ## **1. Apstrakt**
@@ -15,119 +28,199 @@ summary: Projekat iz videookulografije rađen na letnjem kampu za stare polaznik
 
 
 ## **2. Uvod**
+
+
 Život u današnjem društvu ima mnogo prednosti u svakom pogledu. 
 Tehnologija napreduje iz dana u dan. 
 Taj brz razvoj zahteva velike potrebe koje ne mogu svi ljudi da ispune. 
-Na ideju za ovaj projekat smo došle uvidevši potrebe osoba sa invaliditetom da komuniciraju, igraju video igre, da koriste kompijuter ili da se kreću. 
+Uvidevši potrebe osoba sa invaliditetom da komuniciraju, igraju video igre, da koriste kompijuter ili da se kreću odlučeno je da se u ovaj rad bavi sistemom koji bi mogao da im pomogne u tim zadacima. 
 Napretkom tehnologije, VOG (videookulografija) je zamenila EOG (elektrookulografiju). Videookulografija je metoda u kojoj se pomoću kamere prate pokreti oka, tj. zenice. 
-U ovom radu proučavan je 2D VOG sistem, što znači da se posmatraju dve ose – horizontalna osa na kojoj se detektuju pokreti na levo i desno, i vertikalna osa na kojoj je prate pogled na gore i dole.
+U ovom radu proučavan je 2D VOG sistem, tj. pokreti zenice na dve ose – horizontalna osa na kojoj se detektuju pokreti na levo i desno, i vertikalna osa na kojoj je prate pogled na gore i dole.
 
 
 2D VOG smatra se jednom od najpouzdanijih modaliteta, a ima široku primenu. 
 Primenjuje se u oftalmologiji za proučavanje patoloških stanja kao što je nistagmus1 (nistagmus predstavlja ritmičke, nevoljne  trzaje očnih jabučica). 
 VOG koriste kvadriplegičari i osobe sa oštećenjima motornih neurona kao sredstvo za komunikaciju ili kretanje (upravljanje tastaturom i invalidskim kolicima pokretima očiju). Takođe, u industriji se koristi za praćenje reakcija klijenata. 
 Još se koristi za posmatranje reakcije vozača prilikom vožnje, u vojnie svrhe i slično.
+Cilj ovog rada je konstruisati jednostavni 2D VOG koji se može koristiti za praćenje zenice.
 
 
-Postoje različiti radovi koji koriste različite metode. 
-U većini slučajeva se nakon obrade slike detektuje centar zenice i dalje se radi test praćenja kretanja oka po utvrđenim putanjama. 
-Metode detekcije centra zenice i ugla oka se ispostavljaju brzim. 
-U nekim radovima se koristi mašinsko učenje gde istreniran model može da isprati i prepozna pokret oka.
-Dosadašnji sistemi su izgledali tako što se pri akviziciji snimalo celo lice preko veb kamere, nakon čega bi se posmatrali manji regioni. 
-Neki radovi koriste *ovde ćemo dodati tekst kada pročitamo novi rad*... 
-Ovaj rad koristi stalak pomoću kog se glava stabilizuje, tj. pozicionira uvek na isto mesto radi što tačnijeg očitavanja podataka. 
-Kada se utvrdi položaj glave, ideja je da se pomoću naočara sa kojih je skinut IR filter detektuje zenica čije se koordinate prate u svakom trenutku vremena. 
-Cilj je da se pokretima očiju pomera kursor i slično.
+Navedeni referentni radovi koriste metodu tamne zenice, što znači da je zenica najtamniji objekat na slici. 
+U referentnom radu [5] za akviziciju slike korišćena je IR kamera čije su LED diode (za vidljivi spektar boja) zamenili IR LED diodama kako bi sve dužice, nezavisno od njihove boje, bile svetle. 
+Algoritam referenthih radova (uz manje izmene) sastoji se iz akvizicije slike, kalibracije sistema, detekcije zenice, mapiranja slike oka u odnosu na postavku na ekranu, selekciju objekata i stabilizaciju kursora (odnosi se na radove koji za cilj imaju kontrolu kursora). 
+Kako bi procedura binarizacije bila uspešna, potrebna je funkcija mapiranja koja mapira sliku oka i sliku ekrana. 
+Proizvod ove funkcije su centar zenice oka i koeficienti mapiranja potrebni za ranije navedenu binarizaciju. 
+Mapiranje se postiže posmatranjem slike oka u ondosu na sliku ekrana izdeljenu na 9 delova. 
+Zbog nelinearnosti sistema, za mapiranje koristi se  bikvadratna funkcija koja kompezuje pomenutu nelinearnost. 
+Referentni rad navodi da, za veću tačnost sistema, potrebno je uvesti stopu mapiranja između slike oka i ekrana. 
+Ta stopa mapiranja dalje daje indikator koji karakteriše preciznost sistema. 
+Indikator se dobija procenjivanjem stope mapiranja tokom kalibracije. 
+Nelinearnost sistema zahteva da se stopa mapiranja mora računati posebno za svih 9 delova ekrana. 
+U sledećem koraku se računa srednja vrednost za stopu mapiranja kako bi ista mogla da bude procenjena zbog računanja indikatora. 
+Potom, traže se prečnik i centar kruga. 
+Više radova se zasniva na binarizaciji slike implementirane korišćenjem različitih metoda za određivanje paraga. 
+Neke od njih su - globalni ili lokalni adaptivni prag. 
+Od 6 korišćenih PDA algoritama, većina koristi novu metodu za binarizaciju slike, implementiranu na adaptivnoj kvantitativnoj segmentaciji. 
+U referentnim radovima postoje primeri uklanjanja šumova tehnikom bazirane na maksimalno određenom prostoru u praćenju rekonstrukcije zenice. 
+Svi radovi uključuju Hafovu transformaciju kruga i morfološke operacije (erozija i dilatacija). 
+Rad [5] za detekciju ivica kruga koristi derivat drugog reda rezultujuće slike, što je postignuto Laplacom od Gausovog filtera. 
+Sledeći korak je određivanje centra zenice algoritnom centroidne metode čime je uspešno detektovana zenica.
+
 
 
 ## **3. Aparatura i metode**
 
 
+
+Ovaj rad se sastoji iz dva dela - aparture pomoću koje se vrši akvizicija slike i metoda kojima je postignuta obrada slike i kalibracija.
+
+
+
 #### **3.1 Aparatura**
 
-Na slici 1 i 2 može se videti korišćenja aparatur sastavljena iz web kamera, 3D modela držača za istu i 3D odšampanih naočara.
-Web kamera je korišćena za praćenje zenice sa koje je skinut IR filter (filter za ultraljubičasti spektar) kako bi detektovanje zence bilo olakšano za sve boje dužica. 
-3D model držača je sastavljen od:
+
+ir filet sta radi duzicama?
 
 
-1. Držača koji je pričvršćen za naučare.
+Na slici 1 i 2 može se videti korišćena aparatura sastavljena iz web kamera, držača za web kameru i naočara koji su 3D odštampane.
+Web kamera je korišćena za praćenje zenice sa koje je skinut IR filter kako bi detektovanje zence bilo olakšano za sve boje dužica. 
+3D model držača ima dve značajne opcije za podešavanje:
 
-2. Šarake na kojoj je prčvršćena kamera uz pomoć koje se kamera može približiti ili udaljiti u odnosu na potrebe korisnika.
-
-3. Klizač za podešavanje visine kamere uz pomoće koga se kamera može pomerati po y osi i na taj način dodatno se prilagoditi korisniku.
-
-Kamera ja zakačena na naočare gde je postavljena i led dioda kako bi osvetljenje slike bilo konstantno.
-
-![Slika hardvera](/images/2022/videookulografija/OPREMA1.jpg)(slika 1)
+1. Pomeranjem šarke na koju je pričvršćena web kamera, može se približiti ili udaljiti od oka u odnosu na potrebe korisnika
 
 
-![Slika hardvera](/images/2022/videookulografija/OPREMA2.jpg)(slika 2)
+2. Web kamera se može pomerati po y osi uz pomoć klizača za podešavanje visine web kamere
+
+
+Web kamera ja pričvršćena na naočare gde su postavljene i led diode kako bi osvetljenje slike bilo konstantno.
+
+![Slika hardvera](/images/2022/videookulografija/OPREMA1.jpg)                    ![Slika hardvera](/images/2022/videookulografija/OPREMA2.jpg)
+
+
+(slika 1 - Izgled naučara)               (slika 2 - Izgled naočara)       
+
 
 
 #### **3.2. Metode**
 
 
+Metode se sastoje iz dve faze:
+1. Obrada slike, ondnosno frejmova snimka u realnom vremenu;
+2. Obrade podataka, odnosno filtriranje podataka i kalibracija.
+
+
 ##### **3.2.1. Obrada slike**
 
 
-Kako bi zenica bila detektovana neophodno je da dobiti podatke gde se ona nalazi. 
-Ti podaci se dobijaju iz live snimka našeg oka snimanog sa web kamerom.
-Obrađivanjem slike, tačnije svakog frejma live snimka, dobijaju se podaci o koordinatama centra zenice.
+Kako bi zenica bila detektovana neophodno je pronaći koordinate centra zenice. 
+Obrađivanjem slike, tačnije svakog frejma snimka u realnom vremenu, dobijaju se podaci o koordinatama centra zenice.
 Proces obrade slike se sastoji iz sledećih koraka:
 
 1. Prebacivanje slike iz RGB u grayscale prostor boja
 2. Zamućivanje slike
 3. Binarizacija slike
-4. Detekcija ivica na slici
-5. Detekcija krugova, odnosno zenice na slici
+4. Morfološke operacije
+5. Detekcija ivica pomoću Keni algoritma
+6. Detekcija krugova, odnosno zenice na slici pomoću Hafove transformacije
 
 
 #### 3.2.1.1. Prebacivanje slike iz RGB u grayscale prostor boja
 
-
-Kako bi sve nepotrebne informacije bile zanemarene i kako bi sve dužice blie u sivim nijansama potrebno  je sliku iz RGB(crvena-zelena-plava) prostora prebaciti u grayscale prostor boja.
+Slika u RGB spektru ima isuviše informacija koje nam nisu potrebne, dok slike u grayscale prostoru sadrže sve informacije koje su nam potrebne.
+Takođe obrada nad slikama u grayscale prostoru je mnogo brža i jednostavnija.
+Iz ovih razloga sliku prebacujemo iz RGB(crvena-zelena-plava) prostora u grayscale prostor boja.
 Konvertovanjem RGB vrednosti piksela slike koje zauzimaju 24 bita u grayscale  prostor boja koji zauzima 8 bita memorije korišćenjem funkcije grayscale dobija se slika u monohromatkskom sistemu boja.
 Na slici 3 može se videti kako slika izgleda u RGB prostoru i njen sivi ekvivalent.
 
  
-![RGB u GRAYSCALE](/images/2022/videookulografija/RGBtoGRAY.jpg)(slika 3)
+![RGB u GRAYSCALE](/images/2022/videookulografija/RGBtoGRAY.jpg)
+
+
+(slika 3 - RGB slika i njen sivi ekvivalent)
 
 
 #### 3.2.1.2. Zamućivanje
 
 
-Kako bi detekcija ivice funkcionisala, neophodno je da se slika zamuti Gausovim filterom i na taj način smanji količina detalja na datoj slici.
+Kako bi binrizacija slike bila delotvornija, neophodno je da se slika zamuti Gausovim filterom i na taj način smanji količina detalja na datoj slici.
 Gausov filter je niskopropusni filter. 
-Množenjem svakog piksela slike sa Gausovim kernelom dobija se slika sa šumom.
+Konvolucijom svakog piksela slike sa Gausovim kernelom dobija se slika sa šumom.
 Kernel je neophodno da ima pozitivne i neparne dimenzije.
-Na slici 4 se može videti primer 3D Gausov kernel, a na slici 5 se mogu videti primeri Gausovog kernela. 
-Sa ovakvim i sličnim kernelima se množi svaki piksel na slici i na taj nečin se dobija zamućena slika.
+Na slici 4 može se videti primer Gausove raspodele na osnovu čega se formiraju kerneli prikazani na slici 5. 
+
+![3D Gausov kernel](/images/2022/videookulografija/3DGkernel.png)           ![Primeri Gausovog kernela](/images/2022/videookulografija/Gkernel.png)
+
+
+(slika 4 - primer Gausove raspodele)                      (slika 5 - Primer Gausovog kernela)
+
+
+
+Sa ovakvim i sličnim kernelima se vrši konvolucija.
+Krećući od prvog piksela koji se množi sa centralnim pikselom kernela, ostali pikseli kernela se množe sa odgovarajućim preklopljenim pikselima slike. 
+Svi ovi proizvodi se sabiraju i tako dobijamo novu vrednost piksela.
+Nakon dobijanja nove vrednosti piksela, kernel se pomera za jedan piksel udesno i na taj način se proces ponavlja sve do poslednjeg piksela slike.
+Ovim procesom dobijamo zamućenu sliku.
 Na slici 6 se može videti slika pre i posle zamućivanja.
 
-![3D Gausov kernel](/images/2022/videookulografija/3DGkernel.png)(slika 4)
 
 
-![Primeri Gausovog kernela](/images/2022/videookulografija/Gkernel.png)(slika 5)
+![Slika pre i nakon korišćenja Gausovog filtera - slika 6](/images/2022/videookulografija/GRAYTOBLUR.jpg)(slika 6)
 
 
-![Slika pre i nakon korišćenja Gausovog filtera](/images/2022/videookulografija/GRAYTOBLUR.png)(slika 6)
 
 #### 3.2.1.3. Binarizacija
 
 
 Binarizacije kao priprema za segmentaciju ima zadatak da svaki piksel označi labelama 0 (crno) ili 1 (belo). 
-Postiže se tako što se slika koja je prebačena u sivi spektar sada konvertuje u crno-belo. Ovo se radi procesom koji se naziva poređenje sa pragom. 
+Postiže se tako što se vrši proces poređenja sa pragom što za proizvod ima prebacivanje slike iz sivog spektra boja u binarni domen. 
 Pomoću ovoga svaki piksel pretvaramo u 0 ili 255 u zavisnosti od toga da li je njegova vrednost manja ili veća u odnosu na vrednost praga. 
-Za vrednost praga uzimamo onu vrednost od koje je manje 17.5% piksela sa slike. 
+Kako bi se prag adaptirao svakoj slici, za vrednost praga se uzima vrednost od koje 17.5% piksela sa slike ima manju vrednost. 
 Zatim, vrednosti piksela se dodeljuju na sledeći način – oni pikseli čija je vrednost manja ili jednaka od vrednosti prga, dobijaju vrednost 0, a oni čija je vrednost veća od praga dobijaju vrednost 255. 
 Proizvod primene ovih metoda je crno-bela slika nad kojom se vrši segmentacija - izdvajanje jasnih objekata (u ovom slučaju zenice). 
 
 
-![Slika pre i nakon nakon binarizacije](/images/2022/videookulografija/GRAYTOBIN.jpg)
+![Slika pre i nakon nakon binarizacije - slika 7](/images/2022/videookulografija/GRAYTOBIN.jpg)
+
+
+#### 3.2.1.4. Morfološke operacije
+
+
+Kako bi bile otklonjene ,,rupe" i suvišni objekti na slici koji nisu bitni za dalju obradu slike koriste se morfološke operacije, erozija i dilatacija.
+
+##### 3.2.1.4.1. Erozija
+
+
+Erozija predstavlja postupak ,,uklanjanja" suvišnih objekata.
+Ona funkcioniše jednostavnim principom prolaska maske kroz sliku.
+Maska predstavlja kvadratnu matricu sa neparnim brojem dimenzije koja je ispunjena jedinicama.
+Polazeći od prvog piksela slike, koji se poklapa sa centrom maske, proverava se da li se   maska poklapa sa svim njoj odgovarajućim pikselima slike.
+Ukoliko se dogodi da postoji barem jedno nepodudaranje, piksel slike koji se poklapa sa centrom maske dobiće vrednost 0, tj. postaće crni piksel.
+Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
+
+
+![Primer erozije - slika 8](/images/2022/videookulografija/erozija.png)
+
+
+(slika 8 - Primer erozije)
+
+
+##### 3.2.1.4.2. Dilatacija
+
+
+Dilatacija predstavlja postupak raširenja objekta sa ciljem izvršavanja proširenja njegovih ivica.
+Korišćenjem već konstruisane maske prolazi se kroz sliku, polazeći od prvog piksela slike, koji se poklapa sa centrom maske, proverava se da li postoji poklapanja između maske i njoj odgovarajućih piksela slike.
+Ukoliko se dogodi da postoji barem jedno poklapanje, piksel slike koji se poklapa sa centrom maske dobiće vrednost 1, tj. postaće beo piksel.
+Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
+
+
+![Primer dilatacije - slika 9](/images/2022/videookulografija/dilatacija.png)
+
+
+(slika 9 - Primer dilatacija)
 
 
 
-#### 3.2.1.4. Detekcija ivica
+#### 3.2.1.5. Detekcija ivica
 
 
 Za detekciju ivica zenice korišćen je Keni(eng. *Canny*) algoritam.
@@ -143,13 +236,14 @@ U te svrhe se koristi prethodno opisan Gausov filter.
 Korišćenjem Sobelovog operatora određuje se gradijent svakog piksela.
 
 
-3. Potiskivanje lokalnih ne-maksimuma - U ovoj fazi se ,,zamućene'' ivice pretvaraju u ,,oštre'' tako što  se zadržavaju svi pikseli čiji je gradijent maksimalan u odnosu na gradijente osam piksela sa kojim se graniči, u suprotnom, vrednost piksela će biti eliminisana. 
+3. Potiskivanje lokalnih ne-maksimuma - U ovoj fazi se ,,zamućene'' ivice pretvaraju u ivice ,,od interesa'' tako što  se zadržavaju svi pikseli čiji je gradijent maksimalan u odnosu na gradijente osam piksela sa kojim se graniči, u suprotnom, vrednost piksela će biti eliminisana. 
 Pikseli koji su maksimalni u svom ,,susedstvu'' se označavaju belim ivicama.
 
 
-4. Histerzno poređenje sa pragom - Kako bi se postigao mali procenta lažnih i veći procenat pravih detekcija definišu se dva praga $T_H$ i $T_L$. 
-Viši prag $T_H$ se postavlja tako da najveći deo piksela koji ne spadaju u ivice imaju manju magnitudu gradijrnta u odnosu na vrednost parag. 
-Niži prag $T_L$ se postavlja tako da najveći deo piksela koji pripadaju ivice koje želimo da detektujemo imaju magnitudu gradijenta veću od vrednosti praga. 
+4. Poređenje sa pragom - Kako bi se postigao mali procenta lažnih i veći procenat pravih detekcija definišu se dva praga $T_H$ i $T_L$. 
+Viši prag $T_H$ se postavlja tako da najveći deo piksela koji ne spadaju u ivice imaju manju magnitudu gradijenta u odnosu na vrednost parag, tj. sve ivice veće od $T_H$ su jake ivice.
+Niži prag $T_L$ se postavlja tako da najveći deo piksela koji pripadaju ivice koje želimo da detektujemo imaju magnitudu gradijenta veću od vrednosti praga, tj. sve ivice manje od $T_L$ je potrebno eliminisati.
+Na kraju je potrebno da ostanu sve ivice čije su vrednosti između $T_L$ i $T_H$.
 Na ovaj način se dobija mapa jakih i slabih (potencijalnih) ivica.
 
 
@@ -157,40 +251,97 @@ Na ovaj način se dobija mapa jakih i slabih (potencijalnih) ivica.
 Ova iteracija se ponavlja sve dok broj ivica ne postane konstantan tokom cele iteracije.
 
 
-Na slici 7 se može videti binarizovani frejm sa live snimka odnosno frejm kakav se obrađuje u Keni algoritamu, a na slici 8 frejm live snimka nakon detekcije ivica.
+Na slici 10 se može videti binarizovani frejm sa snimka u realnom vremenu odnosno frejm kakav se obrađuje u Keni algoritamu, a na slici 11 frejm snimka u realnom vremenu nakon detekcije ivica.
 
 
-![Slika pre Canny-ja](/images/2022/videookulografija/BIN.jpg)(slika 7)
+![Slika pre Canny-ja - slika 10](/images/2022/videookulografija/BIN.jpg)(slika 10)
 
 
-![Slika posle Canny-ja](/images/2022/videookulografija/CANNY.jpg)(slika 8)
+![Slika posle Canny-ja - slika 11](/images/2022/videookulografija/CANNY.jpg)(slika 11)
 
 
-#### 3.2.1.5. Hafova transformacija za krug
-
-Hafova transformacija kruga (HF)[3] [4] je algoritam koji se koristi za detekciju objekata u zavisnosti od zadatih parametara. 
-U ovom radu HF se primenjuje kako bi se istakla tačna lokacija zenice, njenog prečnika i koordinata centra, tj. potreban je 3D Hafov prostor za detekciju kruga. 
-Jedan nedostatak predstavlja to što je kompjutersko računanje ovim metodom zahtevno jer traži najveću vrednost koja definiše krug u prostoru. 
-Zato, u slučaju da se pojavi više krugova na slici, radi se sledeće:
+#### 3.2.1.6. Hafova transformacija za krug
 
 
-1. parametrom minimalnog rastojanja se zadaje rastojanje između centra krugova i tako se sužava broj onih koji se posmatraju
+Hafova transformacija za krug (CHT) je metoda za detekciju krugova na slici. U ovom radu CHT se koristi kako bi se istakla zenica kao najjasniji detektovani krug. 
+
+Hafova transformacija za krug identična je transformaciji za liniju (LHT). LHT se zasniva na sledećem:
+Formula za pravu $y_1 = a \cdot x_1 + b$, gde su:
+- $y_1$ - zavisna promenljiva
+- $x_1$ - nezavisna promenljiva
+- a, b - parametri
 
 
-2. metod Hafov Gradijent koji koristi informacije o gradijentu ivica i ima veći prag nego oni u Keni metodi
+se posmatra na drugačiji način. Parametri a, b postaju nezavisna i zavisna promenljiva, dok $y_1, x_1$ postaju parametri, čime se dobija formula: 
+
+$b = -x_1 \cdot a + y_1$.
 
 
-3. zadavanje praga akumulatora za centre krugova u fazi detekcije - više lažnih krugova se otkrije ako je prag manji
+Ovim postupkom vidi se ideja Hafove transformacije, a to je da svaka tačka u dekartovom koordinantnom sistemu predstavlja pravu u parametarskom prostoru slika 12. Potom se u parametarskom prostoru traže tačke preseka sa najvećom koncentracijom, tj. traže se tačke u kojima se seče najveći broj pravi. Svrha ovog postupka jeste pronaći najveći broj tačaka u dekartovom sistemu.
 
 
-4. zadavanje minimalnog i maksimalnog prečnika kruga koji dolazi u obzir.
+![Tačka prebačena iz dekartovog u parametarski sistem - slika 12](/images/2022/videookulografija/hafovatransformacija.png)
+
+(slika 12 - Tačka prebačena iz dekartovog u parametarski sistem)
 
 
-Na ovaj način je sigurno detekovan jedan, najveći krug u zadatom opsegu, tj. dobijeni su podaci o koordinatama centra kruga i njegovog radijusa što pretstavlja detektovanu zenicu oka.
-Na slici 9 je prikazana detektovana zenica oka na ulaznom frejmu sa live snimka.
+Problem nastaje kada se dobije vertikalna linija, jer kod takvih parametar a teži beskonačnosti. 
 
 
-![Slika sa detektovanom zenicom](/images/2022/videookulografija/DETEKTOVANA.jpg)(slika 9)
+
+
+
+Zbog toga linija se posmatra u parametarskom obliku, a formula glasi:
+
+
+$x \cdot \cos{\theta} + y \cdot \sin{\theta} = \rho$,
+
+gde je:   
+- $\theta$ - ugao koji zaklapa normala na pravu sa x osom Slika 13
+- $\rho$ - rastojanje od koordinantnog početka do prave
+- x, y - parametri
+
+
+Sada, tačka neće predstavljati pravu već sinusoidu Slika 13, a presečne tačke se određuju na isti način kao što je ranije navedeno.
+
+
+![Tačka u sinusoidnom obliku - slika 13](/images/2022/videookulografija/hafovatransformacija2.png)
+
+(slika 13 - Tačka u sinusoidnom obliku)
+
+
+
+
+U narednom koraku se definiše parametarski prostor.
+Za svaki tačku iz slike, koja je detektovana kao ivica se generiše sinusoida koja se pamti i traže se preseci. 
+Parametarski prostor se određuje pomoći ro i teta. 
+Definišu se minimalne i maksimalne veličine, tj. opsezi za svaki od dva data parametra. Potom se taj parametarski prostor deli na više ćelija u skladu sa potrebnom preciznošću. 
+U sledećem koraku se za svak tačku sa originalne slike definiše prava, nakon čega se za svaku vrednost parametra $\theta$ određuje parametar $\rho$. 
+Ako važi da parametar $\theta_a$ generiše $\rho_b$, onda se ćelija inkrementira. 
+Za sve tačke je postupak isti. 
+Cilj je izdvojiti ćelije koje imaju najveće vrednosti, zbog toga što linije koje prolaze kroz te ćelije imaju najviše tačaka. 
+
+
+Hafova transformacija za detekciju krugova, kao što je rečeno, identična je transformaciji linije. Kod krugova istih poluprečnika, tačke iz dekartovog se u parametarski sistem slikaju kao kružnice. 
+Dakle, potrebna su samo dva parametra a i b, što sužava pretragu na dve dimenzije. 
+Krug koji se predstavlja jednačinom kružnice
+
+$(x - a)^2 + (y - b)^2 = r^2$ , 
+
+parametarski se predstavlja formulama: 
+
+$x = a + r \cdot \cos{\theta}$,
+
+$y = b + r \cdot \sin{\theta}$. 
+
+
+Kod krugova različitih poluprečnika razlika je u tome što oni zahtevaju tri dimenzije, tj. u parametarski prostor se prenose kao kupe. 
+Ostatak postupka je isti kao i za LHT.
+
+
+![3D transformacija kruga - slika 14](/images/2022/videookulografija/hafovatransformacija2.png)
+
+(slika 14 - 3D transformacija kruga)
 
 
 #### **3.2.2. Obrada podataka**
@@ -198,63 +349,134 @@ Na slici 9 je prikazana detektovana zenica oka na ulaznom frejmu sa live snimka.
 #### 3.2.2.1. Mean average filter
 
 
+Dok konstantno gledamo u jednu tačku dolazi do šuma kao što je treptaj, nenamerno pomeranje oka ili kamere, promena jačine osvetljenja i slično.
+Ovakve šumove neophodno je otkloniti i u te svrhe koristimo mean avrage filter.
+Prolazići kroz signal izračunava se aritmetička vrednost prethodnih N merenja koordinata zenice.
+Ovako izračunate vrednosti se postavlju kao nove koordinate zenice. 
+Na taj način se dobija filtrirano merenje.
+
+Na slikama ispod se mogu videti grafovi filtriranih signala, x i y ose u odnosu na vreme.
+
+
+![Koordinate x-ose u odnosu na t - slika 15](/images/2022/videookulografija/filtriranx.jpg)(slika 13)
+
+
+![Koordinate y-ose u odnosu na t - slika 16](/images/2022/videookulografija/filtrirany.jpg)(slika 14)
+
+
+
+### **3.2.3. Kalibracija**
+
+
 Kada je zenicu detektovana potrebno je uraditi test gde se na ekranu pojavljuje devet tačaka u koje se gleda određen broj sekundi.
 U toku eksperimenta dobijaju se koordinate zenice i tačke u koju trenutno gledamo, tako pravimo bazu podataka koje će nam biti potrebna za dalji rad.
 
 
-Ekran koji se gleda tokom eksperimenta izgleda kao na slici. 
-U toku eksperimenta crvena tačka se pomera nakon nekog vremena, tj. plave tačke postaju crvene kada je potrebno da gledamo u njih.
+Ekran koji se gleda tokom eksperimenta izgleda kao na slici 17. 
+U toku eksperimenta crvena tačka se pomera nakon nekog vremena, tj. plave tačke postaju crvene kada je potrebno gledati u njih.
 
 
-![Ekran tokom eksperimenta](/images/2022/videookulografija/eksperiment.jpg)(silak 10)
-
-
-Dobijeni podaci imaju šum (kao što je treptaj, nenamerno pomeranje oka ili kamere, promena jačine osvetljenja i slično) koji se otklanjaju mean avarage filterom (filter srednje aritmetičke vrednosti). 
-Prolazići kroz bazu izračunava se aritmetička vrednost prethodnih n merenja koordinata zenice i te nove vrednosti se postavlja kao nove koordinate zenice. 
-Na taj način se dobija filtrirano merenje.
-
-Na slikama ispod se mogu videti grafovi filtriranih merenja, x i z ose u odnosu na vreme.
-
-
-![Koordinate x-ose u odnosu na t](/images/2022/videookulografija/filtriranx.jpg)(slika 11)
-
-
-![Koordinate y-ose u odnosu na t](/images/2022/videookulografija/filtrirany.jpg)(slika 12)
-
-### **3.2.3. Kalibracija**
+![Ekran tokom eksperimenta - slika 17](/images/2022/videookulografija/eksperiment.jpg)(silak 17)
 
 #### 3.2.3.1. Linearna regresija
 
 
-//dodati zasto sistem nije linearan
-
 Kako bi se uz pomoć detekcije zenice kontrolisao neki objekat na računaru potrebno je znati na osnovu koordinata centra zenice u koju tačku na ekranu je oko upereno. 
 Za to je korišćena linearna regresija, tj. polinomialna regresija jer sistem nije linearan. 
+Ovaj sistem nije linearan iz dva razloga.
+Prvi razlog je konveksni oblik oka koji izaziva nelinarno kretanje zenice, a drugi razlog je što ravan pogleda(koja je normalna na položaj lica) i ravan ekrana nisu pod pravim uglom.
+
+
+
+![Primer linearne regresije - slika 18](/images/2022/videookulografija/linearRegression.jpg)(slika 18)
+
 
 Linearna regresija predstavlja modelovanje relacija između jedne ili više zavisnih promenljivih i jedne ili više nezavisnih promenljivih. 
-Model linearne regresije ima oblik $Y = X * b $, gde je Y vektor izmerenih vrednosti(u našem slučaju koordinate našeg pogkleda na ekranu) odnosno zavisna promenljiva, X vektor inputne promenljive(u našem slučaju koordinate zenice oka) odnosno nezavisna promenljiva  i b vektor koificijenta modela. 
-Vektor koificijenta modela b  
+Na slici 13 se može videti primer modelovanja relacije između promenljivih.
+Model linearne regresije ima oblik:
+
+
+$ \textbf{Y} = \textbf{X} \cdot b $
+
+
+Gde je Y vektor izmerenih vrednosti(u ovom slučaju koordinate pogleda na ekranu) odnosno zavisna promenljiva, X vektor inputne promenljive(u ovom slučaju koordinate zenice oka) odnosno nezavisna promenljiva  i b vektor koificijenta modela. 
+
+
+Optimalni vektor parametara $b$ dobija se iz formule za pseudo inverziju koja glasi: 
+
+
+$b = (X^T \cdot X)^{-1} \cdot Y \cdot X^{T}$ 
+
+
+Gde je X matrica koordinata zence oka, a Y matrica koordinata tačaka na ekranu u koje je predviđeno da se gleda tokom prethodno pomentuog eksperimenta.
+
+
+Ove matrice se dobijaju iz baze podataka generisane tokom prethodno pomenutog eksperimenta.
+Dobijen vektor koejficijenta modela b se koristi za izračunavanje koordinta tačaka na ekranu u koje je zenica uperena.
+Ovako dobijen vektor koeficijenta b nije deltvoran.
+Konveksni oblik oka izaziva nelinarno kretanje zenice i ugao između ravni pogleda i ravni ekrana nije normalan zbog čega je potrebno koristiti polinomialnu regresiju.
 
 
 #### 3.2.3.2. Polinomialna regresija
-Poliomilna regresija je specijalan slučaj višestruke linearne regresije gde se modeluje veza između zavisne i nezavisne promenljive, u ovom slučaju, između stvarnog položaja zenice i položaja tačke na ekranu, kao polinom n-tog stepena. 
-U našem slučaju, nema linearne korelacije između promenljivih (slika 1.1), pa se radi veće preciznosti promenjuje poliomilna regresija (slika 1.2).
 
-slika 1 slika 2
 
-Formula glasi: $y= b_0+b_1 \cdot x_1+ b_2 \cdot x_2+ b_2  \cdot x_2+...... b_n \cdot x_n$, gde su:
-b - koificijenti regresije
-n - stepen regresije (u našem slučaju $n = 3$)
+Sistem nije linearan zbog konveksnog oblika oka i ugla između ravni pogleda i ravni ekrana koji nije normalan zbog čega se koristi polinomialna regresija.
+Poliomilna regresija je specijalan slučaj višestruke linearne regresije gde se modeluje veza između zavisne i nezavisne promenljive, u ovom slučaju, između koordinata zenice oka i koordinate pogleda na ekranu, kao polinom n-tog stepena. 
+U ovom slučaju, nema linearne korelacije između promenljivih (slika 19.1), pa se radi veće preciznosti primenjuje poliomilna regresija (slika 19.2).
+
+
+![Primer linearne i polinomialne regresije - slika 19](/images/2022/videookulografija/polinomialnaRegresija.png)(slika 19)
+
+
+Za razliku od linearne regresije, kod polinomialne regresije se nezavisna promenljiva x stepenuje stepenom regresije n i zbog toga se dobija bolja korelacija između promenjljivih.
+
+
+Formula polinomialne regresije glasi:
+
+
+$y= b_0+b_1 \cdot x_1+ b_2 \cdot x_1^2 + b_3  \cdot x_1^3+ ... + b_n \cdot x_1^n$
+
+gde su:
+
+
+b - koeficijenti regresije
+
+
+n - stepen regresije (u slučaju ovog rada $n = 3$)
+
+Kako bi izračunali optimalan koeficijent regresije neophodno je da se polinomialna regresija svede na lineanrnu i nakon toga korišćenjem pseudo inverzije izračuna optimalan koeficijent b.
+Polinomialnu regresiju se svodi na linearnu regresiju tako što se konstruiše matricu X: 
+
+$\begin{bmatrix}
+   1 & x_1 & x_1^2 & ... & x_1^n \\
+   1 & x_2 & x_2^2 & ... & x_2^n \\
+   1 & x_3 & x_3^2 & ... & x_3^n \\
+   . & . & . & . & . \\
+   . & . & . &  .  & . \\
+   . & . & . &   . & . \\
+   1 & x_m & x_m^2 & ... & x_m^n 
+\end{bmatrix}$
+
+U ovoj matrici n predstavlja stepen polinomialne regresije.
+Ovakvu matricu ćemo iskoristiti u formuli za pseudo inverziju i na taj način dobiti optimalni koeficijent regresije $b$.
+
+Formula za pseudo inverziju:  $b = (X^T \cdot X)^{-1} \cdot Y \cdot X^{T}$ 
 
 
 ## **4. Rezultati i istraživanja**
 
 
 Model dobijen poliomilnom regresijom je proveren tako što je eksperiment snimiljen još jednom, ali ovog puta je dobijen predviđen položaja zenice.
-Na kraju, kao rezultat je dobijena tabela u kojoj, u odnosu na tačku na ekranu (x, y), se može videti pomerenost estimacije i standardna devijacija rasipanja (σx, σy).
+Na kraju, kao rezultat je dobijena tabela u kojoj, u odnosu na koordinate tačke na ekranu (x, y), se može videti pomerenost estimacije i standardna devijacija rasipanja (σx, σy).
 Rezultati sa jednim snimanjem imaja prosečan pomeraj 121.6 piksela i prosečne standardne devijacije raspipanja su σx = 43.48 i σy = 43.13. 
-Sa ovakvim rezultatima je veoma teško kontrolisati kursor ili igrati igricu. 
-Sa više snimanja i u drugačijim uslovima, kao npr. snimanje očiju svetlijih nijansi ili korišćenjem filtera za IR spektar greška bi se smanjivala i tako povećala mogućnost kontrolisanja kursora ili igranja igrica.
+
+
+![Primer - slika 20](/images/2022/videookulografija/primerfoldera.jpg)(slika 20)
+
+
+Sa ovakvim brojkama u pokušaju pritiskanja New folder  sa slike 20 bio bi zapravo pritisnut folder New Folder 2 ili New folder 3 ili New folder 4.
+Kada bi parametri sa ovakvim rezultatima bili implementirani verovatnoća za uspešnu kontrolu bi bila veoma mala, čak približna nuli.
+Kako bi se rezultati poboljšali i kako bi imali realniju sliku o sistemu potrebno je više snimanja.
 (Napomena – ovo je tabela rezultata sa jednim snimanjem, dodatno prikupljanje podataka je u toku.) 
 
 
@@ -281,14 +503,17 @@ U budućnosti planiramo da kroz ovaj projekat omogućimo kontrolisanje kursora, 
 ...
 
 
-### 6. Reference
+## **6. Reference**
 [^1]: Saravanan, Chandran. "Color image to grayscale image conversion." 2010 Second International Conference on Computer Engineering and Applications. Vol. 2. IEEE, 2010.
 
 
 [^2]: Ahmed, Ahmed Shihab. "Comparative study among Sobel, Prewitt and Canny edge detection operators used in image processing." J. Theor. Appl. Inf. Technol 96.19 (2018): 6517-6525.
 
 
-[3]Valentina, Christie, et al. "Iris localization using circular hough transform and horizontal projection folding." Proceedings of International Conference on Information Technology and Applied Mathematics. 2012.
+[^3]: Valentina, Christie, et al. "Iris localization using circular hough transform and horizontal projection folding." Proceedings of International Conference on Information Technology and Applied Mathematics. 2012.
 
 
-[4]Ye, Huashan & Shang, Guocan & Wang, Lina & Zheng, Min. (2015). A new method based on hough transform for quick line and circle detection. 52-56. 10.1109/BMEI.2015.7401472.
+[^4]: Ye, Huashan & Shang, Guocan & Wang, Lina & Zheng, Min. (2015). A new method based on hough transform for quick line and circle detection. 52-56. 10.1109/BMEI.2015.7401472.
+
+
+[^5]: Bozomitu, R. G., Păsărică, A., Tărniceriu, D., & Rotariu, C. (2019). Development of an eye tracking-based human-computer interface for real-time applications. Sensors, 19(16), 3630.
