@@ -3,7 +3,7 @@ title: Prepoznavanje govora
 summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaznike 2022. godine od Dimitrija Pešića i Lazara Zubovića.
 ---
 ### Apstrakt
-Prepoznavanje govora predstavlja jedan od najvećih izazova tehnologije. Sve veća potreba za digitalizacijom dovodi do potrebom za širenjem znanja u ovom polju. Dosadašnja istraživanja pokazuju efikasnost i tačnost prepoznavanja govora mnogih metoda sa i bez deep learning metode, ne fokusirajući se toliko na pojašnjenja razlika u rezultatima koji su dobijeni. Ovaj rad se fokusira na posmatranju i upoređivanju metoda poput konvolucionih neuronskih mreža i raznih klasifikatora podataka koji ne koriste deep learning tehniku kako bi se utvrdilo šta je najbolji pristup za identifikovanje reči. Testirajući na FSDD bazi reči i bazi podataka koja se sastoji od srpskih reči, utvrđeno je da najprecizniji način za obradu audio zapisa konvoluciona neuronska mreža, pa je najoptimalnije dalja istraživanja voditi u tom smeru.
+Prepoznavanje govora predstavlja jedan od najvećih izazova tehnologije. Sve veća potreba za digitalizacijom dovodi do potrebom za širenjem znanja u ovom polju. Dosadašnja istraživanja pokazuju efikasnost i tačnost prepoznavanja govora mnogih metoda sa i bez korišćenja dubokog učenja, ne fokusirajući se toliko na pojašnjenja razlika u rezultatima koji su dobijeni. Ovaj rad se fokusira na posmatranju i upoređivanju metoda poput konvolucionih neuronskih mreža i raznih klasifikatora podataka koji ne koriste tehniku dubokog učenja kako bi se utvrdilo šta je najbolji pristup za identifikovanje reči. Testirajući na FSDD bazi reči i bazi podataka koja se sastoji od srpskih reči, utvrđeno je da najprecizniji način za obradu audio zapisa konvoluciona neuronska mreža, pa je najoptimalnije dalja istraživanja voditi u tom smeru.
 
 ### Apstrakt na engleskom
 ### Uvod
@@ -35,9 +35,6 @@ Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao 
 
 Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signala u vremenskom intervalu. Intervali su mali, te se može pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju u okviru jednog intervala.
 
-Boja na grafiku predstavlja amplitudu signala u određenom vremenskom trenutku. Plava boja na spektrogramu predstavlja niske amplitude, dok crvena boja predstavlja visoke amplitude.
-
-![spektrogram](static\images\2.png)
 
 #### Metode obrade spektrograma
 
@@ -221,7 +218,7 @@ Metrika ovih rezultata bila je tačnost. Zbog balansirane baze, ovo predstavlja 
 
 Odvojeno možemo posmatrati rezultate metoda sa dubokim učenjem i one bez dubokog učenja. Iz tabele se može uočiti da je konvoluciona neuronska mreža ostvarila najveću tačnost kao metoda sa dubokim učenjem, a XGBoost daje najbolje rezultate među metodama koje ne koriste duboko učenje.
 
-Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Deep learning metode same vrše feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao speech recognition loss funkcija pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~200Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
+Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Metode sa dubokim učenjem same vrše feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao loss funkcija za prepoznavanje govora pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~200Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
 
 Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
 
@@ -243,9 +240,9 @@ Brojevi 9 i 1 su često mešani pri klasifikaciji ova četiri modela. Njihov izg
 
 U svim metodama, broj 6 se pokazao kao najteže klasifikovan i u svim metodama mešan je sa brojevima 3 i 8, što ima manje fizičkog smisla od brojeva 1 i 9 ("six","three","eight").
 
-XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste deep learning tehniku. Bolje rezultate dobijamo zato što su Decision tree algoritmi jednostavni za implementaciju i zaista precizni. Mogu se dobiti odlični rezultati u minimizaciji greški u prepoznavanju korišćenjem tehnike stabla odlučivanja pri obradi karakteristika zvuka. Gledajući u tabelu, XGBoost je imao veću preciznost od Random Forest klasifikatora. Ovo se može objasniti "obrezivanjem drveća" koje XGBoost radi, to jest Boosting kojim poboljšava klasifikaciju. XGBoost pokušava da smanji kriterijumsku funkciju modela koji obrađuje podatke, dok se Random Forest ne fokusira na te parametre i ne optimizuje model tako da to odgovara loše balansiranoj bazi podataka. 
+XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste tehniku dubokog učenja. Bolje rezultate dobijamo zato što su Decision tree algoritmi jednostavni za implementaciju i zaista precizni. Mogu se dobiti odlični rezultati u minimizaciji greški u prepoznavanju korišćenjem tehnike stabla odlučivanja pri obradi karakteristika zvuka. Gledajući u tabelu, XGBoost je imao veću preciznost od Random Forest klasifikatora. Ovo se može objasniti "obrezivanjem drveća" koje XGBoost radi, to jest Boosting kojim poboljšava klasifikaciju. XGBoost pokušava da smanji kriterijumsku funkciju modela koji obrađuje podatke, dok se Random Forest ne fokusira na te parametre i ne optimizuje model tako da to odgovara loše balansiranoj bazi podataka. 
 
-Konvoluciona neuronska mreža, kao metoda koja koristi duboko učenje, prevazišla je rezultate običnih metoda. Metode sa dubokim učenjem imaju bolju primenu u ovoj oblasti tehnologije zbog sličnosti ovih algoritama ljudskom mozgu. Jednostavnost struktura algoritama je glavna mana u primeni mašinskog učenja za klasifikovanje zvuka, kao i to što je neophodna veća intervencija čoveka pri podešavanjima algoritama i metoda. 
+Konvoluciona neuronska mreža, kao metoda koja koristi duboko učenje, prevazišla je rezultate običnih metoda. To se može objasniti time što je CNN kompleksniji model, pa može da modeluje kompleksniju relaciju između paramatara koji su mu dati. Metode sa dubokim učenjem imaju bolju primenu u ovoj oblasti tehnologije zbog sličnosti ovih algoritama ljudskom mozgu. Jednostavnost struktura algoritama je glavna mana u primeni mašinskog učenja za klasifikovanje zvuka, kao i to što je neophodna veća intervencija čoveka pri podešavanjima algoritama i metoda. 
 
 ### Zaključak
 
