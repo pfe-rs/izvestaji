@@ -3,6 +3,7 @@ title: Robot valjak
 summary: Robot u obliku valjka je projekat rađen na letnjem kampu za stare polaznike 2022. godine od Nikole Ristanovića i Filipa Bajraktarija.
 ---
 
+![Grafički apstrakt](/images/2022/robot-valjak/graficki_apstrakt.svg)
 
 ### Uvod
 
@@ -36,7 +37,7 @@ $$\frac{d}{dt}\left(\frac{\partial L}{\partial \omega _ 1}\right)\ -\ \frac{\par
 $$\frac{d}{dt}\left(\frac{\partial L}{\partial \omega _ 2}\right)\ -\ \frac{\partial L}{\partial \omega _ 2}\ = \ T$$
 dobijaju se sledeće jednačine kojima je u potpunosti opisana dinamika sistema:
 $$-T + T_f\ =\ \alpha_1(J_1 + J_2 + M_1r^2 + M_2r^2 + M_2d^2 - 2M_2rd)\ +\ \alpha_2(J_2 - M_2rd + M_2d^2)\ +\ M_2gd(\theta_1 + \theta_2)$$
-$$T\ =\ \alpha_1(J_1 - M_2rd + M_2d^) + \alpha_2(J_2 + M2d^2) + M_2gd(\theta_1 + \theta_2)$$
+$$T\ =\ \alpha_1(J_1 - M_2rd + M_2d^2) + \alpha_2(J_2 + M2d^2) + M_2gd(\theta_1 + \theta_2)$$
 gde su iskorišćene aproksimacije za male uglove i male ugaone brzine. Ukoliko važi
 $$\theta_1 + \theta_2 \ll 1 \ \ ,\ \  \omega_1 + \omega_2 \ll 1$$
 mogu se primeniti sledeće aproksimacije:
@@ -124,6 +125,12 @@ U radu su simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan u
 
 ![Poprečni presek robota valjka](/images/2022/robot-valjak/prva.drawio2.svg)
 
+U nastavku se mogu videti grafici dobijeni iz softverskih simulacija:
+
+![PID ugao inklinacije klatna](/images/2022/robot-valjak/PID_ugao_inklinacije_klatna.svg)  
+![PID ugaona brzina robota](/images/2022/robot-valjak/PID_ugaona_brzina_robota.svg)  
+![PID ugaoni predjeni put robota](/images/2022/robot-valjak/PID_ugaoni_predjeni_put_robota.svg)
+
 ###### Diferencijator
 
 Diferencijator je specijalni oblik transfer funkcije koji ima za ulogu da prima ulazni signal a da kao izlaz prosleđuje funkciju koja odgovara prvom izvodu ulaza. Ovde treba naglasiti da je nemoguće napraviti idealni diferencijator već se na ovaj način postiže aproksimacija željenog efekta. Diferencijator je transfer funcija prvog reda sa nulom u nuli koja okarakterisana frekvencijom odsecanja, *cut-off frequency*. 
@@ -156,7 +163,11 @@ Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrok
 
 ##### Arduino Nano i HC05
 
+<<<<<<< HEAD
 Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomoću UART-a na BAUD rate-u od 9600 bitova po sekundi, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) *je ograničen na 3.3V*, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo.
+=======
+Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomoću UART-a na BAUD rate-u od 9600 bitova po sekundi, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) je ograničen na 3.3V, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo.
+>>>>>>> 4b4a20d0366293e65da18d0453c046daa0f05028
 
 ##### (IMU) - MPU6050
 
@@ -166,9 +177,13 @@ MPU6050 je akcelerometar i žiroskop koji se koristi za merenje ugla inklinacije
 
 Napajanje koje se u projektu koristi su 4 redno vezane Samsung 18650-35E Litijum-jonske baterije zbog svog kapaciteta od 5000mAh i maksimalne struje od 2A. Baterije se pune eksternim punjacem pomoću balansirajućeg konektora na njima. Napon sa baterije se sprovodi do LM2598 regulatora gde se napon spušta na 12V kako bi dalje mogao da se dovede do H-mosta, budući da je u trenutnoj konfiguraciji njegov napon ograničen na maksimalnih 12V. Potom se struja iz H-mosta pomocu njegovog integrisanog regulatora spusta na 5V i dovodi do mikrokontrolera i ostalih senzora. Napon baterije se meri na mikrokontroleru kroz naponski razdelnik kako bi se napon od 16.8V spustio na 5V koji su bezbedni za mikrokontroler. Baterija može da radi oko 3.5h tokom kretanja robota.
 
+<<<<<<< HEAD
 
 
 ##### Motor i H-most
+=======
+##### DC motor i L298N H-most
+>>>>>>> 4b4a20d0366293e65da18d0453c046daa0f05028
 
 Budući da pinovi mikrokontrlera nemaju snagu da pokrenu motor, kao pokretač motora se postavlja H-most koji pomoću signala koji dobija od strane mikrokontrolera pokreće motor. Dva signala koje H-most dobija su digitalni signali: 
 
@@ -185,14 +200,20 @@ E38S6G5 je optički enkoder koji se koristi za merenje pređenog puta robota. E3
 
 Tokom rada na projektu, uspešno je realizovana hardverska implementacija robota i prikupljeni su podaci o tome kako sistem reaguje na uzastopne odskočne odzive. Tokom istraživanja su izmerena tri odskočna odziva koja redom odgovaraju transfer funkcijama ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora, ugaone brzine klatna u odnosu na podlogu u zavisnosti od ulaznog napona motora i ugaonog pređenog puta robota u zavisnosti od ulaznog napona motora.
 
+Prilikom dizajniranja klatna valjka centar mase korpe i komponenti (baterije, arduino i ostali moduli) se ne nalazi u osnosimetričnoj ravni korpe već je blago izbačen sa strane što dovodi do toga da nula u merenju inklinacije ugla nije prava nula. Takođe, ovome je potpomogla i činjenica da se na DC motoru nalazi reduktor zbog kog ne postoji prava nula već postoji interval uglova koji mogu biti prava nula. Za male uglove moment zemljine teže na klatno se izjednačava sa momentom sile koju reduktor proizvodi na klatno. Drugim rečima, javalja se mali interval oko prave nule za koje se klatno nalazi u indiferentnoj ravnoteži i u kojoj krajnji položaj zavisi isključivo od početnog impulsa. Ukoliko je veći početni impuls veća je i greška merenja ugla inklinacije. Ovaj fenomen se može predstaviti na grafiku ispod gde se vidi da robot konstantno *driftuje* u jednu stranu. Za dalji rad na ovom robotu treba da se poravna centar mase sistema kao i da se poveća masa klatna kako bi se smanjio opseg uglova koji mogu biti prava nula i na taj način postići preciznija merenja.
+
+![Predjeni put robota valjka](/images/2022/robot-valjak/predjeni_put_robota.png)
+
+Druga dva merenja predstavljaju kako u realnom sistemu napon na motoru utiče na ugaonu brzinu klatna i ugao inklinacije klatna. Na drugom grafiku se može jasno videti gore opisan problem. Referentna nula je pomerena za neku vrednost $d\theta$ i razlikuje se od stvarne nule.
+
 ![Ugao inklinacije robota valjka](/images/2022/robot-valjak/ugao_inklinacije_klatna.png)
 
 ![Ugaona brzina klatna robota valjka](/images/2022/robot-valjak/ugaona_brzina_klatna.png)
 
-![Predjeni put robota valjka](/images/2022/robot-valjak/predjeni_put_valjka.svg)
-
-Prilikom dizajniranja klatna valjka centar mase korpe i komponenti (baterije, arduino i ostali moduli) se ne nalazi u osnosimetričnoj ravni korpe već je blago izbačen sa strane što dovodi do toga da nula u merenju inklinacije ugla nije prava nula. Takođe, ovome je potpomogla i činjenica da se na DC motoru nalazi reducer zbog kog ne postoji prava nula već postoji interval uglova koji mogu biti prava nula. Za male uglove moment zemljine teže na klatno se izjednačava sa momentom sile koju reducer proizvodi na klatno. Drugim rečima, javalja se mali interval oko prave nule za koje se klatno nalazi u indiferentnoj ravnoteži i u kojoj krajnji položaj zavisi isključivo od početnog impulsa. Ukoliko je veći početni impuls veća je i greška merenja ugla inklinacije. Ovaj fenomen se može predstaviti na grafiku ispod gde se vidi da robot konstantno *driftuje* u jednu stranu. Za dalji rad na ovom robotu treba da se poravna centar mase sistema kao i da se poveća masa klatna kako bi se smanjio opseg uglova koji mogu biti prava nula i na taj način postići preciznija merenja.
-
-Druga dva merenja predstavljaju kako u realnom sistemu napon na motoru utiče na ugaonu brzinu klatna i ugao inklinacije klatna. Na drugom grafiku se može jasno videti gore opisan problem. Referentna nula je pomerena za neku vrednost $d\theta$ i razlikuje se od stvarne nule. Takođe, jedan od ciljeva ovog projekta je bila i numerička identifikacija sistema koja nažalost nije urađena zbog nedostatka vremena kao i gore navedenih problema, ali idalje ostaje kao mogućnost za neki budući rad na ovu ili neku sličnu temu.
-
 ## Zaključak
+
+Koristeći pravila Lagranžove mehanike izvedene su jednačine kretanja sistema. Te jednačine opisuje kretanje klatna valjka kao i kretanje samog robota. Jednačine su predstavljene u obliku linearnih diferencijalnih jednačina što dalje omogućava njihovo konvertovanje pomoću Laplasove transformacije u odgovarajuće transfer funkcija. Tako dobijene transfer funkcije nam opisuju kako napon na motoru utiče na ugao inklinacije valjka, ugaonu brzinu valjka i ugaoni pomeraj valjka. Na osnovu transfer funkcija se može zaključiti da je sistem oscilatoran zato su implementirani odgovarajući PID kontroleri koji imaju za ulogu da priguše napomenute oscilacije i u smanje potrebno vreme stabilizacije. U radu su PID kontroleri ulančani i na taj način je omogućeno da *viši* kontroleri brže i sa manjim oscilacijama stabilizuju sistem nego što bi bio slučaj da nije došlo do ulančavanja PID kontrolera.
+
+Kada je u pitanju hardverska implementacija robota, centar mase klatna robota nije bio u osi geometrijskog centra klatna što je pravilo problem prilikom kalibracije i određivanja ugla inklinacije klatna. Na kalibraciju je dodatno uticalo i postojanje reduktora na DC motoru što je sve ukupno činilo da umesto jedinstvene referentne nule imamo opseg uglova za koje klatno može da se nađe u indiferentnoj ravnoteži.
+
+Takođe, jedan od ciljeva ovog projekta je bila i numerička identifikacija sistema koja nažalost nije urađena zbog nedostatka vremena kao i gore navedenih problema, ali idalje ostaje kao mogućnost za neki budući rad na ovu ili neku sličnu temu. Pored toga, predlažemo da se u nekom budućem radu da se teg klatna preciznije postavi i izradi od težek materijala kako bi se opseg uglova koji mogu budu referentna nula suzi.
