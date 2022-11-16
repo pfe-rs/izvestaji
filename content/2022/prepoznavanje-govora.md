@@ -48,8 +48,6 @@ U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu f
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression). Na sledećoj slici prikazana je Softmax funkcija.
 
-![Softmax](static\images\Softmax.svg)
-
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
 $$\begin{equation}
@@ -79,7 +77,7 @@ Grafik koji dobijemo ovom formulom zove se spektar snage. Spektar snage je pokaz
 
 2. Spektar snage logaritmujemo, pa odatle dobijamo logaritamski spektar snage. On služi da pokaže relativnu važnost svake komponente (amplitude sinusoida) ovog zvuka. Na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
 
-![Spektar snage](static\images\log.png)
+![Spektar snage](static\images\LogPowerSpectrum.svg)
 
 3. Po logaritmovanju spektra snage, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
 
@@ -91,7 +89,7 @@ Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizo
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
-![Random Forest](static\images\3.png)
+![Random Forest](static\images\RandomForest1.svg)
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
@@ -124,7 +122,7 @@ Kako postoji velik broj ovih hiperravni, kao optimalnu uzimamo onu kod koje je u
 
 Hiperravni koje ograničavaju zonu udaljenosti od granice odlučivanja na kojoj klasifikator daje vrednosti čija je apsolutna vrednost manja od 1 nazivaju se noseći vektori. To znači da za svaki podatak koji se nalazi unutar tih vektora ne možemo sa sigurnošću reći kojoj klasi pripada.
 
-![SVM1](static/images/5.png)
+![SVM1](static/images/SVM.svg)
 
 Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
 
@@ -176,7 +174,7 @@ Sažimanje označava dodavanje piksela na ivice. Samim tim, kada konvolucija rad
 
 ReLU (rectified linear activation function / rectified linear unit) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
-![Funkcija](static\images\fja.png)
+![Funkcija](static\images\ReLU.svg)
 
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da raspozna.
 
@@ -196,7 +194,7 @@ Propagacija unazad prolazi kroz sve slojeve i menja parametre mreže u svakom ko
 
 Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradient spusta za traženje lokalnog / maksimalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
 
-![SGD](static/images/sgd.png)
+![SGD](static/images/Backpropagation.svg)
 
 ### Istraživanje i rezultati
 
@@ -214,7 +212,7 @@ Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža u
 
 Rezultati su prikazani u tabeli ispod.
 
-![Rezultati](static\images\4.png)
+![Rezultati](static\images\Tabela.svg)
 
 Metrika ovih rezultata bila je tačnost. Zbog balansirane baze, ovo predstavlja zaista reprezentativnu metriku.
 
@@ -226,15 +224,15 @@ Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenj
 
 Rezultate vizuelno možemo prikazati matricama konfuzije. 
 
-![Rezultati](static/images/LinearSVM.png)
+![Rezultati](static/images/XGB.svg)
 
-![Rezultati](static/images/LogisticRegression.png)
+![Rezultati](static/images/SVM1.svg)
 
-![Rezultati](static/images/RandomForest.png)
+![Rezultati](static/images/RandomForest.svg)
 
-![Rezultati](static/images/XGB.png)
+![Rezultati](static/images/LogistickaRegresija.svg)
 
-Prikazane su matrice konfuzije na FSDD bazi za XGBoost, SVM, Random Forest i logističku regresiju.
+Prikazane su matrice konfuzije na FSDD bazi za XGBoost, SVM, Random Forest i logističku regresiju, tim redosledom.
 
 Iz ovih matrica konfutije može se primetiti kako, ma koja se metoda koristi, brojevi dva, tri i četiri uvek imaju najveću tačnost pronalaženja. 
 
