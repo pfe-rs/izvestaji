@@ -143,44 +143,43 @@ Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrok
 
 #### Lista uredjaja
 
-1. MPU6050 IMU(Inertial Mesurement Unit)
+1. IMU(Inertial Mesurement Unit)
 2. Arduino Nano
-3. HC05 Bluetooth modul
-4. L298N Dual H-Most za kontrolu DC Motora
-5. LM2598 DC-DC Stepdown regulator napona
-6. JGA25-370 DC motor
-7. 4S1P Li-ion baterija
-8. E38S6G5 Opticki inkrementalni enkoder
+3. Bluetooth modul
+4. H-Most
+5. regulator napona
+6. DC motor
+7. Baterija
+8. Opticki inkrementalni enkoder
 
 #### Princip rada
 
 ##### Arduino Nano i HC05
 
-Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomoću UART-a na BAUD rate-u od 9600 bitova po sekundi, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. *Paznja! Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) je ograničen na 3.3V, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo*
+Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomoću UART-a na BAUD rate-u od 9600 bitova po sekundi, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) *je ograničen na 3.3V*, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo.
 
-##### MPU6050
+##### (IMU) - MPU6050
 
-MPU6050 je akcelerometar i žiroskop koji se koristi za merenje ugla inklinacije klatna robota. MPU6050 je sa mikrokontrolerom povezan pomocu I2C protokola i napaja se pomoću 5V sa mikrokontrolera. Ovaj senzor mikrokontroleru dostavlja podatke sa žiroskopa i akcelerometra pomoću kojih se u softveru izračunava ugao inklinacije koji je neophodan za određivanje ugaone brzine robota i PID kontrolu.
+MPU6050 je akcelerometar i žiroskop koji se koristi za merenje ugla inklinacije klatna robota.IMU radi na osnovu merenja ubrzanja duž osa akcelerometra i ugaonog ubrzanja oko osa žiroskopa. Pomoću trigonometrije moguće je izračunati trenutni ugao koji IMU zaklapa u odnosu na ravan zemlje. MPU6050 je sa mikrokontrolerom povezan pomocu I2C protokola. Ovaj senzor mikrokontroleru dostavlja podatke sa žiroskopa i akcelerometra pomoću kojih se u softveru izračunava ugao inklinacije koji je neophodan za određivanje ugaone brzine robota i PID kontrolu.
 
-##### Li-ion baterija i LM2598 Stepdown regulator
+##### Baterija i Stepdown regulator
 
-Napajanje koje se u projektu koristi su 4 redno vezane Samsung 18650-35E Litijum-jonske baterije zbog svog kapaciteta od 5000mAh i maksimalne struje od 2A. Baterije se pune eksternim punjacem pomoću balansirajućeg konektora na njima. Napon sa baterije se sprovodi do LM2598 regulatora gde se napon spušta na 12V kako bi dalje mogao da se dovede do H-mosta, budući da je u trenutnoj konfiguraciji njegov napon ograničen na maksimalnih 12V. Potom se struja iz H-mosta pomocu njegovog integrisanog regulatora spusta na 5V i dovodi do mikrokontrolera i ostalih senzora. Napon baterije se meri na mikrokontroleru kroz naponski razdelnik kako bi se napon od 16.8V spustio na 5V koji su bezbedni za mikrokontroler. Baterija može da radi oko 3.5h u aktivnom režimu robota.
+Napajanje koje se u projektu koristi su 4 redno vezane Samsung 18650-35E Litijum-jonske baterije zbog svog kapaciteta od 5000mAh i maksimalne struje od 2A. Baterije se pune eksternim punjacem pomoću balansirajućeg konektora na njima. Napon sa baterije se sprovodi do LM2598 regulatora gde se napon spušta na 12V kako bi dalje mogao da se dovede do H-mosta, budući da je u trenutnoj konfiguraciji njegov napon ograničen na maksimalnih 12V. Potom se struja iz H-mosta pomocu njegovog integrisanog regulatora spusta na 5V i dovodi do mikrokontrolera i ostalih senzora. Napon baterije se meri na mikrokontroleru kroz naponski razdelnik kako bi se napon od 16.8V spustio na 5V koji su bezbedni za mikrokontroler. Baterija može da radi oko 3.5h tokom kretanja robota.
 
 
-*Procenjena maksimalna snaga potrosena u robotu je $12V * ~2A(Maksimalna utrosena struja celog robota) = 24W$ nakon regulatora, imajuci ovo u vidu struja koja protice kroz bateriju se moze izracunati kao $I = P/V$ gde je I - struja kroz bateriju, P - Utrosena snaga i V - napon baterije, gde je I = 24W / 16.8V(Nominalni napon baterije) = ~1.42A gde je onda minimalno vreme rada robota 5000mAh / 1.42A = ~3.5h +/- 10%(zbog gresaka u merenju, efikasnosti regulatora...)*
 
-##### DC motor i L298N H-most
+##### Motor i H-most
 
 Budući da pinovi mikrokontrlera nemaju snagu da pokrenu motor, kao pokretač motora se postavlja H-most koji pomoću signala koji dobija od strane mikrokontrolera pokreće motor. Dva signala koje H-most dobija su digitalni signali: 
 
 1. Koji svojim naponom od 0V ili 5V odredjuje smer i 
 2. Koji koristeci PWM (Pulse Width Modulation) brzim paljenjem i gašenjem kontroliše napon koji je doveden do motora u opsegu od 0-12V
 
-JGA25370 je DC motor koji radi na naponu od 12V i maksimalnoj struji od 2A. Motor u sebi poseduje reduktor koji umanjuje broj obrtaja motora u sekundi ali povecava obrtni momenat gde je broj obrtaja $RPM_{max} = 250$ obrtaja u minutu i obrtni momenat $T = 1.4kg/cm$. Ovaj motor je jedina komponenta koja pokreće robota.
+Koristeći PWM prividni napon na pinovima mikrokontrolera srazmeran je širini pulsa(Pulse Width) sve dok signal nije potpuno odsutan(0V) ili prisutan(5V). JGA25370 je DC motor koji radi na naponu od 12V i maksimalnoj struji od 2A. Motor u sebi poseduje reduktor koji umanjuje broj obrtaja motora u sekundi ali povecava obrtni momenat gde je broj obrtaja $RPM_{max} = 250$ obrtaja u minutu i obrtni momenat $T = 1.4kg/cm$. Ovaj motor je jedina komponenta koja pokreće robota.
 
-##### E38S6G5 Opticki inkrementalni enkoder
+##### Opticki inkrementalni enkoder
 
-E38S6G5 je optički enkoder koji se koristi za merenje pređenog puta robota. E38S6G5 ima rezoluciju od 600 pulseva po obrtaju osovine što nam daje preciznost od  0.6 stepeni ili ~0.01rad. Princip rada optičkog enkodera je da se analizom izlaznih talasa može odrediti da li se enkoder okrenuo u pozitivnom ili negativnom smeru. U konkretnom slučaju na pin 3 mikrokontrolera je povezan prvi od dva izlaza enkodera, gde se prilikom svake rastuće ivice ovog pina mikrokontroler beleži napon na drugom izlazu enkodera. U slučaju da je napon pozitivan mikrokontroler to belezi kao obrt u pozitivnom smeru, a u slučaju da je napon negativam mikrokontroler to belezi kao obrt u negativnom smeru. Kada za svaki ovaj dogadjaj od nekog brojaša saberemo ili oduzmemo 1 mozemo dobiti ukupni ugao za koji se enkoder zarotirao.
+E38S6G5 je optički enkoder koji se koristi za merenje pređenog puta robota. E38S6G5 ima rezoluciju od 600 pulseva po obrtaju osovine što nam daje preciznost od  0.6 stepeni ili ~0.01rad. Princip rada optičkog enkodera je da se analizom izlaznih talasa može odrediti da li se enkoder okrenuo u pozitivnom ili negativnom smeru. U konkretnom slučaju na pin 3 mikrokontrolera je povezan prvi od dva izlaza enkodera, gde se prilikom svake rastuće ivice ovog pina mikrokontroler beleži napon na drugom izlazu enkodera. U slučaju da je napon pozitivan mikrokontroler to belezi kao obrt u pozitivnom smeru, a u slučaju da je napon negativam mikrokontroler to belezi kao obrt u negativnom smeru. Kada za svaki ovaj dogadjaj od nekog brojaša saberemo ili oduzmemo 1 mozemo dobiti ukupni ugao za koji se enkoder zarotirao. Ovime možemo da izračunamo ukupni pređeni put robota i na osnovu toga možemo dobiti trenutnu brzinu.
 
 ## Istraživanje i rezultati
 
