@@ -229,22 +229,22 @@ Kada smo pokrenuli kod, program je često pucao i na grafiku bube se videlo kako
 
 **Na svim graficima (osim ako drugačije nije naznačeno) će se nalaziti zavisnost visine bube od vremena proteklog od početka simulacije.**
 
-![slika](/images/2022/simulacija-muve/Figure_3.png)
+![slika](/images/2022/simulacija-muve/Figure_1.svg)
 
 Zaključili smo da je problem bio u tome što smo pomerali krila bube pomoću neuralne mreže svake milisekunde simulacije što je dovelo do toga da buba pokušava da pravi prebrze pokrete koji su mogli da postave odrećene promenjive na vrednosti koje odgovaraju beskonačnosti zbog kojih bi pri kasnijim proračunima došlo do pucanja programa.
 
 Nakon što smo podesili da se krila kontrolišu na svakih 10 milisekundi, ovaj problem se više nije dešavao.
 Dobili smo sledeći grafik:
 
-![slika](/images/2022/simulacija-muve/Figure_4.png)
+![slika](/images/2022/simulacija-muve/Figure_2.svg)
 
 Sa grafika se vidi da je buba uspela da proizvodi pokrete koji predstavljaju mahanje krilima, ali previše dopušta sebi da padne pre nego što opet napravi zamah krilima.
 Ovo se takođe može protumačiti kao da buba nije naučila da optimalno vraća krila gore, tj. u poziciju odakle može da krene novi zamah, što je rezultovalo dodatnim spuštanjem visine.
 
-Promenili smo program tako da nam fitnes bude jednak samo visini bube po y osi u poslednjem trenutku simjulacije, ovo je značanjno poboljšalo visinu koju je buba dostizala (2-3 puta).
+Promenili smo program tako da nam fitnes bude jednak samo visini bube po y osi u poslednjem trenutku simjulacije, ovo je značajno poboljšalo visinu koju je buba dostizala (2-3 puta).
 Grafik je onda izgledao ovako:
 
-![slika](/images/2022/simulacija-muve/Figure_8.png)
+![slika](/images/2022/simulacija-muve/Figure_3.svg)
 
 Vidi se da je buba uspela da nauči da na optimalan način vrati krila gore, bez da se dodatno spusti.
 
