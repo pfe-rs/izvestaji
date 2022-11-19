@@ -51,7 +51,7 @@ Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga 
 Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
 
 $$\begin{equation}
-\sigma(z)_i=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1} 
+\sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1} 
 \end{equation}$$
 
 Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom. Pomoću ove metode dobijamo verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
