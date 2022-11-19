@@ -73,7 +73,7 @@ Proces stvaranja kepstra je sledeći:
 
 $$ \begin{aligned} X_k &=\sum_{n=0}^{N-1} x_n \cdot e^{-\frac{i 2 \pi}{N} k n} \\ &=\sum_{n=0}^{N-1} x_n \cdot\left[\cos \left(\frac{2 \pi}{N} k n\right)-i \cdot \sin \left(\frac{2 \pi}{N} k n\right)\right] \end{aligned} $$
 
-Grafik koji dobijemo ovom formulom zove se spektar snage. Spektar snage je pokazatelj amplituda svih sinusoida određenog zvuka u odnosu na frekvenciju tih sinusoida.
+Kvadriranjem amplitudskog spektra dobijamo spektar snage.
 
 2. Spektar snage logaritmujemo, pa odatle dobijamo logaritamski spektar snage. On služi da pokaže relativnu važnost svake komponente (amplitude sinusoida) ovog zvuka. Na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
 
