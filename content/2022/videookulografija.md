@@ -24,7 +24,32 @@ Pavle Pađin, student Elektrotehničkog fakulteta u Beogradu
 ## **1. Apstrakt**
 
 
-....
+Tehnologija napreduje iz dana u dan, ali ipak osobe sa invaliditetom često nemaju mogućnost da komuniciraju, igraju video igre, da koriste kompjutere ili da se kreću. 
+Iz tih razloga odlučeno je da se ovaj rad bavi sistemom detekcije pokreta zenice koji bi dalje mogao da im pomogne u tim zadacima.
+Videookulografija je u današnje vreme najkorišćenija metoda za praćenje pokreta oka.
+U ovom radu, obradom slike ondnosno frejma videa u realnom vremenu, kao krajni rezultat se dobija detektovana zenica.
+Izvođenjem eksperimenta gde su u određenom vremenskom intervalu bilo posmatrano devet tačaka na ekranu, dobijene su koordinate centra zenice i tačke ekrana posmatrane u datom intervalnu.
+Korišćenjem polinomialnom regresijom izračunat je odnos između dobijenih koordinata.
+Na osnovu dobijenog odnosa između ovih koordinata pokušano je da se predvidi tačka posmatrana na ekranu što bi dalje bilo korišćeno za implementaciju kontrole kursora na ekranu.
+Sa samo 15 izvedenih snimanja, dobijena predviđanja nisu dovoljno precizna za implementaciju kontrolisanja kursora.
+Pretpostavlja se da sa više snimanja preciznost će postati veća i samim time ova detekcija će se moći implementirati za kontrolisanje kursora na ekranu.
+
+
+Ključne reči: obrada slike, videookulografija, algoritam za detekciju zenice, polinomijalna regresija
+
+
+Technology advances day by day, but still people with disabilities often do not have the ability to communicate, play video games, use computers or move around.
+For these reasons, it was decided that this paper deals with a pupil movement detection system that could further help them in those tasks.
+Video oculography is currently the most used method for monitoring eye movements.
+In this work, by processing the image that is the video frame in live video, the detected pupil is obtained as the final result.
+By performing an experiment where nine points on the screen were observed in a certain time interval, the coordinates of the center of the pupil and the points of the screen observed in the given interval were obtained.
+Using polynomial regression, the relationship between the obtained coordinates was calculated.
+Based on the obtained relationship between these coordinates, an attempt was made to predict the point observed on the screen, which would then be used to implement cursor control on the screen.
+With only 15 recordings performed, the obtained predictions are not accurate enough to implement cursor control.
+It is assumed that with more recordings, the accuracy will become higher and therefore this detection will be able to be implemented to control the cursor on the screen.
+
+
+Keywords: image processing, video oculography, pupil detection algorithm, polynomial regression
 
 
 ## **2. Uvod**
@@ -33,7 +58,7 @@ Pavle Pađin, student Elektrotehničkog fakulteta u Beogradu
 Život u današnjem društvu ima mnogo prednosti u svakom pogledu. 
 Tehnologija napreduje iz dana u dan. 
 Taj brz razvoj zahteva velike potrebe koje ne mogu svi ljudi da ispune. 
-Uvidevši potrebe osoba sa invaliditetom da komuniciraju, igraju video igre, da koriste kompijuter ili da se kreću odlučeno je da se u ovaj rad bavi sistemom koji bi mogao da im pomogne u tim zadacima. 
+Uvidevši potrebe osoba sa invaliditetom da komuniciraju, igraju video igre, da koriste kompjuter ili da se kreću odlučeno je da se u ovaj rad bavi sistemom koji bi mogao da im pomogne u tim zadacima. 
 Napretkom tehnologije, VOG (videookulografija) je zamenila EOG (elektrookulografiju). Videookulografija je metoda u kojoj se pomoću kamere prate pokreti oka, tj. zenice. 
 U ovom radu proučavan je 2D VOG sistem, tj. pokreti zenice na dve ose – horizontalna osa na kojoj se detektuju pokreti na levo i desno, i vertikalna osa na kojoj je prate pogled na gore i dole.
 
@@ -78,8 +103,6 @@ Ovaj rad se sastoji iz dva dela - aparture pomoću koje se vrši akvizicija slik
 
 #### **3.1 Aparatura**
 
-
-ir filet sta radi duzicama?
 
 
 Na slici 1 i 2 može se videti korišćena aparatura sastavljena iz web kamera, držača za web kameru i naočara koji su 3D odštampane.
@@ -499,9 +522,28 @@ Kako bi se rezultati poboljšali i kako bi imali realniju sliku o sistemu potreb
 ## **5. Zaključak**
 
 
-U budućnosti planiramo da kroz ovaj projekat omogućimo kontrolisanje kursora, tj. tastature, ili igranje video igara.
-...
+Za testiranje modela angažovan je ispitanik pomoću kog je odrađena akvizicija podataka. Problem se pojavio kada je ispitanik menjao poziciju tela tokom akvizicije - približavao/udaljavao se od ekrana. 
+Drugi problem je pomeranje glave iako je postavljena na stalak. 
+Rešenje bi bilo napraviti čvršći stalak koji kompletno imobilizuje glavu i predstavlja čvrst oslonac. 
+Očekivani rezultati bili bi poklapanje koordinata zenice oka sa koordinatama tačke na ekranu, tj. jasno definisana putanja zenice tokom procesa testiranja.
 
+
+
+![Referentni rezultati - slika 21](/images/2022/videookulografija/referentni_rezultati.jpg)(slika 21 - dobijeni rezultati u referentnom radu [5])
+
+
+
+Na dobijenim rezultatima vidi se sledeće - putanja oka prikazana na ekranu nije ista kao putanja kojom je ispitanik pomerao oči.
+U obzir uzima se da je ispitanik kratkovid. 
+Kako bi rezultati bili precizniji potrebno je više testiranja i prikupljanja podataka na različitim ispitanicima. 
+Takođe, uslovi u kojima je odrađeno testiranje nisu bili idealni. 
+Količina osvetljenja prouzrokuje refleksiju u očima što remeti detekciju zenice i stvara šumove prilikom pomeranja očiju. 
+Kako bi se ovaj problem otklonio potrebno je postaviti IR LED diode na naočare. 
+Ovim bi količina osvetljenja bila podjednaka, što bi doprinelo boljim rezultatima. 
+U budućnosti će se u sistem uvesti gore navedene promene i biće urađeno više snimanja.
+
+
+![Referentni rezultati - slika 22](/images/2022/videookulografija/nasi_rezultati.jpg)(slika 22 - dobijeni rezultati prilikom testiranja u ovom radu)
 
 ## **6. Reference**
 [^1]: Saravanan, Chandran. "Color image to grayscale image conversion." 2010 Second International Conference on Computer Engineering and Applications. Vol. 2. IEEE, 2010.
