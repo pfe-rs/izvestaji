@@ -5,6 +5,12 @@ summary: Robot u obliku valjka je projekat rađen na letnjem kampu za stare pola
 
 ![Grafički apstrakt](/images/2022/robot-valjak/graficki_apstrakt.svg)
 
+### Apstrakt
+
+Tema rada je matematička analiza sfernog robota kao i fizička implementacija njene 2D verzije. Koristeći pravila Lagranžove mehanike izvedene su jednačine kretanja sistema. Te jednačine opisuje kretanje klatna valjka kao i kretanje samog robota. Na osnovu tih jednačina izvedene su odgovarajuće transfer funkcije a zatim konstruisani PID kontroleri. U radu su kompjuterski simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na zemlju. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Napravljen je fizički model robota u kome je implementiran PID koji kontroliše ugao inklinacije robota. TODO: Dodati deo za IMU
+
+### Abstract
+
 ### Uvod
 
 Motivacija iza projekta je bila suprotstavljane ideje popularnog robota - balansera. Ideja je bila da pomoću klatna koje uvek teži da se vrati u stabilan položaj robot može biti konstruisan robot sa manjom preciznošću što bi ubrzalo proces pravljenja u slučaju masovne proizvodenje, kao i vreme dolaska do prvog funkcionalnog prototipa, budući da robot može da radi uz bilo kakav (ne)kontrolisan pogon motora. Takođe zbog oblika robota sve vitalne komponente se sadržane unutar konture, čineći robota izdržljivijim i jednostavnijim za popravku.
@@ -65,8 +71,6 @@ Način na koji se formira transfer funkcija kontrolnog sistema je sledeća:
 
 Takođe, važno je naglasiti da izlaz i ulaz nekog sistema ne mora nužno da bude istih fizičkih dimenzija. Na primer, DC motori se pokreću kada se na njihov ulaz dovede konstantan napon, a kao izlaz sistema može da se prati broj obrtaja motora ili obrtni momenat motora. Merne jedinice za date primere bi redom bile (obrtaja po sekundi)/(napon motora) i (Njutn metar)/(napon motora).
 
-TODO: Grafici, polovi i osnovne aritmetičke operacije nad tf
-
 U radu se kao pobuda sistema koristio isključivo napon. To bi značilo da je smanjenje ili povećanje ugaone brzine robota prouzrokovano smanjenju ili povećanju referentnog napona na ulazu motora. Kako bi se znalo na koji način treba implementirati odogovarajuće kontrolere potrebno je analizirati stabilnost odgovarajućih transfer funkcija karakterističnih za datog robota, gde kontroler predstavlja sistem koji nezavisno može da održava unete referentne vrednosti zadate od strane korisnika. Na primer, ukoliko bi korisnik želeo da se robot kreće konstantnom ugaonom brzinom $\omega$, kontroler treba samostalno da podešava napon na motoru tkd se ugaona brzina $\omega$ održava konstantnom.
 
 Prva transfer funkcija koja je analizirana u radu je transfer funkcija ugaone brzine robota u zavisnosti od ulaznog napona.
@@ -89,19 +93,19 @@ $D = RJ_1J_2 + d^2RJ_1M_2 + d^2r^2RM_1M_2 + r^2RJ_2(M_1 + M_2)$
 $E = K_t(J_1 + 2J_2 + r^2M_1 + (2d^2 - 3dr + r^2)M_2)$  
 $F = K_tT_v$
 
-Koristeći prethodno dve definisane funkcije mogu se izvesti dve nove transfer funkcije za koje važi da se njihovim diferenciranjem dobijaju polazne transfer funkcije: transfer funkcija ugaonog pređenog puta robota u zavisnosti od napona na ulazu motora i transfer funkcija ugla klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona. Treća, i poslednja, transfer funkcija predstavlja zavisnost ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora i dobija se kao paralelna veza prethodne dve transfer funkcije.
+Koristeći prethodno dve definisane funkcije mogu se izvesti dve nove transfer funkcije za koje važi da se njihovim diferenciranjem dobijaju željene transfer funkcije: transfer funkcija ugaonog pređenog puta robota u zavisnosti od napona na ulazu motora i transfer funkcija ugla klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona. Treća, i poslednja, transfer funkcija predstavlja zavisnost ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora i dobija se kao paralelna veza prethodne dve transfer funkcije.
 
 ##### PID simulacije
 
-U oblasti automatike postoji niz algoritama (kontrolera) koji imaju za cilj neki vid stabilizacije. To može da bude stabilizacije oko položaja labilne ravnoteže kao što je to slučaj sa problemom *Inverted Pendulum*[^2] gde treba da se stabilizuje matematičko klatno u položaju labilne ravnoteže, ili stabilizacija u nekom proizvoljnom položaju koji nalaže zadati problem. Jedan od algoritama koji se pokazao najboljim u praksi je PID kontroler čije su najveće prednosti brza i precizna stabilizacija.
+U oblasti automatike postoji niz algoritama (kontrolera) koji imaju za cilj neki vid stabilizacije. To može da bude stabilizacije oko položaja labilne ravnoteže kao što je to slučaj sa problemom *Inverted Pendulum*[^2] gde treba da se stabilizuje matematičko klatno u položaju labilne ravnoteže, ili stabilizacija u nekom proizvoljnom položaju koji nalaže zadati problem. Jedan od algoritama koji se pokazao korisnim u praksi je PID kontroler čije su najveće prednosti brza i precizna stabilizacija.
 
 [^2]: A Comparative Study of Inverted Pendulum, S. Nemitha, B. Vijaya Bhaskar and S. Rakesh Kumar
 
-Kako bi se razumeo PID kontroler potrebno je definisati odredjene termine. *Željena vrednost* je obično vrednost koju unosi korisnik. Na primer, za sistem za grejanje to bi bila željena temperatura prostorije. *Izlaz* je kontrolisana vrednost PID kontrolera, tj. izlaz može da bude bilo šta na šta možemo direktno da delujemo a šta utiče na promenu vredsnoti koju želimo da kontrolišemo. U primeru sa grejačem, uticali bismo na snagu grejača što bi direktno uticalo na temperaturu prostorije. *Greška* je vrednost koju koristi PID kontroler da bi odredio na koji način je potrebno manipulisati izlazom kako bi se dostigla željena vrednost. Greška se računa kao razlika željene vrednosti i trenutne vrednosti sistema.
+Kako bi se razumeo PID kontroler potrebno je definisati odredjene termine. *Željena vrednost* je obično vrednost koju unosi korisnik. Na primer, za sistem za grejanje bi to bila željena temperatura prostorije. *Izlaz* je kontrolisana vrednost PID kontrolera, tj. izlaz može da bude bilo šta na šta možemo direktno da delujemo a šta neposredno utiče na promenu vredsnoti koju želimo da kontrolišemo. U primeru sa grejačem, uticali bismo na snagu grejača što bi direktno uticalo na temperaturu prostorije. *Greška* je vrednost koju koristi PID kontroler da bi odredio na koji način je potrebno manipulisati izlazom kako bi se dostigla željena vrednost. Greška se računa kao razlika željene vrednosti i trenutne vrednosti sistema.
 
 ###### Matematika PID kontrolera
 
-Teorijski posmatrano, transfer funkcije i PID kontroleri su definisani na kontinualnom domenu, tj. definisane su na način koji je nama blizak. Za svaki trenutak u vremenu možemo tačno odrediti vrednost izlaza transfer funkcije. Takva interpretacija nam odgovara ukoliko želimo da ispitujemo osobine same transfer funkcije, ali ukoliko želimo da u realnom svetu implementiramo takav model potrebna nam transfer funkcija definisana na diskretnom domenu. U tom slučaju znamo tačan izlaz sistema ali na svakih *dt* sekundi. Prvi razlog zbog kojeg se uvodi ovakav model je taj što bi bilo nemogući predstaviti beskonačno mnogo vredsnoti kompjuterski, a drugi razlog je taj što je odabir vremenskog intervala *dt* ograničen odozdo brzinom učitavanja vrednosti sa perifernih uređaja (senzora) i brzinom izvršavanja programa. Transfer funkcija PID kontrolera u kontinualnom domenu je predstavljena sledećim izrazom:
+Teorijski posmatrano, transfer funkcije i PID kontroleri su definisani na kontinualnom domenu, tj. definisane su na način koji je nama blizak. Za svaki trenutak u vremenu možemo tačno odrediti vrednost izlaza transfer funkcije. Takva interpretacija nam odgovara ukoliko želimo da ispitujemo osobine same transfer funkcije, ali ukoliko želimo da u realnom svetu implementiramo takav model potrebna nam je transfer funkcija definisana na diskretnom domenu. U tom slučaju znamo tačan izlaz sistema ali na svakih *dt* sekundi. Prvi razlog zbog kojeg se uvodi ovakav model je taj što bi bilo nemoguće predstaviti beskonačno mnogo vredsnoti kompjuterski, a drugi razlog je taj što je odabir vremenskog intervala *dt* ograničen odozdo brzinom učitavanja vrednosti sa perifernih uređaja (senzora) i brzinom izvršavanja programa. Transfer funkcija PID kontrolera u kontinualnom domenu je predstavljena sledećim izrazom:
 
 $$C(s) = K_p + \dfrac{K_i}{\ s} + K_ds$$
 
@@ -113,23 +117,17 @@ U tabeli ispod se može videti kako svaki koeficijent utiče na ishod PID kontro
 
 | $\ \ \ $ PID | RISE TIME | OVERSHOOT | SETTLING TIME | STEADY-STATE ERROR |
 | -------- | -------- | -------- | --------     | -------- |
-| $\ \ \ \ \ K_p$ | Smanjuje    | Povećava | Male promene | Smanjuje |
-| $\ \ \ \ \ K_p$ | Smanjuje    | Povećava | Povećava     | Smanjuje |
-| $\ \ \ \ \ K_p$ | Male promene| Smanjuje | Smanjuje     | Nema promena |
+| $\ \ \ \ K_p$ | Smanjuje    | Povećava | Male promene | Smanjuje |
+| $\ \ \ \ K_p$ | Smanjuje    | Povećava | Povećava     | Smanjuje |
+| $\ \ \ \ K_p$ | Male promene| Smanjuje | Smanjuje     | Nema promena |
 
 Kao i svaku drugu transfer funkciju, PID kontroler možemo diskretizovati koristeći razne metode. Metoda koja je korišćena u ovom radu je ZOH metoda, *Zero-order hold*, implementirana u biblioteci *Python Control Systems Library*[^3].
 
 [^3]: Python Control Systems Library 0.9.2
 
-U radu su simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na horizontalnu podlogu po kojoj se valjak kreće. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Sva tri PID kontrolera mogu nezavisno da se implementiraju ali ukoliko izlaz jednog PID kontrolera prosleđujemo sledećem PID kontroleru možemo da postignemo isti efekat samo će sistem u ovom slučaju biti manje oscilatoran što doprinosti brzini stabilizacije, *rising time*, i grešci stabilizacije, *steady state error*. Blok dijagram kontrolnog sistema je predstavljen na slici:
+U radu su simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na zemlju. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Sva tri PID kontrolera mogu nezavisno da se implementiraju ali ukoliko izlaz jednog PID kontrolera prosleđujemo sledećem PID kontroleru možemo da postignemo isti efekat samo će sistem u ovom slučaju biti manje oscilatoran što doprinosti brzini stabilizacije, *rising time*, i grešci stabilizacije, *steady state error*. Blok dijagram kontrolnog sistema je predstavljen na slici:
 
 ![Poprečni presek robota valjka](/images/2022/robot-valjak/prva.drawio2.svg)
-
-U nastavku se mogu videti grafici dobijeni iz softverskih simulacija:
-
-![PID ugao inklinacije klatna](/images/2022/robot-valjak/PID_ugao_inklinacije_klatna.svg)  
-![PID ugaona brzina robota](/images/2022/robot-valjak/PID_ugaona_brzina_robota.svg)  
-![PID ugaoni predjeni put robota](/images/2022/robot-valjak/PID_ugaoni_predjeni_put_robota.svg)
 
 ###### Diferencijator
 
@@ -163,11 +161,7 @@ Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrok
 
 ##### Arduino Nano i HC05
 
-<<<<<<< HEAD
-Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomoću UART-a na BAUD rate-u od 9600 bitova po sekundi, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) *je ograničen na 3.3V*, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo.
-=======
 Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomoću UART-a na BAUD rate-u od 9600 bitova po sekundi, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) je ograničen na 3.3V, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo.
->>>>>>> 4b4a20d0366293e65da18d0453c046daa0f05028
 
 ##### (IMU) - MPU6050
 
@@ -177,13 +171,7 @@ MPU6050 je akcelerometar i žiroskop koji se koristi za merenje ugla inklinacije
 
 Napajanje koje se u projektu koristi su 4 redno vezane Samsung 18650-35E Litijum-jonske baterije zbog svog kapaciteta od 5000mAh i maksimalne struje od 2A. Baterije se pune eksternim punjacem pomoću balansirajućeg konektora na njima. Napon sa baterije se sprovodi do LM2598 regulatora gde se napon spušta na 12V kako bi dalje mogao da se dovede do H-mosta, budući da je u trenutnoj konfiguraciji njegov napon ograničen na maksimalnih 12V. Potom se struja iz H-mosta pomocu njegovog integrisanog regulatora spusta na 5V i dovodi do mikrokontrolera i ostalih senzora. Napon baterije se meri na mikrokontroleru kroz naponski razdelnik kako bi se napon od 16.8V spustio na 5V koji su bezbedni za mikrokontroler. Baterija može da radi oko 3.5h tokom kretanja robota.
 
-<<<<<<< HEAD
-
-
-##### Motor i H-most
-=======
 ##### DC motor i L298N H-most
->>>>>>> 4b4a20d0366293e65da18d0453c046daa0f05028
 
 Budući da pinovi mikrokontrlera nemaju snagu da pokrenu motor, kao pokretač motora se postavlja H-most koji pomoću signala koji dobija od strane mikrokontrolera pokreće motor. Dva signala koje H-most dobija su digitalni signali: 
 
@@ -200,15 +188,21 @@ E38S6G5 je optički enkoder koji se koristi za merenje pređenog puta robota. E3
 
 Tokom rada na projektu, uspešno je realizovana hardverska implementacija robota i prikupljeni su podaci o tome kako sistem reaguje na uzastopne odskočne odzive. Tokom istraživanja su izmerena tri odskočna odziva koja redom odgovaraju transfer funkcijama ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora, ugaone brzine klatna u odnosu na podlogu u zavisnosti od ulaznog napona motora i ugaonog pređenog puta robota u zavisnosti od ulaznog napona motora.
 
-Prilikom dizajniranja klatna valjka centar mase korpe i komponenti (baterije, arduino i ostali moduli) se ne nalazi u osnosimetričnoj ravni korpe već je blago izbačen sa strane što dovodi do toga da nula u merenju inklinacije ugla nije prava nula. Takođe, ovome je potpomogla i činjenica da se na DC motoru nalazi reduktor zbog kog ne postoji prava nula već postoji interval uglova koji mogu biti prava nula. Za male uglove moment zemljine teže na klatno se izjednačava sa momentom sile koju reduktor proizvodi na klatno. Drugim rečima, javalja se mali interval oko prave nule za koje se klatno nalazi u indiferentnoj ravnoteži i u kojoj krajnji položaj zavisi isključivo od početnog impulsa. Ukoliko je veći početni impuls veća je i greška merenja ugla inklinacije. Ovaj fenomen se može predstaviti na grafiku ispod gde se vidi da robot konstantno *driftuje* u jednu stranu. Za dalji rad na ovom robotu treba da se poravna centar mase sistema kao i da se poveća masa klatna kako bi se smanjio opseg uglova koji mogu biti prava nula i na taj način postići preciznija merenja.
+Prilikom dizajniranja klatna valjka centar mase korpe i komponenti (baterije, arduino i ostali moduli) se ne nalazi u osnosimetričnoj ravni korpe već je blago izbačen sa strane što dovodi do toga da merenje ugla ne bude centrirano oko nule. Takođe, ovome je potpomogla i činjenica da se na DC motoru nalazi reduktor zbog kog ne postoji prava nula već postoji interval uglova koji mogu biti prava nula. Za male uglove moment zemljine teže na klatno se izjednačava sa momentom sile koju reduktor proizvodi na klatno. Drugim rečima, javalja se mali interval oko prave nule za koje se klatno nalazi u indiferentnoj ravnoteži i u kojoj krajnji položaj zavisi isključivo od početnog impulsa. Ukoliko je veći početni impuls veća je i greška merenja ugla inklinacije. Ovaj fenomen se može predstaviti na grafiku ispod gde se vidi da robot konstantno *driftuje* u jednu stranu. Za dalji rad na ovom robotu treba da se poravna centar mase sistema kao i da se poveća masa klatna kako bi se smanjio opseg uglova koji mogu biti prava nula i na taj način postići preciznija merenja.
 
 ![Predjeni put robota valjka](/images/2022/robot-valjak/predjeni_put_robota.png)
 
-Druga dva merenja predstavljaju kako u realnom sistemu napon na motoru utiče na ugaonu brzinu klatna i ugao inklinacije klatna. Na drugom grafiku se može jasno videti gore opisan problem. Referentna nula je pomerena za neku vrednost $d\theta$ i razlikuje se od stvarne nule.
+Sledeća dva merenja predstavljaju kako u fizičkom modelu napon na motoru utiče na ugaonu brzinu klatna i ugao inklinacije klatna. Na drugom grafiku se može videti da na početku grafika merenje u stabilnom položaju nije nula. Referentna nula je pomerena za neku vrednost $\Delta\theta$ i razlikuje se od stvarne nule.
 
 ![Ugao inklinacije robota valjka](/images/2022/robot-valjak/ugao_inklinacije_klatna.png)
 
 ![Ugaona brzina klatna robota valjka](/images/2022/robot-valjak/ugaona_brzina_klatna.png)
+
+Takođe, na osnovu transfer funkcija se može zaključiti da je sistem oscilatoran zato su implementirani odgovarajući PID kontroleri. U nastavku se mogu videti grafici stepenastog odziva PID kontrolera dobijeni iz softverskih simulacija:
+
+![PID ugao inklinacije klatna](/images/2022/robot-valjak/PID_ugao_inklinacije_klatna.svg)  
+![PID ugaona brzina robota](/images/2022/robot-valjak/PID_ugaona_brzina_robota.svg)  
+![PID ugaoni predjeni put robota](/images/2022/robot-valjak/PID_ugaoni_predjeni_put_robota.svg)
 
 ## Zaključak
 
