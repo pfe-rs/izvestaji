@@ -69,7 +69,7 @@ $$ C(x(t))=F^{-1}[\log (F[x(t)])] $$
 
 Proces stvaranja kepstra je sledeći:
 
-1. Na dobijeni signal primenimo diskretnu Furijeovu transformaciju. Ova transformacija nam daje funkciju zavisnosti jačine zvuka od frekvencije po sledećoj formuli:
+1. Na dobijeni signal primenimo diskretnu Furijeovu transformaciju kako bismo dobili spektar signala. Iz njega potom izvlačimo amplitudski spektar, koji nosi informaciju o vrednostima amplituda na svim frekvencijama u signalu. 
 
 $$ \begin{aligned} X_k &=\sum_{n=0}^{N-1} x_n \cdot e^{-\frac{i 2 \pi}{N} k n} \\ &=\sum_{n=0}^{N-1} x_n \cdot\left[\cos \left(\frac{2 \pi}{N} k n\right)-i \cdot \sin \left(\frac{2 \pi}{N} k n\right)\right] \end{aligned} $$
 
