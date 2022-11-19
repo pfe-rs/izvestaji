@@ -11,7 +11,7 @@ Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI teh
 
 Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za prepoznavanje govora, već da se i uporede njihova praktičnost i tačnost. 
 
-Primena projekta može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, ...
+Primena projekta može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, i slično.
 
 Ovaj projekat se bavi raspoznavanjem konkretnih reči i njihovom klasifikacijom. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
 
