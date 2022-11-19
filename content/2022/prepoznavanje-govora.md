@@ -61,7 +61,7 @@ U slučaju kada imamo više kategorija (u našem slučaju 10), koristi se Softma
 
 ##### 2. MFCCs
 
-MFCCs (Mel-Frequency Cepstral Coefficients) jesu koeficijenti koji opisuju karakteristike na osnovu spektrograma određenog zvuka. Njihova primena u ovom projketu svodi se na izdvajanje ključnih odlika nekog zvuka kako bi reč mogla da se prepozna. Te odlike se zovu formonti i njih stvara ljudski vokalni trakt prilikom govora, menjajući čist glas koji stvaraju naše glasne žice dok vibriraju. Ove odlike se formiraju u reč.
+MFCCs (Mel-Frequency Cepstral Coefficients) jesu koeficijenti koji opisuju karakteristike zvuka na osnovu njegovog spektrograma. Njihova primena u ovom projketu svodi se na izdvajanje ključnih odlika nekog zvuka kako bi reč mogla da se prepozna. Te odlike se zovu formonti i njih stvara ljudski vokalni trakt prilikom govora, menjajući čist glas koji stvaraju naše glasne žice dok vibriraju. Ove odlike se formiraju u reč.
 
 Kepstar (cepstrum) se može intuitivno predstaviti kao spektar spektra. On nastaje inverznom Furijeovom transformacijom logaritmovanog spektra. Formula za nastanak kepstra:
 
