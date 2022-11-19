@@ -42,7 +42,7 @@ Spektrogram služi za prikazivanje aplitude svake frekvencijske komponente signa
 
 Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku od linearne regresije, vrednosti njenih rezultata su ograničene između 0 i 1. 
 
-U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu funkciju. U slučaju više klasa, koristi se softmax funkcija. Sigmoidna i softmax funckija prikazane su na slici:
+U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu funkciju. U slučaju više klasa, koristi se softmax funkcija. Sigmoidna funkcija prikazana je na slici:
 
 ![Sigmoid](static\images\Sigmoid.svg)
 
