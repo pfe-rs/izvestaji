@@ -187,7 +187,7 @@ Za treniranje mreže koriste se dve metode simultano (propagacija unapred i unaz
 
 Kritetijumska funkcija (eng. cost funkcija) jeste funkcionalna veza željenog outputa i dobijenog outputa u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške.
 
-Najkorišćenija loss funkcija je Cross Entropy Loss. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
+Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
 
 Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
