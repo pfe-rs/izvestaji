@@ -11,14 +11,12 @@ Speech recognition is one of the biggest challenges of technology. The growing n
 
 ### Grafički apstrakt
 
-![Grafički apstrakt](static/images/GrafickiApstrakt.svg)
+![Grafički apstrakt](/images/2022/prepoznavanje-govora/GrafickiApstrakt.svg)
 
 ### Uvod
 Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Prepoznavanje govora je proces osposobljavanja nekog modela da identifikuje i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih i identifikuje izgovorenu reč.
 
-Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za prepoznavanje govora, već da se i uporede njihova praktičnost i tačnost. 
-
-Primena projekta može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, i slično.
+Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za prepoznavanje govora, već da se i uporede njihova praktičnost i tačnost. Primena projekta može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, i slično.
 
 Ovaj projekat se bavi raspoznavanjem konkretnih reči i njihovom klasifikacijom. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
 
@@ -44,17 +42,19 @@ Spektrogram služi za prikazivanje amplitude svake frekvencijske komponente sign
 
 #### Metode obrade spektrograma
 
-##### 1. Logistička regresija
+##### Logistička regresija
 
 Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku od linearne regresije, vrednosti njenih rezultata su ograničene između 0 i 1. 
 
 U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu funkciju. U slučaju više klasa, koristi se softmax funkcija. Sigmoidna funkcija prikazana je na slici:
 
-![Sigmoid](static\images\Sigmoid.svg)
+![Grafik sigmoidne funkcije](static\images\Sigmoid.svg)
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression).
 
-$$\sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1}$$
+$$
+\sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1} 
+$$
 
 
 
@@ -62,7 +62,7 @@ Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička reg
 
 U slučaju kada imamo više kategorija (u našem slučaju 10), koristi se Softmax regresija umesto Sigmoida kako bismo dobili deset verovatnoća čija je suma 1. Konačnu odluku o pravom izboru donosimo po tome koja kategorija ima najveću verovatnoću za zadate ulazne podatke.
 
-##### 2. MFCCs
+##### MFCCs
 
 MFCCs (*Mel-Frequency Cepstral Coefficients*) jesu koeficijenti koji opisuju karakteristike zvuka na osnovu njegovog spektrograma. Njihova primena u ovom projektu svodi se na izdvajanje ključnih odlika nekog zvuka kako bi reč mogla da se prepozna. Te odlike se zovu formonti i njih stvara ljudski vokalni trakt prilikom govora, menjajući čist glas koji stvaraju naše glasne žice dok vibriraju. Ove odlike se formiraju u reč.
 
@@ -84,7 +84,7 @@ Kvadriranjem amplitudskog spektra dobijamo spektar snage.
 
 3. Po logaritmovanju spektra snage, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
 
-##### 3. Random Forest
+##### Random Forest
 
 *Random Forest* je klasifikator koji koristi više stabala odlučivanja (*Decision Tree*) i njihova pojedinačna predviđanja stapa u jedno konačno.
 
@@ -92,7 +92,7 @@ Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizo
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
-![Random Forest](static\images\RandomForest1.svg)
+![Grafički prikaz rada Random Forest-a](static\images\RandomForest1.svg)
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
@@ -100,7 +100,7 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 
 2.	Svako stablo dobija neki nasumičan *feature* na kom će se trenirati, umesto da se trenira na skupu *feature*-a, što bi zahtevalo i veću dubinu mreže. Ovaj aspekt, zvani *Random Subspace Method* ili *Attribute Bagging*, smanjuje korelaciju između stabala i time ih čini nezavisnijim jedne od drugih.
 
-##### 4. XGBoost
+##### XGBoost
 
 XGBoost (*Gradient Boosted Trees*), kao i *Random Forest*, koristi više stabala odlučivanja za predviđanje i labeliranje. 
 
@@ -115,9 +115,7 @@ Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
 $L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log (1-\sigma(\mathbf{w} \cdot \mathbf{x}+b))]$
 
-XGBoost se u Pythonu implementira bibliotekom xgboost. 
-
-##### 5. SVM
+##### SVM
 
 Posao SVM klasifikatora je da u N-dimenzionalnom prostoru, gde je N broj parametara, pronađe hiperravan koja na najbolji način klasifikuje sve tačke koje predstavljaju podaci.
 
@@ -125,18 +123,16 @@ Kako postoji velik broj ovih hiperravni, kao optimalnu uzimamo onu kod koje je u
 
 Hiperravni koje ograničavaju zonu udaljenosti od granice odlučivanja na kojoj klasifikator daje vrednosti čija je apsolutna vrednost manja od 1 nazivaju se noseći vektori. To znači da za svaki podatak koji se nalazi unutar tih vektora ne možemo sa sigurnošću reći kojoj klasi pripada.
 
-![SVM](static/images/SVMSVG.svg)
+![Grafički prikaz SVM metode](/images/2022/prepoznavanje-govora/SVMSVG.svg)
 
-Na slici su vrednosti parametara 1 i 2 određeni parametri po kojima se podaci klasifikuju.
+Na slici iznad su vrednosti parametara 1 i 2 određeni parametri po kojima se podaci klasifikuju. Hiperravan je ovde prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
 
-Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
-
-Funkcija gubitka SVM modela je:
+Funkcija greške SVM modela je:
 
 $$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases} $$
 
 
-Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije gubitka.
+Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije greške.
 
 $$
 \min _w \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}
@@ -154,7 +150,7 @@ $$
 w=w-\alpha \cdot(2 \lambda w)
 $$
 
-U suprotnom, ako je model napravio grešku, moramo da uključimo i funkciju gubitka u račun:
+U suprotnom, ako je model napravio grešku, moramo da uključimo i funkciju greške u račun:
 
 $$
 w=w+\alpha \cdot\left(y_i \cdot x_i-2 \lambda w\right)
@@ -179,35 +175,27 @@ Sažimanje označava dodavanje piksela na ivice. Samim tim, kada konvolucija rad
 
 ReLU (*rectified linear activation function* ili *rectified linear unit*) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
-![Funkcija](static\images\ReLU.svg)
+![Grafički prikaz ReLU funkcije](static\images\ReLU.svg)
 
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da raspozna.
 
 Za treniranje mreže koriste se dve metode simultano (propagacija unapred i unazad), kao i jedna funkcija (kriterijumska funkcija)
 
-Kriterijumska funkcija (eng. *cost funkcija*) jeste funkcionalna veza željenog izlaza i dobijenog izlaza u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške.
-
-Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
+Kritetijumska funkcija (eng. *cost funkcija*) jeste funkcionalna veza željenog izlaza i dobijenog izlaza u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške. Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
 
 Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
 $$L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log (1-\sigma(\mathbf{w} \cdot \mathbf{x}+b))]$$
 
-Propagacija unazad je metod smanjenja grešaka u CNN posmatranjem neophodnih promena vrednosti parametara mreže u svakom sloju kako bi se neuroni aktivirali na određen način.
+Propagacija unazad je metod smanjenja grešaka u CNN posmatranjem neophodnih promena vrednosti parametara mreže u svakom sloju kako bi se neuroni aktivirali na određen način. Propagacija unazad prolazi kroz sve slojeve i menja parametre mreže u svakom koraku.
 
-Propagacija unazad prolazi kroz sve slojeve i menja parametre mreže u svakom koraku.
+Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradient spusta za traženje lokalnog ili globalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
 
-Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradijentnog spusta za traženje lokalnog / maksimalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
-
-![SGD](static/images/Backpropagation.svg)
+![Grafički prikaz traženja lokalnog ili globalnog minimuma](/images/2022/prepoznavanje-govora/Backpropagation.svg)
 
 ### Istraživanje i rezultati
 
-Testiranje metoda vršeno je na dve baze: FSDD baze i baze srpskih reči, koja je kreirana za potrebe projekta.
-
-FSDD baza sadrži engleske cifre od 0 do 9 koje su izgovorene od strane 50 različitih ljudi. Sadrži ukupno 3000 snimaka.
-
-Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde je 29 ljudi izgovaralo ove reči različitim naglaskom i intonacijom.
+Testiranje metoda vršeno je na dve baze: FSDD baze i baze srpskih reči, koja je kreirana za potrebe projekta. FSDD baza sadrži engleske cifre od 0 do 9 koje su izgovorene od strane 50 različitih ljudi. Sadrži ukupno 3000 snimaka. Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde je 29 ljudi izgovaralo ove reči različitim naglaskom i intonacijom.
 
 U FSDD bazi podataka, 6 osoba je izgovorila svaku reč 50 puta, kako bi ukupno bilo 3000 snimaka, što čini vrlo balansiranu bazu podataka. U srpskoj bazi, 10 reči je rečeno od strane 27 ljudi, dok su dve osobe ponovile izgovaranje ovih 10 reči 13 i 10 puta. Njihovih snimaka je 130 i 100, pa otuda i 500 snimaka u bazi. Korišćeni su drugačiji izgovori i intonacije zbog raznovrsnosti. Baza je slabije pristrasna, što se odražava na same rezultate testiranja.
 
@@ -233,21 +221,17 @@ Tačnosti postignute na srpskoj bazi podataka značajno su niže u poređenju sa
 
 Rezultate vizuelno možemo prikazati matricama konfuzije. 
 
-![Rezultati](static/images/XGB.svg)
+![Matrica konfuzije za XGBoost](/images/2022/prepoznavanje-govora/XGB.svg)
 
-![Rezultati](static/images/SVM1.svg)
+![Matrica konfuzije za SVM](/images/2022/prepoznavanje-govora/SVM1.svg)
 
-![Rezultati](static/images/RandomForest.svg)
+![Matrica konfuzije za Random Forest](/images/2022/prepoznavanje-govora/RandomForest.svg)
 
-![Rezultati](static/images/LogistickaRegresija.svg)
+![Matrica konfuzije za logističku regresiju](/images/2022/prepoznavanje-govora/LogistickaRegresija.svg)
 
-Prikazane su matrice konfuzije na FSDD bazi za XGBoost, SVM, Random Forest i logističku regresiju, tim redosledom.
+Prikazane su matrice konfuzije na FSDD bazi za XGBoost, SVM, Random Forest i logističku regresiju, tim redosledom. Iz njih se može primetiti kako, nezavisno od metode koja se koristi, cifre dva, tri i četiri uvek imaju najveću tačnost pronalaženja. 
 
-Iz ovih matrica konfuzije može se primetiti kako, nezavisno od metode koja se koristi, cifre dva, tri i četiri uvek imaju najveću tačnost pronalaženja. 
-
-Cifre 9 i 1 su često mešane pri klasifikaciji kod ova četiri modela. Njihov izgovor se može protumačiti kao sličan ("one" i "nine"), te su ova dva broja par sa najvećim sličnostima u karakteristikama.
-
-U svim metodama, cifra 6 je najviše puta pogrešno klasifikovana. Najčešće je mešana sa ciframa 3 i 8, što ima manje fizičkog smisla od mešanja cifara 1 i 9 ("six","three","eight").
+Cifre 9 i 1 su često mešane pri klasifikaciji kod ova četiri modela. Njihov izgovor se može protumačiti kao sličan ("one" i "nine"), te su ova dva broja par sa najvećim sličnostima u karakteristikama. U svim metodama, cifra 6 je najviše puta pogrešno klasifikovana. Najčešće je mešana sa ciframa 3 i 8, što ima manje fizičkog smisla od mešanja cifara 1 i 9 ("six","three","eight").
 
 XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste tehniku dubokog učenja.  Obe navedene metode su ansambl metode koje koriste stabla odlučivanja, te su generalno veoma otporne na preprilagođavanje. Gledajući u tabelu, XGBoost je imao veću preciznost od Random Forest klasifikatora. Ovo se može objasniti "obrezivanjem drveća" koje XGBoost radi, to jest *Boosting*, kojim poboljšava klasifikaciju. XGBoost u svakoj iteraciji pokušava da kompenzuje rezultate dosadašnjeg modela, te je bolji u prilagođavanju trening podacima.
 
