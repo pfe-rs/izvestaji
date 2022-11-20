@@ -102,7 +102,7 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 
 ##### 4. XGBoost
 
-XGBoost (Gradient Boosted Trees), kao i Random Forest, koristi više stabala odlučivanja za predviđanje i labeliranje. 
+XGBoost (*Gradient Boosted Trees*), kao i *Random Forest*, koristi više stabala odlučivanja za predviđanje i labeliranje. 
 
 Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove Boosting. Boosting kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
 
