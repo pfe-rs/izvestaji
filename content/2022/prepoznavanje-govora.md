@@ -214,7 +214,9 @@ Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža u
 
 Rezultati su prikazani u tabeli ispod.
 
-![Rezultati](static\images\Tabela.svg)
+| Metoda | Logistička regresija | SVM | XGBoost | Random Forest Classificator | CNN |
+| -------- | -------- | -------- | -------- | -------- | -------- |
+| Tačnost | 66.33% | 70.11% | 85.90% | 82.67% | 97.28% |
 
 Metrika ovih rezultata bila je tačnost. Zbog balansiranosti baze, ovo predstavlja zaista reprezentativnu metriku.
 
