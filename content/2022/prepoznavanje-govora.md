@@ -134,13 +134,13 @@ $$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), 
 
 Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije greške.
 
-$$\min \_w \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle \x_i, w\right\rangle\right)_{+}$$
+$$\min_w  \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}$$
 
 Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
 
 $$\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k$$
 
-$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle \x_i, w\right\rangle\right)_{+}=\begin{cases}0, &\text{if}y_i\left\langle x_i, w\right\rangle\geq 1\\-y_i x_{i k},&\text{ else }\end{cases}$$
+$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}=\begin{cases}0, &\text{if }y_i\left\langle x_i, w\right\rangle\geq1\\-y_ix_{i k},&\text{else}\end{cases}$$
 
 Težine ažuriramo zavisno od toga da li je naš klasifikator tačno klasifikovao novi podatak ili ne. Ukoliko jeste, ažuriramo samo gradijent regularizacionog parametra:
 
