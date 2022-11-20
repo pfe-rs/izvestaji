@@ -238,7 +238,7 @@ Iz ovih matrica konfutije može se primetiti kako, ma koja se metoda koristi, br
 
 Brojevi 9 i 1 su često mešani pri klasifikaciji ova četiri modela. Njihov izgovor može se protumačiti kao sličan ("one" i "nine") pa su ova dva broja par sa najvećim sličnostima u karakteristikama.
 
-U svim metodama, broj 6 se pokazao kao najteže klasifikovan i u svim metodama mešan je sa brojevima 3 i 8, što ima manje fizičkog smisla od brojeva 1 i 9 ("six","three","eight").
+U svim metodama, cifra 6 je najviše puta pogrešno klasifikovana. Najčešće je mešana sa ciframa 3 i 8, što ima manje fizičkog smisla od mešanja cifara 1 i 9 ("six","three","eight").
 
 XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste tehniku dubokog učenja. Bolje rezultate dobijamo zato što su Decision tree algoritmi jednostavni za implementaciju i zaista precizni. Mogu se dobiti odlični rezultati u minimizaciji greški u prepoznavanju korišćenjem tehnike stabla odlučivanja pri obradi karakteristika zvuka. Gledajući u tabelu, XGBoost je imao veću preciznost od Random Forest klasifikatora. Ovo se može objasniti "obrezivanjem drveća" koje XGBoost radi, to jest Boosting kojim poboljšava klasifikaciju. XGBoost pokušava da smanji kriterijumsku funkciju modela koji obrađuje podatke, dok se Random Forest ne fokusira na te parametre i ne optimizuje model tako da to odgovara loše balansiranoj bazi podataka. 
 
