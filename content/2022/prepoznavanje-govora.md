@@ -58,7 +58,7 @@ $$\sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1}$$
 
 
 
-Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom. Pomoću ove metode dobijamo verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
+Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička regresija dala što bolje rezultate, trenira se MLE (*Maximum Likelihood Estimation*) metodom. Pomoću ove metode dobijamo verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
 U slučaju kada imamo više kategorija (u našem slučaju 10), koristi se Softmax regresija umesto Sigmoida kako bismo dobili deset verovatnoća čija je suma 1. Konačnu odluku o pravom izboru donosimo po tome koja kategorija ima najveću verovatnoću za zadate ulazne podatke.
 
