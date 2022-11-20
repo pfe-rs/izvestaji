@@ -189,7 +189,7 @@ Kritetijumska funkcija (eng. cost funkcija) jeste funkcionalna veza željenog ou
 
 Najkorišćenija loss funkcija je Cross Entropy Loss. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
 
-Formula po kojoj se računa Cross Entropy Loss je sledeća:
+Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
 $$L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log (1-\sigma(\mathbf{w} \cdot \mathbf{x}+b))]$$
 
