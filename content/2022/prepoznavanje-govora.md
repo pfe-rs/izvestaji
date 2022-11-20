@@ -86,7 +86,7 @@ Kvadriranjem amplitudskog spektra dobijamo spektar snage.
 
 ##### 3. Random Forest
 
-Random Forest je klasifikator koji koristi više stabala odlučivanja (Decision Tree) i njihova pojedinačna predviđanja stapa u jedno konačno.
+*Random Forest* je klasifikator koji koristi više stabala odlučivanja (*Decision Tree*) i njihova pojedinačna predviđanja stapa u jedno konačno.
 
 Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizom grananja. U svakom grananju se posmatra neki parametar koji bi najbolje mogao da razvrsta pristigle podatke u dve podgrane koje se dalje mogu i same deliti. U idealnoj situaciji potrebno je da svi podaci u svojoj finalnoj podgrani budu isti, ali je to sa ograničenom dubinom mreže uglavnom nemoguće.
 
