@@ -3,9 +3,11 @@ title: Prepoznavanje govora
 summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaznike 2022. godine od Dimitrija Pešića i Lazara Zubovića.
 ---
 ### Apstrakt
-Prepoznavanje govora predstavlja jedan od najvećih izazova tehnologije. Sve veća potreba za digitalizacijom dovodi do potrebom za širenjem znanja u ovom polju. Dosadašnja istraživanja pokazuju efikasnost i tačnost prepoznavanja govora mnogih metoda sa i bez korišćenja dubokog učenja, ne fokusirajući se toliko na pojašnjenja razlika u rezultatima koji su dobijeni. Ovaj rad se fokusira na posmatranje i upoređivanje metoda poput konvolucionih neuronskih mreža, kao i nekoliko klasifikatora podataka koji ne koriste tehniku dubokog učenja, kako bi se utvrdilo šta je najbolji pristup za identifikovanje reči. Testirajući modele na FSDD bazi reči i bazi podataka koja se sastoji od srpskih reči, utvrđeno je da najtačnije rezultate pri obradi audio zapisa donosi konvoluciona neuronska mreža. Iz ovoga zaključujemo da je optimalno dalja istraživanja usmeriti ka dubokom učenju.
+Prepoznavanje govora predstavlja jedan od najvećih izazova tehnologije. Sve veća potreba za digitalizacijom dovodi do potrebom za širenjem znanja u ovom polju. Dosadašnja istraživanja pokazuju efikasnost i tačnost prepoznavanja govora mnogih metoda sa i bez korišćenja dubokog učenja. Ovaj rad se fokusira na posmatranje i upoređivanje metoda poput konvolucionih neuronskih mreža, kao i nekoliko klasifikatora podataka koji ne koriste tehniku dubokog učenja, kako bi se utvrdilo šta je najbolji pristup za identifikovanje reči. Testirajući modele na FSDD bazi reči i bazi podataka koja se sastoji od srpskih reči, utvrđeno je da najtačnije rezultate pri obradi audio zapisa donosi konvoluciona neuronska mreža. Iz ovoga zaključujemo da je optimalno dalja istraživanja usmeriti ka dubokom učenju.
 
 ### Apstrakt na engleskom
+
+Speech recognition is one of the biggest challenges of technology. The growing need for digitalization is followed by the need to expand knowledge in this field. Research so far shows the effectiveness and accuracy of speech recognition methods with or without deep learning. This paper focuses on observing and comparing various methods such as convolutional nerual networks and data classifiers that don’t use deep learning in order to determine the best approach for identifying words. Testing on the FSDD word database and a database consisting of Serbian words, it was determined that the most accurate way to process audio recordings is by using convolutional neural networks, so it is most optimal to conduct further research in that direction.
 ### Uvod
 Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Prepoznavanje govora je proces osposobljavanja nekog modela da identifikuje i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih i identifikuje izgovorenu reč.
 
@@ -15,7 +17,7 @@ Primena projekta može se uočiti u mnogim svakodnevnim radnjama: audio pretraga
 
 Ovaj projekat se bavi raspoznavanjem konkretnih reči i njihovom klasifikacijom. Formulacija problema koji se rešava u ovom projektu se moze definisati na sledeći način: vrši se klasifikacija reči na jednu od 10 reči iz predodredjenog skupa. Ceo projekat rađen je u Python programskom jeziku.
 
-Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike gde korišćeni klasifikatori obrađuju zvuk i pronalaze određene karakteristike. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.
+Projekat se zasniva na ideji korišćenja spektrograma kao osnovne metode prikaza zvuka u 2D formatu. Spektrogrami su korišćeni na dva načina tokom realizacije projekta. Jedan način podrazumeva korišćenje spektrograma u formi slike gde korišćeni klasifikatori pronalaze određene karakteristike i donose zaključke o zvuku na osnovu slika. Drugi način podrazumeva ručno izvlačenje karakteristika iz spektrograma, koji je predstavljen matricom brojeva.
 
 Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. Uloga ovih metoda može se podeliti u nekoliko kategorija: 
 
@@ -48,11 +50,11 @@ U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu f
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression).
 
-Kriterijumska funkcija ove metode je logaritamska kako bi se postiglo da gradient descent nađe globalni, a ne samo lokalni minimum funkcije.
-
 $$\begin{equation}
 \sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1} 
 \end{equation}$$
+
+
 
 Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom. Pomoću ove metode dobijamo verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
@@ -204,7 +206,7 @@ FSDD baza sadrži engleske cifre od 0 do 9 koje su izgovorene od strane 50 razli
 
 Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde je 29 ljudi izgovaralo ove reči različitim naglaskom i intonacijom.
 
-U FSDD bazi podataka, 6 osoba je izgovorila svaku reč 50 puta, kako bi ukupno bilo 3000 snimaka, što čini vrlo balansiranu bazu podataka. U srpskoj bazi, 10 reči je rečeno od strane 27 ljudi, dok su dve osobe ponovile izgovaranje ovih 10 reči 13 i 10 puta. Njihovih snimaka je 130 i 100, pa otuda i 500 snimaka u bazi. Korišćeni su drugačiji izgovori i intonacije zbog raznovrsnosti. Baza je slabije balansirana, što se odrazuje na same rezultate testiranja.
+U FSDD bazi podataka, 6 osoba je izgovorila svaku reč 50 puta, kako bi ukupno bilo 3000 snimaka, što čini vrlo balansiranu bazu podataka. U srpskoj bazi, 10 reči je rečeno od strane 27 ljudi, dok su dve osobe ponovile izgovaranje ovih 10 reči 13 i 10 puta. Njihovih snimaka je 130 i 100, pa otuda i 500 snimaka u bazi. Korišćeni su drugačiji izgovori i intonacije zbog raznovrsnosti. Baza je slabije pristrasna, što se odražava na same rezultate testiranja.
 
 U bazi srpskih reči, u uređenoj trojci gluva - glava - plava očekuju se češće greške pri klasifikaciji. To se može očekivati jer su drugi i poslednja dva glasa isti. Takođe, kako su „P“ i „G“ oba praskavi suglasnici, to jest isti su po mestu tvorbe, veća je verovatnoća pojavljivanja greške.
 
@@ -240,7 +242,7 @@ Cifre 9 i 1 su često mešane pri klasifikaciji kod ova četiri modela. Njihov i
 
 U svim metodama, cifra 6 je najviše puta pogrešno klasifikovana. Najčešće je mešana sa ciframa 3 i 8, što ima manje fizičkog smisla od mešanja cifara 1 i 9 ("six","three","eight").
 
-XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste tehniku dubokog učenja. Bolje rezultate dobijamo zato što su Decision tree algoritmi jednostavni za implementaciju i zaista precizni. Mogu se dobiti odlični rezultati u minimizaciji greški u prepoznavanju korišćenjem tehnike stabla odlučivanja pri obradi karakteristika zvuka. Gledajući u tabelu, XGBoost je imao veću preciznost od Random Forest klasifikatora. Ovo se može objasniti "obrezivanjem drveća" koje XGBoost radi, to jest Boosting kojim poboljšava klasifikaciju. XGBoost pokušava da smanji kriterijumsku funkciju modela koji obrađuje podatke, dok se Random Forest ne fokusira na te parametre i ne optimizuje model tako da to odgovara loše balansiranoj bazi podataka. 
+XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste tehniku dubokog učenja.  Obe navedene metode su ansambl metode koje koriste stabla odlučivanja, te su generalno veoma otporne na preprilagođavanje. Gledajući u tabelu, XGBoost je imao veću preciznost od Random Forest klasifikatora. Ovo se može objasniti "obrezivanjem drveća" koje XGBoost radi, to jest Boosting kojim poboljšava klasifikaciju. XGBoost u svakoj iteraciji pokušava da kompenzuje rezultate dosadašnjeg modela, te je bolji u prilagođavanju trening podacima.
 
 Konvoluciona neuronska mreža, kao metoda koja koristi duboko učenje, prevazišla je rezultate običnih metoda. To se može objasniti time što je CNN kompleksniji model, pa može da modeluje kompleksniju relaciju između paramatara koji su mu dati. Metode sa dubokim učenjem imaju široku primenu u oblasti mašinskog učenja zbog sličnosti ovih algoritama ljudskom mozgu. Jednostavnije metode često ne uspevaju da modeluju kompleksne veze između podataka, te je neophodno odlučiti se za kompleksnije metode poput dubokog učenja.
 
