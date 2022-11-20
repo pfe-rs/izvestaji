@@ -130,7 +130,7 @@ Na slici iznad su vrednosti parametara 1 i 2 određeni parametri po kojima se po
 Funkcija greške SVM modela je:
 
 $$ c(x, y, f(x))= \begin{cases}
-    0,           & \text{if} y * f(x) \geq 1 
+    0,           & \text{if } y * f(x) \geq 1 
     \\\\
     1-y * f(x), & \text{else}
 \end{cases} $$
