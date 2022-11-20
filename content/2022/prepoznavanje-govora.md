@@ -156,7 +156,7 @@ $$
 w=w+\alpha \cdot\left(y_i \cdot x_i-2 \lambda w\right)
 $$
 
-##### 6. Konvolucione neuronske mreže
+##### Konvolucione neuronske mreže
 
 Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću tehnike dubokog učenja. Neuronske mreže su inspirisane neuronima i sinapsama u ljudskom mozgu. U konvolucionu neuralnu mrežu pohranjujemo ulazne podatke u vidu spektrograma, nakon čega se oni provlače kroz nekoliko slojeva konvolucije, sažimanja i potpuno povezanih slojeva. Izlaz iz ove mreže se koristi za proračunavanje vrednosti kriterijumske funkcije, na osnovu čega se ažuriraju parametri mreže. Ovaj postupak se potom iterativno ponavlja u cilju minimizacije greške modela.
 
