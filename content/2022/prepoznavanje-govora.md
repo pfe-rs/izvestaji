@@ -135,7 +135,7 @@ $$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), 
 Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije greške.
 
 $$
-\min _w \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}
+\min _\w \lambda\|w\|^2+\sum_{i=1}^n\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}
 $$
 
 Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
