@@ -48,7 +48,7 @@ Logistička regresija je metoda klasifikacije koja se može primeniti i koristit
 
 U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu funkciju. U slučaju više klasa, koristi se softmax funkcija. Sigmoidna funkcija prikazana je na slici:
 
-![Grafik sigmoidne funkcije](static\images\Sigmoid.svg)
+![Grafik sigmoidne funkcije](/images/2022/prepoznavanje-govora/Sigmoid.svg)
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression).
 
@@ -80,7 +80,7 @@ Kvadriranjem amplitudskog spektra dobijamo spektar snage.
 
 2. Spektar snage logaritmujemo, pa odatle dobijamo logaritamski spektar snage. On služi da pokaže relativnu važnost svake komponente (amplitude sinusoida) ovog zvuka. Na vertikalnoj osi pokazuje jačinu zvuka u decibelima (dB), a horizontalna osa i dalje prikazuje frekvenciju.
 
-![Spektar snage](static\images\LogPowerSpectrum.svg)
+![Spektar snage](/images/2022/prepoznavanje-govora/LogPowerSpectrum.svg)
 
 3. Po logaritmovanju spektra snage, izvršenjem inverzne Furijeove transformacije dobijamo kepstar.
 
@@ -92,7 +92,7 @@ Stabla odlučivanja rade tako što podatke koje dobiju razvrstavaju u grupe nizo
 
 Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najviše puta pojavi biće izabran kao konačno predviđanje celog klasifikatora.
 
-![Grafički prikaz rada Random Forest-a](static\images\RandomForest1.svg)
+![Grafički prikaz rada Random Forest-a](/images/2022/prepoznavanje-govora/RandomForest1.svg)
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
@@ -175,7 +175,7 @@ Sažimanje označava dodavanje piksela na ivice. Samim tim, kada konvolucija rad
 
 ReLU (*rectified linear activation function* ili *rectified linear unit*) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
-![Grafički prikaz ReLU funkcije](static\images\ReLU.svg)
+![Grafički prikaz ReLU funkcije](/images/2022/prepoznavanje-govora/ReLU.svg)
 
 Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih spektrograma koje mreža treba da raspozna.
 
