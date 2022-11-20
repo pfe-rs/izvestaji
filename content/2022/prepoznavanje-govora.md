@@ -234,7 +234,7 @@ Rezultate vizuelno možemo prikazati matricama konfuzije.
 
 Prikazane su matrice konfuzije na FSDD bazi za XGBoost, SVM, Random Forest i logističku regresiju, tim redosledom.
 
-Iz ovih matrica konfutije može se primetiti kako, ma koja se metoda koristi, brojevi dva, tri i četiri uvek imaju najveću tačnost pronalaženja. 
+Iz ovih matrica konfuzije može se primetiti kako, nezavisno od metode koja se koristi, cifre dva, tri i četiri uvek imaju najveću tačnost pronalaženja. 
 
 Cifre 9 i 1 su često mešane pri klasifikaciji kod ova četiri modela. Njihov izgovor se može protumačiti kao sličan ("one" i "nine"), te su ova dva broja par sa najvećim sličnostima u karakteristikama.
 
