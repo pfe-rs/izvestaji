@@ -111,7 +111,7 @@ Dodatak *Boosting*-u ogleda se u *loss* funkciji. *Cost* funkcija (kriterijumska
 Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. 
 *Cross Entropy Loss* radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest *output*.
 
-Formula po kojoj se računa Cross Entropy Loss je sledeća:
+Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
 $L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log (1-\sigma(\mathbf{w} \cdot \mathbf{x}+b))]$
 
