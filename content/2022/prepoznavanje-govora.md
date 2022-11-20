@@ -241,12 +241,21 @@ Projekat "Prepoznavanje govora" pokazuje načine rešavanja popularne dileme pre
 
 ### Literatura
 [1]	Ananthi, S. and Dhanalakshmi, P. (2015) “SVM and HMM modeling techniques for speech recognition using LPCC and MFCC features” Advances in Intelligent Systems and Computing, pp. 519–526. Available at: https://doi.org/10.1007/978-3-319-11933-5_58.
+
 [2]	Gandhi, R. „Support Vector Machine — introduction to machine learning algorithms“. Available at: https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47.
+
 [3]	Yiu, T. „Understanding random forest“. Available at: https://towardsdatascience.com/understanding-random-forest-58381e0602d2. 
+
 [4]	Kam Ho, T. „The Random Subspace Method for Constructing Decision Forests“. Available at: https://pdfs.semanticscholar.org/b41d/0fa5fdaadd47fc882d3db04277d03fb21832.pdf.
+
 [5]	Bryll, R., Gutierrez-Osuna, R. and Quek, F. (2002) „Attribute bagging: Improving accuracy of classifier ensembles by using random feature subsets, Pattern Recognition“. Pergamon. Available at: https://www.sciencedirect.com/science/article/abs/pii/S0031320302001218?via%3Dihub.
+
 [6]	Swaminathan, S. „Logistic Regression — Detailed Overview“. Available at: https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc.
+
 [7]	„What is logistic regression?“ IBM. Available at: https://www.ibm.com/topics/logistic-regression.
+
 [8]	„Softmax Regression - Unsupervised feature learning and Deep Learning Tutorial“. Available at: http://deeplearning.stanford.edu/tutorial/supervised/SoftmaxRegression/.
+
 [9]	Kiran, U. (2021) „MFCC technique for speech recognition, Analytics Vidhya“. Available at: https://www.analyticsvidhya.com/blog/2021/06/mfcc-technique-for-speech-recognition/.
+
 [10]	Randall, R.B. (2016) „A history of Cepstrum analysis and its application to mechanical problems, Mechanical Systems and Signal Processing“. Academic Press. Available at: https://www.sciencedirect.com/science/article/abs/pii/S0888327016305556. 
