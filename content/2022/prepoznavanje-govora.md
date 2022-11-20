@@ -140,7 +140,7 @@ Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
 
 $$\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k$$
 
-$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}= \begin{cases}0, & \text { if } y_i\left\langle x_i, w\right\rangle \geq 1 \\ -y_i x_{i k}, & \text { else }\end{cases}$$
+$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}=\begin{cases}0, &\text{if}y_i\left\langle x_i, w\right\rangle\geq 1\\-y_i x_{i k},&\text{ else }\end{cases}$$
 
 Težine ažuriramo zavisno od toga da li je naš klasifikator tačno klasifikovao novi podatak ili ne. Ukoliko jeste, ažuriramo samo gradijent regularizacionog parametra:
 
@@ -238,3 +238,15 @@ Konvoluciona neuronska mreža, kao metoda koja koristi duboko učenje, prevaziš
 ### Zaključak
 
 Projekat "Prepoznavanje govora" pokazuje načine rešavanja popularne dileme pretvaranja glasa u kucani tekst. Koristi se FSDD baza podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, CNN, Random Forest, XGBoost i logistička regresija. Uz FSDD, koristi se i samostalno napravljena baza podataka koja se sastoji od srpskih reči, gde je dokazano, testiranjem metoda, da su se ove metode pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči. Tačnost metoda dolazi čak do 97.28%, te je zaključak ovog rada da je CNN najpraktičnija metoda za rad. Dalja istraživanja bi trebalo usmeravati ka ispitivanju ove metode.
+
+### Literatura
+[1]	Ananthi, S. and Dhanalakshmi, P. (2015) “SVM and HMM modeling techniques for speech recognition using LPCC and MFCC features” Advances in Intelligent Systems and Computing, pp. 519–526. Available at: https://doi.org/10.1007/978-3-319-11933-5_58.
+[2]	Gandhi, R. „Support Vector Machine — introduction to machine learning algorithms“. Available at: https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47.
+[3]	Yiu, T. „Understanding random forest“. Available at: https://towardsdatascience.com/understanding-random-forest-58381e0602d2. 
+[4]	Kam Ho, T. „The Random Subspace Method for Constructing Decision Forests“. Available at: https://pdfs.semanticscholar.org/b41d/0fa5fdaadd47fc882d3db04277d03fb21832.pdf.
+[5]	Bryll, R., Gutierrez-Osuna, R. and Quek, F. (2002) „Attribute bagging: Improving accuracy of classifier ensembles by using random feature subsets, Pattern Recognition“. Pergamon. Available at: https://www.sciencedirect.com/science/article/abs/pii/S0031320302001218?via%3Dihub.
+[6]	Swaminathan, S. „Logistic Regression — Detailed Overview“. Available at: https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc.
+[7]	„What is logistic regression?“ IBM. Available at: https://www.ibm.com/topics/logistic-regression.
+[8]	„Softmax Regression - Unsupervised feature learning and Deep Learning Tutorial“. Available at: http://deeplearning.stanford.edu/tutorial/supervised/SoftmaxRegression/.
+[9]	Kiran, U. (2021) „MFCC technique for speech recognition, Analytics Vidhya“. Available at: https://www.analyticsvidhya.com/blog/2021/06/mfcc-technique-for-speech-recognition/.
+[10]	Randall, R.B. (2016) „A history of Cepstrum analysis and its application to mechanical problems, Mechanical Systems and Signal Processing“. Academic Press. Available at: https://www.sciencedirect.com/science/article/abs/pii/S0888327016305556. 
