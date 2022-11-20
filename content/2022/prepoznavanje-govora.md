@@ -129,7 +129,7 @@ Na slici iznad su vrednosti parametara 1 i 2 određeni parametri po kojima se po
 
 Funkcija greške SVM modela je:
 
-$$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\\\ 1-y * f(x), & \text { else }\end{cases} $$
+$$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ \\ 1-y * f(x), & \text { else }\end{cases} $$
 
 
 Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije greške.
@@ -140,7 +140,7 @@ Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
 
 $$\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k$$
 
-$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}=\begin{cases}0, &\text{if }y_i\left\langle x_i, w\right\rangle\geq1 \\\\ -y_ix_{i k},&\text{else}\end{cases}$$
+$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right)_{+}=\begin{cases}0, &\text{if }y_i\left\langle x_i, w\right\rangle\geq1 \\ \\ -y_ix_{i k},&\text{else}\end{cases}$$
 
 Težine ažuriramo zavisno od toga da li je naš klasifikator tačno klasifikovao novi podatak ili ne. Ukoliko jeste, ažuriramo samo gradijent regularizacionog parametra:
 
