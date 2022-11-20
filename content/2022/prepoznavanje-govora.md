@@ -189,7 +189,7 @@ $$L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log 
 
 Propagacija unazad je metod smanjenja grešaka u CNN posmatranjem neophodnih promena vrednosti parametara mreže u svakom sloju kako bi se neuroni aktivirali na određen način. Propagacija unazad prolazi kroz sve slojeve i menja parametre mreže u svakom koraku.
 
-Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradient spusta za traženje lokalnog ili globalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
+Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradijentnog spusta za traženje lokalnog ili globalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
 
 ![Grafički prikaz traženja lokalnog ili globalnog minimuma](/images/2022/prepoznavanje-govora/Backpropagation.svg)
 
