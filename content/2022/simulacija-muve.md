@@ -77,16 +77,7 @@ Razlika između ta dva načina implementiranja jeste to što je nevektorizovana 
 Algoritam traži da korisnik inicijalizuje populaciju tipa Population nad kojom će posle pozvati funkciju run.
 Prilikom inicijalizovanja populacije treba da se prosledi broj jedinki u populaciji i arhitektura mreže, dok se prilikom poziva funkcije run nad populacijom prosleđuju fitnes funkcija i ostali parametri kao što su šansa za mutaciju gena, nazivi fajlova u kojima će se čuvati geni najboljih mreža, način na koji će se čuvati itd.
 
-Fitnes funkcija je funkcija koju implementira korisnik i koja treba da odredi koliko je dobar svaki gen tj. mreža za određeni zadatak.
-Ona će biti pozvana jednom za svaku generaciju, biće joj prosleđena lista gena.
-Korisnik pomoću svakog gena može da generiše neuralnu mrežu koristeći funkciju koju smo implementirali.
-Fitnes funkcija treba da promeni fitness član genoma u listi za svaki genom prema želji korisnika.
-Korisnik može da odabere na koji način će oceniti svaku mrežu.
-Kako bi koristio mreže korisnik može na objektu mreže koji je inicijalizovao pomoću gena da pozove funkciju Activate i da joj prosledi ulazne podatke za mrežu formata NumPy matrice.
-U svakoj koloni matrice je zaseban set ulaznih podataka mreže (input features).
-Imamo više kolona u slučaju da kroz istu mrežu želimo odjednom da prosledimo više setova aktivacija.
-U našem slučaju imaćemo samo jednu kolonu jer obrađujemo samo ulazne podatke od jedne bube za svaku mrežu.
-Funkcija Activate nam vraća vektor sličnog formata kao na ulazu sa izlaznim vrednostima mreže za svaki set.
+Fitnes funkcija je funkcija koju implementira korisnik i koja treba da odredi koliko je dobar svaki gen tj. mreža za određeni zadatak. Više o ovoj funkciji malo kasnije.
 
 Označimo sa $X_{j}^{i}$ j-ti ulazni podatak (input feature) od i-tog seta ulaznih podataka.
 Onda format matrice ulaznih podataka za funkciju Activate izgleda ovako:
@@ -105,16 +96,22 @@ Vrednost m ne mora da bude ista za svaki poziv Activate funkcije dok n mora jer 
 
 **bitno je voditi računa o orijentacijama vektora u implementaciji!**
 
-#### Neuronska mreža
-U kodu za neuralnu mrežu je implementirana samo feedforward funkcija, tj. funkcija propagacije unapred, jer za genetski algoritam propagacija unazad nije potrebna.
-Za svaki sloj mreže, osim ulaznog, imamo dve matrice parametara.
-Jedna je matrica težina, dok je druga matrica zapravo vektor sklonosti (eng. bias).
-Sve parametre čuvamo u rečniku.
-Slojeve mreže indeksiramo od nula tako da su nam parametri u rečniku sačuvani kao "W1", "b1", "W2", "b2", ..., "Wn-1", "bn-1", ako je n broj slojeva mreže.
-Obratite pažnju na to da indeksiranje kreće od nule i da prvi (ulazni) sloj u mrežu nema parametre.
 
-Označimo sa $W[k]_{ij}$ težinu veze između i-tog neurona iz trenutnog (k-tog) sloja mreže sa j-tim neuronom iz prethodnog (k-1) sloja.
-Onda format za težine k-tog sloja neuronske mreže izgleda ovako:
+#### Neuronska mreža
+Neuronska mreža u našem slučaju služi za određivanje položaja krila bube u sledećem trenutku simulacije na osnovu trenutnih prostornih parametara bube i njenih krila.
+U opštem slučaju se ovako implementirana mreža može koristiti za veliki broj zadataka.
+
+Za neuronsku mrežu je implementirana propagacija unapred (eng. feedforward).
+Propagacija unazad (eng. backpropagatoin) nije potrebna jer se mreža trenira genetskim algoritmom.
+
+Za svaki sloj mreže, osim ulaznog, imamo dve matrice parametara (ovde se reč parametar ne odnosi na parametre koji se prosleđuju funkcijama već na parametre mreže koji se treniraju).
+Jedna je matrica težina, dok je druga matrica zapravo vektor sklonosti (eng. bias).
+Sve ove matrice se čuvaju u rečniku.
+Slojevi mreže se indeksiraju od nula tako da su parametri u rečniku sačuvani kao $W1, b1, W2, b2, ..., Wl-1, bl-1$, ako je $l$ broj slojeva mreže.
+Obratite pažnju na to da indeksiranje kreće od $0$ i da nulti (ulazni) sloj u mrežu nema parametre.
+
+Označimo sa $W[k]_{ij}$ težinu veze između $i$-tog neurona iz trenutnog ($k$-tog) sloja mreže sa $j$-tim neuronom iz prethodnog ($k-1$) sloja.
+Onda format za matricu težina $k$-tog sloja neuronske mreže izgleda ovako:
 
 |  |  |  |  |
 | ----- | ----- | ----- | ----- |
@@ -123,10 +120,10 @@ Onda format za težine k-tog sloja neuronske mreže izgleda ovako:
 | ... | ... | ... | ... |
 | $W[k]_{n0}$ | $W[k]_{n1}$ | ... | $W[k]_{nm}$ |
 
-Ovde imamo n neurona u trenutnom (k-tom) sloju neuralne mreže i m neurona u prethodnom (k-1) sloju.
+Ovde imamo ukupno n neurona u trenutnom ($k$-tom) sloju neuronske mreže i m neurona u prethodnom ($k-1$) sloju.
 
-Označimo sa $b[k]_{i}$ sklonost tj. bias i-tog neurona trenutnog (k-tog) sloja neuronske mreže.
-Onda format za sklonosti tj. bias-ove k-tog sloja neuralne mreže izgleda ovako:
+Označimo sa $b[k]_{i}$ sklonost tj. bias $i$-tog neurona trenutnog ($k$-tog) sloja neuronske mreže.
+Onda format za vektor sklonosti tj. bias-ova $k$-tog sloja neuronske mreže izgleda ovako:
 
 |  |
 | ----- |
@@ -135,12 +132,17 @@ Onda format za sklonosti tj. bias-ove k-tog sloja neuralne mreže izgleda ovako:
 | ... |
 | $b[k]_{n}$ |
 
-Ovde imamo n neurona u trenutnom (k-tom) sloju neuralne mreže.
+Ovde imamo ukupno n neurona u trenutnom ($k$-tom) sloju neuronske mreže.
 
-Glavna funkcija u mreži je Activate.
-Njoj se kao parametar zadaje matrica ulaznih podataka koja je ranije opisana u zaglavlju "Opis interfejsa za treniranje".
-Funkcija radi propagaciju unapred.
-Za svaki sloj k (bez prvog, tj. ulaznog) radi sledeće operacije:
+Glavna funkcija u mreži je funkcija za aktivaciju.
+Njoj se kao parametar prosleđuje matrica ulaznih podataka koja je ranije opisana u zaglavlju "Opis interfejsa za treniranje". Izlaz ove funkcije je izlaz mreže za dati ulaz.
+
+Imaćemo dva pomoćna niza matrica, $A$ i $Z$. Oni će biti dužine $l$ gde je $l$ broj slojeva u mreži.
+
+Matrica ulaznih podataka se prepisuje u $A[0]$.
+
+Za svaki sloj $k$, gde $k$ ide od $1$ do $l$ se izvršava jedan korak propagacije unapred koji izgleda ovako:
+
 $$
 Z[k] = W[k] \times A[k-1] + b[k]
 $$
@@ -150,41 +152,62 @@ $$
 
 **Imati na umu da je $\times$ operacija množenja matrica** 
 
-Aktivaciona funkcija može da bude i neka druga nelinearna funkcija unesto tanh, kao što su sigmoid ili ReLU
+Nelinearna funkcija može da bude i nešto drugo umesto $tanh$, kao što su $sigmoid$ ili $ReLU$.
 
-Ovim smo vektorski implementirali izračunavanje aktivacija trenutnog (k-tog) sloja mreže pomoću aktivacija prethodnog (k-1) sloja.
+Na kraju smo dobili izlaz naše mreže, matricu $A[l]$.
 
-Funkcija Activate na kraju vraća matricu aktivacija $A[n-1]$, gde je n broj slojeve u neuralnoj mreži.
-Voditi računa o tome da su slojevi indeksirani od 0.
+Izlaz mreže je istog formata kao i ulazna matrica za mrežu, samo što umesto ulaznih podataka idu izlazni.
 
-
-**dodati kog je formata izlaz!!!!**
 
 #### Genetski algoritam
-Sve informacije o nekoj mreži se nalaze u objektu tipa Genome koji smo implementirati, koji je zapravo njen gen.
+Sve informacije o nekoj mreži se nalaze u objektu tipa Genome koji smo implementirali, koji je zapravo njen gen.
 Objekat gena sadrži razne podatke o mreži u sebi, kao i sve parametre mreže.
-Pri pravljenju populacije svi parametri dobijaju nasumične vrednosti po gausovoj (normalnoj) raspodeli sa standardnom devijacijom koja se prosleđuje konstruktoru.
+Pri pravljenju populacije svi parametri dobijaju nasumične vrednosti po gausovoj (normalnoj) raspodeli sa standardnom devijacijom koju možemo da podešavamo.
 
-Algoritam se sastoji iz 3 faze
+##### Fitnes funkcija
+
+Kao što smo već rekli, fitnes funkcija je funkcija koju implementira korisnik i koja treba da odredi koliko je dobar svaki gen tj. mreža za određeni zadatak.
+
+Ona će biti pozvana jednom za svaku generaciju, biće joj prosleđena lista gena.
+Korisnik pomoću svakog gena može da generiše neuralnu mrežu koristeći funkciju koju smo implementirali.
+Fitnes funkcija treba da promeni fitness član genoma u listi za svaki genom prema želji korisnika.
+Korisnik može da odabere na koji način će oceniti svaku mrežu.
+Kako bi koristio mreže korisnik može na objektu mreže koji je inicijalizovao pomoću gena da pozove funkciju Activate i da joj prosledi ulazne podatke za mrežu u formatu matrice.
+U svakoj koloni matrice je zaseban set ulaznih podataka mreže (input features).
+Imamo više kolona u slučaju da kroz istu mrežu želimo odjednom da prosledimo više setova aktivacija.
+U našem slučaju imaćemo samo jednu kolonu jer obrađujemo samo ulazne podatke od jedne bube za svaku mrežu.
+Funkcija Activate nam vraća vektor sličnog formata kao na ulazu sa izlaznim vrednostima mreže za svaki set.
+
+
+Generisanje populacije za novu generaciju gena se sastoji iz 3 faze
  - selekcija
  - ukrštanje
  - mutacija
 
-##### Faza selekcije:
-Nakon što se završi fitnes funkcija program bira najboljih 10% gena.
-Njih stavljamo u niz koji ćemo nazvati 'mating pool'.
+##### Faza selekcije
+Nakon što se završi fitnes funkcija program bira 10% najboljih gena, poređanih po fitnesu koji im je dodeljen u fitnes funkciji.
+Njih stavljamo u niz koji ćemo nazvati "bazenom za ukrštanje". Ove gene ćemo koristiti za generisanje nove populacije gena.
 
-##### Faza ukrštanja:
-Novi geni se generišu tako što se biraju nasumično dva "rotitelja" iz "mating pool-a".
-Parametri nove mreže mogu da se dobiju na razne načina.
-Konkretno u našem slučaju za svaki parametar mreže ima $x$ šanse da bude iz prvog roditelja i $1-x$ šanse da bude iz drugog ($x$ je jedan od parametara koji prosleđujemo run funkciji).
+##### Faza ukrštanja
+Novi geni se generišu tako što se nasumično biraju dva "rotitelja" iz "bazena za ukrštanje", zatim se na njima vrši ukrštanje i novi gen koji se dobije se dodaje na novu populaciju. Ovo ponavljamo dok ne popunimo populaciju istim brojem gena kao što je bio u prethodnoj generaciji.
 
-##### Faza mutacije:
-Nakon ovog dela vrše se nasumične mutacije na svakom od novih gena.
-Učestalost ovih mutacija takođe može da se prosledi u run funkciji.
+Novi gen se od dva roditelja može dobiti na više načina.
+Konkretno u našem slučaju za svaki element novog gena postoji npr. $x$ šanse da će preuzeti vrednost tog elementa iz gena prvog roditelja, tj $1-x$ šanse da će ga preuzeti iz drugog, gde je $x$ jedan od parametara koji se prosleđuje run funkciji.
+<!-->
+Parametri nove mreže mogu da se dobiju na razne načine.
+Konkretno u našem slučaju postoji neki broj, označimo ga sa $x$, koji označava šansu za svaki parametar mreže da bude iz prvog roditelja. Šansa da gen bude iz drugog roditelja je samim tim $1-x$.
+<-->
 
-##### Dodatna faza:
-Program takođe čuva 5% najboljih gena iz prošle generacije bez promena, kako se ne bi desilo da slučajno kroz prethodne faze ne izgubimo dosadašnji napredak.
+##### Faza mutacije
+Nakon faze ukrštanja vrše se nasumične mutacije na svakom od novih gena.
+Mutacija podrazumeva da vrednosti na nasumičnim mestima u genu postavimo na neke nove nasumične vrednosti.
+Učestalost mutacija u novom genu je takođe jedan od parametara koji se moše proslediti run funkciji.
+
+Ova faza je bitna kako bi održali diverzitet populacije, tj. kako se ne bi cela populacija svela na par sličnih gena i tako stagnirala.
+
+##### Dodatna faza
+Umesto da svi geni iz nove populacije budu dobijeni na prethodni način, program 5% najboljih gena iz prošle generacije prepiše bez promena, kako se ne bi desilo da kroz prethodne faze izgubimo dosadašnji napredak.
+
 
 #### Čuvanje podataka
 Za čuvanje podataka kao što su najbolji gen muve za određene generacije ili cela populacija u nekom trenutku treniranja, koristimo biblioteku pickle.
@@ -194,6 +217,7 @@ Nakon što završimo treniranje na zadatom broju generacija, program čuva posle
 Ovo je bitno ukoliko želimo da treniramo populaciju iz više puta.
 Omogućava nam menjanje fitnes funkcije i ostalih parametara između dva dela treniranja.
 Parametre fitness_treshold, delta_fitness i slične možemo da prosledimo run funkciji koju pozivamo nad populacijom.
+
 
 #### Treniranje muve
 Jedan deo veze između genetskog algoritma i fizike je implementiran u fajlu bugControll.py.
@@ -241,7 +265,7 @@ Dobili smo sledeći grafik:
 Sa grafika se vidi da je buba uspela da proizvodi pokrete koji predstavljaju mahanje krilima, ali previše dopušta sebi da padne pre nego što opet napravi zamah krilima.
 Ovo se takođe može protumačiti kao da buba nije naučila da optimalno vraća krila gore, tj. u poziciju odakle može da krene novi zamah, što je rezultovalo dodatnim spuštanjem visine.
 
-Promenili smo program tako da nam fitnes bude jednak samo visini bube po y osi u poslednjem trenutku simjulacije, ovo je značajno poboljšalo visinu koju je buba dostizala (2-3 puta).
+Promenili smo program tako da nam fitnes bude jednak samo visini bube po y osi u poslednjem trenutku simjulacije, ovo je značanjno poboljšalo visinu koju je buba dostizala (2-3 puta).
 Grafik je onda izgledao ovako:
 
 ![slika](/images/2022/simulacija-muve/Figure_3.svg)
@@ -281,6 +305,6 @@ Videli smo da se na ovaj način mogu postići prilično realni rezultati i da je
 Ova ideja može da se proširi i da se iskoristi da se napravi kontroler za bubu pomoću koga će korisnik moći da odredi u kom smeru će se buba kretati.
 Buba bi trebalo da isprati komande koje joj korisnik zada.
 Ovo se može postići korišćenjem više mreža koje treniramo pomoću istog algoritma ali sa drugačijim fitnes funkcijama.
-Trebalo bi istrenirati mrežu gde buba lebdi oko jedne tačke, i mreže za kretanje u sva četiri pravca (ili 6 pravaca u slučaju da oćemo da podržimo i kretanje po y osi).
-Za treniranje možemo da koristimo i različite početne parametre za bubu, tj. buba neće kretati uvek iz stanja mirovanja.
-Ovo sve može da se spoji u kontroler.
+Trebalo bi istrenirati mrežu gde buba lebdi oko jedne tačke, i mreže za kretanje u sva četiri pravca (ili 6 pravaca u slučaju da želimo da omogućimo i kretanje po y osi).
+Za treniranje možemo da koristimo i različite početne parametre za bubu, tj. buba neće kretati uvek iz stanja mirovanja pri određivanju svog funkcije.
+Ovako istrenirane mreže se na kraju mogu spojiti u jedan kontroler za bubu gde se pri određenim komandama pokreću i koriste određene mreže za kretanje bube.
