@@ -54,9 +54,7 @@ U slučaju binarne klasifikacije, ova metoda umesto linearne koristi sigmoidnu f
 
 Binarna logistička regresija kao izlaz daje vrednosti 0 ili 1, zavisno od toga da li posmatrana promenljiva pripada nekoj klasi ili ne. U slučaju kada imamo više od dve klase, koristi se multinomijalna logistička regresija (Softmax Regression).
 
-$$\begin{equation}
-\sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1} 
-\end{equation}$$
+$$\sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1}$$
 
 
 
