@@ -236,7 +236,7 @@ Prikazane su matrice konfuzije na FSDD bazi za XGBoost, SVM, Random Forest i log
 
 Iz ovih matrica konfutije može se primetiti kako, ma koja se metoda koristi, brojevi dva, tri i četiri uvek imaju najveću tačnost pronalaženja. 
 
-Brojevi 9 i 1 su često mešani pri klasifikaciji ova četiri modela. Njihov izgovor može se protumačiti kao sličan ("one" i "nine") pa su ova dva broja par sa najvećim sličnostima u karakteristikama.
+Cifre 9 i 1 su često mešane pri klasifikaciji kod ova četiri modela. Njihov izgovor se može protumačiti kao sličan ("one" i "nine"), te su ova dva broja par sa najvećim sličnostima u karakteristikama.
 
 U svim metodama, cifra 6 je najviše puta pogrešno klasifikovana. Najčešće je mešana sa ciframa 3 i 8, što ima manje fizičkog smisla od mešanja cifara 1 i 9 ("six","three","eight").
 
