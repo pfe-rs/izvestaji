@@ -19,7 +19,7 @@
     /* Text color on secondary surfaces */
     --secondary-text-color: #BBBCBE;
     /* Background color of dark surfaces, such as the navigation bar */
-    --dark-background-color:#1F2532;
+    --dark-background-color: #1F2532;
     /* Background color on secondary surfaces */
     --secondary-background-color: #F9F9F9;
     /* When an element has a permanent shadow, this is its color */
@@ -239,321 +239,327 @@ body .katex-display {
 }
 
 .shadow {
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.34);
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.34);
 }
 
 .gradient, .title .border, .service-2 .service-item i {
-  background-image: linear-gradient(100deg, #f9643d, #fe2a77);
+    background-image: linear-gradient(100deg, #f9643d, #fe2a77);
 }
 
 .header-bradcrumb {
-  background: transparent;
+    background: transparent;
 }
 
 .header-bradcrumb a, .header-bradcrumb .active {
-  color: #cfcfcf;
-  font-weight: 200;
-  font-family: "Titillium Web", sans-serif;
+    color: #cfcfcf;
+    font-weight: 200;
+    font-family: "Titillium Web", sans-serif;
 }
 
 .header-bradcrumb a:hover {
-  color: #f0326b;
+    color: #f0326b;
 }
 
 .single-page-header {
-  background: #1f2532;
-  padding: 50px 0;
-  text-align: center;
-  color: #fff;
-  position: relative;
+    background: #1f2532;
+    padding: 50px 0;
+    text-align: center;
+    color: #fff;
+    position: relative;
 }
 
 .single-page-header .breadcrumb {
-  background: transparent;
-  display: inline-block;
+    background: transparent;
+    display: inline-block;
 }
 
 .single-page-header .breadcrumb li {
-  display: inline-block;
+    display: inline-block;
 }
 
 .single-page-header .breadcrumb li a {
-  color: #f0326b;
+    color: #f0326b;
 }
 
 .navigation {
-  transition: .3s all;
-  background: #1f2532;
+    transition: .3s all;
+    background: #1f2532;
 }
 
 .top-bar {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  color: #fff;
-  transition: all 0.2s ease-out 0s;
-  padding: 10px 0;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
-  z-index: 10;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    color: #fff;
+    transition: all 0.2s ease-out 0s;
+    padding: 10px 0;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .navigation .navbar-nav > li.active .nav-link {
-  color: #fff;
+    color: #fff;
 }
 
 .navigation .navbar-nav > li > .nav-link {
-  color: #b6b8bb;
-  font-size: 15px;
-  line-height: 26px;
-  padding: 20px 15px !important;
-  transition: .2s ease-in-out 0s;
-  text-transform: capitalize;
+    color: #b6b8bb;
+    font-size: 15px;
+    line-height: 26px;
+    padding: 20px 15px !important;
+    transition: .2s ease-in-out 0s;
+    text-transform: capitalize;
 }
 
 @media (max-width: 480px) {
-  .navigation .navbar-nav > li > .nav-link {
-    padding: 8px 0 !important;
-  }
+    .navigation .navbar-nav > li > .nav-link {
+        padding: 8px 0 !important;
+    }
 }
 
 @media (max-width: 991px) {
-  .navigation .navbar-nav > li > .nav-link {
-    padding: 8px 0 !important;
-  }
+    .navigation .navbar-nav > li > .nav-link {
+        padding: 8px 0 !important;
+    }
 }
 
-.navigation .navbar-nav > li > a:hover, .navigation .navbar-nav > li > a:active, .navigation .navbar-nav > li > a:focus {
-  background: none;
-  color: #f0326b;
+.navigation .navbar-nav > li > a:hover,
+.navigation .navbar-nav > li > a:active,
+.navigation .navbar-nav > li > a:focus {
+    background: none;
+    color: #f0326b;
 }
 
 .navigation .navbar-toggler {
-  color: #fff;
-  font-size: 30px;
-  cursor: pointer;
-  outline: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    outline: none;
 }
 
 .navigation .nav .open > a {
-  background: none;
+    background: none;
 }
 
 .navigation .dropdown {
-  padding: 0;
+    padding: 0;
 }
 
 .navigation .dropdown .dropdown-item {
-  padding: 8px 15px;
-  color: #fff;
-  font-size: 13px;
+    padding: 8px 15px;
+    color: #fff;
+    font-size: 13px;
 }
 
 .navigation .dropdown .dropdown-item:hover {
-  background: transparent;
-  color: #f0326b;
+    background: transparent;
+    color: #f0326b;
 }
 
 .navigation .dropdown .dropdown-menu {
-  border-radius: 0;
-  -webkit-transform-origin: top;
-          transform-origin: top;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-  -webkit-transform: scale(1, 0);
-          transform: scale(1, 0);
-  background-color: #000;
-  display: block;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out,-webkit-transform 0.3s;
-  transition: transform 0.3s,opacity 0.3s ease-in-out;
-  transition: transform 0.3s,opacity 0.3s ease-in-out,-webkit-transform 0.3s;
+    border-radius: 0;
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-transform: scale(1, 0);
+    transform: scale(1, 0);
+    background-color: #000;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, -webkit-transform 0.3s;
+    transition: transform 0.3s, opacity 0.3s ease-in-out;
+    transition: transform 0.3s, opacity 0.3s ease-in-out, -webkit-transform 0.3s;
 }
 
 .navigation .dropdown:hover .dropdown-menu {
-  transition: opacity 0.3s ease-in-out,-webkit-transform 0.3s;
-  transition: transform 0.3s,opacity 0.3s ease-in-out;
-  transition: transform 0.3s,opacity 0.3s ease-in-out,-webkit-transform 0.3s;
-  -webkit-transform: scale(1, 1);
-          transform: scale(1, 1);
-  opacity: 1;
+    transition: opacity 0.3s ease-in-out, -webkit-transform 0.3s;
+    transition: transform 0.3s, opacity 0.3s ease-in-out;
+    transition: transform 0.3s, opacity 0.3s ease-in-out, -webkit-transform 0.3s;
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    opacity: 1;
 }
 
 .navbar-brand {
-  height: auto;
-  padding: 8px 0;
+    height: auto;
+    padding: 8px 0;
 }
 
 .navbar-brand h1 {
-  margin: 0;
+    margin: 0;
 }
 
 .navbar-brand img {
-  height: 64px;
-  width: 64px;
+    height: 64px;
+    width: 64px;
 }
 
 .dark-bg {
-  background: rgba(0, 0, 0, 0.7);
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: -1;
+    background: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
 }
 
 /*=================================================================
   Latest Posts
 ==================================================================*/
 .post-item {
-  background: #fff;
-  margin-bottom: 40px;
+    background: #fff;
+    margin-bottom: 40px;
 }
 
 .post-item .post-thumb {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .post-item .post-thumb img {
-  height: auto;
+    height: auto;
 }
 
 .post-item .post-title {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .post-item .post-title h3 {
-  font-size: 23px;
+    font-size: 23px;
 }
 
 .post-item .post-title h3 a {
-  color: #000;
+    color: #000;
 }
 
 .post-item .post-meta {
-  font-size: 14px;
-  color: #888;
+    font-size: 14px;
+    color: #888;
 }
 
 .post-item .post-meta a {
-  color: #000;
-  margin: 3px 0;
+    color: #000;
+    margin: 3px 0;
 }
 
 .post-item .post-content p {
-  color: #757575;
-  margin: 10px 0;
+    color: #757575;
+    margin: 10px 0;
 }
 
 .post-item .btn-main, .post-item .btn-main-sm {
-  font-size: 12px;
-  margin-top: 10px;
-  padding: 8px 20px;
-  margin: 15px 0;
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 8px 20px;
+    margin: 15px 0;
 }
 
 /*=================================================================
   Single Blog Page
 ==================================================================*/
 #blog-banner {
-  padding-bottom: 100px;
-  padding-top: 150px;
+    padding-bottom: 100px;
+    padding-top: 150px;
 }
 
 #blog-page {
-  margin: 0 0 40px;
+    margin: 0 0 40px;
 }
 
 .post-excerpt {
-  padding: 0 20px;
-  margin-bottom: 60px;
+    padding: 0 20px;
+    margin-bottom: 60px;
 }
 
 .post-excerpt h3 a {
-  color: #000;
+    color: #000;
 }
 
 .post-excerpt blockquote {
-  line-height: 22px;
-  margin: 20px 0;
-  font-size: 16px;
+    line-height: 22px;
+    margin: 20px 0;
+    font-size: 16px;
 }
 
 .single-blog {
-  background-color: #fff;
-  margin-bottom: 50px;
-  padding: 20px;
+    background-color: #fff;
+    margin-bottom: 50px;
+    padding: 20px;
 }
 
 .blog-subtitle {
-  font-size: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #dedede;
-  margin-bottom: 25px;
-  text-transform: uppercase;
+    font-size: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dedede;
+    margin-bottom: 25px;
+    text-transform: uppercase;
 }
 
 .next-prev {
-  border-bottom: 1px solid #dedede;
-  border-top: 1px solid #dedede;
-  margin: 20px 0;
-  padding: 25px 0;
+    border-bottom: 1px solid #dedede;
+    border-top: 1px solid #dedede;
+    margin: 20px 0;
+    padding: 25px 0;
 }
 
 .next-prev a {
-  color: #000;
+    color: #000;
 }
 
 .next-prev a:hover {
-  color: #f0326b;
+    color: #f0326b;
 }
 
 .next-prev .prev-post i {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .next-prev .next-post i {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .author-about {
-  margin-top: 40px;
+    margin-top: 40px;
 }
 
 .post-author {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 
 .post-author > img {
-  border: 1px solid #dedede;
-  max-width: 120px;
-  padding: 5px;
-  width: 100%;
+    border: 1px solid #dedede;
+    max-width: 120px;
+    padding: 5px;
+    width: 100%;
 }
 
-.pagination{
-  justify-content: center;
+.pagination {
+    justify-content: center;
 }
-.pagination li{
-  margin: 0 5px;
-  font-size: 20px;
+
+.pagination li {
+    margin: 0 5px;
+    font-size: 20px;
 }
-.pagination li a{
-  color: #404040;
+
+.pagination li a {
+    color: #404040;
 }
-.pagination li.disabled a{
-  color: #cccccc;
+
+.pagination li.disabled a {
+    color: #cccccc;
 }
-.pagination li.active a{
-  background-color: #f0326b !important;
-  border-color: #f0326b !important;
-  font-weight: 600;
+
+.pagination li.active a {
+    background-color: #f0326b !important;
+    border-color: #f0326b !important;
+    font-weight: 600;
 }
 
 .page-404 {
-  height: 100vh;
+    height: 100vh;
 }
 
 .page-404 h1 {
-  font-size: 200px;
+    font-size: 200px;
 }
 
 figure {
