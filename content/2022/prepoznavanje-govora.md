@@ -177,7 +177,7 @@ Konvolucija kao bitne detalje posmatra one koji su mnogo puta uhvaćeni u kernel
 
 Sažimanje označava dodavanje piksela na ivice. Samim tim, kada konvolucija radi svoj posao, ona će svojim kernelom mnogo puta pokriti tu površinu. 
 
-ReLU (rectified linear activation function / rectified linear unit) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
+ReLU (*rectified linear activation function* ili *rectified linear unit*) je funkcija koja negativnim vrednostima daje nulu, a pozitivne ostavlja kakve jesu. Time dobijamo nelinearan model.
 
 ![Funkcija](static\images\ReLU.svg)
 
