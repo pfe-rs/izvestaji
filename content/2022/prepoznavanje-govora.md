@@ -185,7 +185,7 @@ Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih
 
 Za treniranje mreže koriste se dve metode simultano (propagacija unapred i unazad), kao i jedna funkcija (kriterijumska funkcija)
 
-Kritetijumska funkcija (eng. cost funkcija) jeste funkcionalna veza željenog outputa i dobijenog outputa u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške.
+Kriterijumska funkcija (eng. *cost funkcija*) jeste funkcionalna veza željenog izlaza i dobijenog izlaza u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške.
 
 Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
 
