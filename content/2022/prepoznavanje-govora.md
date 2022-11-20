@@ -98,7 +98,7 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 
 1.	Svakom stablu da nasumično izabere podatke sa kojima će da radi iz baze i time znatno smanji mogućnost *overfitting*-a.
 
-2.	Svako stablo dobija neki nasumičan *feature* na kom će se trenirati, umesto da se trenira na skupu *feature*-a, što bi zahtevalo i veću dubinu mreže. Ovaj aspekt, zvani *Random Subspace Method* ili *Attribute Bagging*, smanjuje korelaciju između stabala i time ih čini nezavisnijim jedne od drugih.
+2.	Svako stablo dobija neki nasumičan karakteristika na kom će se trenirati, umesto da se trenira na skupu karakteristika, što bi zahtevalo i veću dubinu mreže. Ovaj aspekt, zvani *Random Subspace Method* ili *Attribute Bagging*, smanjuje korelaciju između stabala i time ih čini nezavisnijim jedne od drugih.
 
 ##### XGBoost
 
@@ -106,10 +106,10 @@ XGBoost (*Gradient Boosted Trees*), kao i *Random Forest*, koristi više stabala
 
 Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove *Boosting*. *Boosting* kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
 
-Dodatak *Boosting*-u ogleda se u *loss* funkciji. *Cost* funkcija (kriterijumska funkcija) jeste usrednjena vrednost svih funkcija greške (*loss function*), a *loss* funkcija je funkcionalna veza željenog outputa i dobijenog outputa u funkciji.
+Dodatak *Boosting*-u ogleda se u *loss* funkciji. *Cost* funkcija (kriterijumska funkcija) jeste usrednjena vrednost svih funkcija greške (*loss function*), a funkcija greške je funkcionalna veza željenog izlaza i dobijenog izlaza u funkciji.
 
 Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. 
-*Cross Entropy Loss* radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest *output*.
+*Cross Entropy Loss* radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest izlaz.
 
 Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
@@ -181,7 +181,7 @@ Kroz neuronsku mrežu se propušta već napravljen spektrogram, kao i labele tih
 
 Za treniranje mreže koriste se dve metode simultano (propagacija unapred i unazad), kao i jedna funkcija (kriterijumska funkcija)
 
-Kritetijumska funkcija (eng. *cost funkcija*) jeste funkcionalna veza željenog izlaza i dobijenog izlaza u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške. Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
+Kritetijumska funkcija (eng. *cost funkcija*) jeste funkcionalna veza željenog izlaza i dobijenog izlaza u funkciji. Takođe, kriterijumska funkcija je usrednjena vrednost svih funkcija greške. Najkorišćenija funkcija greške je *Cross Entropy Loss*. Potrebno nam je da minimizujemo grešku unakrsne entropije za što preciznije rezultate.
 
 Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
@@ -215,7 +215,7 @@ Metrika ovih rezultata bila je tačnost. Zbog balansiranosti baze, ovo predstavl
 
 Odvojeno možemo posmatrati rezultate metoda sa dubokim učenjem i one bez dubokog učenja. Iz tabele se može uočiti da je konvoluciona neuronska mreža ostvarila najveću tačnost kao metoda sa dubokim učenjem, a XGBoost daje najbolje rezultate među metodama koje ne koriste duboko učenje.
 
-Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Metode sa dubokim učenjem same vrše *feature extraction* proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. *Cross entropy loss*, to jest *log loss* odlično funkcioniše kao *loss* funkcija za prepoznavanje govora pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~100Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
+Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Metode sa dubokim učenjem same vrše *feature extraction* proces (proces izvlačenja karakteristika), koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. *Cross entropy loss*, to jest *log loss* odlično funkcioniše kao funkcija greške za prepoznavanje govora pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~100Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
 
 Tačnosti postignute na srpskoj bazi podataka značajno su niže u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
 
