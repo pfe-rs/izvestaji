@@ -220,7 +220,7 @@ Odvojeno možemo posmatrati rezultate metoda sa dubokim učenjem i one bez dubok
 
 Konvoluciona neuronska mreža je metoda koja je najviše razrađena u ovom projektu. Metode sa dubokim učenjem same vrše feature extraction proces, koji je neophodan kako bismo sa spektrograma mogli lepo da izvučemo informacije o zvuku. Cross entropy loss, to jest log loss odlično funkcioniše kao loss funkcija za prepoznavanje govora pošto ljudsko uho reaguje logaritamski. To znači da je naše uho daleko osetljivije na niske frekvencije, primećujući razliku od svega nekoliko herca pri frekvencijama od ~200Hz, dok je ta razlika potpuno neprimetna na frekvencijama od nekoliko kHz. Osetljivost je pri dnu približno linearna, dok sa porastom frekvencije postaje logaritamska.
 
-Rezultati koji su odađeni na srpskoj bazi podataka dosta su slabiji u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
+Tačnosti postignute na srpskoj bazi podataka značajno su niže u poređenju sa engleskom bazom. Srpska baza pravljena je u amaterskim uslovima: mikrofon slabijeg kvaliteta, dosta šuma se može čuti u samim snimcima, nisu svi zvuci iste jačine, kao ni dužine. Ovi faktori dosta utiču na kvalitet spektrograma, na kome ima dosta više šuma u poređenju sa spektrogramom engleske baze.
 
 Rezultate vizuelno možemo prikazati matricama konfuzije. 
 
