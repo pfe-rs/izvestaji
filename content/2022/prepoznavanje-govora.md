@@ -8,6 +8,11 @@ Prepoznavanje govora predstavlja jedan od najvećih izazova tehnologije. Sve ve�
 ### Apstrakt na engleskom
 
 Speech recognition is one of the biggest challenges of technology. The growing need for digitalization is followed by the need to expand knowledge in this field. Research so far shows the effectiveness and accuracy of speech recognition methods with or without deep learning. This paper focuses on observing and comparing various methods such as convolutional nerual networks and data classifiers that don’t use deep learning in order to determine the best approach for identifying words. Testing on the FSDD word database and a database consisting of Serbian words, it was determined that the most accurate way to process audio recordings is by using convolutional neural networks, so it is most optimal to conduct further research in that direction.
+
+### Grafički apstrakt
+
+![Grafički apstrakt](static/images/GrafickiApstrakt.svg)
+
 ### Uvod
 Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Prepoznavanje govora je proces osposobljavanja nekog modela da identifikuje i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih i identifikuje izgovorenu reč.
 
@@ -37,7 +42,6 @@ Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao 
 
 Spektrogram služi za prikazivanje amplitude svake frekvencijske komponente signala u nekom vremenskom intervalu. Intervali su mali, te se može pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju u okviru jednog intervala.
 
-
 #### Metode obrade spektrograma
 
 ##### 1. Logistička regresija
@@ -59,7 +63,6 @@ $$\begin{equation}
 Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička regresija dala što bolje rezultate, trenira se MLE (Maximum Likelihood Estimation) metodom. Pomoću ove metode dobijamo verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
 U slučaju kada imamo više kategorija (u našem slučaju 10), koristi se Softmax regresija umesto Sigmoida kako bismo dobili deset verovatnoća čija je suma 1. Konačnu odluku o pravom izboru donosimo po tome koja kategorija ima najveću verovatnoću za zadate ulazne podatke.
-
 
 ##### 2. MFCCs
 
@@ -124,7 +127,9 @@ Kako postoji velik broj ovih hiperravni, kao optimalnu uzimamo onu kod koje je u
 
 Hiperravni koje ograničavaju zonu udaljenosti od granice odlučivanja na kojoj klasifikator daje vrednosti čija je apsolutna vrednost manja od 1 nazivaju se noseći vektori. To znači da za svaki podatak koji se nalazi unutar tih vektora ne možemo sa sigurnošću reći kojoj klasi pripada.
 
-![SVM1](static/images/SVM.svg)
+![SVM](static/images/SVMSVG.svg)
+
+Na slici su vrednosti parametara 1 i 2 određeni parametri po kojima se podaci klasifikuju.
 
 Na slici je hiperravan prikazana kao prava u 2D prostoru, dok bi u 3D prostoru to bila ravan i tako dalje.
 
