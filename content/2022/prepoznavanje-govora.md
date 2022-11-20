@@ -197,7 +197,7 @@ Propagacija unazad je metod smanjenja grešaka u CNN posmatranjem neophodnih pro
 
 Propagacija unazad prolazi kroz sve slojeve i menja parametre mreže u svakom koraku.
 
-Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradient spusta za traženje lokalnog / maksimalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
+Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradijentnog spusta za traženje lokalnog / maksimalnog minimuma ove funkcije. Dakle, teži se tome da gradijent kriterijumske funkcije bude što bliži nuli.
 
 ![SGD](static/images/Backpropagation.svg)
 
