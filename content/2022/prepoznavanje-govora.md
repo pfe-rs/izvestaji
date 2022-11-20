@@ -106,7 +106,7 @@ XGBoost (*Gradient Boosted Trees*), kao i *Random Forest*, koristi više stabala
 
 Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove *Boosting*. *Boosting* kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
 
-Dodatak Boosting-u ogleda se u loss funkciji. Cost funkcija (kriterijumska funkcija) jeste usrednjena vrednost svih funkcija greške (loss function), a loss funkcija je funkcionalna veza željenog outputa i dobijenog outputa u funkciji.
+Dodatak *Boosting*-u ogleda se u *loss* funkciji. *Cost* funkcija (kriterijumska funkcija) jeste usrednjena vrednost svih funkcija greške (*loss function*), a *loss* funkcija je funkcionalna veza željenog outputa i dobijenog outputa u funkciji.
 
 Najkorišćenija loss funkcija je Cross Entropy Loss. 
 Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest output.
