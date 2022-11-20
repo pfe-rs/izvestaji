@@ -96,7 +96,7 @@ Svako stablo odlučivanja će dati svoj rezultat, a onaj rezultat koji se najvi�
 
 Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, koristi se **Bagging** (ili **B**ootstrap **Agg**regat**ing**) princip. On dozvoljava dve bitne stvari:
 
-1.	Svakom stablu da nasumično izabere podatke sa kojima će da radi iz baze i time znatno smanji mogućnost overfitting-a.
+1.	Svakom stablu da nasumično izabere podatke sa kojima će da radi iz baze i time znatno smanji mogućnost *overfitting*-a.
 
 2.	Svako stablo dobija neki nasumičan *feature* na kom će se trenirati, umesto da se trenira na skupu *feature*-a, što bi zahtevalo i veću dubinu mreže. Ovaj aspekt, zvani *Random Subspace Method* ili *Attribute Bagging*, smanjuje korelaciju između stabala i time ih čini nezavisnijim jedne od drugih.
 
