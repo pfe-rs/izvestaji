@@ -214,7 +214,7 @@ Rezultati su prikazani u tabeli ispod.
 
 ![Rezultati](static\images\Tabela.svg)
 
-Metrika ovih rezultata bila je tačnost. Zbog balansirane baze, ovo predstavlja zaista reprezentativnu metriku.
+Metrika ovih rezultata bila je tačnost. Zbog balansiranosti baze, ovo predstavlja zaista reprezentativnu metriku.
 
 Odvojeno možemo posmatrati rezultate metoda sa dubokim učenjem i one bez dubokog učenja. Iz tabele se može uočiti da je konvoluciona neuronska mreža ostvarila najveću tačnost kao metoda sa dubokim učenjem, a XGBoost daje najbolje rezultate među metodama koje ne koriste duboko učenje.
 
