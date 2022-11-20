@@ -2,6 +2,11 @@
 title: Estimacija pokreta
 summary: Estimacija pokreta pomoću optical flow je projekat rađen na letnjem kampu za stare polaznike 2022. godine od Milice Gojak i Novaka Stijepića.
 ---
+## Apstrakt
+
+U radu se vrši određivanje potpunog polja protoka diskretnim pristupom uz korišćenje tri optimizacione metode koje omogućavaju smanjenje potrebnih računskih i memorijskih resursa. Njihovo korišćenje dozvoljava procenu optičkog protoka velikih pomeraja. Problem optičkog protoka se svodi na pronalaženje parova piksela referentne i ciljane slike na osnovu nekog parametra, u ovom radu sličnosti njihovih deskriptora računatih DAISY algoritmom. Prvi način optimizacije koji je korišćen u radu je ograničenje skupa predloga na fiksan broj. Predlozi se pronalaze korišćenjem algoritma nasumične k-d šume. Drugi način je ograničenje broja predloga jednog piksela na osnovu granice cene slaganja sa susednim piskelom. Treći vid optimizacije jeste koriscenje BCD-a za pronalaženje optimalnih vektora protoka iz skupa predloga. Procenjeno polje se unapređuje postprocesingom i izbačeni vektori se ponovo računaju interpoliranjem korišćenjem EpicFlow algoritma. Rezultati su dobijeni evaluacijom nad KITTI bazom podataka.
+
+In this paper we approach the problem of optical flow field from discrete point of view and use three optimization methods, which are able to reduce  computation and memory demands. Their use allows us to estimate optical flow of sequences with large displacements. Problem of optical flow estimation comes down to finding a pair pixel of reference image in target image, using some sort of parameter, in this paper similarity of their descriptors calculated using DAISY algorithm. First, the program is optimized by restricting a number of flow proposals to a fixed number. Proposals were extracted using randomized k-d tree algorithm. Second, we again restrict a number of flow proposals but this time based on similarity threshold of neighboring pixels. Third way of optimization is using BCD algorithm for finding optimal flow vector. Estimated field is refined in postprocessing and flow vectors of unmatched regions were interpolated using EpicFlow. Results were obtained by evaluating algorithm on the KITTI database.
 
 ## Uvod
 
@@ -82,13 +87,18 @@ $$
 
 ### Baza podataka
 
-Za evaluaciju programa korisćena je KITTI[^12] baza za optički protok. Podaci su usnimljeni u Karlsrueru, gradu u Nemačkoj. Baza se sastoji iz 200 scena u trening setu i 200 scena u test setu. Svaka scena se sastoji iz dve sekvence uzastopnih slika, referentne i ciljane slike.
+Za evaluaciju programa korišćena je KITTI[^12] baza za optički protok. Podaci su usnimljeni u *Karlsruhe*, gradu u Nemačkoj. Baza se sastoji iz 200 scena u trening setu i 200 scena u test setu. Svaka scena se sastoji iz sekvence dve uzastopno snimljene slike, referentne i ciljane.
 
 ### Postprocesiranje
 
-Ranije opisani algoritam dodeljuje svaki piksel referentne slike pikselu ciljane slike. Kao unapređenje algoritma vrši se izbacivanje piksela na osnovu dva kriterijuma: provere konzistentnosti i uklanjanja malih segmenata, nakon čega se primenjuje EpicFlow[^13]. Provera konzistentnosti se vrši tako što se računa optički protok unapred kao i unazad, u suprotnom poretku od datog u bazi podataka i vektor protoka se izbacuje ako je odstupanje vektora protoka veće od definisanog praga. Zatim se izbacuju mali segmenti od najviše 100 piksela koji odstupaju od kretanja okolnih piksela usled pretpostavke da se radi o kretanju većih celina i da izolovani segmenti odgovaraju pogrešnoj proceni. Kako bi se dobilo u potpunosti definisano polje protoka koristi se EpicFlow algoritam koji pikselima koji nemaju definisan protok računa isti uzimajući u obzir okolne piksele i ivice slike sa hipotezom da ivice slike definišu granice kretanja, odnosno da pikseli sa suprotne strane ivice odgovaraju kretaju različitih objekata.
+Ranije opisani algoritam dodeljuje svaki piksel referentne slike pikselu ciljane slike. Kao unapređenje algoritma vrši se izbacivanje piksela na osnovu dva kriterijuma: provere konzistentnosti i uklanjanja malih segmenata, nakon čega se primenjuje EpicFlow[^13]. 
+
+Provera konzistentnosti se vrši tako što se računa optički protok unapred kao i unazad, u suprotnom poretku od datog u bazi podataka i vektor protoka se izbacuje ako je odstupanje vektora protoka veće od definisanog praga. Zatim se izbacuju mali segmenti od najviše 100 piksela koji odstupaju od kretanja okolnih piksela usled pretpostavke da se radi o kretanju većih celina i da izolovani segmenti odgovaraju pogrešnoj proceni. 
+
+Kako bi se dobilo u potpunosti definisano polje protoka koristi se EpicFlow algoritam koji pikselima koji nemaju definisan protok računa isti uzimajući u obzir okolne piksele i ivice slike sa hipotezom da ivice slike definišu granice kretanja, odnosno da pikseli sa suprotne strane ivice odgovaraju kretaju različitih objekata.
 
 ## Rezultati
+
 
 ### Kvantitativni rezultati
 
@@ -109,6 +119,8 @@ Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vr
 ![Srednja greska](/images/2022/estimacija-pokreta/a.svg)
 
 ![Ppp](/images/2022/estimacija-pokreta/b.svg)
+
+## Zaključak
 
 ## Literatura
 
