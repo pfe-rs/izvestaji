@@ -7,13 +7,13 @@ summary: Robot u obliku valjka je projekat rađen na letnjem kampu za stare pola
 
 ### Apstrakt
 
-Tema rada je matematička analiza sfernog robota kao i fizička implementacija njene 2D verzije. Koristeći pravila Lagranžove mehanike izvedene su jednačine kretanja sistema. Te jednačine opisuje kretanje klatna valjka kao i kretanje samog robota. Na osnovu tih jednačina izvedene su odgovarajuće transfer funkcije a zatim konstruisani PID kontroleri. U radu su kompjuterski simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na zemlju. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Napravljen je fizički model robota u kome je implementiran PID koji kontroliše ugao inklinacije robota. TODO: Dodati deo za IMU
+Tema rada je matematička analiza sfernog robota kao i fizička implementacija njene 2D verzije. Koristeći pravila Lagranžove mehanike izvedene su jednačine kretanja sistema. Te jednačine opisuje kretanje klatna valjka kao i kretanje samog robota. Na osnovu tih jednačina izvedene su odgovarajuće transfer funkcije a zatim konstruisani PID kontroleri. U radu su kompjuterski simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na zemlju. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Napravljen je fizički model robota u kome je implementiran PID koji kontroliše ugao inklinacije robota. Pomoću IMU-a, dobijaju se neobrađeni podaci žiroskopa i akcelerometra, koji nakon obrade i komplementacije daju ugao inkilnacije klatna. Uz ugao inklinacije i podatke sa obrtnog enkodera mogu se izračunati ubrazanje, brzina i pređeni put.
 
 ### Abstract
 
 ### Uvod
 
-Motivacija iza projekta je bila suprotstavljane ideje popularnog robota - balansera. Ideja je bila da pomoću klatna koje uvek teži da se vrati u stabilan položaj robot može biti konstruisan robot sa manjom preciznošću što bi ubrzalo proces pravljenja u slučaju masovne proizvodenje, kao i vreme dolaska do prvog funkcionalnog prototipa, budući da robot može da radi uz bilo kakav (ne)kontrolisan pogon motora. Takođe zbog oblika robota sve vitalne komponente se sadržane unutar konture, čineći robota izdržljivijim i jednostavnijim za popravku.
+Motivacija iza projekta je bila suprotstavljane ideje popularnog robota - balansera. Ideja je bila da pomoću klatna koje uvek teži da se vrati u stabilan položaj robot može biti konstruisan robot sa manjom preciznošću što bi ubrzalo proces pravljenja u slučaju masovne proizvodenje, kao i vreme dolaska do prvog funkcionalnog prototipa, budući da robot može da radi uz bilo kakav (ne)kontrolisan pogon motora. Takođe zbog oblika robota sve vitalne komponente se sadržane unutar konture, čineći robota izdržljivijim i jednostavnijim za popravku. Konstrukcija robota ga čini pogodnim za nošenje senzora koji mogu da mere uslove okoline bez velikog izlaganja okruženju. Konstrukcija se sastoji iz delova koji su jednostavni za proizvodnju, mogu da imaju manju preciznost, manje kontrolisan sistem izdržljiv zbog svoje konstrukcije, što sve doprinosi jefinijoj ceni izrade.
 
 ### Aparatura i metoda
 
@@ -143,8 +143,8 @@ Ideja iza komplementarnog filtera je da se uzmu spori signali sa akcelerometra i
 
 ### Hardver
 
-Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrokontrolera, senzora, elektromehanickih uredjaja(motora), napajanja i slicno.
-*Sema za povezivanje pojedincanih komponenti je prilozena na kraju dokumenta*
+Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrokontrolera, senzora, elektromehaničkih uređaja(motora), napajanja i slično.
+*Šema za povezivanje pojedinčanih komponenti je priložena na kraju dokumenta*
 
 #### Lista uredjaja
 
@@ -152,37 +152,43 @@ Pod hardverom se podrazumevaju svi vidljivi delovi robota, poput spojeva, mikrok
 2. Arduino Nano
 3. Bluetooth modul
 4. H-Most
-5. regulator napona
+5. Regulator napona
 6. DC motor
 7. Baterija
-8. Opticki inkrementalni enkoder
+8. Optički inkrementalni enkoder
 
 #### Princip rada
 
 ##### Arduino Nano i HC05
 
-Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Ovaj mikrokontoler sa HC05 Bluetooth modulom komunicira pomoću UART-a na BAUD rate-u od 9600 bitova po sekundi, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) je ograničen na 3.3V, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo.
+Uređaj koji vrši prikupljanje i obradu podataka i signala sa senzora, kao i generisanjem signala za upravljane motorom je Arduino Nano. Ovo je 16-bitni mikrokontroler koji na sebi poseduje Atmega328p čip. Mikrokontroler u sebi sadrži kod za obradu podataka iz bluetooth modula, IMU-a i enkodera, kod za zadavanje napona motora kao i kod sva 3 PID kontrolera.
+
+##### Bluetooth modul
+
+HC05 Bluetooth modul komunicira pomoću UART-a, omogućavajući bežični prenos podataka. Napaja se pomoću napona od 5 volti sa mikrokontrolera. Iako modul radi na 5V, napon na signalnim pinovima (RX, TX) je ograničen na 3.3V, tako da je obavezna upotreba naponskog razdelnika kao bi se napon signala sa mikrokontrolera (5V) spustio na odgovarajući nivo. Bežični prenos podataka omogućava uvid u trenutno stanje robota i zadavanje napona i ugla kojim se robot pokreće.
 
 ##### (IMU) - MPU6050
 
 MPU6050 je akcelerometar i žiroskop koji se koristi za merenje ugla inklinacije klatna robota.IMU radi na osnovu merenja ubrzanja duž osa akcelerometra i ugaonog ubrzanja oko osa žiroskopa. Pomoću trigonometrije moguće je izračunati trenutni ugao koji IMU zaklapa u odnosu na ravan zemlje. MPU6050 je sa mikrokontrolerom povezan pomocu I2C protokola. Ovaj senzor mikrokontroleru dostavlja podatke sa žiroskopa i akcelerometra pomoću kojih se u softveru izračunava ugao inklinacije koji je neophodan za određivanje ugaone brzine robota i PID kontrolu.
 
-##### Baterija i Stepdown regulator
-
-Napajanje koje se u projektu koristi su 4 redno vezane Samsung 18650-35E Litijum-jonske baterije zbog svog kapaciteta od 5000mAh i maksimalne struje od 2A. Baterije se pune eksternim punjacem pomoću balansirajućeg konektora na njima. Napon sa baterije se sprovodi do LM2598 regulatora gde se napon spušta na 12V kako bi dalje mogao da se dovede do H-mosta, budući da je u trenutnoj konfiguraciji njegov napon ograničen na maksimalnih 12V. Potom se struja iz H-mosta pomocu njegovog integrisanog regulatora spusta na 5V i dovodi do mikrokontrolera i ostalih senzora. Napon baterije se meri na mikrokontroleru kroz naponski razdelnik kako bi se napon od 16.8V spustio na 5V koji su bezbedni za mikrokontroler. Baterija može da radi oko 3.5h tokom kretanja robota.
-
 ##### DC motor i L298N H-most
 
-Budući da pinovi mikrokontrlera nemaju snagu da pokrenu motor, kao pokretač motora se postavlja H-most koji pomoću signala koji dobija od strane mikrokontrolera pokreće motor. Dva signala koje H-most dobija su digitalni signali: 
+Budući da pinovi mikrokontrlera nemaju snagu da pokrenu motor, kao pokretač motora se postavlja H-most koji pomoću signala koji dobija od strane mikrokontrolera daje napon motoru motor. Dva signala koje H-most dobija su digitalni signali: 
 
 1. Koji svojim naponom od 0V ili 5V odredjuje smer i 
 2. Koji koristeci PWM (Pulse Width Modulation) brzim paljenjem i gašenjem kontroliše napon koji je doveden do motora u opsegu od 0-12V
 
 Koristeći PWM prividni napon na pinovima mikrokontrolera srazmeran je širini pulsa(Pulse Width) sve dok signal nije potpuno odsutan(0V) ili prisutan(5V). JGA25370 je DC motor koji radi na naponu od 12V i maksimalnoj struji od 2A. Motor u sebi poseduje reduktor koji umanjuje broj obrtaja motora u sekundi ali povecava obrtni momenat gde je broj obrtaja $RPM_{max} = 250$ obrtaja u minutu i obrtni momenat $T = 1.4kg/cm$. Ovaj motor je jedina komponenta koja pokreće robota.
 
+##### Baterija i Stepdown regulator
+
+Napajanje koje se u projektu koristi su 4 redno vezane Samsung 18650-35E Litijum-jonske baterije zbog svog kapaciteta od 5000mAh i maksimalne struje od 2A. Baterije se pune eksternim punjacem pomoću balansirajućeg konektora na njima. Napon sa baterije se sprovodi do LM2598 regulatora gde se napon spušta na 12V kako bi dalje mogao da se dovede do H-mosta, budući da je u trenutnoj konfiguraciji njegov napon ograničen na maksimalnih 12V. Potom se struja iz H-mosta pomocu njegovog integrisanog regulatora spusta na 5V i dovodi do mikrokontrolera i ostalih senzora. Napon baterije se meri na mikrokontroleru kroz naponski razdelnik kako bi se napon od 16.8V spustio na 5V koji su bezbedni za mikrokontroler. Baterija može da radi oko 3.5h tokom kretanja robota.
+
 ##### Opticki inkrementalni enkoder
 
 E38S6G5 je optički enkoder koji se koristi za merenje pređenog puta robota. E38S6G5 ima rezoluciju od 600 pulseva po obrtaju osovine što nam daje preciznost od  0.6 stepeni ili ~0.01rad. Princip rada optičkog enkodera je da se analizom izlaznih talasa može odrediti da li se enkoder okrenuo u pozitivnom ili negativnom smeru. U konkretnom slučaju na pin 3 mikrokontrolera je povezan prvi od dva izlaza enkodera, gde se prilikom svake rastuće ivice ovog pina mikrokontroler beleži napon na drugom izlazu enkodera. U slučaju da je napon pozitivan mikrokontroler to belezi kao obrt u pozitivnom smeru, a u slučaju da je napon negativam mikrokontroler to belezi kao obrt u negativnom smeru. Kada za svaki ovaj dogadjaj od nekog brojaša saberemo ili oduzmemo 1 mozemo dobiti ukupni ugao za koji se enkoder zarotirao. Ovime možemo da izračunamo ukupni pređeni put robota i na osnovu toga možemo dobiti trenutnu brzinu.
+
+![Slika komponenti robota valjka](/images/2022/robot-valjak/Predstava_komonenti.png)
 
 ## Istraživanje i rezultati
 
@@ -208,6 +214,10 @@ Takođe, na osnovu transfer funkcija se može zaključiti da je sistem oscilator
 
 Koristeći pravila Lagranžove mehanike izvedene su jednačine kretanja sistema. Te jednačine opisuje kretanje klatna valjka kao i kretanje samog robota. Jednačine su predstavljene u obliku linearnih diferencijalnih jednačina što dalje omogućava njihovo konvertovanje pomoću Laplasove transformacije u odgovarajuće transfer funkcija. Tako dobijene transfer funkcije nam opisuju kako napon na motoru utiče na ugao inklinacije valjka, ugaonu brzinu valjka i ugaoni pomeraj valjka. Na osnovu transfer funkcija se može zaključiti da je sistem oscilatoran zato su implementirani odgovarajući PID kontroleri koji imaju za ulogu da priguše napomenute oscilacije i u smanje potrebno vreme stabilizacije. U radu su PID kontroleri ulančani i na taj način je omogućeno da *viši* kontroleri brže i sa manjim oscilacijama stabilizuju sistem nego što bi bio slučaj da nije došlo do ulančavanja PID kontrolera.
 
-Kada je u pitanju hardverska implementacija robota, centar mase klatna robota nije bio u osi geometrijskog centra klatna što je pravilo problem prilikom kalibracije i određivanja ugla inklinacije klatna. Na kalibraciju je dodatno uticalo i postojanje reduktora na DC motoru što je sve ukupno činilo da umesto jedinstvene referentne nule imamo opseg uglova za koje klatno može da se nađe u indiferentnoj ravnoteži.
+Kada je u pitanju hardverska implementacija robota, nakon centriranja težišta klanta dodatnim tegovima, eliminisana je nesimetričnost sistema, što je pomoglo u kontroli robota i ujednačenijem ubryanju robota u oba smera. Na kontrolu je takođe uticalo i postojanje reduktora na DC motoru koji posedije mrtav ugao (*eng. backlash*), što je sve ukupno činilo da umesto jedinstvene referentne nule imamo opseg uglova za koje klatno može da se nađe u indiferentnoj ravnoteži.
 
-Takođe, jedan od ciljeva ovog projekta je bila i numerička identifikacija sistema koja nažalost nije urađena zbog nedostatka vremena kao i gore navedenih problema, ali idalje ostaje kao mogućnost za neki budući rad na ovu ili neku sličnu temu. Pored toga, predlažemo da se u nekom budućem radu da se teg klatna preciznije postavi i izradi od težek materijala kako bi se opseg uglova koji mogu budu referentna nula suzi.
+Takođe, jedan od ciljeva ovog projekta je bila i numerička identifikacija sistema koja nažalost nije urađena zbog nedostatka vremena kao i gore navedenih problema, ali idalje ostaje kao mogućnost za neki budući rad na ovu ili neku sličnu temu. Pored toga, predlažemo da se u nekom budućem radu da se teg klatna preciznije postavi i izradi od težeg materijala i sa jačim motorom bez reduktora i četkica, kako bi se opseg uglova koji mogu budu referentna nula suzi.
+
+### Električna šema robota valjka
+
+![Schematic_Robot valjak](/images/2022/robot-valjak/Schematic_Robot_valjak.svg)
