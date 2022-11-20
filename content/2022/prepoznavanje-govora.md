@@ -215,11 +215,13 @@ U bazi srpskih reči, u uređenoj trojci gluva - glava - plava očekuju se češ
 
 Za konvolucionu neuronsku mrežu, potrebni su nam bili pokazatelji kako mreža uči tokom epoha treniranja. Baze su podeljene na trening, test i validacionu bazu, tako da je trening set sadržao 70% reči, a test i validacioni set po 15% reči u slučaju obe baze.
 
-Rezultati su prikazani u tabeli ispod.
+Tačnosti ovih metoda bile su sledeće:
 
-| Metoda | Logistička regresija | SVM | XGBoost | Random Forest Classificator | CNN |
-| -------- | -------- | -------- | -------- | -------- | -------- |
-| Tačnost | 66.33% | 70.11% | 85.90% | 82.67% | 97.28% |
+- **Logistička regresija:** 66.33%
+- **SVM:** 70.11%
+- **XGBoost:** 85.90%
+- **Random Forest Classificator:** 82.67%
+- **CNN:** 97.28%
 
 Metrika ovih rezultata bila je tačnost. Zbog balansiranosti baze, ovo predstavlja zaista reprezentativnu metriku.
 
