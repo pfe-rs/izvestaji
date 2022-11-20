@@ -56,7 +56,7 @@ $$
 \sigma(z_{i})=e^{z_i}*(\sum_{j=1}^{K}e^{z_j})^{-1} 
 $$
 
-
+U formuli vidimo da uzimamo eksponent ulaznog parametra i delimo ga sa sumom eksponenata parametara svih postojećih vrednosti sa ulaza. Odnos te dve vrednosti je izlaz *Softmax* funckije.
 
 Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička regresija dala što bolje rezultate, trenira se MLE (*Maximum Likelihood Estimation*) metodom. Pomoću ove metode dobijamo verovatnoće za svaki primer, pa se one logaritmuju i sabiraju i time formiraju konačnu predviđenu verovatnoću. Svaka vrednost iznad 0.5 (ili bilo koje zadate granice) se tretira kao da je jedinica, a svaka manja od te granice se tretira kao nula.
 
@@ -129,7 +129,7 @@ Na slici iznad su vrednosti parametara 1 i 2 određeni parametri po kojima se po
 
 Funkcija greške SVM modela je:
 
-$$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1 \\ 1-y * f(x), & \text { else }\end{cases} $$
+$$ c(x, y, f(x))= \begin{cases}0, & \text { if } y * f(x) \geq 1; \\ 1-y * f(x), & \text { else }\end{cases} $$
 
 
 Na to moramo dodati i parametar za regularizaciju koji služi da izjednači uticaj maksimizacije granice i minimizacije greške.
@@ -140,7 +140,7 @@ Nakon toga možemo izvesti gradijente za ažuriranje vrednosti težina modela:
 
 $$\frac{\delta}{\delta w_k} \lambda\|w\|^2=2 \lambda w_k$$
 
-$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right){+}=\begin{cases}0, &\text{if }y_i\left\langle x_i, w\right\rangle\geq1 \\ -y_ix_{i k},&\text{else}\end{cases}$$
+$$\frac{\delta}{\delta w_k}\left(1-y_i\left\langle x_i, w\right\rangle\right){+}=\begin{cases}0, &\text{if }y_i\left\langle x_i, w\right\rangle\geq1; \\ -y_ix_{i k},&\text{else}\end{cases}$$
 
 Težine ažuriramo zavisno od toga da li je naš klasifikator tačno klasifikovao novi podatak ili ne. Ukoliko jeste, ažuriramo samo gradijent regularizacionog parametra:
 
