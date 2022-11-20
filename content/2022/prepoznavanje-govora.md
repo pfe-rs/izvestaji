@@ -104,7 +104,7 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 
 XGBoost (*Gradient Boosted Trees*), kao i *Random Forest*, koristi više stabala odlučivanja za predviđanje i labeliranje. 
 
-Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove Boosting. Boosting kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
+Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi dodatnu metodu za predviđanje koja se zove *Boosting*. *Boosting* kombinuje slabija drva kako bi, ispravljajući njihove greške, sačinio nova drva sa što boljim rezultatima. Početna drva nazivaju se panjevi, i oni se sastoje od jednostavnih DA/NE odgovora za predskazanje.
 
 Dodatak Boosting-u ogleda se u loss funkciji. Cost funkcija (kriterijumska funkcija) jeste usrednjena vrednost svih funkcija greške (loss function), a loss funkcija je funkcionalna veza željenog outputa i dobijenog outputa u funkciji.
 
