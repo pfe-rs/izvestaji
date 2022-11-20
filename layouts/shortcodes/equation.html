@@ -1,0 +1,10 @@
+{{- .Page.Scratch.Add "equation-autonumber" 1 -}}
+{{- $autonumber := .Page.Scratch.Get "equation-autonumber" -}}
+{{- $id := .Get 0 -}}
+{{ if $id }}
+    {{ .Page.Scratch.SetInMap "equation-number" $id $autonumber }}
+{{ end }}
+<div class="equation" id="equ-{{ if $id }}{{ $id | anchorize }}{{ else }}{{ $autonumber }}{{ end }}">
+    {{ .Inner }}
+    <span class="equation-number">({{ $autonumber }})</span>
+</div>
