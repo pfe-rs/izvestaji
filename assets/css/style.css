@@ -144,7 +144,7 @@ a:focus, a:hover {
     padding: 50px 0;
 }
 
-p img {
+p img, div img {
     display: block;
     max-width: 100%;
     left: 0;
@@ -554,4 +554,34 @@ body .katex-display {
 
 .page-404 h1 {
   font-size: 200px;
+}
+
+figure {
+    padding: 20px 0;
+}
+
+figure > div {
+    display: grid;
+    grid-auto-flow: column;
+}
+
+figure > figcaption {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.equation {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.equation .equation-number {
+    position: absolute;
+    right: 0;
+}
+
+.equation .katex-display, .equation .katex-display .katex, .equation .katex-display > .katex > .katex-html {
+    display: inline;
 }
