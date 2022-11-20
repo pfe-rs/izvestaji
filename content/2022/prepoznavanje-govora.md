@@ -108,8 +108,8 @@ Razlika između ova dva metoda može se primetiti u samom imenu: XGBoost koristi
 
 Dodatak *Boosting*-u ogleda se u *loss* funkciji. *Cost* funkcija (kriterijumska funkcija) jeste usrednjena vrednost svih funkcija greške (*loss function*), a *loss* funkcija je funkcionalna veza željenog outputa i dobijenog outputa u funkciji.
 
-Najkorišćenija loss funkcija je Cross Entropy Loss. 
-Cross Entropy Loss radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest output.
+Najkorišćenija *loss* funkcija je *Cross Entropy Loss*. 
+*Cross Entropy Loss* radi tako što pokušava da minimizuje razliku između tačnih rezultata i verovatnoće predviđanja, to jest *output*.
 
 Formula po kojoj se računa Cross Entropy Loss je sledeća:
 
