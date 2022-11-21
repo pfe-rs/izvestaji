@@ -11,10 +11,10 @@ summary: Simulacija muve je projekat rađen na letnjem kampu za stare polaznike 
 
 ### Uvod
 
-Cilj projekta "Simulacija muve" je da implementiramo fizičku simulaciju i unutar nje pomoću ML-a naučimo muvu da leti.
+Cilj projekta "Simulacija muve" je da implementiramo fizičku simulaciju i unutar nje pomoću mašinskog učenja (*engl.* machine learning, ML) naučimo muvu da leti.
 Za učenje muve koristimo neuralnu mrežu u kombinaciji sa genetskim algoritmom.
 Neuralne mreže i genetski algoritmi se često koriste za treniranje simulacija, kao npr. simulacija hodanja ili trčanja.
-U našem slučaju, napravili smo ML model koji koristimo za kontrolisanje krila muve što onda dovodi do pomeranja muve zbog simulacije sile otpora vazduha na muvu.
+U našem slučaju, napravljen je ML model koji se koristi za kontrolisanje krila muve što onda dovodi do pomeranja muve zbog simulacije sile otpora vazduha na muvu.
 
 ### Aparatura i metoda - Simulacija fizike
 
@@ -23,18 +23,19 @@ U našem slučaju, napravili smo ML model koji koristimo za kontrolisanje krila 
 Sam model muve predstavljen je pozicijama karakterističnih tačaka u lokalnom 3D prostoru.
 Krila su definisana pomoću koordinata 3 tačke koje predstavljaju ravan krila.
 Telo muve čini 8 tačaka, jedna za svako teme kvadra koji čini telo muve.
-Model muve možemo smatrati jednim lokalnim koordinatnim sistemom.
-Taj lokalni koordinatni sistem ima svoju poziciju, i brzinu u globalnom koordinatnom sistemu i na njemu se primenjuju zakoni pravolinijskog i rotacionog ravnomernog promenljivog kretanja.
+Za model muve je vezan njen lokalni koordinatni sistem.
+Taj lokalni koordinatni sistem ima svoju poziciju, i brzinu u globalnom koordinatnom sistemu i na njemu se primenjuju zakoni pravolinijskog i rotacionog promenljivog kretanja.
 Lokalne koordinate muve se konvertuju u globalni koordinatni sistem pomoću homogenih matrica translacije i rotacije, radi prikaza u 3D prostoru i daljeg računanja u dinamici.
 
-Vektor koji predstavlja poziciju neke tačke muve u globalnom prostoru dobijamo tako što vektor lokalnih koordinata pomnožimo matricom $M$
+Vektor koji predstavlja poziciju neke tačke muve u globalnom prostoru dobijamo tako što vektor lokalnih koordinata pomnožimo matricom $M$.
 Matricu $M$ dobijamo množenjem matrica translacije gde je pomeraj zapravo pozicija muve i matricu rotacije gde je ugao rotacije ugao rotacije muve oko koordinatnog početka njenog lokalnog koordinatnog sistema.
 
-$M = T \times R$, gde je  $T$ matrica translacije, $R$ matrica rotacije.
+$$M = T \times R$$
+U ovoj formuli $T$ je matrica translacije, a $R$ matrica rotacije.
 
 Sličan metod se koristi i za rotaciju krila u lokalnom koordinatnom sistemu muve.
 Umesto da tačka oko koje se krilo rotira bude koordinatni početak, za tačku rotacije se uzima "zglob" tj. tačka kojom je krilo povezano sa telom muve.
-Rotacija krila je ograničena svojim maksimalnim uglom i brzinom pomeranja, kako krilo ne bi moglo da pravi pokrete koji su nemogući u pravom životu.
+Rotacija krila je ograničena svojim maksimalnim uglom i brzinom pomeranja, kako krilo ne bi moglo da pravi pokrete koji su nemogući u realnom svetu.
 
 #### Dinamika
 
@@ -44,16 +45,16 @@ Originalna zamisao je bila da simuliramo vazduh kao fluid, ali zbog kompleksnost
 $$\textbf{F} = \frac{1}{2}\rho \textbf{v}|\textbf{v}|C_D\textbf{A}$$
 
 $C_D$ je koeficijent sile otpora,
-On je konstanta koja zavisi od oblika tela i njegovog ugla u odnosu na pravac kretanja.
-Umesto računanja tog koeficijenta za svaki ugao, ili uzimanja poznatih tabličnih vrednosti, u formulu smo dodali kosinus od ugla krila kao aproksimaciju.
+on zavisi od oblika tela i njegovog ugla u odnosu na pravac kretanja.
+Umesto računanja tog koeficijenta za svaki ugao, ili uzimanja poznatih tabličnih vrednosti, u formulu je dodat kosinus ugla krila kao aproksimacija.
 
-$\textbf{A}$ predstavlja vektor projekcija površine krila na x, y i z osu globalnog koordinatnog sistema, dok je $\textbf{v}$ vektor komponenti brzine krila po istim osama.
+$\textbf{A}$ predstavlja vektor projekcija površine krila na x, y i z osu globalnog koordinatnog sistema, dok je $\textbf{v}$ vektor komponenti brzine krila.
 $\rho$ je gustina vazduha.
 
 Druga aproksimacija koja je korištena je kod računanja momenata sila i ugaonog ubrzanja.
 Umesto da se uvek izračunava osa oko koje se rotira muva, za osu rotacije uvek uzimamo centar mase muve.
 
-Iz sila otpora sredine i gravitacione sile, možemo da izračunamo linearno i rotaciono ubrzanje sistema muve, iz čega se dobija linearna i ugaona brzinu muve za svaki vremenski period $dt$.
+Iz sila otpora sredine i gravitacione sile, možemo da izračunamo linearno i rotaciono ubrzanje sistema muve, pomoću koje je računata linearna i ugaona promena brzine muve za svaki vremenski period $dt$.
 
 ### Aparatura i metoda - ML
 U našem projektu koristimo neuronsku mrežu za kontrolisanje muve, dok pomoću genetskog algoritma unapređujemo mrežu.
