@@ -8,6 +8,8 @@ U radu se vrši određivanje potpunog polja protoka diskretnim pristupom uz kori
 
 In this paper we approach the problem of optical flow estimation from a discrete point of view and use three optimization methods which are able to reduce computation and memory demands. Their use allows us to estimate optical flow of sequences with large displacements. The problem of optical flow estimation is reduced to finding matches between pixels in the reference image and the target image using a parameter, in this paper the similarity of their DAISY descriptors. Firstly, the program is optimized by restricting the number of flow proposals to a fixed number. Proposals were extracted using the randomized k-d forest algorithm. Secondly, we use block coordinate descent for finding optimal combinations of aligned flow vectors. Lastly, we use sets of similar proposals to optimize the processing of proposals in neighboring pixels. The estimated field is refined in postprocessing and the flow vectors of unmatched regions were interpolated using EpicFlow. Results were obtained by evaluating the algorithm on the KITTI dataset.
 
+![Graficki apstrakt](/images/2022/estimacija-pokreta/OGA.svg)
+
 ## Uvod
 
 Procena kretanja je proces određivanja vektora kretanja koji opisuju prelazak jedne slike u drugu. Predstavlja jedan od osnovnih problema oblasti kompjuterske vizije.
