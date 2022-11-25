@@ -27,7 +27,7 @@ Postoje dve vrste sfernih robota koji se razlikuju po načinu konvertovanja elek
 
 ##### Horizontalno kretanje
 
-Pre nego što se krene na pravljenje bilo kog hardverskog projekta neophodno je temeljno razumeti mehaniku sistema kako bi mogao da se simulira realni sistem na računaru i na taj način olakša projektovanje i programiranje hardvera. Grana fizike koja se bavi proučavanjem mehanike složenih fizičkih sistema se naziva Lagranžova mehanika. Ona nam služi da složene fizičke sisteme predstavimo matematički isključivo pomću energija za dati sistem. Potencijalne, kinetičke i rotacione kinetičke energije za telo i klatno valjka su date u sledećim izrazima:
+Pre nego što se krene na pravljenje bilo kog hardverskog projekta neophodno je temeljno razumeti mehaniku sistema kako bi mogao da se simulira realni sistem na računaru i na taj način olakša projektovanje i programiranje hardvera. Grana fizike koja se bavi proučavanjem mehanike složenih fizičkih sistema se naziva Lagranžova mehanika. Ona nam služi da složene fizičke sisteme predstavimo matematički isključivo pomoću energija za dati sistem. Potencijalne, kinetičke i rotacione kinetičke energije za telo i klatno valjka su date u sledećim izrazima:
 
 $$U_1 = 0$$  
 $$U_2 = -M_2gd\cos(\theta _ 1 + \theta _ 2)$$  
@@ -38,14 +38,14 @@ $$T_2 = \frac{1}{2}J_1(\omega _ 1 + \omega _ 2)^2$$
 
 ![Grafički prikaz poprečnog preseka robota valjka](/images/2022/robot-valjak/poprečni_presek.svg)
 
-Za razliku od klasične Njutnove mehanike za Lagranžovu mehaniku je potrebno definisati odgovarajući Lagranžian, koji se definiše na sledeći način:
+Za razliku od klasične Njutnove mehanike za Lagranžovu mehaniku je potrebno definisati odgovarajući Lagranžian, koji se definiše kao razlika kinetičikih energija i potencijalnih energija:
 $$L = K_1 + K_2 + T_1 + T_2 - U_1 - U_2$$
 Iskoristivši Ojler-Lagranžovu jednačinu na dva sistema, klatno i valjak,
-$$\frac{d}{dt}\left(\frac{\partial L}{\partial \omega _ 1}\right)\ -\ \frac{\partial L}{\partial \omega _ 1}\ = \ -T + T_f$$
-$$\frac{d}{dt}\left(\frac{\partial L}{\partial \omega _ 2}\right)\ -\ \frac{\partial L}{\partial \omega _ 2}\ = \ T$$
+$$\frac{d}{dt}\left(\frac{\partial L}{\partial \omega _ 1}\right)\ -\ \frac{\partial L}{\partial \theta _ 1}\ = \ -T + T_f$$
+$$\frac{d}{dt}\left(\frac{\partial L}{\partial \omega _ 2}\right)\ -\ \frac{\partial L}{\partial \theta _ 2}\ = \ T$$
 dobijaju se sledeće jednačine kojima je u potpunosti opisana dinamika sistema:
 $$-T + T_f\ =\ \alpha_1(J_1 + J_2 + M_1r^2 + M_2r^2 + M_2d^2 - 2M_2rd)\ +\ \alpha_2(J_2 - M_2rd + M_2d^2)\ +\ M_2gd(\theta_1 + \theta_2)$$
-$$T\ =\ \alpha_1(J_1 - M_2rd + M_2d^2) + \alpha_2(J_2 + M2d^2) + M_2gd(\theta_1 + \theta_2)$$
+$$T\ =\ \alpha_1(J_1 - M_2rd + M_2d^2) + \alpha_2(J_2 + M_2d^2) + M_2gd(\theta_1 + \theta_2)$$
 gde su iskorišćene aproksimacije za male uglove i male ugaone brzine. Ukoliko važi
 $$\theta_1 + \theta_2 \ll 1 \ \ ,\ \  \omega_1 + \omega_2 \ll 1$$
 mogu se primeniti sledeće aproksimacije:
@@ -62,7 +62,7 @@ Kako bi se postigao bolji uvid u to kako će se robot ponašati, ključan korak 
 
 Transfer funkcija predstavlja odnos između ulaznog i izlaznog signala upravljačkog sistema, za sve moguće ulazne vrednosti. Za bilo koji kontrolni sistem postoji referentni ulaz ili pobuda koji prolazi kroz transfer funkciju kako bi se proizveo (simulirao) odziv sistema na odgovarajuću pobudu.
 
-Transfer funkcija (funkcija prenosa) je definisana kao Laplasova transformacija izlazne promenjljive i Laplasove transformacije ulazne promenjljive pod pretpostavkom da su svi početni uslovi jednaki nuli.
+Transfer funkcija (funkcija prenosa) je definisana kao Laplasova transformacija izlazne promenljive i Laplasove transformacije ulazne promenljive pod pretpostavkom da su svi početni uslovi jednaki nuli.
 $$G(s)\ =\ \frac{C(s)}{R(s)}$$
 Način na koji se formira transfer funkcija kontrolnog sistema je sledeća:
 
@@ -71,9 +71,9 @@ Način na koji se formira transfer funkcija kontrolnog sistema je sledeća:
 3. Određuju se ulazi i izlazi sistema
 4. Na kraju, odgovrajući odnos Laplasove transformacije izlaza i ulaza predstavlja željenu transfer funkciju
 
-Takođe, važno je naglasiti da izlaz i ulaz nekog sistema ne mora nužno da bude istih fizičkih dimenzija. Na primer, DC motori se pokreću kada se na njihov ulaz dovede konstantan napon, a kao izlaz sistema može da se prati broj obrtaja motora. Merne jedinice za dati primer bi bila $\ \frac{obrtaj\ po\ sekundi}{\ \ \ napon\ motora}$.
+Takođe, važno je naglasiti da izlaz i ulaz nekog sistema ne mora nužno da bude istih fizičkih dimenzija. Na primer, DC motori se pokreću kada se na njihov ulaz dovede konstantan napon, a kao izlaz sistema može da se prati broj obrtaja motora. Merna jedinica za dati primer bi bila $\ \frac{obrtaj\ po\ sekundi}{\ \ \ napon\ motora}$.
 
-U radu se kao pobuda sistema koristio isključivo napon. To bi značilo da je smanjenje ili povećanje ugaone brzine robota prouzrokovano smanjenju ili povećanju referentnog napona na ulazu motora. Kako bi se znalo na koji način treba implementirati odogovarajuće kontrolere potrebno je analizirati stabilnost odgovarajućih transfer funkcija karakterističnih za datog robota, gde kontroler predstavlja sistem koji nezavisno može da održava unete referentne vrednosti zadate od strane korisnika. Na primer, ukoliko bi korisnik želeo da se robot kreće konstantnom ugaonom brzinom $\omega$, kontroler treba samostalno da podešava napon na motoru tkd se ugaona brzina $\omega$ održava konstantnom.
+U radu se kao pobuda sistema koristio isključivo napon. To bi značilo da je smanjenje ili povećanje ugaone brzine robota prouzrokovano smanjenju ili povećanju referentnog napona na ulazu motora. Kako bi se znalo na koji način treba implementirati odogovarajuće kontrolere potrebno je analizirati stabilnost odgovarajućih transfer funkcija karakterističnih za datog robota, gde kontroler predstavlja sistem koji nezavisno može da održava unete referentne vrednosti zadate od strane korisnika. Na primer, ukoliko bi korisnik želeo da se robot kreće konstantnom ugaonom brzinom $\omega$, kontroler treba samostalno da podešava napon na motoru tako da se ugaona brzina $\omega$ održava konstantnom.
 
 Prva transfer funkcija koja je analizirana u radu je transfer funkcija ugaone brzine robota u zavisnosti od ulaznog napona.
 
@@ -82,7 +82,7 @@ $A = -2dgK_tM_2$
 $B = K_t(-2J_2 + d(-2d+r)M_2)$  
 $C = dgRT_vM_2 - 2dgK_eK_tM_2$  
 $D = -T_vK_eK_t + dgRJ_1M_2 + dgr^2RM_1M_2 + dgr^2RM_2^2$  
-$E = RT_vJ_2 - 2J_2K_eK_t + d^2RT_vM_2 - K_eK_t(J_1 + r^2M_1 + (2d^2 - 3dr + r^2M_2)$  
+$E = RT_vJ_2 - 2J_2K_eK_t + d^2RT_vM_2 - K_eK_t(J_1 + r^2M_1 + (2d^2 - 3dr + r^2)M_2)$  
 $F = d^2RJ_1M_2 + d^2r^2RM_1M_2 + RJ_2(J_1 + r^2(M_1 + M_2))$
 
 Druga transfer funkcija koja je analizirana u radu je transfer funkcija ugaone brzine klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona.
@@ -95,11 +95,11 @@ $D = RJ_1J_2 + d^2RJ_1M_2 + d^2r^2RM_1M_2 + r^2RJ_2(M_1 + M_2)$
 $E = K_t(J_1 + 2J_2 + r^2M_1 + (2d^2 - 3dr + r^2)M_2)$  
 $F = K_tT_v$
 
-Koristeći prethodno dve definisane funkcije mogu se izvesti dve nove transfer funkcije za koje važi da se njihovim diferenciranjem dobijaju željene transfer funkcije: transfer funkcija ugaonog pređenog puta robota u zavisnosti od napona na ulazu motora i transfer funkcija ugla klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona. Treća, i poslednja, transfer funkcija predstavlja zavisnost ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora i dobija se kao paralelna veza prethodne dve transfer funkcije.
+Koristeći prethodno dve definisane funkcije mogu se izvesti dve nove transfer funkcije za koje važi da su dobijene diferenciranjem polaznih transfer funkcija: transfer funkcija ugaonog pređenog puta robota u zavisnosti od napona na ulazu motora i transfer funkcija ugla klatna u odnosu na osovinu valjka u zavisnosti od ulaznog napona. Treća, i poslednja, transfer funkcija predstavlja zavisnost ugla inklinacije klatna u odnosu na podlogu u zavisnosti od napona motora i dobija se kao paralelna veza prethodne dve transfer funkcije.
 
 ##### PID simulacije
 
-U oblasti automatike postoji niz algoritama (kontrolera) koji imaju za cilj neki vid stabilizacije. To može da bude stabilizacije oko položaja labilne ravnoteže kao što je to slučaj sa problemom inverznog klatna[^2] gde treba da se stabilizuje matematičko klatno u položaju labilne ravnoteže, ili stabilizacija u nekom proizvoljnom položaju koji nalaže zadati problem. Jedan od algoritama koji se pokazao korisnim u praksi je PID kontroler čije su najveće prednosti brza i precizna stabilizacija.
+U oblasti automatike postoji niz algoritama (kontrolera) koji imaju za cilj neki vid stabilizacije. To može da bude stabilizacija oko položaja labilne ravnoteže kao što je to slučaj sa problemom inverznog klatna[^2] gde treba da se stabilizuje matematičko klatno u položaju labilne ravnoteže, ili stabilizacija u nekom proizvoljnom položaju koji nalaže zadati problem. Jedan od algoritama koji se pokazao korisnim u praksi je PID kontroler čije su najveće prednosti brza i precizna stabilizacija.
 
 [^2]: A Comparative Study of Inverted Pendulum, S. Nemitha, B. Vijaya Bhaskar and S. Rakesh Kumar
 
@@ -115,7 +115,7 @@ $K_p$ - proporcionalni koeficijent
 $K_i$ - integralni koeficijent  
 $K_d$ - diferencijalni koeficijent  
 
-U tabeli ispod se može videti kako svaki koeficijent utiče na ishod PID kontrolera:
+U tabeli ispod se može videti kako svaki koeficijent utiče na karakteristike PID kontrolera:
 
 | $\ \ \ $ PID | RISE TIME | OVERSHOOT | SETTLING TIME | STEADY-STATE ERROR |
 | -------- | -------- | -------- | --------     | -------- |
@@ -127,9 +127,9 @@ Kao i svaku drugu transfer funkciju, PID kontroler možemo diskretizovati korist
 
 [^3]: Python Control Systems Library 0.9.2
 
-U radu su simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na zemlju. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Sva tri PID kontrolera mogu nezavisno da se implementiraju ali ukoliko izlaz jednog PID kontrolera prosleđujemo sledećem PID kontroleru možemo da postignemo isti efekat samo će sistem u ovom slučaju biti manje oscilatoran što doprinosti brzini stabilizacije, *rising time*, i grešci stabilizacije, *steady state error*. Blok dijagram kontrolnog sistema je predstavljen na slici:
+U radu su simulirana tri PID kontrolera. Prvi PID kontroler odžava konstantan ugao inklinacije klatna u odnosu na zemlju. Drugi PID kontroler održava konstantnu ugaonu brzinu valjka. Poslednji PID kontroler održava konstantan ugaoni pređeni put valjka. Sva tri PID kontrolera mogu nezavisno da se implementiraju ali ukoliko izlaz jednog PID kontrolera prosleđujemo sledećem PID kontroleru možemo da postignemo isti efekat samo će sistem u ovom slučaju biti manje oscilatoran što doprinosti brzini stabilizacije, *rising time*, i grešci stabilizacije, *steady state error*. Blok dijagram kontrolnog sistema je predstavljen na slici ispod:
 
-![Blok shema PID kontrolera](/images/2022/robot-valjak/prva.drawio2.svg)
+![Blok shema PID kontrolera](/images/2022/robot-valjak/blok_shema.svg)
 
 ###### Diferencijator
 
@@ -137,11 +137,11 @@ Diferencijator je specijalni oblik transfer funkcije koji ima za ulogu da prima 
 
 $$D(s) = \dfrac{\ \ \ \omega s \ }{s + \omega}$$
 
-Mana ovakve implementacije diferencijatora je postojanje kašnjenja, *lag*, o čemu treba voditi računa prilikom implemntacije realnog sistema. Kašnjenje se može smanjiti povećanjem frekvencijom odsecanja ali će na taj način žrtvovati tačnost izlaznog signala.
+Mana ovakve implementacije diferencijatora je postojanje kašnjenja, *lag*, o čemu treba voditi računa prilikom implementacije realnog sistema. Kašnjenje se može smanjiti povećanjem frekvencije odsecanja ali će se na taj način žrtvovati tačnost izlaznog signala.
 
 ###### Komplementarni filter
 
-Ideja iza komplementarnog filtera je da se uzmu spori signali sa akcelerometra i brzi signali sa žiroskopa i na kraju ih spojimo u jedan signal. Akcelerometar je dobar pokazatelj orijentacije u statičkim uslovima, dok je žiroskop dobar pokazatelj nagiba u dinamičkim uslovima. Dakle, ideja je da se signali sa akcelerometra puste kroz *low-pass* filter a signali sa žiroskopa da se propuste kroz *high-pass* filter i onda novodobijeni signali iskombinuju. *Low-pass* filter nam omogućava da propustimo frekvencije ispod zadate odsečen frekvencije, dok nam *high-pass* filter omogučava da propustimo frekvencije iznad zadate odsečen frekvencije. Na taj način obezbeđujemo da u svakom trenutku ceo signal podleže oba filtera.
+Ideja iza komplementarnog filtera je da se uzmu spori signali sa akcelerometra i brzi signali sa žiroskopa i na kraju ih spojimo u jedan signal. Akcelerometar je dobar pokazatelj orijentacije u statičkim uslovima, dok je žiroskop dobar pokazatelj nagiba u dinamičkim uslovima. Dakle, ideja je da se signali sa akcelerometra puste kroz *low-pass* filter a signali sa žiroskopa da se propuste kroz *high-pass* filter i onda novodobijeni signali iskombinuju. *Low-pass* filter nam omogućava da propustimo frekvencije ispod zadate odsečne frekvencije, dok nam *high-pass* filter omogućava da propustimo frekvencije iznad zadate odsečne frekvencije. Na taj način obezbeđujemo da u svakom trenutku ceo signal podleže oba filtera.
 
 ### Hardver
 
