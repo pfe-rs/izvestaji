@@ -19,7 +19,7 @@ Klasična formulacija estimacije optičkog protoka definiše problem kao kontinu
 Jedan smer pri rešavanju problema jeste modeliranje protoka korišćenjem Markovljevih slučajnih procesa.[^4] [^5]
 
 
-Sledeći primere iz *stereo matching*-a optimizacija energija se može olakšati korišćenjem diskretnih optimizacionih algoritama , poput *graph cut*-ova[^6] ili *message passing*[^7] koje su često bile u mogućnosti da ostvare približno globalan optimum. Iako se estimacija dispariteta može posmatrati i kao ograničeni slučaj optičkog protoka, malo autora je pokušalo da koristi diskretnu optimizaciju za estimaciju optičkog protoka.
+Sledeći primere iz *stereo matching*-a, optimizacija energija se može olakšati korišćenjem diskretnih optimizacionih algoritama, poput *graph cut*-ova[^6] ili *message passing*[^7] koje su često bile u mogućnosti da ostvare približno globalan optimum. Iako se estimacija dispariteta može posmatrati i kao ograničeni slučaj optičkog protoka, malo autora je pokušalo da koristi diskretnu optimizaciju za estimaciju optičkog protoka.
 
 U referentnoj metodi[^8] su predložene tri različite strategije optimizacije diskretnog pristupa. Cilj rada je bio ispitivanje uticaja različitih algoritama na preciznost određivanja optičkog protoka.
 
