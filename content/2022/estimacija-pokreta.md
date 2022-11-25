@@ -97,7 +97,7 @@ Ranije opisani algoritam dodeljuje svaki piksel referentne slike pikselu ciljane
 
 Provera konzistentnosti se vrši tako što se računa optički protok unapred kao i unazad, u suprotnom poretku od datog u bazi podataka i vektor protoka se izbacuje ako je odstupanje vektora protoka veće od definisanog praga. Zatim se izbacuju mali segmenti od najviše 100 piksela koji odstupaju od kretanja okolnih piksela usled pretpostavke da se radi o kretanju većih celina i da izolovani segmenti odgovaraju pogrešnoj proceni. 
 
-Kako bi se dobilo u potpunosti definisano polje protoka koristi se EpicFlow algoritam koji pikselima koji nemaju definisan protok računa isti uzimajući u obzir okolne piksele i ivice slike sa hipotezom da ivice slike definišu granice kretanja, odnosno da pikseli sa suprotne strane ivice odgovaraju kretaju različitih objekata.
+Kako bi se dobilo u potpunosti definisano polje protoka koristi se EpicFlow algoritam, koji pikselima koji nemaju definisan protok računa isti, uzimajući u obzir okolne piksele i ivice slike. EpicFlow kreće od hipoteze da ivice slike definišu granice kretanja, odnosno da pikseli sa suprotne strane ivice odgovaraju kretaju različitih objekata.
 
 ## Rezultati
 
