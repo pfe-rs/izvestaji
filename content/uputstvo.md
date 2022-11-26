@@ -27,29 +27,38 @@ Dakle, bar 20x15 cm u 300dpi, odnosno nekih 2400x1800 pixela.
 
 Ovde su predstavljeni primeri grafičkih apstrakata. Cilj je bilo prikazati raznovrsnost, nisu svi navdeni apstrakti nužno “najbolji”. Neki od navedenih slika nemaju prateći tekst - to je loša praksa, treba pisati prateći tekst - te slike su ovde navedene zato što su okej vizuelni primeri.
 
-Jedna varijanta iz *[Keyframe-based recognition and localization during video-rate parallel tracking and mapping](https://www.sciencedirect.com/science/article/pii/S0262885611000436)* koja predstavlja vizualizovanu blok šemu sistema.
+
+
+{{< figure "Slika" "Jedna varijanta iz *[Keyframe-based recognition and localization during video-rate parallel tracking and mapping](https://www.sciencedirect.com/science/article/pii/S0262885611000436)* koja predstavlja vizualizovanu blok šemu sistema." >}}
 
 ![Grafički apstrakt rada "Keyframe-based recognition and localization during video-rate parallel tracking and mapping" koji prikazuje njihov metod rada.](/images/uputstvo/gap1.png)
 
-Primer gde je tema rada konstrukcija izvesnog senzora pH vrednosti. Autori su se smisleno odlučili za grafički apstrakt iz dva dela: prikaz šeme senzora i prikaz rezultata (karakteristika senzora). Izvor: *[Well-established materials in microelectronic devices systems for differential-mode extended-gate field effect transistor chemical sensors](https://www.sciencedirect.com/science/article/pii/S0167931716301484)*.
+{{< /figure >}}
+{{< figure "Slika" "Primer gde je tema rada konstrukcija izvesnog senzora pH vrednosti. Autori su se smisleno odlučili za grafički apstrakt iz dva dela: prikaz šeme senzora i prikaz rezultata (karakteristika senzora). Izvor: *[Well-established materials in microelectronic devices systems for differential-mode extended-gate field effect transistor chemical sensors](https://www.sciencedirect.com/science/article/pii/S0167931716301484)*." >}}
 
 ![Grafički apstrakt rada "Well-established materials in microelectronic devices systems for differential-mode extended-gate field effect transistor chemical sensors" koji prikazuje šemu senzora sa leve strane i rezultate sa desne.](/images/uputstvo/gap2.png)
 
-Grafički apstrakt koji se sastoji iz dva dela. Autor je želeo da istakne sam algoritam koji je koristio (gornji deo) ali i šta taj njegov pristup omogućava kao rezultat (donji deo). Obratite pažnju na dobro korišćenje opisa uz sliku. Izvor: *[Keyframe-Based Visual-Inertial Online SLAM with Relocalization](https://arxiv.org/pdf/1702.02175.pdf)*.
+{{< /figure >}}
+{{< figure "Slika" "Grafički apstrakt koji se sastoji iz dva dela. Autor je želeo da istakne sam algoritam koji je koristio (gornji deo) ali i šta taj njegov pristup omogućava kao rezultat (donji deo). Obratite pažnju na dobro korišćenje opisa uz sliku. Izvor: *[Keyframe-Based Visual-Inertial Online SLAM with Relocalization](https://arxiv.org/pdf/1702.02175.pdf)*." >}}
 
 ![Grafički apstrakt rada "Keyframe-Based Visual-Inertial Online SLAM with Relocalization" ispod koga se nalazi tekst "Fig. 1: Our visual-inertial SLAM system performs visualinertial camera pose tracking and keyframe-based pose graph optimization in parallel. Top: Overview of the individual input and processing steps of our SLAM approach and their timing. Bottom: Our system allows for relocalization in a previous keyframe map and continued SLAM operation. Keyframes (dots) along the previous (red) and new trajectory (blue) are continously merged into a combined SLAM map (purple) through loop closure constraints (green lines)."](/images/uputstvo/gap3.png)
 
-Vrlo kratka varijanta koja objašnjava suštinu. Obratite pažnju na korišćenje pratećeg opisa slike. Izvor: *[Learning from Simulated and Unsupervised Images through Adversarial Training](https://arxiv.org/pdf/1612.07828.pdf)*.
+{{< /figure >}}
+{{< figure "Slika" "Vrlo kratka varijanta koja objašnjava suštinu. Obratite pažnju na korišćenje pratećeg opisa slike. Izvor: *[Learning from Simulated and Unsupervised Images through Adversarial Training](https://arxiv.org/pdf/1612.07828.pdf)*." >}}
 
 ![Grafički apstrakt rada "Learning from Simulated and Unsupervised Images through Adversarial Training" ispod koga se nalazi tekst "Figure 1. Simulated+Unsupervised (S+U) learning. The task is to learn a model that improves the realism of synthetic images from a simulator using unlabeled real data, while preserving the annotation information."](/images/uputstvo/gap4.png)
 
-Isti izvor, ali varijanta koja u prvi plan ističe metod.
+{{</ figure >}}
+{{< figure "Slika" "Isti izvor, ali varijanta koja u prvi plan ističe metod." >}}
 
 ![Grafički apstrakt rada "Learning from Simulated and Unsupervised Images through Adversarial Training" ispod koga se nalazi tekst "Figure 2. Overview of SimGAN. We refine the output of the simulator with a refiner neural network, R, that minimizes the combination of a local adversarial loss and a ‘selfregularization’ term. The adversarial loss ‘fools’ a discriminator network, D, that classifies an image as real or refined. The self-regularization term minimizes the image difference between the synthetic and the refined images. The refiner network and the discriminator network are updated alternately."](/images/uputstvo/gap5.png)
 
-Jednostavna upravljačka petlja sa prikazom aparature i algoritma u jednom. Izvor: *[Dynamics modeling and deviation control of the composites winding system](http://www.sciencedirect.com/science/article/pii/S0957415817301423)*.
+{{</ figure >}}
+{{< figure "Slika" "Jednostavna upravljačka petlja sa prikazom aparature i algoritma u jednom. Izvor: *[Dynamics modeling and deviation control of the composites winding system](http://www.sciencedirect.com/science/article/pii/S0957415817301423)*." >}}
 
 ![Grafički apstrakt rada "Dynamics modeling and deviation control of the composites winding system" koji prikazuje način funkcionisanja sistema.](/images/uputstvo/gap7.png)
+
+{{</ figure >}}
 
 ### Uvod
 
@@ -135,7 +144,17 @@ Ispod možete naći neke Markdown primere koje možete koristiti prilikom uređi
 
 [Link](https://pfe.rs/)
 
+{{< figure "Slika" "Primer dodavanja označene figure." "pfe-logo" >}}
+
 ![Slika sa alternativnim tekstom](https://pfe.rs/images/logo.png)
+
+{{</ figure >}}
+{{< figure "Slika" "Primer dodavanja označene figure sa više slika u njoj." >}}
+
+![PFE logo levo](https://pfe.rs/images/logo.png)
+![PFE logo desno](https://pfe.rs/images/logo.png)
+
+{{</ figure >}}
 
 - Ovako
 - se
@@ -165,6 +184,14 @@ LaTeX jednačina u jednoj liniji: $A = 2 + 3$
 
 LaTeX blok: $$B = \frac{2}{3}$$
 
+LaTeX označena jednačina:
+
+{{< equation "eq-c" >}}
+
+$$C = \int_{0}^{+\infty} f(x)$$
+
+{{</ equation >}}
+
 > Citat
 
 Između paragrafa idu
@@ -177,6 +204,6 @@ Tri crtice prave horizontalnu liniju.
 
 ---
 
-Referenca[^1]
+Referenca.[^1] Referenca na figuru {{< ref "Slika" "pfe-logo" >}}. Referenca na jednačinu {{< eqref "eq-c" >}}.
 
 [^1]: Tekst reference
