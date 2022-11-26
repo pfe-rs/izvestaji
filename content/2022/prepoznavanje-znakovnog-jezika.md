@@ -15,7 +15,7 @@ Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. S
 
 ![ASL](/images/2022/prepoznavanje-znakovnog-jezika/asll.png)
 
-Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [[4]](kaggle.com/datasets/lexset/synthetic-asl-alphabet). Korišćena je sintetička baza zbog velikog broja slika različitih pozadina , osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robustni. Primenjena je ista podela na trening i test podatke kao kod autora baze.
+Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [[4]](kaggle.com/datasets/lexset/synthetic-asl-alphabet). Korišćena je sintetička baza zbog velikog broja slika različitih pozadina, osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robusni. Primenjena je ista podela na trening i test podatke kao kod autora baze.
 
 ##### Predprocesing
 
@@ -31,11 +31,11 @@ Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Na svakoj slici 
 
 ##### Obrada baze za kNN
 
-Klasifikacija znaka koji je pokazan je realizovan prvo kroz određivanje pozicije šake. Za olakšanje ovog procesa ekstraktovana su 21 ključna tačka šake (ukupno 42 koordinate) pomoću MediaPipe Holistic Pipeline-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
+Klasifikacija znaka koji je pokazan je realizovan prvo kroz određivanje pozicije šake. Za olakšanje ovog procesa pronađene su 21 ključne tačke šake (ukupno 42 koordinate) pomoću *MediaPipe Holistic Pipeline*-a [[5]](https://google.github.io/mediapipe/solutions/holistic.html).
 
 ![ACAB](/images/2022/prepoznavanje-znakovnog-jezika/acab-Copy.PNG)
 
-Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti dobijene 21 tačke, pri čemu su dobijeni neprecizni rezultati. Drugi način bio je odredjivanje koordinate sredine šake i uzimanje njene vrednosti, što nije radilo jer se često nalazila senka na tom delu slike. Finalni i najprecizniji način je bio uzimanje celog opsega ovih tačaka. Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je opseg takav da ja najmanji moguć a da u njega i dalje spadaju sve HSV vrednosti ključnih tašaka:
+Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti dobijene 21 tačke, pri čemu su dobijeni neprecizni rezultati. Drugi način bio je određivanje koordinate sredine šake i uzimanje njene vrednosti, što nije radilo jer se često nalazila senka na tom delu slike. Konačni i najprecizniji način je bio uzimanje celog opsega ovih tačaka. Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je opseg takav da je najmanji moguć a da u njega i dalje spadaju sve HSV vrednosti ključnih tačaka:
 
 $$[HSVmin, HSVmax] = [min(kp_{1},kp_{2},...,kp_{n}), max(kp_{1},kp_{2},...,kp_{n})]$$
 
@@ -50,7 +50,7 @@ Baza ove mreže se sastoji od koordinata ključnih tačaka šake. Za njihovu det
 - X - x koordinata svake tačke, 21 ukupno
 - Y - y koordinata svake tačke, 21 ukupno
 
-Formirana je još jedna baza, slična kao prva, za koju je korišćena je aproksimacija dubine koja je ugradjena u MediaPipe Holistic metodu. Ova aproksimacija daje po još jednu koordinatu za svaku tačku stoga ova baza ima 63 parametra, po 3 za svaku tačku.
+Formirana je još jedna baza, slična kao prva, za koju je korišćena je aproksimacija dubine koja je ugrađena u *MediaPipe Holistic* metodu. Ova aproksimacija daje po još jednu koordinatu za svaku tačku, stoga ova baza ima 63 parametra, po 3 za svaku tačku.
 
 - X - x koordinata svake tačke, 21 ukupno
 - Y - y koordinata svake tačke, 21 ukupno
@@ -58,37 +58,37 @@ Formirana je još jedna baza, slična kao prva, za koju je korišćena je aproks
 
 ### kNN - k Nearest Neighboors
 
-Binarizovana slika je podeljena na NxN mrežu, gde definišemo obeležje svakog polja kao zasićenost - udeo belih piskela unutar tog polja:
+Binarizovana slika je podeljena na $N \times N$ mrežu, gde definišemo obeležje svakog polja kao zasićenost - udeo belih piksela unutar tog polja:
 
 $$obeležje = \frac{P_{bela}}{P_{polje}}$$
 
-Pod predpostavkom da su ovako dobijeni podaci podeljeni na klastere, potreban je način za njihovu klasifikaciju. Za ovo je korišćen kNN algoritam. Iz binarizovane baze podataka izdvojeno je po 6 slika za svaku klasu i njihova obeležja korišćena su kao definišuća baza podataka. Na prethodno fitovanim podacima u Euklidskoj metrici je izdračunata distanca između uzorka i svih primera definišuće baze i izabrani su k najbližih primera. Od tih k primera klasifikator bira klasu koja se najčešće pojavljuje.
+Pod pretpostavkom da su ovako dobijeni podaci podeljeni na klastere, potreban je način za njihovu klasifikaciju. Za ovo je korišćen kNN algoritam. Iz binarizovane baze podataka izdvojeno je po 6 slika za svaku klasu i njihova obeležja korišćena su kao definišuća baza podataka. Na prethodno fitovanim podacima u Euklidskoj metrici je izračunata razdaljina između uzorka i svih primera definišuće baze i izabrani su $k$ najbližih primera. Od tih $k$ primera klasifikator bira klasu koja se najčešće pojavljuje.
 
 ![kNN dijagram](/images/2022/prepoznavanje-znakovnog-jezika/kNN_dijagram_za_izvestaj.svg)
 
 ##### Rezultati
 
-Na osnovu N i k parametara, izračunata je tačnost metode u svakom od slučajeva. Vizuelni prikaz rezultata je dobijen u vidu mape intenziteta. Ispostavlja se da preciznost raste srazmerno parametrimu N i obrnuto srazmerno parametru k, pri čemu je najbolji rezultat dobijen za k = 1 i N = 20, sa preciznošću od 56%.
+Na osnovu $N$ i $k$ parametara, izračunata je tačnost metode u svakom od slučajeva. Vizuelni prikaz rezultata je dobijen u vidu mape intenziteta. Ispostavlja se da preciznost raste srazmerno parametru $N$ i obrnuto srazmerno parametru $k$, pri čemu je najbolji rezultat dobijen za $k = 1$ i $N = 20$, sa preciznošću od 56%.
 
 ![Mapa intenziteta](/images/2022/prepoznavanje-znakovnog-jezika/heatmap.png)
 
 ### Keypoint Classification
 
-Ovaj metod za cilj ima da klasifikuje sliku na osnovu koordinata ključnih tačaka šake. Kao klasifikator koristi _fully connected_ čiji je ulaz koordinate ključnih tačaka, a izlaz jedna od 24 klase. Korišćena je jednostavna mreža sa četiri _dense_ sloja. Metod je radjen sa i bez procene dubine ugradjene u MediaPipe Holistic metodu koja je korišćena za nalaženje ključnih tačaka.
+Ovaj metod za cilj ima da klasifikuje sliku na osnovu koordinata ključnih tačaka šake. Kao klasifikator koristi _fully connected_ čiji je ulaz koordinate ključnih tačaka, a izlaz jedna od 24 klase. Korišćena je jednostavna mreža sa četiri _dense_ sloja. Metod je rađen sa i bez procene dubine ugrađene u *MediaPipe Holistic* metodu koja je korišćena za nalaženje ključnih tačaka.
 
 #### Rezultati
 
-U slučaju kada je korišćena aproksimacija dubine dobijena je preciznost od 95.6%, dok je preciznost bez nje bila znatno manja, 85.8%. Razlika izmedju ova dva primera verovatno bi bila primetnija u realnoj primeni kada nisu sve slike šaka na sličnoj udaljenosti od same šake. Grafici rezultata u daljem radu prikazani su samo za bolju od dve metode. 
+U slučaju kada je korišćena aproksimacija dubine dobijena je preciznost od 95.6%, dok je preciznost bez nje bila znatno manja, 85.8%. Razlika između ova dva primera verovatno bi bila primetnija u realnoj primeni kada nisu sve slike šaka na sličnoj udaljenosti od same šake. Grafici rezultata u daljem radu prikazani su samo za bolju od dve metode. 
 
 ![Grafik loss funkcije](/images/2022/prepoznavanje-znakovnog-jezika/graph_together_aslkc.png)
 
-Matrica konfuzije predstavlja raspodelu učestalosti klasifikacije po klasama. Korisna je za primećivanje da li je neka klasa često pogrešno klasifikovana i kao šta. na datoj matrici konfuzije najveća pogrešna vrednost je dobijena pripisivanjem slova "E" slovu "O" - šest puta.
+Matrica konfuzije predstavlja raspodelu učestalosti klasifikacije po klasama. Korisna je za primećivanje da li je neka klasa često pogrešno klasifikovana i kao šta. Na datoj matrici konfuzije najveća pogrešna vrednost je dobijena pripisivanjem slova "E" slovu "O" - šest puta.
 
 ![Matrica konfuzije](/images/2022/prepoznavanje-znakovnog-jezika/confusion_matrix.png)
 
 ### Extended MNIST - CNN
 
-Ovaj metod bazira se na klasifikaciji pomoću konvolucione neuralne mreže. Model je građen po uzoru na konvolucioni klasifikacioni model za MNIST bazu podataka za ASL. Ova baza sadrži _grayscale_ slike znatno manjih dimenzija od korišćene baze (28x28) pa je za adaptaciju modela za slike većih dimenzija sa tri umesto jednog kanala potrebno proširiti mrežu. Ovo proširenje postignuto je dodavanjem dodatna tri konvoluciona sloja i uklanjanjem _dropout_ funkcija izmedju slojeva radi manje osetljivosti pri treniranju.
+Ovaj metod zasniva se na klasifikaciji pomoću konvolucione neuralne mreže. Model je građen po uzoru na konvolucioni klasifikacioni model za MNIST bazu podataka za ASL. Ova baza sadrži _grayscale_ slike znatno manjih dimenzija od korišćene baze (28x28) pa je za adaptaciju modela za slike većih dimenzija sa tri umesto jednog kanala potrebno proširiti mrežu. Ovo proširenje postignuto je dodavanjem dodatna tri konvoluciona sloja i uklanjanjem _dropout_ funkcija između slojeva radi manje osetljivosti pri treniranju.
 
 _Nova arhitektura mreže slika_
 
@@ -119,7 +119,7 @@ Urađeno je poređenje metoda kNN, KC, CNN i EfficientNetB3 pri prepoznavanju am
 
 ### Dalji rad
 
-Dalji rad na projektu bi uključivao skaliranje klasifikatora slike na video zapise. Ovaj problem donosi dodatan zadatak detektovanja lažnih znakova, trenutaka kada je šaka u kadru ali je u procesu pomeranja iz jednog znaka u drugi pa bi čitanje bilo kog slova bilo pogrešno. Ovaj problem rešava se kroz poredjenje sigurnosti mreže u izabranu klasu kao i uvodjenjem novih metrika kao _latent_cognizance_ priloženih u radu [[3]](https://arxiv.org/pdf/2110.15542.pdf). Nakon uspešne implementacije klasifikatora na video snimke dodatno poboljšanje postiglo bi se implementacijom _natural language processing_ modela pomoću kojih se mogu ukloniti nepreciznosti pri prevodu.
+Dalji rad na projektu bi uključivao skaliranje klasifikatora slike na video zapise. Ovaj problem donosi dodatan zadatak detektovanja lažnih znakova, trenutaka kada je šaka u kadru ali je u procesu pomeranja iz jednog znaka u drugi pa bi čitanje bilo kog slova bilo pogrešno. Ovaj problem rešava se kroz poređenje sigurnosti mreže u izabranu klasu kao i uvođenjem novih metrika kao _latent_cognizance_ priloženih u radu [[3]](https://arxiv.org/pdf/2110.15542.pdf). Nakon uspešne implementacije klasifikatora na video snimke dodatno poboljšanje postiglo bi se implementacijom _natural language processing_ modela pomoću kojih se mogu ukloniti nepreciznosti pri prevodu.
 
 ### Literatura
 
