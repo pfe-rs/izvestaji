@@ -1,1 +1,9 @@
-<a href="#fig-{{ .Get 0 | anchorize }}-{{ .Get 1 | anchorize }}">{{ index (.Page.Scratch.Get "fig-number") (.Get 1) }}</a>
+{{- $type := .Get 0 -}}
+{{- $id := .Get 1 -}}
+{{- if (or (not (.Page.Scratch.Get "fig-number")) (not (index (.Page.Scratch.Get "fig-number") $id))) -}}
+    {{- $autonumber_id := (print "autonumber-" $type) -}}
+    {{- .Page.Scratch.Add $autonumber_id 1 -}}
+    {{- $autonumber := .Page.Scratch.Get $autonumber_id -}}
+    {{- .Page.Scratch.SetInMap "fig-number" $id $autonumber -}}
+{{- end -}}
+<a href="#fig-{{ $type | anchorize }}-{{ $id | anchorize }}">{{ index (.Page.Scratch.Get "fig-number") $id }}</a>
