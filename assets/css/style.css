@@ -591,3 +591,8 @@ figure > figcaption {
 .equation .katex-display, .equation .katex-display .katex, .equation .katex-display > .katex > .katex-html {
     display: inline;
 }
+
+.post-image {
+    width: 100%;
+    margin-bottom: 25px;
+}

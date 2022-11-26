@@ -1,10 +1,15 @@
 {{- $type := .Get 0 -}}
-{{- $autonumber_id := (print "autonumber-" $type) -}}
-{{- .Page.Scratch.Add $autonumber_id 1 -}}
-{{- $autonumber := .Page.Scratch.Get $autonumber_id -}}
 {{- $id := .Get 2 -}}
-{{- if $id -}}
-    {{- .Page.Scratch.SetInMap "fig-number" $id $autonumber -}}
+{{- $autonumber := 0 -}}
+{{- if (or (not (.Page.Scratch.Get "fig-number")) (not (index (.Page.Scratch.Get "fig-number") $id))) -}}
+    {{- $autonumber_id := (print "autonumber-" $type) -}}
+    {{- .Page.Scratch.Add $autonumber_id 1 -}}
+    {{- $autonumber = .Page.Scratch.Get $autonumber_id -}}
+    {{- if $id -}}
+        {{- .Page.Scratch.SetInMap "fig-number" $id $autonumber -}}
+    {{- end -}}
+{{- else -}}
+    {{- $autonumber = index (.Page.Scratch.Get "fig-number") $id -}}
 {{- end -}}
 <figure id="fig-{{ $type | anchorize }}-{{ if $id }}{{ $id | anchorize }}{{ else }}{{ $autonumber }}{{ end }}">
     <div>{{ .Inner | markdownify }}</div>
