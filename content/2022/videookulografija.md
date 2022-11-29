@@ -152,8 +152,8 @@ Konvertovanjem RGB vrednosti piksela slike koje zauzimaju 24 bita u grayscale  p
 Na slici 2 može se videti kako slika izgleda u RGB prostoru i njen sivi ekvivalent.
 
  
-![pre GRAYSCALE](/images/2022/videookulografija/RGB.png)  ![posle GRAYSCALE](/images/2022/videookulografija/GREY.png)
-(slika 2 i 3 - RGB slika i njen sivi ekvivalent)
+![pre i posle GRAYSCALE](/images/2022/videookulografija/RGB2GRAY.png)  
+(slika 2 - RGB slika i njen sivi ekvivalent)
 
 
 #### 3.2.1.2. Zamućivanje
@@ -170,14 +170,14 @@ Krećući od prvog piksela koji se množi sa centralnim pikselom kernela, ostali
 Svi ovi proizvodi se sabiraju i tako dobijamo novu vrednost piksela.
 Nakon dobijanja nove vrednosti piksela, kernel se pomera za jedan piksel udesno i na taj način se proces ponavlja sve do poslednjeg piksela slike.
 Ovim procesom se dobijam filtrirana slika, odnosno u ovom slučaju zamućena slika.
-Na slikama 4 i 5 se mogu videti slike pre i posle zamućivanja.
+Na slici 3 se može videti slika pre i posle zamućivanja.
 
 
 
-![pre zamućivanja](/images/2022/videookulografija/GREY.png)  ![posle zamućivanja](/images/2022/videookulografija/blure.png)
+![pre i posle zamućivanja](/images/2022/videookulografija/GRAY2BLURE.png)
 
 
-(slika 4 i 5 - Slika pre i nakon zamućivanja)
+(slika 3 - Slika pre i nakon zamućivanja)
 
 
 
@@ -192,10 +192,10 @@ Zatim, vrednosti piksela se dodeljuju na sledeći način – oni pikseli čija j
 Proizvod primene ovih metoda je crno-bela slika nad kojom se vrši segmentacija - izdvajanje jasnih objekata (u ovom slučaju zenice). 
 
 
-![pre binarizacije - slika 6](/images/2022/videookulografija/GRAY.png)  ![posle binarizacije - slika 7](/images/2022/videookulografija/BIN.png)
+![pre i posle binarizacije](/images/2022/videookulografija/BLURE2BIN.png) 
 
 
-(slika 6 i 7 - slika pre in nakon binarizacije)
+(slika 4 - slika pre in nakon binarizacije)
 
 #### 3.2.1.4. Morfološke operacije
 
@@ -213,10 +213,10 @@ Ukoliko se dogodi da postoji barem jedno nepodudaranje, piksel slike koji se pok
 Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
 
 
-![Pre erozije - slika 7](/images/2022/videookulografija/BIN.png)  ![Primer erozije - slika 8](/images/2022/videookulografija/erozija.png)
+![Pre i posle erozije](/images/2022/videookulografija/BIN2EROZIJA.png)
 
 
-(slika 8 - Slika nakon primene erozije)
+(slika 5 - Slika pre i nakon primene erozije)
 
 
 ##### 3.2.1.4.2. Dilatacija
@@ -228,10 +228,9 @@ Ukoliko se dogodi da postoji barem jedno poklapanje, piksel slike koji se poklap
 Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
 
 
-![Pre dilatacije - slika 7](/images/2022/videookulografija/BIN.png) ![Primer dilatacije - slika 9](/images/2022/videookulografija/dilatacija.png)
+![Pre i posle dilatacije](/images/2022/videookulografija/BIN2DILATACIJA.png)
 
-
-(slika 9 - Slika nakon primene dilatacije)
+(slika 6 - Slika pre i nakon primene dilatacije)
 
 
 
@@ -269,9 +268,9 @@ Ova iteracija se ponavlja sve dok broj ivica ne postane konstantan tokom cele it
 Na slici 10 se može videti binarizovani frejm sa snimka u realnom vremenu odnosno frejm kakav se obrađuje u Keni algoritamu, a na slici 10 frejm snimka u realnom vremenu nakon detekcije ivica.
 
 
-![Slika pre Canny-ja - slika 7](/images/2022/videookulografija/BIN.png) ![Slika posle Canny-ja - slika 10](/images/2022/videookulografija/canny.png)
+![Slika pre i posle Canny-ja](/images/2022/videookulografija/BIN2CANNY.png)
 
-(slika 10 - slika nakon primene Keni algoritma)
+(slika 7 - slika pre i nakon primene Keni algoritma)
 
 
 #### 3.2.1.6. Hafova transformacija za krug
@@ -291,12 +290,12 @@ se posmatra na drugačiji način. Parametri a, b postaju nezavisna i zavisna pro
 $b = -x_1 \cdot a + y_1$.
 
 
-Ovim postupkom vidi se ideja Hafove transformacije, a to je da svaka tačka u Dekartovom koordinantnom sistemu predstavlja pravu u parametarskom prostoru slika 11. 
+Ovim postupkom vidi se ideja Hafove transformacije, a to je da svaka tačka u Dekartovom koordinantnom sistemu predstavlja pravu u parametarskom prostoru slika 8. 
 
 
-![Tačka prebačena iz dekartovog u parametarski sistem - slika 12](/images/2022/videookulografija/hafovatransformacija.png)
+![Tačka prebačena iz dekartovog u parametarski sistem](/images/2022/videookulografija/hafovatransformacija.png)
 
-(slika 11 - Tačka prebačena iz dekartovog u parametarski sistem)
+(slika 8 - Tačka prebačena iz dekartovog u parametarski sistem)
 
 
 Problem nastaje kada se dobije vertikalna linija, jer kod takvih parametar a teži beskonačnosti. 
@@ -311,17 +310,17 @@ Zbog toga linija se posmatra u parametarskom obliku, a formula glasi:
 $x \cdot \cos{\theta} + y \cdot \sin{\theta} = \rho$,
 
 gde je:   
-- $\theta$ - ugao koji zaklapa normala na pravu sa x osom Slika 13
+- $\theta$ - ugao koji zaklapa normala na pravu sa x osom Slika 9
 - $\rho$ - rastojanje od koordinantnog početka do prave
 - x, y - parametri
 
 
-Sada, tačka neće predstavljati pravu već sinusoidu Slika 12, a presečne tačke se određuju na isti način kao što je ranije navedeno.
+Sada, tačka neće predstavljati pravu već sinusoidu Slika 10, a presečne tačke se određuju na isti način kao što je ranije navedeno.
 
 
-![Tačka u sinusoidnom obliku - slika 12](/images/2022/videookulografija/hafovatransformacija2.jpg)
+![Tačka u sinusoidnom obliku](/images/2022/videookulografija/hafovatransformacija2.jpg)
 
-(slika 12 - Tačka u sinusoidnom obliku)
+(slika 10 - Tačka u sinusoidnom obliku)
 
 
 
@@ -353,15 +352,16 @@ Kod elipsa različitih poluprečnika razlika je u tome što oni zahtevaju tri di
 Ostatak postupka je isti kao i za LHT.
 
 
-![3D transformacija kruga - slika 13](/images/2022/videookulografija/hafovatransformacija3.png)
+![3D transformacija kruga](/images/2022/videookulografija/hafovatransformacija3.png)
 
-(slika 13 - 3D transformacija kruga)
-
-
-Slika na kojoj je detektovana zenica pomoću Hafove transformacije(slika 19)
+(slika 11 - 3D transformacija kruga)
 
 
-![Detektovana zenica - slika 19](/images/2022/videookulografija/DETEKTOVANA.jpg)
+Na slici 12 može se videti detektovana zenica pomoću Hafove transformacije
+
+
+![Detektovana zenica](/images/2022/videookulografija/Hhh.png)
+(slika 12)
 
 
 #### **3.2.2. Obrada podataka**
