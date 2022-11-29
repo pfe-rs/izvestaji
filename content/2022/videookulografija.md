@@ -14,7 +14,7 @@ Lenka Milojčević, učenica II razreda Gimnazije u Kraljevu
 **Mentori** 
 
 
-Milomir Stefanović, diplomirani inženjer elektrotehnke i računarstva, PFE
+Milomir Stefanović, diplomirani inženjer elektrotehnike i računarstva, PFE
 
 
 Pavle Pađin, student III godine Elektrotehničkog fakulteta u Beogradu
@@ -38,11 +38,11 @@ Ključne reči: obrada slike, videookulografija, algoritam za detekciju zenice, 
 
 The aim of this work is to design hardware and implement software for pupil detection with the aim of tracking it.
 The application of pupil detection in this work is to move the cursor.
-Using web camera, information about the coordinates of the center of the pupil were obtain.
+Using web camera, information about the coordinates of the center of the pupil were obtained.
 Pupil segmentation was performed on the image from the camera, and then the center and radius of the pupil were determined using the Hough transformation.
 Using third-order polynomial regression, the pupil coordinates were transformed into cursor coordinates and the errors of the predictive position of the cursor in relation to the desired position were observed.
 The results obtained in this work have an estimate shift of 121.6 pixels, which is not enough for real life application, in this case controlling the cursor.
-In order for this system to be able to be used in the real world, it is necessary to make more recordings, add IR diodes to the 3D webcam holder and use red and blue filters for the webcam, which would result in a minimal shift in the estimation.
+In order for this system to be used in the real world, it is necessary to make more recordings, add IR diodes to the 3D webcam holder and use red and blue filters for the webcam, which would result in a minimal shift in the estimation.
 
 
 Keywords: image processing, video oculography, pupil detection algorithm, polynomial regression
@@ -67,7 +67,7 @@ Još se koristi za posmatranje reakcije vozača prilikom vožnje, u vojnie svrhe
 Cilj ovog rada je konstruisati jednostavni 2D VOG koji se može koristiti za praćenje zenice.
 
 
-Navedeni referentni radovi koriste metodu tamne zenice, što znači da je zenica najtamniji objekat na slici. 
+Navedeni referentni radovi[^5] [^6] [^7] koriste metodu tamne zenice, što znači da je zenica najtamniji objekat na slici. 
 U referentnom radu [^5] za akviziciju slike korišćena je IR kamera čije su LED diode (za vidljivi spektar boja) zamenili IR LED diodama kako bi sve dužice, nezavisno od njihove boje, bile svetle. 
 Algoritam referenthih radova[^5] [^6] [^7] (uz manje izmene) sastoji se iz akvizicije slike, kalibracije sistema, detekcije zenice, mapiranja slike oka u odnosu na postavku na ekranu, selekciju objekata i stabilizaciju kursora (odnosi se na radove koji za cilj imaju kontrolu kursora). 
 Kako bi procedura binarizacije bila uspešna, potrebna je funkcija mapiranja koja mapira sliku oka i sliku ekrana. 
@@ -102,7 +102,7 @@ Ovaj rad se sastoji iz dva dela - aparture pomoću koje se vrši akvizicija slik
 
 
 
-Na slici 1 i 2 može se videti korišćena aparatura sastavljena iz web kamere, držača za web kameru i naočara koje su 3D odštampane.
+Na slici 1 može se videti korišćena aparatura sastavljena iz web kamere, držača za web kameru i naočara koje su 3D odštampane.
 Web kamera je korišćena za praćenje zenice sa koje je skinut IR filter kako bi detektovanje zence bilo olakšano za sve boje dužica. 
 Model držača projektovan je u paketu CAD, a zatim je 3D odštampan. 
 Ovaj držač ima sledeće opcije za podešavanje položaja:
@@ -115,10 +115,10 @@ Ovaj držač ima sledeće opcije za podešavanje položaja:
 
 Web kamera ja pričvršćena na naočare gde su postavljene i led diode kako bi osvetljenje slike bilo konstantno.
 
-![Slika hardvera](/images/2022/videookulografija/OPREMA1.jpg)                    ![Slika hardvera](/images/2022/videookulografija/OPREMA2.jpg)
+![Slika hardvera](/images/2022/videookulografija/OPREMA1.jpg)              
 
 
-(slika 1 - Izgled naučara)               (slika 2 - Izgled naočara)       
+(slika 1 - Izgled naučara)                      
 
 
 
@@ -149,14 +149,11 @@ Proces obrade slike se sastoji iz sledećih koraka:
 
 Slika u RGB spektru ima više informacija koje nam nisu potrebne, takođe slika u RGB spektru je kompleksnija za obradu pa iz tih razloga biramo greyscale[^1]. 
 Konvertovanjem RGB vrednosti piksela slike koje zauzimaju 24 bita u grayscale  prostor boja koji zauzima 8 bita memorije korišćenjem funkcije grayscale dobija se slika u monohromatkskom sistemu boja.
-Na slici 3 može se videti kako slika izgleda u RGB prostoru i njen sivi ekvivalent.
+Na slici 2 može se videti kako slika izgleda u RGB prostoru i njen sivi ekvivalent.
 
  
-![pre GRAYSCALE](/images/2022/videookulografija/RGB.png)
-
-
-![posle GRAYSCALE](/images/2022/videookulografija/GREY.png)
-(slika 3 i 4 - RGB slika i njen sivi ekvivalent)
+![pre GRAYSCALE](/images/2022/videookulografija/RGB.png)  ![posle GRAYSCALE](/images/2022/videookulografija/GREY.png)
+(slika 2 i 3 - RGB slika i njen sivi ekvivalent)
 
 
 #### 3.2.1.2. Zamućivanje
@@ -173,14 +170,14 @@ Krećući od prvog piksela koji se množi sa centralnim pikselom kernela, ostali
 Svi ovi proizvodi se sabiraju i tako dobijamo novu vrednost piksela.
 Nakon dobijanja nove vrednosti piksela, kernel se pomera za jedan piksel udesno i na taj način se proces ponavlja sve do poslednjeg piksela slike.
 Ovim procesom se dobijam filtrirana slika, odnosno u ovom slučaju zamućena slika.
-Na slikama 5 i 6 se mogu videti slike pre i posle zamućivanja.
+Na slikama 4 i 5 se mogu videti slike pre i posle zamućivanja.
 
 
 
-![pre zamućivanja](/images/2022/videookulografija/GREY.png)(slika 5)
+![pre zamućivanja](/images/2022/videookulografija/GREY.png)  ![posle zamućivanja](/images/2022/videookulografija/blure.png)
 
 
-![posle zamućivanja](/images/2022/videookulografija/blure.png)(slika 6)
+(slika 4 i 5 - Slika pre i nakon zamućivanja)
 
 
 
@@ -195,11 +192,10 @@ Zatim, vrednosti piksela se dodeljuju na sledeći način – oni pikseli čija j
 Proizvod primene ovih metoda je crno-bela slika nad kojom se vrši segmentacija - izdvajanje jasnih objekata (u ovom slučaju zenice). 
 
 
-![pre binarizacije - slika 7](/images/2022/videookulografija/GRAY.png)
+![pre binarizacije - slika 6](/images/2022/videookulografija/GRAY.png)  ![posle binarizacije - slika 7](/images/2022/videookulografija/BIN.png)
 
 
-![posle binarizacije - slika 8](/images/2022/videookulografija/BIN.png)
-
+(slika 6 i 7 - slika pre in nakon binarizacije)
 
 #### 3.2.1.4. Morfološke operacije
 
@@ -217,10 +213,10 @@ Ukoliko se dogodi da postoji barem jedno nepodudaranje, piksel slike koji se pok
 Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
 
 
-![Primer erozije - slika 9](/images/2022/videookulografija/erozija.png)
+![Pre erozije - slika 7](/images/2022/videookulografija/BIN.png)  ![Primer erozije - slika 8](/images/2022/videookulografija/erozija.png)
 
 
-(slika 8 - Primer erozije)
+(slika 8 - Slika nakon primene erozije)
 
 
 ##### 3.2.1.4.2. Dilatacija
@@ -232,10 +228,10 @@ Ukoliko se dogodi da postoji barem jedno poklapanje, piksel slike koji se poklap
 Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
 
 
-![Primer dilatacije - slika 9](/images/2022/videookulografija/dilatacija.png)
+![Pre dilatacije - slika 7](/images/2022/videookulografija/BIN.png) ![Primer dilatacije - slika 9](/images/2022/videookulografija/dilatacija.png)
 
 
-(slika 9 - Primer dilatacija)
+(slika 9 - Slika nakon primene dilatacije)
 
 
 
@@ -270,13 +266,12 @@ Na ovaj način se dobija mapa jakih i slabih (potencijalnih) ivica.
 Ova iteracija se ponavlja sve dok broj ivica ne postane konstantan tokom cele iteracije.
 
 
-Na slici 10 se može videti binarizovani frejm sa snimka u realnom vremenu odnosno frejm kakav se obrađuje u Keni algoritamu, a na slici 11 frejm snimka u realnom vremenu nakon detekcije ivica.
+Na slici 10 se može videti binarizovani frejm sa snimka u realnom vremenu odnosno frejm kakav se obrađuje u Keni algoritamu, a na slici 10 frejm snimka u realnom vremenu nakon detekcije ivica.
 
 
-![Slika pre Canny-ja - slika 10](/images/2022/videookulografija/BIN.png)(slika 10)
+![Slika pre Canny-ja - slika 7](/images/2022/videookulografija/BIN.png) ![Slika posle Canny-ja - slika 10](/images/2022/videookulografija/canny.png)
 
-
-![Slika posle Canny-ja - slika 11](/images/2022/videookulografija/cannz.png)(slika 11)
+(slika 10 - slika nakon primene Keni algoritma)
 
 
 #### 3.2.1.6. Hafova transformacija za krug
@@ -296,12 +291,12 @@ se posmatra na drugačiji način. Parametri a, b postaju nezavisna i zavisna pro
 $b = -x_1 \cdot a + y_1$.
 
 
-Ovim postupkom vidi se ideja Hafove transformacije, a to je da svaka tačka u Dekartovom koordinantnom sistemu predstavlja pravu u parametarskom prostoru slika 12. 
+Ovim postupkom vidi se ideja Hafove transformacije, a to je da svaka tačka u Dekartovom koordinantnom sistemu predstavlja pravu u parametarskom prostoru slika 11. 
 
 
 ![Tačka prebačena iz dekartovog u parametarski sistem - slika 12](/images/2022/videookulografija/hafovatransformacija.png)
 
-(slika 12 - Tačka prebačena iz dekartovog u parametarski sistem)
+(slika 11 - Tačka prebačena iz dekartovog u parametarski sistem)
 
 
 Problem nastaje kada se dobije vertikalna linija, jer kod takvih parametar a teži beskonačnosti. 
@@ -321,12 +316,12 @@ gde je:
 - x, y - parametri
 
 
-Sada, tačka neće predstavljati pravu već sinusoidu Slika 13, a presečne tačke se određuju na isti način kao što je ranije navedeno.
+Sada, tačka neće predstavljati pravu već sinusoidu Slika 12, a presečne tačke se određuju na isti način kao što je ranije navedeno.
 
 
-![Tačka u sinusoidnom obliku - slika 13](/images/2022/videookulografija/hafovatransformacija.png)
+![Tačka u sinusoidnom obliku - slika 12](/images/2022/videookulografija/hafovatransformacija2.jpg)
 
-(slika 13 - Tačka u sinusoidnom obliku)
+(slika 12 - Tačka u sinusoidnom obliku)
 
 
 
@@ -358,9 +353,15 @@ Kod elipsa različitih poluprečnika razlika je u tome što oni zahtevaju tri di
 Ostatak postupka je isti kao i za LHT.
 
 
-![3D transformacija kruga - slika 14](/images/2022/videookulografija/hafovatransformacija2.png)
+![3D transformacija kruga - slika 13](/images/2022/videookulografija/hafovatransformacija3.png)
 
-(slika 14 - 3D transformacija kruga)
+(slika 13 - 3D transformacija kruga)
+
+
+Slika na kojoj je detektovana zenica pomoću Hafove transformacije(slika 19)
+
+
+![Detektovana zenica - slika 19](/images/2022/videookulografija/DETEKTOVANA.jpg)
 
 
 #### **3.2.2. Obrada podataka**
@@ -374,13 +375,10 @@ Prolazići kroz signal izračunava se aritmetička vrednost prethodnih N merenja
 Ovako izračunate vrednosti se postavlju kao nove koordinate zenice. 
 Na taj način se dobija filtrirano merenje.
 
-Na slikama ispod se mogu videti grafici filtriranih signala, x i y ose u odnosu na vreme.
+Na slici ispod se može videti grafik filtriranog signala, y ose u odnosu na vreme.
 
 
-![Koordinate x-ose u odnosu na t - slika 15](/images/2022/videookulografija/filtriranx.jpg)(slika 13)
-
-
-![Koordinate y-ose u odnosu na t - slika 16](/images/2022/videookulografija/filtrirany.jpg)(slika 14)
+![Koordinate y-ose u odnosu na t - slika 14](/images/2022/videookulografija/filtrirany.jpg)(slika 14)
 
 
 
@@ -391,11 +389,11 @@ Kada je zenicu detektovana potrebno je uraditi test gde se na ekranu pojavljuje 
 U toku eksperimenta dobijaju se koordinate zenice i tačke u koju trenutno gledamo, tako pravimo bazu podataka koje će nam biti potrebna za dalji rad.
 
 
-Ekran koji se gleda tokom eksperimenta izgleda kao na slici 17. 
+Ekran koji se gleda tokom eksperimenta izgleda kao na slici 15. 
 U toku eksperimenta crvena tačka se pomera nakon nekog vremena, tj. plave tačke postaju crvene kada je potrebno gledati u njih.
 
 
-![Ekran tokom eksperimenta - slika 17](/images/2022/videookulografija/eksperiment.jpg)(silak 17)
+![Ekran tokom eksperimenta - slika 15](/images/2022/videookulografija/eksperiment.jpg)(silak 15)
 
 
 Tokom eksperimenta prikupljamo koordinate zenice i tačke u koju je zenica u trenutku uperena čiji je odnos potrebno pronaći.
@@ -479,6 +477,11 @@ Ovakvu matricu ćemo iskoristiti u formuli za pseudo inverziju i na taj način d
 Formula za pseudo inverziju:  $b = (X^T \cdot X)^{-1} \cdot Y \cdot X^{T}$ 
 
 
+![Primer polinomialne regresije - slika 16](/images/2022/videookulografija/polinomialnaregresija.jpg)
+
+(silak 16 - primer polinomialne regresije)
+
+
 ## **4. Rezultati i istraživanja**
 
 
@@ -501,11 +504,11 @@ Rezultati sa jednim snimanjem imaja prosečan pomeraj 121.6 piksela i prosečne 
 
 
 
-![Primer - slika 20](/images/2022/videookulografija/primerfoldera.png)(slika 20)
+![Primer - slika 17](/images/2022/videookulografija/desktop.png)(slika 17)
 
 
-Na slici 20 može se videti početna stranica jednog pc računara.
-Crvena kržnica na slici 20 ima poluprečnik od 121.6 piksela, što predstavlja prosečan pomeraj ovog sistema.
+Na slici 17 može se videti početna stranica jednog pc računara.
+Crvena kržnica na slici 17 ima poluprečnik od 121.6 piksela, što predstavlja prosečan pomeraj ovog sistema.
 U pokušaju pritiskanja crvenog kursora sa slike 20, kontrolisanog ovim modelom, bila bi pritisnuta neka od tačaka na crvenoj kružici koja je predstavljena na slici.
 Sa ovakvi prosečnim pomerajom, preciznost kursora je veoma mala.
 
@@ -515,41 +518,36 @@ Potrebno je dodati IR diode na 3D držač web kamere i koristiti crveni i plavi 
 Pretpostavljase da sa ovakvim promena, preciznost modela će se povećati.
 
 
-
-ajde malo lepse ovo. tipa model je verifikovan ponovnim snimanjem (ili tako nešto)
-lepse napisano 
-testiranje sistema
-predvidjen na osnovu treninga
-validiramo sistem posmatramo ih ponovo i gledamo pomeraj i standarnu devijaciju ostupanje
-od tacke 
-
-bolja viyualiyacija
-
 ## **5. Zaključak**
-diode i crveni i plavi filter
 
-Za testiranje modela angažovan je ispitanik na kome je odrađena akvizicija podataka. Problem se pojavio kada je ispitanik menjao poziciju tela tokom akvizicije - približavao/udaljavao se od ekrana. 
-Drugi problem je pomeranje glave iako je postavljena na stalak. 
-Rešenje bi bilo napraviti čvršći stalak koji kompletno imobilizuje glavu i predstavlja čvrst oslonac. 
+Za testiranje modela potreban je ispitanik pomoću kog je odrađena akvizicija podataka. 
+Problemi su nastajali zbog približavanje/udaljavanje tela od ekrana i promena položaja glave tokom prikupljanja podataka. 
+Promena položaja glave utiče na kalibraciju tako što, kada se glava pomeri, koordinate tačke u koju se gleda nisu iste kao što su bile na početku. 
+Kako bi se ovi problemi maksimalno smanjili rešenje bi bilo napraviti čvršći stalak koji kompletno imobilizuje glavu i predstavlja čvrst oslonac. 
 Očekivani rezultati bili bi poklapanje koordinata zenice oka sa koordinatama tačke na ekranu, tj. jasno definisana putanja zenice tokom procesa testiranja.
+(slika 18) 
 
 
+![Histogram - slika 18](/images/2022/videookulografija/histogram.png)
 
-![Referentni rezultati - slika 21](/images/2022/videookulografija/referentni_rezultati.jpg)(slika 21 - dobijeni rezultati u referentnom radu [^5])
 
+(slika 18 - histogram)
 
 
 Na dobijenim rezultatima vidi se sledeće - putanja oka prikazana na ekranu nije ista kao putanja kojom je ispitanik pomerao oči.
-U obzir uzima se da je ispitanik kratkovid. 
+
+![Funkvija gustine verovatnoće - slika 19](/images/2022/videookulografija/fgv.png)
+
+
+(slika 19 - funkcija gustine verovatnoće)
+
 Kako bi rezultati bili precizniji potrebno je više testiranja i prikupljanja podataka na različitim ispitanicima. 
 Takođe, uslovi u kojima je odrađeno testiranje nisu bili idealni. 
 Količina osvetljenja prouzrokuje refleksiju u očima što remeti detekciju zenice i stvara šumove prilikom pomeranja očiju. 
-Kako bi se ovaj problem otklonio potrebno je postaviti IR LED diode na naočare. 
-Ovim bi količina osvetljenja bila podjednaka, što bi doprinelo boljim rezultatima. 
+Kako bi se ovaj problem otklonio potrebno je postaviti IR diode na naočare. 
+Ovim bi količina osvetljenja bila podjednaka, što bi doprinelo kvalitetnijim rezultatima rezultatima. 
 U budućnosti će se u sistem uvesti gore navedene promene i biće urađeno više snimanja.
 
-
-![Referentni rezultati - slika 22](/images/2022/videookulografija/nasi_rezultati.jpg)(slika 22 - dobijeni rezultati prilikom testiranja u ovom radu)
 
 ## **6. Reference**
 [^1]: Saravanan, Chandran. "Color image to grayscale image conversion." 2010 Second International Conference on Computer Engineering and Applications. Vol. 2. IEEE, 2010.
@@ -567,7 +565,7 @@ U budućnosti će se u sistem uvesti gore navedene promene i biće urađeno viš
 [^5]: Bozomitu, R. G., Păsărică, A., Tărniceriu, D., & Rotariu, C. (2019). Development of an eye tracking-based human-computer interface for real-time applications. Sensors, 19(16), 3630.
 
 
-[^6]:Goni, Sonia, et al. "Robust algorithm for pupil-glint vector detection in a video-oculography eyetracking system." Proceedings of the 17th International Conference on Pattern Recognition, 2004. ICPR 2004.. Vol. 4. IEEE, 2004.
+[^6]: Schreiber, K., & Haslwanter, T. (2004). Improving calibration of 3-D video oculography systems. IEEE Transactions on Biomedical Engineering, 51(4), 676-679.
 
 
-[^7]:van Der Geest, Josef N., and Maarten A. Frens. "Recording eye movements with video-oculography and scleral search coils: a direct comparison of two methods." Journal of neuroscience methods 114.2 (2002): 185-195.
+[^7]: Ramanauskas, N. (2006). Calibration of video-oculographical eye-tracking system. Elektronika Ir Elektrotechnika, 72(8), 65-68.
