@@ -62,10 +62,11 @@ Ovde su predstavljeni primeri grafičkih apstrakata. Cilj je bilo prikazati razn
 
 ### Uvod
 
-Uvod treba da sadrži sledeće stvari:
+Uvod ne treba da bude dug. Treba da bude jasan. Ne idite od 'Kulina Bana'. Nije cilj da pokažete sve što znate i šta ste sve pročitali, nego da čitaoca što je moguće jasnije uvedete u problem kojim se bavite. Ali, uvod treba da bude tako napisan da čitalac ne mora da se upoznaje sa drugim člancima i publikacijama da bi razumeo ono što ste radili. Izuzetno, ukoliko smatrate da vaš rad ima vrlo netipičnu teorijsku osnovu možete i uvod malo proširiti ali ipak veći deo stvari treba da ide u metodu.
 
-- Opis i motivaciju projekta, odnosno kako ste došli do ideje i šta ste radili.
-- Pregled literature. Ukratko opišite šta su drugi radili pre vas.
+U uvodu ne navodite vaše rezultate, već samo prethodne rezultate drugih autora.
+
+Na kraju uvoda: CILJ. Prethodni deo teksta ovog poglavlja već treba da pruži čitaocu jasnu motivaciju zašto ste se opredelili za izabrani problem. Ovde samo, što je moguće jasnije, objasnite šta vam je bio cilj da uradite (razmotrite, dobijete). Sastavni deo cilja su i hipoteze koje eventualno pokušavate da dokažete - navedite ih ovde.
 
 ### Aparatura i metoda
 
@@ -81,7 +82,30 @@ U ovom odeljku treba opisati sve rezultate do kojih ste došli. Ako i dalje radi
 
 ### Zaključak
 
-Zaključak ima za cilj da dodatno prokomentarišete rezultate i napravite pregled rada.
+Obavezno je da imate zaključak u jedan do dva pasusa kao posebnu celinu. Nije bitno da li su zaključci već jasni iz ostatka teksta, ova sekcija ih mora navesti jer ljudi kad čitaju radove obično idu redom:
+
+1. gledam slike (zato je bitan grafički apstrakt),
+2. pročitam apstrakt,
+3. pročitam zaključak,
+4. pročitam ostalo.
+
+Dajete sažetu ocenu šta se postiglo s obzirom na postavljeni cilj. Ističete doprinos vašeg rada u kontekstu ranije objavljenih rezultata. Navodite otvorena pitanja i dileme, kao i smernice za dalji rad.
+
+### Napomene i česte greške
+
+Ovde je navedena gomila smernica ka stvarima koje treba da izbegavate. U izuzetnim slučajevima neka pravila ne moraju da važe, ali u tom slučaju pričajte sa mentorom ili osobom koja pregleda izveštaj.
+
+Za svaku činjenicu koju pišete, obavezno je koristiti reference ili jasno pokazati kako ste došli do tih činjenica iz nekih drugih referenci. Ne možete reći da je, recimo, brzina nekog mikrokontrolera 100MHz bez da ste dali referencu na to ili ste lično izmerili taj podatak. Ako pominjete neku izvedenu vrednost i podatak, obavezno opišite izvođenje. Ako koristite otpornik od 1W, izvedite zašto je maksimalna struja 200mA za 5V. Nemojte podrazumevati da je neko izvođenje "očigledno".
+
+Kada god uvodite novi termin, obavezno ga i objasnite! Ovde negde se nalazi i siva zona toga šta treba objasniti, jer postoje dve kategorije termina: jednostavni (poput otpornik, slika...) i komplikovani (Kalmanov filter, simulirano kaljenje, SVM...), a te kategorije nisu potpuno razdvojene. U nekim situacijama treba objasniti otpornik (ako koristite neki otpornički senzor), a nekad ne treba objasniti komplikovan termin (ako recimo pominjete neku metodu iz referentnog rada koju zapravo niste implementirali). Probajte da izbegavate korišćenje stvari poput "Kao što je u uvodu rečeno...". Ako ste pomenuli neki termin, slobodno ga koristite u ostatku teksta.
+
+Svaku jednačinu treba objasniti, a pogotovo promenljive koje se u njima pominju. Ako negde kaže “Jednačina za silu je $F = m \cdot a$”, a ne opiše šta su $m$ i $a$, jednačina nema smisla. Razmišljate u smeru da ako neko pokuša da rekreira vaš projekat, jednačina bez objašnjenih promenljivih je kao da niste dali jednačinu uopšte. Ako imate ogroman spisak promenljivih, možete tražiti od pregledača da napravite spisak svih promenljivih na kraju izveštaja, ali ako sami mislite da to treba da raditi, najverovatnije postoji bolje rešenje (smanjivanje broja jednačina i slično).
+
+Ako dajete neki podatak, potrudite se da bude povezan sa ostatkom vašeg rada. Iskazi koji ne vode do nekog zaključka nemaju mnogo smisla. Naravno, nemojte pisati i o stvarima koje niste vi sami radili. Na primer, možete pomenuti da je neki referentni rad koristio metodu X, ali nemojte zapravo trošiti vreme na objašnjavanju te metode.
+
+Trudite se da termine prevodite na srpski jezik, dokle god to ne umanjuje razumnost. Termini poput "Speech recognition", "Neural network" se mogu lako prevesti na srpski. Naravno, ako ne znate prevod nekog termina, možete ga ostaviti u originalnom jeziku i dodati komentar da želite pričati sa pregledačem.
+
+<!-- TODO: Napraviti rečnik za tehničke termine -->
 
 ## Tehnički detalji
 
