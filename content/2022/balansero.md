@@ -2,3 +2,154 @@
 title: Balansero
 summary: Balansero, balansirajući robot, je projekat rađen na letnjem kampu 2022. godine od Katarine Nedić i Anđele Pantelić.
 ---
+  <p align="left">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/robot.jpg" width="350">
+  </p>
+
+
+## Sadržaj
+
+1. Apstrakt
+2. Grafički apstrakt
+2. Uvod
+  3. Aparatura
+4. Metode
+5. Istraživanje i rezultati
+6. Zaključak
+
+
+## Apstrakt
+
+## Grafički apstrakt
+
+<p align="left">
+<img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/graficki%20prikaz.jpg" width="350">
+  </p>
+
+## Uvod 
+
+Samobalansirajući robot predstavlja stabilizaciju dinamičkog sistema koji radi po principu inverznog klatna. Ovakvi roboti koriste sistem upravljanja povratnom spregom u zatvorenoj petlji - podaci iz senzora pokreta u realnom vremenu se koriste za kontrolu motora i brzu kompenzaciju promene ugla kako bi se robot održao uspravno.
+Cilj ovog projekta je da se modelira, simulira i implementira samobalansirajući robot.
+
+##### *Potrebna aparatura:*
+
+-**Mikrokontroler _(Arduino Uno)_** koristi se za izradu interaktivnih prototipa. Ima 14 digitalnih ulazno/izlaznih p inova i 6 analognih ulaza. Radi na 5V i komunicira preko USB-porta.
+
+-**IMU** (Inercijalni navigacioni sistem MPU6050) senzor koji meri ugao nagiba i ugaonu brzinu koristeći
+kombinaciju akcelerometara i žiroskopa. U njemu postoji I2C kolo koje služi za komunikaciju između senzora i mikrokontrolera. IMU je postavljen na dno robota.
+
+<p align="left">
+<img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/mpu.jpg" width="350">
+  </p>
+
+
+-**Roatacioni enkoder** je elektromehanički uređaj koji pretvara ugaoni položaj ili kretanje osovine u analogne tj. digitalne izlazne signale.
+
+
+-**Arduino motor kontroler** (l298n) pomoću koga upravljamo motor
+
+<p align="left">
+<img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/l298n.jpg" width="350">
+  </p>
+
+-**DC motor** (12V) sa jednom osovinom   
+
+## Metode
+
+-**Arduino** očitava izmereni ugao i brzinu sa senzora i očitava
+rotacionu brzinu točkova sa enkodera. Vrši obradu signala (pretvara signal iz analognog u
+digitalni) i nakon dobijanja svih varijabli, kontroliše ugaonu brzinu točkova pomoću dva PWM signala.
+![uno](images\2022\balansero\uno.jpg)
+
+**PWM** _(Pulse-width modulation)_ je tehnika dobijanja analognih vrednosti pomoću digitalnih impulsa konstantne amplitude. PWM signali pomažu u regulaciji napona, što je važno jer se povećavanjem napona povećava i rotaciona brzina elektromotora. Digitalni izlaz PWM-a se sastoji od niza visokih (“uključenih”) i niskih (“isključenih”) impulsa i pomoću njih se kontroliše motor.
+
+### Filtri
+
+Za projektovanje upravljanja koriste se [filtri](https://sr.wikipedia.org/wiki/Elektronski_filtar/) u cilju dobijanja što preciznijih rezultata.
+
+**Komplemetarni filtar** je vrsta filtra koja kombinuje merenja više senzora u unapred određenim proporcijama. Prvo se računaju uglovi koji daju samo akcelerometar i žiroskop.
+
+<p align="left">
+<img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/komplementarni.png" width="350">
+  </p>
+
+Kada se izračuna ugao potrebno je podatke sa akcelerometra filtrirati filterom niskih učestalosti, odnosno podatke sa žiroskopa filterom visokih učestalosti.
+
+**Niskofrekventni filtar** ima za cilj da propusti samo niskofrekventne promene signala sa senzora na izlaz filtera, a da one visokofrekventne ukloni. Nedostatak
+ovog filtra je kašnjenje koje se javlja zbog postepene, a ne skokovite promene izlaza.
+
+**Visokofrekventni filtar** propušta
+visokofrekventne promene na izlaz, dok one niskofrekventne eliminiše. Uloga visokofrekventnog filtra je da otkloni proces akumulacije greške usled integracije, odnosno da minimizuje ovaj efekat.
+
+<p align="left">
+<img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/lpf.png" width="350">
+  </p>
+
+
+### Kontroleri
+
+U trenutku kada robota izvedemo iz ravnotenog položaja, on će pasti na stranu na koju je otklonjen, osim ako neka sila ne počne da deluje na robota u suprotnom smeru kako bi smanjila ugao otklona. Sila koja robota vraća u ravnotežni položaj je inercijalna sila izazvana radom motora, tj njegovim okretanjem točkova. Da bi se robot stabilizovao vrši se implementacija kontrolera. 
+
+- **FLC kontroler**
+
+_Fuzzy-logic_ kontroler je stabilizator koji se bavi algortimima koji simuliraju ljudsko razmišljanje i donošenje odluka. Radi po setu pravila po principu *ako – onda* (eng. *if – then*), koja se intuitivno određuju. 
+
+Kontroler prolazi kroz dve faze - fuzifikaciju i defuzifikaciju. U prvoj on prevodi veličinu greške (odstupanja trenutnog položaja od stabilnog, željenog položaja) sa točkova u fuzzy oblik. Fazifikovana vrednost greške se ubacuje u set prethodno određenih pravila. Neophodno je izračunati udeo te greške u svakom od pravila, a potom geometrijskom sredinom dobiti precizni izlazni rezultat. Taj proces nazivamo defuzifikacijom. Izlazna vrednost - napon, šalje se na motor, kontrolišu se točkovi - kreću se u određenom smeru i određenom ugaonom brzinom čime se postiže ispravljanje greške - robot  balansira. 
+ 
+<p align="left">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy-kontroler.png" width="350">
+  </p>
+
+
+Fuzzy kontroler je vrlo intuitivan. Pravila izgledaju poput: 
+- Ako je ugaona brzina **velika** i klatno pada **brzo ulevo**, onda robot treba da se pomeri **jako u levu stranu**. 
+- Ako je ugaona brzina **mala** i klatno pada **sporo ulevo**, onda robot treba da se pomeri **slabo u levu stranu**. 
+- Ako je ugaona brzina **mala** i klatno pada **sporo udesno**, onda robot treba da se pomeri **slabo u desnu stranu**. 
+
+Ove komande nisu precizne, pomalo su mutne - *fuzzy*, ali zbog preklapanja pravila, preciznost izlaza je velika. Ona se povećava sa povećanjem pravila i svih mogućih kombinacija, kao i sa većim preklapanjem. Na primer, u nekom trenutku, robota će biti potrebno pomeriti 53% slabo u desnu stranu, 25% srednje jako u desnu stranu i 22% malo u levu stranu. Pošto zadata pravila imaju određene vrednosti, robot će biti poslat tačno određenom jačinom u tačno određenom pravcu. 
+ 
+FLC kontroler je implementiran u simulaciji. 
+
+
+- **PID kontroler**
+
+<p align="left">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid%20kontroler.png" width="350">
+  </p>
+
+PID kontroler je stabilizator koji se sastoji iz tri zasebna kontrolera - P (proporcionalni), I (integralni) i D (derivacioni tj. izvodni) kontroler. Oni primaju grešku na ulazu, a na izlazu daju napon koji se šalje na motor i time kontroliše robot.
+Jednačina PID kontrolera je:
+
+
+## Istraživanje i rezultati
+
+- Simulacija fuzzy kontrolera
+
+![simulacija]( <p align="center">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/fuzzy%20simulacija.gif" width="350">
+  </p>
+
+Robot se stabilizuje na datu poziciju (tačka koja se pomera putem strelica na tastaturi).
+
+- Koristili smo tri PID kontrolera.
+
+<p align="left">
+  <img src="https://github.com/pfe-rs/izvestaji/blob/radna_verzija/static/images/2022/balansero/pid-blocks.png" width="450">
+  </p>
+  
+Prvi (C1) dobija vrednosti o veličini ugla robota i potom računa njegovu grešku. Drugi (C2) određuje potrebnu ugaonu brzinu, a treći (C3) - postavlja C3 na željenu poziciju. 
+
+## Zaključak
+
+### Analiza problema prenosa
+Balansirajući robot je imao poteškoća pri stabilizaciji zbog previše velikog šuma usled jakog potresanja osovine robota koje je prouzrokovao motor. Senzori nisu mogli da dovoljno dobro očitaju grešku čak i pored filtera, te kontroler nije davao dobre izlaze dovoljno brzo.
+
+
+## Reference
+
+
+
+
+
+
+
