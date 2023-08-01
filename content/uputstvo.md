@@ -4,6 +4,29 @@ title: Uputstvo
 
 Ovo uputstvo služi vama, polaznicima, kako bi znali kako da počnete sa radom na izveštajima i imate uvid u tehničke detalje oko toga kako da vaš rad pišete, vidite, formatirate, struktuirate i pošaljete na pregled. Iskoristite priliku da postavljate pitanja na Discord serveru oko bilo kakvih pitanja u vezi sa pisanjem izveštaja i potrudićemo se da ažuriramo ovaj dokument sa odgovorima na njih.
 
+## Proces
+
+Proces pisanja izveštaja sa vašeg letnjeg projekta teče ovako:
+
+1. Na Google Drive sa vašim projektima nalazi se primer izveštaja koji treba da iskopirate u direktorijum sa svojim projektom
+2. Pročitate [odeljak o sadržaju izveštaja](#sadržaj) kao i napomene u samom primeru izveštaja o sadržaju koji vaš izveštaj treba da sadrži
+3. Napišete izveštaj u Google Docs na osnovu datog primera izveštaja i uputstva
+4. Mentori komentarišu vaš izveštaj na Google Docs sa ispravkama
+5. Ispravite pomenute komentare
+6. Nazad na korak 4 dok mentori više ne budu imali komentara
+7. Neko iz tima za objavu izveštaja komentariše vaš izveštaj, ovaj put fokusiran više na tehničke detalje objave izveštaja na sajt (ali mogu biti ostavljeni i komentari slični mentorskim)
+8. Ispravite pomenute komentare
+9. Nazad na korak 7 dok tim za objavu izveštaja više ne bude imao komentara
+10. Neko iz tima za objavu izveštaja formatira vaš izveštaj kao Markdown i pošalje vam da pogledate kako izgleda
+11. Vi [instalirate i pokrenete Hugo server na svom računaru](#tehnički-detalji), a zatim [pošaljete svoj izveštaj u Markdown formatu i sa svim slikama na pregled](#slanje-na-pregled)
+12. Tim za objavu izveštaja komentariše na vaš *pull request* sa dodatnim komentarima o formatu pri objavljivanju
+13. Ispravite pomenute komentare
+14. Nazad na korak 12 dok izveštaj ne bude bio spreman za objavu
+15. Vaš *pull request* se spoji sa glavnom granom
+16. Kroz par dana/nedelja, vaš izveštaj je objavljen na sajtu
+
+Sa ovim u vidu, možete krenuti od prvog koraka ovog procesa već sad!
+
 ## Sadržaj
 
 U sledećih par odeljaka je opisano šta treba od sadržaja vaš izveštaj da sadrži. Konkretan sadržaj (tekst, slike, grafici, formule) ne treba da zavisi od tehnologije koju koristimo za prikaz izveštaja.
