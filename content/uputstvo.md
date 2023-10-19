@@ -4,6 +4,29 @@ title: Uputstvo
 
 Ovo uputstvo služi vama, polaznicima, kako bi znali kako da počnete sa radom na izveštajima i imate uvid u tehničke detalje oko toga kako da vaš rad pišete, vidite, formatirate, struktuirate i pošaljete na pregled. Iskoristite priliku da postavljate pitanja na Discord serveru oko bilo kakvih pitanja u vezi sa pisanjem izveštaja i potrudićemo se da ažuriramo ovaj dokument sa odgovorima na njih.
 
+## Proces
+
+Proces pisanja izveštaja sa vašeg letnjeg projekta teče ovako:
+
+1. Na Google Drive sa vašim projektima nalazi se primer izveštaja koji treba da iskopirate u direktorijum sa svojim projektom
+2. Pročitate [odeljak o sadržaju izveštaja](#sadržaj) kao i napomene u samom primeru izveštaja o sadržaju koji vaš izveštaj treba da sadrži
+3. Napišete izveštaj u Google Docs na osnovu datog primera izveštaja i uputstva
+4. Mentori komentarišu vaš izveštaj na Google Docs sa ispravkama
+5. Ispravite pomenute komentare
+6. Nazad na korak 4 dok mentori više ne budu imali komentara
+7. Neko iz tima za objavu izveštaja komentariše vaš izveštaj, ovaj put fokusiran više na tehničke detalje objave izveštaja na sajt (ali mogu biti ostavljeni i komentari slični mentorskim)
+8. Ispravite pomenute komentare
+9. Nazad na korak 7 dok tim za objavu izveštaja više ne bude imao komentara
+10. Neko iz tima za objavu izveštaja formatira vaš izveštaj kao Markdown i pošalje vam da pogledate kako izgleda
+11. Vi [instalirate i pokrenete Hugo server na svom računaru](#tehnički-detalji), a zatim [pošaljete svoj izveštaj u Markdown formatu i sa svim slikama na pregled](#slanje-na-pregled)
+12. Tim za objavu izveštaja komentariše na vaš *pull request* sa dodatnim komentarima o formatu pri objavljivanju
+13. Ispravite pomenute komentare
+14. Nazad na korak 12 dok izveštaj ne bude bio spreman za objavu
+15. Vaš *pull request* se spoji sa glavnom granom
+16. Kroz par dana/nedelja, vaš izveštaj je objavljen na sajtu
+
+Sa ovim u vidu, možete krenuti od prvog koraka ovog procesa već sad!
+
 ## Sadržaj
 
 U sledećih par odeljaka je opisano šta treba od sadržaja vaš izveštaj da sadrži. Konkretan sadržaj (tekst, slike, grafici, formule) ne treba da zavisi od tehnologije koju koristimo za prikaz izveštaja.
@@ -95,15 +118,55 @@ Dajete sažetu ocenu šta se postiglo s obzirom na postavljeni cilj. Ističete d
 
 Ovde je navedena gomila smernica ka stvarima koje treba da izbegavate. U izuzetnim slučajevima neka pravila ne moraju da važe, ali u tom slučaju pričajte sa mentorom ili osobom koja pregleda izveštaj.
 
-Za svaku činjenicu koju pišete, obavezno je koristiti reference ili jasno pokazati kako ste došli do tih činjenica iz nekih drugih referenci. Ne možete reći da je, recimo, brzina nekog mikrokontrolera 100MHz bez da ste dali referencu na to ili ste lično izmerili taj podatak. Ako pominjete neku izvedenu vrednost i podatak, obavezno opišite izvođenje. Ako koristite otpornik od 1W, izvedite zašto je maksimalna struja 200mA za 5V. Nemojte podrazumevati da je neko izvođenje "očigledno".
+Objasnite činjenice koje pišete
+: Za svaku činjenicu koju pišete, obavezno je koristiti reference ili jasno pokazati kako ste došli do tih činjenica iz nekih drugih referenci. Ne možete reći da je, recimo, brzina nekog mikrokontrolera 100MHz bez da ste dali referencu na to ili ste lično izmerili taj podatak. Ako pominjete neku izvedenu vrednost i podatak, obavezno opišite izvođenje. Ako koristite otpornik od 1W, izvedite zašto je maksimalna struja 200mA za 5V. Nemojte podrazumevati da je neko izvođenje "očigledno".
 
-Kada god uvodite novi termin, obavezno ga i objasnite! Ovde negde se nalazi i siva zona toga šta treba objasniti, jer postoje dve kategorije termina: jednostavni (poput otpornik, slika...) i komplikovani (Kalmanov filter, simulirano kaljenje, SVM...), a te kategorije nisu potpuno razdvojene. U nekim situacijama treba objasniti otpornik (ako koristite neki otpornički senzor), a nekad ne treba objasniti komplikovan termin (ako recimo pominjete neku metodu iz referentnog rada koju zapravo niste implementirali). Probajte da izbegavate korišćenje stvari poput "Kao što je u uvodu rečeno...". Ako ste pomenuli neki termin, slobodno ga koristite u ostatku teksta.
+Objasnite termine koje koristite
+: Kada god uvodite novi termin, obavezno ga i objasnite! Ovde negde se nalazi i siva zona toga šta treba objasniti, jer postoje dve kategorije termina: jednostavni (poput otpornik, slika...) i komplikovani (Kalmanov filter, simulirano kaljenje, SVM...), a te kategorije nisu potpuno razdvojene. U nekim situacijama treba objasniti otpornik (ako koristite neki otpornički senzor), a nekad ne treba objasniti komplikovan termin (ako recimo pominjete neku metodu iz referentnog rada koju zapravo niste implementirali).
+: Ovo se takođe odnosi na skraćenice: ukoliko koristite neku skraćenicu, neophodno je da pri njenom prvom pominjanju objasnite šta znači.
 
-Svaku jednačinu treba objasniti, a pogotovo promenljive koje se u njima pominju. Ako negde kaže “Jednačina za silu je $F = m \cdot a$”, a ne opiše šta su $m$ i $a$, jednačina nema smisla. Razmišljate u smeru da ako neko pokuša da rekreira vaš projekat, jednačina bez objašnjenih promenljivih je kao da niste dali jednačinu uopšte. Ako imate ogroman spisak promenljivih, možete tražiti od pregledača da napravite spisak svih promenljivih na kraju izveštaja, ali ako sami mislite da to treba da raditi, najverovatnije postoji bolje rešenje (smanjivanje broja jednačina i slično).
+Objasnite jednačine koje pišete
+: Svaku jednačinu treba objasniti, a pogotovo promenljive koje se u njima pominju. Ako negde kažete “Jednačina za silu je $F = m \cdot a$”, a ne opišete šta su $m$ i $a$, jednačina nema smisla. Razmišljate u smeru da ako neko pokuša da rekreira vaš projekat, jednačina bez objašnjenih promenljivih je kao da niste dali jednačinu uopšte. Ako imate ogroman spisak promenljivih, možete tražiti od pregledača da napravite spisak svih promenljivih na kraju izveštaja, ali ako sami mislite da to treba da raditi, najverovatnije postoji bolje rešenje (smanjivanje broja jednačina i slično).
 
-Ako dajete neki podatak, potrudite se da bude povezan sa ostatkom vašeg rada. Iskazi koji ne vode do nekog zaključka nemaju mnogo smisla. Naravno, nemojte pisati i o stvarima koje niste vi sami radili. Na primer, možete pomenuti da je neki referentni rad koristio metodu X, ali nemojte zapravo trošiti vreme na objašnjavanju te metode.
+Vaš izveštaj ne mora biti čitan redom
+: Probajte da izbegavate korišćenje stvari poput "Kao što je u uvodu rečeno...". Ako ste pomenuli neki termin, slobodno ga koristite u ostatku teksta. Imajte u vidu da vaš izveštaj neće biti čitan od vrha do dna redom kako ste ga pisali.
 
-Trudite se da termine prevodite na srpski jezik, dokle god to ne umanjuje razumnost. Termini poput "Speech recognition", "Neural network" se mogu lako prevesti na srpski. Naravno, ako ne znate prevod nekog termina, možete ga ostaviti u originalnom jeziku i dodati komentar da želite pričati sa pregledačem.
+Iznosite koherentne podatke
+: Ako dajete neki podatak, potrudite se da bude povezan sa ostatkom vašeg rada. Iskazi koji ne vode do nekog zaključka nemaju mnogo smisla. Naravno, nemojte pisati i o stvarima koje niste vi sami radili. Na primer, možete pomenuti da je neki referentni rad koristio metodu X, ali nemojte zapravo trošiti vreme na objašnjavanju te metode.
+
+Ne preterujte sa engleskim terminima
+: Trudite se da termine prevodite na srpski jezik, dokle god to ne umanjuje razumnost. Termini poput "Speech recognition", "Neural network" se mogu lako prevesti na srpski. Naravno, ako ne znate prevod nekog termina, možete ga ostaviti u originalnom jeziku i dodati komentar da želite pričati sa pregledačem. Ukoliko ostavljate termin u originalnom jeziku, označite ga *kurzivom* kako bi čitaocima bilo jasnije da je strani termin.
+
+Ponekad nije potrebno toliko detalja
+: Više detalja nije uvek bolje. Ukoliko pokušavate da čitaocu objasnite koje ste sve biblioteke koristili, detalje vašeg koda, strukturu repozitorijuma ili neke suštinski nebitne implementacione detalje, moguće je da će vam saradnik skrenuti pažnju da taj odeljak skratite. Količina potrebnih detalja zavisi od projekta do projekta, ali se generalno instrukcije o postavci samog koda vašeg projekta ostavljaju zajedno sa samim kodom, u odgovarajućem README fajlu, umesto u izveštaju sa projekta.
+
+Pišite u pasivu
+: Umesto "mi smo uradili" koristite "urađeno je". (Ovakav stil pisanja je uobičajen u naučnim radovima, gde možete pronaći i primere ovakvog izražavanja.)
+
+Pročitajte još jednom vaš izveštaj
+: Pretvarajte se da ste novi polaznik PFE kampova. Da li su vam jasni svi termini koji se koriste u izveštaju? Da li termini koji vam nisu jasni imaju reference uz sebe?
+: Da li se pasusi vašeg izveštaja prirodno čitaju, ili ima nekih koji su prekratki ili predugački?
+: Da li se pominju neki žargonski izrazi ili konstrukti koji nisu opšte prihvaćeni u naučnoj zajednici?
+: Da li ste neku informaciju našli u jednom odeljku, a očekivali ste da se nađe u nekom drugom?
+
+Komunicirajte pri razrešenju komentara
+: Jedna od stvari koje pregledače najviše nervira jeste da vide da ste im razrešili komentar bez očiglednog razloga, ili još gore, da to ne vide a zatim ponovo naiđu na isti nedostatak na koji su vam ranije skrenuli pažnju. Ovo im govori kako je sav njihov prethodni trud potencijalno bio uzalud jer sada moraju da proveravaju šta ste vi to tačno razrešili. Zato, kada razrešavate komentare vašeg mentora ili bilo kog drugog saradnika, obavezno napišite akciju koju ste preduzeli ovim povodom: bilo da ste ispravili slovnu grešku, dodali traženi sadržaj, ili odbili prigovor saradnika na sadržaj. Još bolje, ukoliko niste sigurni da li je vaše razrešenje komentara bilo zadovoljavajuće, ostavite komentar nerazrešenim kako bi saradnik odlučio o tome da li je potrebno razrešiti ga ili ne.
+
+Slika govori hiljadu reči
+: Ukoliko primetite da neka hrpa teksta koju ste napisali ne uspeva da nekome sa strane uspešno objasni šta ste to zapravo radili, probajte da na to mesto dodate vizuelnu demonstraciju u vidu dijagrama ili grafika toga što pokušavate da objasnite.
+: Sa druge strane, neke slike mogu govoriti podjednako kao da su izražene tekstom. U slučaju da ste, na primer, doslovno slikali tabelu bez dodatnih informacija, takav prikaz je značajno korisniji u obliku teksta nego u obliku slike.
+
+Format slika
+: Obavezno koristite slike u vektorskim formatima! Svi vaši grafici, matrice, dijagrami mogu lako biti sačuvani kao SVG.
+: Tekst na slikama obavezno mora biti čitljiv. Ukoliko dodajete grafike, obavezno na njima označite ose i merne jedinice, kako bi bili smisleni onome ko ih čita.
+: Sve slike koje koristite u izveštaju obavezno priložite u direktorijum sa vašim projektom.
+: Pri objavi, konvencija imenovanja slika jeste `mala-slova-sa-crticama-izmedju.svg`.
+
+Nezavisnost teksta od slike
+: Radi fleksibilnosti pri objavi izveštaja, izbegavajte da vam pozicija slika zavisi od pozicije teksta. Na primer, možete napisati "kao što se vidi na slici 1", ali nije dobro napisati "kao što se vidi na slici ispod".
+
+Reference služe za referenciranje
+: Odeljak sa referencama ne treba da vam služi kao odeljak za svu literaturu koju ste čitali kako biste završili vaš projekat, čak i ako se ne pozivate na tu literaturu. Reference služe kako vi u vašem izveštaju ne biste morali da objašnjavate više nego što je potrebno, pa zato treba da se u odeljku sa referencama nađu samo reference na koje se zaista i pozivate.
 
 <!-- TODO: Napraviti rečnik za tehničke termine -->
 
