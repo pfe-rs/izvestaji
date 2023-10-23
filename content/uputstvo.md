@@ -48,7 +48,7 @@ Dakle, bar 20x15 cm u 300dpi, odnosno nekih 2400x1800 pixela.
 
 #### Primeri
 
-Ovde su predstavljeni primeri grafičkih apstrakata. Cilj je bilo prikazati raznovrsnost, nisu svi navdeni apstrakti nužno “najbolji”. Neki od navedenih slika nemaju prateći tekst - to je loša praksa, treba pisati prateći tekst - te slike su ovde navedene zato što su okej vizuelni primeri.
+Ovde su predstavljeni primeri grafičkih apstrakata. Cilj je bilo prikazati raznovrsnost, nisu svi navdeni apstrakti nužno "najbolji". Neki od navedenih slika nemaju prateći tekst - to je loša praksa, treba pisati prateći tekst - te slike su ovde navedene zato što su okej vizuelni primeri.
 
 
 
@@ -126,16 +126,16 @@ Objasnite termine koje koristite
 : Ovo se takođe odnosi na skraćenice: ukoliko koristite neku skraćenicu, neophodno je da pri njenom prvom pominjanju objasnite šta znači.
 
 Objasnite jednačine koje pišete
-: Svaku jednačinu treba objasniti, a pogotovo promenljive koje se u njima pominju. Ako negde kažete “Jednačina za silu je $F = m \cdot a$”, a ne opišete šta su $m$ i $a$, jednačina nema smisla. Razmišljate u smeru da ako neko pokuša da rekreira vaš projekat, jednačina bez objašnjenih promenljivih je kao da niste dali jednačinu uopšte. Ako imate ogroman spisak promenljivih, možete tražiti od pregledača da napravite spisak svih promenljivih na kraju izveštaja, ali ako sami mislite da to treba da raditi, najverovatnije postoji bolje rešenje (smanjivanje broja jednačina i slično).
+: Svaku jednačinu treba objasniti, a pogotovo promenljive koje se u njima pominju. Ako negde kažete "Jednačina za silu je $F = m \cdot a$", a ne opišete šta su $m$ i $a$, jednačina nema smisla. Razmišljate u smeru da ako neko pokuša da rekreira vaš projekat, jednačina bez objašnjenih promenljivih je kao da niste dali jednačinu uopšte. Ako imate ogroman spisak promenljivih, možete tražiti od pregledača da napravite spisak svih promenljivih na kraju izveštaja, ali ako sami mislite da to treba raditi, najverovatnije postoji bolje rešenje (smanjivanje broja jednačina i slično).
 
 Vaš izveštaj ne mora biti čitan redom
-: Probajte da izbegavate korišćenje stvari poput "Kao što je u uvodu rečeno...". Ako ste pomenuli neki termin, slobodno ga koristite u ostatku teksta. Imajte u vidu da vaš izveštaj neće biti čitan od vrha do dna redom kako ste ga pisali.
+: Probajte da izbegavate korišćenje izraza poput "Kao što je u uvodu rečeno...". Ako ste pomenuli neki termin, slobodno ga koristite u ostatku teksta. Imajte u vidu da vaš izveštaj neće biti čitan od vrha do dna redom kako ste ga pisali.
 
 Iznosite koherentne podatke
-: Ako dajete neki podatak, potrudite se da bude povezan sa ostatkom vašeg rada. Iskazi koji ne vode do nekog zaključka nemaju mnogo smisla. Naravno, nemojte pisati i o stvarima koje niste vi sami radili. Na primer, možete pomenuti da je neki referentni rad koristio metodu X, ali nemojte zapravo trošiti vreme na objašnjavanju te metode.
+: Ako dajete neki podatak, potrudite se da bude povezan sa ostatkom vašeg rada. Iskazi koji ne vode do nekog zaključka nemaju mnogo smisla. Naravno, nemojte pisati o stvarima koje niste vi sami radili. Na primer, možete pomenuti da je neki referentni rad koristio metodu X, ali nemojte zapravo trošiti vreme na objašnjavanju te metode.
 
 Ne preterujte sa engleskim terminima
-: Trudite se da termine prevodite na srpski jezik, dokle god to ne umanjuje razumnost. Termini poput "Speech recognition", "Neural network" se mogu lako prevesti na srpski. Naravno, ako ne znate prevod nekog termina, možete ga ostaviti u originalnom jeziku i dodati komentar da želite pričati sa pregledačem. Ukoliko ostavljate termin u originalnom jeziku, označite ga *kurzivom* kako bi čitaocima bilo jasnije da je strani termin.
+: Trudite se da termine prevodite na srpski jezik, dokle god to ne umanjuje razumljivost. Termini poput "Speech recognition", "Neural network" se mogu lako prevesti na srpski. Naravno, ako ne znate prevod nekog termina, možete ga ostaviti u originalnom jeziku i dodati komentar da želite pričati sa pregledačem. Ukoliko ostavljate termin u originalnom jeziku, označite ga *kurzivom* kako bi čitaocima bilo jasnije da je strani termin.
 
 Ponekad nije potrebno toliko detalja
 : Više detalja nije uvek bolje. Ukoliko pokušavate da čitaocu objasnite koje ste sve biblioteke koristili, detalje vašeg koda, strukturu repozitorijuma ili neke suštinski nebitne implementacione detalje, moguće je da će vam saradnik skrenuti pažnju da taj odeljak skratite. Količina potrebnih detalja zavisi od projekta do projekta, ali se generalno instrukcije o postavci samog koda vašeg projekta ostavljaju zajedno sa samim kodom, u odgovarajućem README fajlu, umesto u izveštaju sa projekta.
@@ -159,7 +159,7 @@ Slika govori hiljadu reči
 Format slika
 : Obavezno koristite slike u vektorskim formatima! Svi vaši grafici, matrice, dijagrami mogu lako biti sačuvani kao SVG.
 : Tekst na slikama obavezno mora biti čitljiv. Ukoliko dodajete grafike, obavezno na njima označite ose i merne jedinice, kako bi bili smisleni onome ko ih čita.
-: Sve slike koje koristite u izveštaju obavezno priložite u direktorijum sa vašim projektom.
+: Sve slike koje koristite u izveštaju obavezno priložite uz vaš izveštaj.
 : Pri objavi, konvencija imenovanja slika jeste `mala-slova-sa-crticama-izmedju.svg`.
 
 Nezavisnost teksta od slike
