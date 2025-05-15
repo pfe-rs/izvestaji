@@ -24,3 +24,10 @@ menu:
     - name: "2022"
       url: "2022"
       weight: 3
+
+markup:
+  goldmark:
+    extensions:
+      typographer:
+        leftDoubleQuote: '&bdquo;'
+        leftSingleQuote: '&sbquo;'
