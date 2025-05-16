@@ -185,21 +185,28 @@ Dalji rad na projektu bi uključivao skaliranje klasifikatora slike na video zap
 
 ## Literatura
 
-[^1]: D. N. Shah i N. A. Gajjar, _Automatic Hand Sign Recognition: Identify Unusuality through Latent Cognizance_, arXiv:2110.15542, 2021.  
-https://arxiv.org/abs/2110.15542 [pristupljeno 16.05.2025.]
+[1]: D. N. Shah i N. A. Gajjar, _Automatic Hand Sign Recognition: Identify Unusuality through Latent Cognizance_, arXiv:2110.15542, 2021.  
 
-[^2]: A. Sahu i S. Nandy, _Real-time Indian Sign Language (ISL) Recognition_, arXiv:2108.10970, 2021.  
-https://arxiv.org/abs/2108.10970 [pristupljeno 16.05.2025.]
+[https://arxiv.org/abs/2110.15542](https://arxiv.org/abs/2110.15542) [pristupljeno 16.05.2025.]
 
-[^3]: K.Simonyan i A.Zisserman, _Very Deep Convolutional Networks for Large-Scale Image Recognition_, arXiv:1409.1556, 2014.
-https://arxiv.org/abs/1409.1556 [pristupljeno 16.05.2025.]
+[2]: A. Sahu i S. Nandy, _Real-time Indian Sign Language (ISL) Recognition_, arXiv:2108.10970, 2021. 
 
-[^4]: Lexset, _Synthetic ASL Alphabet_, Kaggle dataset, 2021.  
-https://kaggle.com/datasets/lexset/synthetic-asl-alphabet [pristupljeno 16.05.2025.]
+[https://arxiv.org/abs/2108.10970](https://arxiv.org/abs/2108.10970) [pristupljeno 16.05.2025.]
 
-[^5]: M. Tan i Q. Le, _EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks_, International Conference on Machine Learning (ICML), PMLR, 2019.  
-https://arxiv.org/abs/1905.11946 [pristupljeno 16.05.2025.]
+[3]: K.Simonyan i A.Zisserman, _Very Deep Convolutional Networks for Large-Scale Image Recognition_, arXiv:1409.1556, 2014.
 
-[^6]: _MediaPipe Holistic Solution_, 2023.  
-https://google.github.io/mediapipe/solutions/holistic.html [pristupljeno 2022.]
-https://github.com/google-ai-edge/mediapipe/blob/master/mediapipe/python/solutions/holistic.py [pristupljeno 16.05.2025.]
+[https://arxiv.org/abs/1409.1556](https://arxiv.org/abs/1409.1556) [pristupljeno 16.05.2025.]
+
+[4]: Lexset, _Synthetic ASL Alphabet_, Kaggle dataset, 2021.  
+
+[https://kaggle.com/datasets/lexset/synthetic-asl-alphabet](https://kaggle.com/datasets/lexset/synthetic-asl-alphabet) [pristupljeno 16.05.2025.]
+
+[5]: M. Tan i Q. Le, _EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks_, International Conference on Machine Learning (ICML), PMLR, 2019. 
+
+[https://arxiv.org/abs/1905.11946](https://arxiv.org/abs/1905.11946) [pristupljeno 16.05.2025.]
+
+[6]: _MediaPipe Holistic Solution_, 2023. 
+
+[https://google.github.io/mediapipe/solutions/holistic.html](https://google.github.io/mediapipe/solutions/holistic.html) [pristupljeno 2022.]
+
+[https://github.com/google-ai-edge/mediapipe/blob/master/mediapipe/python/solutions/holistic.py](https://github.com/google-ai-edge/mediapipe/blob/master/mediapipe/python/solutions/holistic.py) [pristupljeno 16.05.2025.]
