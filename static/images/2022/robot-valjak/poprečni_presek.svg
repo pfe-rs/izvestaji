@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="150mm"
+   height="180mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <rect
+       x="575.13818"
+       y="842.84848"
+       width="90.292725"
+       height="28.518402"
+       id="rect14722" />
+    <rect
+       x="-793.56631"
+       y="320.02063"
+       width="449.37589"
+       height="311.95154"
+       id="rect13488" />
+    <rect
+       x="-283.25041"
+       y="394.68318"
+       width="83.780735"
+       height="62.270885"
+       id="rect13464" />
+    <rect
+       x="-342.11998"
+       y="468.83627"
+       width="66.528857"
+       height="60.135464"
+       id="rect12678" />
+    <rect
+       x="-353.76606"
+       y="409.78526"
+       width="154.62424"
+       height="137.33273"
+       id="rect12654" />
+    <rect
+       x="-312.53178"
+       y="536.06994"
+       width="218.41711"
+       height="49.98421"
+       id="rect11868" />
+    <rect
+       x="-123.9708"
+       y="755.3831"
+       width="290.4093"
+       height="185.29657"
+       id="rect11082" />
+    <rect
+       x="-375.50936"
+       y="596.64166"
+       width="258.12661"
+       height="214.95182"
+       id="rect10290" />
+    <marker
+       style="overflow:visible"
+       id="Arrow3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="4.2071066"
+       markerHeight="7"
+       viewBox="0 0 4.2071068 7"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round"
+         d="M 3,-3 0,0 3,3"
+         id="arrow3"
+         transform="rotate(180,0.125,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="RoundedArrow"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="6.1347523"
+       markerHeight="5.9304948"
+       viewBox="0 0 6.1347524 5.9304951"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="m -0.21114562,-4.1055728 6.42229122,3.21114561 a 1,1 90 0 1 0,1.78885438 L -0.21114562,4.1055728 A 1.236068,1.236068 31.717474 0 1 -2,3 v -6 a 1.236068,1.236068 148.28253 0 1 1.78885438,-1.1055728 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path1367" />
+    </marker>
+    <rect
+       x="436.55696"
+       y="323.08157"
+       width="20.778462"
+       height="24.068877"
+       id="rect4065" />
+    <marker
+       style="overflow:visible"
+       id="TriangleStart"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+  </defs>
+  <g
+     id="layer1">
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.765;stroke-opacity:1;stroke-dasharray:none"
+       id="path113"
+       cx="106.95895"
+       cy="137.44467"
+       r="78.76046" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.765;stroke-opacity:1;stroke-dasharray:none"
+       id="path1638"
+       cx="106.93369"
+       cy="137.38667"
+       r="6.068327" />
+    <circle
+       style="fill:#b9b9b9;stroke:#bdbdbd;stroke-width:0.765;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
+       id="path1638-3"
+       cx="141.18306"
+       cy="183.05577"
+       r="6.068327" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.774;stroke-opacity:1;stroke-dasharray:none"
+       d="m 110.49329,142.50234 27.30834,36.04155"
+       id="path1819" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.765;stroke-opacity:1;stroke-dasharray:6.12,3.06;stroke-dashoffset:0"
+       d="m 107.46187,143.20844 2.35436,109.98384"
+       id="path1821" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.764;stroke-dasharray:6.112, 3.056;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 107.67631,143.583 32.72203,103.30312"
+       id="path1821-9" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.764;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#TriangleStart)"
+       d="m 111.97258,71.863283 c 40.94415,2.157456 56.99645,28.916567 60.30134,64.455527"
+       id="path3358" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;white-space:pre;inline-size:61.978;display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.764;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       x="115.12553"
+       y="85.303513"
+       id="text4011" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text4063"
+       style="white-space:pre;shape-inside:url(#rect4065);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:2.88756;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:0.5;white-space:pre;inline-size:45.7355;display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.764;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       x="116.95679"
+       y="39.801479"
+       id="text4077" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.784568;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#RoundedArrow)"
+       d="m 108.5056,192.22883 c 7.21294,1.97552 11.58741,-0.86241 13.51658,-3.19606"
+       id="path4871" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.764;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#Arrow3)"
+       d="m 119.39181,181.46442 c 5.54076,-1.96534 12.15938,-5.29803 13.12201,-10.68127"
+       id="path5547" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.764;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#Arrow3)"
+       d="m 119.39181,181.46442 c 5.54076,-1.96534 12.15938,-5.29803 13.12201,-10.68127"
+       id="path8637" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.764;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#Arrow3)"
+       d="m 119.39181,181.46442 c 5.54076,-1.96534 12.15938,-5.29803 13.12201,-10.68127"
+       id="path8643" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.764;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-mid:url(#Arrow3)"
+       d="m 119.39181,181.46442 c 5.54076,-1.96534 12.15938,-5.29803 13.12201,-10.68127"
+       id="path10179" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text10288"
+       style="font-size:24px;white-space:pre;shape-inside:url(#rect10290);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:2.88756;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.93889px;fill:none;fill-opacity:1;stroke:#050505;stroke-width:0.364;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       x="92.52253"
+       y="98.703598"
+       id="text10316"><tspan
+         id="tspan10314"
+         style="font-size:4.93889px;stroke-width:0.364;stroke-dasharray:none"
+         x="92.52253"
+         y="98.703598">Pozitivan smer rotacije</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,75.12976,25.455712)"
+       id="text11080"
+       style="font-size:18.6667px;white-space:pre;shape-inside:url(#rect11082);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:1.37575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
+         x="-123.9707"
+         y="771.89847"
+         id="tspan16480">Inicijalni referentni sistem</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,218.9263,74.458349)"
+       id="text11866"
+       style="font-size:18.6667px;white-space:pre;shape-inside:url(#rect11868);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:1.37575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
+         x="-312.53125"
+         y="552.58597"
+         id="tspan16482">Referentni sistem tela</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,204.23744,72.69532)"
+       id="text12652"
+       style="font-size:18.6667px;white-space:pre;shape-inside:url(#rect12654);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:1.37575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
+         x="-353.76562"
+         y="426.30081"
+         id="tspan16484">θ1
+</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,209.5327,41.279102)"
+       id="text12676"
+       style="font-size:18.6667px;white-space:pre;shape-inside:url(#rect12678);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:1.37575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
+         x="-342.11914"
+         y="485.35159"
+         id="tspan16486">θ2</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,158.78119,25.269386)"
+       id="text13462"
+       style="font-size:18.6667px;white-space:pre;shape-inside:url(#rect13464);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:1.37575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
+         x="-283.25"
+         y="411.19925"
+         id="tspan16488">M1, J1</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,346.26974,84.274299)"
+       id="text13486"
+       style="font-size:18.6667px;white-space:pre;shape-inside:url(#rect13488);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:1.37575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
+         x="-793.56641"
+         y="336.53714"
+         id="tspan16490">M2, J2</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,3.7041668,-1.0583333)"
+       id="text14720"
+       style="font-size:18.6667px;white-space:pre;shape-inside:url(#rect14722);display:inline;fill:none;fill-opacity:1;stroke:#050505;stroke-width:1.37575;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"><tspan
+         x="575.13867"
+         y="859.36331"
+         id="tspan16492">robota</tspan></text>
+  </g>
+</svg>
