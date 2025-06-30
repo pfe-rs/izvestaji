@@ -1,6 +1,6 @@
 ---
 title: Primena i implementacija algoritma za detekciju zenica baziranog na obradi slike
-summary: Projekat iz videookulografije rađen na letnjem kampu za stare polaznike 2022. godine od Anje Kovačev i Lenke Milojčević.
+summary: Projekat iz videookulografije rađen na letnjem kampu za stare polaznike 2022. godine čiji su autori Anja Kovačev i Lenka Milojčević.
 ---
 **Autori** 
 
@@ -17,7 +17,7 @@ Lenka Milojčević, učenica II razreda Gimnazije u Kraljevu
 Milomir Stefanović, diplomirani inženjer elektrotehnike i računarstva, PFE
 
 
-Pavle Pađin, student III godine Elektrotehničkog fakulteta u Beogradu
+Pavle Pađin, Elektrotehnički fakulteta u Beogradu
 
 
 ## **Apstrakt**
@@ -32,7 +32,7 @@ Za unapređenje sistema i ostvarenje praktične primene, neophodno je proširiti
 
 Ključne reči: obrada slike, videookulografija, algoritam za detekciju zenice, polinomijalna regresija
 
-## **Apstrakt na engleskom**
+## **Abstract**
 
 The aim of this work is the design of a hardware system and the implementation of a software solution for pupil detection with the purpose of tracking it.
 The application of pupil detection in this research is focused on controlling the position of the cursor.
@@ -105,7 +105,7 @@ Web kamera ja pričvršćena na naočare gde su postavljene i LE diode kako bi o
 #### **3.2. Metode**
 
 Projekst se sastoji iz dve faze:
-1. Obrada slike, ondnosno frejmova snimka u realnom vremenu;
+1. Obrada slike, odnosno okvira snimka u realnom vremenu;
 2. Obrade podataka, odnosno filtriranje podataka i kalibracija.
 
 
@@ -469,7 +469,7 @@ U daljim fazama istraživanja planira se implementacija navedenih tehničkih izm
 
 
 
-## **6. Reference**
+## **6. Literatura**
 [^1]: Saravanan, Chandran. "Color image to grayscale image conversion." 2010 Second International Conference on Computer Engineering and Applications. Vol. 2. IEEE, 2010.
 
 
