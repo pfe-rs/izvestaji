@@ -7,11 +7,15 @@ imageAlt: Grafički apstrakt projekta. Prikazuje kako zvuk sa mikrofona prelazi 
 
 **Autori:**
 
-Dimitrije Pešić, Lazar Zubović
+Dimitrije Pešić, učenik III razreda Prve gimnazije u Kragujevcu
+
+Lazar Zubović, učenik III razreda Gimnazije u Somboru
 
 **Mentori:**
 
-Pavle Pađin, Nataša Jovanović
+Pavle Pađin, Elektrotehnički fakultet u Beogradu
+
+Nataša Jovanović, Elektrotehnički fakultet u Beogradu
 
 ### Apstrakt
 
