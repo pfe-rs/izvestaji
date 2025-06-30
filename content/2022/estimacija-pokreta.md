@@ -1,16 +1,39 @@
 ---
 title: Estimacija pokreta
-summary: Estimacija pokreta pomoću optical flow je projekat rađen na letnjem kampu za stare polaznike 2022. godine od Milice Gojak i Novaka Stijepića.
+summary: Estimacija pokreta pomoću optical flow je projekat rađen na letnjem kampu za stare polaznike 2022. godine čiji su autori Milica Gojak i Novak Stijepić.
 ---
+**Autori** 
+
+
+Novak Stijepić, učenik III razreda Matematičke gimnazije u Boegradu
+
+
+Milica Goljak, učenica IV razreda Prve gimnazije u Kragujevcu
+
+
+**Mentor** 
+
+
+Luka Simić, Elektrotehnički fakultet u Beogradu
+
+
 ## Apstrakt
 
-U radu se vrši određivanje potpunog polja protoka diskretnim pristupom uz korišćenje tri optimizacione metode koje omogućavaju smanjenje potrebnih računskih i memorijskih resursa. Njihovo korišćenje dozvoljava procenu optičkog protoka velikih pomeraja. Na početku se predlažu vektori protoka pronalaženjem parova piksela referentne i ciljane slike na osnovu nekog parametra, u ovom radu sličnosti njihovih DAISY deskriptora. Prvi način optimizacije koji je korišćen u radu je ograničenje skupa predloga na fiksan broj. Predlozi se pronalaze korišćenjem algoritma nasumične k-d šume. Drugi način jeste korišćenje spuštanja po blokovima koordinata za pronalaženje optimalnih kombinacija usaglašenih vektora protoka iz skupa predloga. Treći vid optimizacije je korišćenje skupova sličnih predloga prilikom obrade predloga susednih piksela. Procenjeno polje se unapređuje postprocesiranjem i izbačeni vektori se ponovo računaju interpolacijom korišćenjem EpicFlow algoritma. Rezultati su dobijeni evaluacijom nad KITTI bazom podataka.
+U radu se vrši određivanje potpunog polja protoka diskretnim pristupom uz korišćenje tri optimizacione metode koje omogućavaju smanjenje potrebnih računskih i memorijskih resursa. Njihovo korišćenje dozvoljava procenu optičkog protoka velikih pomeraja. Na početku se predlažu vektori protoka pronalaženjem parova piksela referentne i ciljane slike na osnovu nekog parametra, u ovom radu sličnosti njihovih DAISY deskriptora. 
+
+Prvi način optimizacije koji je korišćen u radu je ograničenje skupa predloga na fiksan broj. Predlozi se pronalaze korišćenjem algoritma nasumične k-d šume. 
+
+Drugi način jeste korišćenje spuštanja po blokovima koordinata za pronalaženje optimalnih kombinacija usaglašenih vektora protoka iz skupa predloga. 
+
+Treći vid optimizacije je korišćenje skupova sličnih predloga prilikom obrade predloga susednih piksela. Procenjeno polje se unapređuje postprocesiranjem i izbačeni vektori se ponovo računaju interpolacijom korišćenjem EpicFlow algoritma. Rezultati su dobijeni evaluacijom nad KITTI bazom podataka.
+
+##Apstrakt na engleskom
 
 In this paper we approach the problem of optical flow estimation from a discrete point of view and use three optimization methods which are able to reduce computation and memory demands. Their use allows us to estimate optical flow of sequences with large displacements. Firstly, our program generates flow vector proposals by finding matches between pixels in the reference image and the target image using a parameter, in this paper the similarity of their DAISY descriptors. The program is optimized by restricting the number of flow proposals to a fixed number. Proposals were extracted using the randomized k-d forest algorithm. Secondly, we use block coordinate descent for finding optimal combinations of aligned flow vectors. Lastly, we use sets of similar proposals to optimize the processing of proposals in neighboring pixels. The estimated field is refined in postprocessing and the flow vectors of unmatched regions are interpolated using EpicFlow. Results were obtained by evaluating the algorithm on the KITTI dataset.
 
 ![Graficki apstrakt](/images/2022/estimacija-pokreta/OGA.svg)
 
-## Uvod
+## 1. Uvod
 
 Procena kretanja je proces određivanja vektora kretanja koji opisuju prelazak jedne slike u drugu. Predstavlja jedan od osnovnih problema oblasti kompjuterske vizije.
 
@@ -18,16 +41,15 @@ Klasična formulacija estimacije optičkog protoka definiše problem kao kontinu
 
 Jedan smer pri rešavanju problema jeste modeliranje protoka korišćenjem Markovljevih slučajnih procesa.[^4] [^5]
 
+U okviru primera iz *stereo matching*-a, optimizacija energija može se olakšati primenom diskretnih optimizacionih algoritama, kao što su *graph cut*\[^6] i *message passing*\[^7], koji su često u mogućnosti da postignu približno globalni optimum. Iako se estimacija dispariteta može smatrati ograničenim slučajem optičkog protoka, malo autora je primenilo diskretnu optimizaciju za estimaciju optičkog protoka.
 
-Sledeći primere iz *stereo matching*-a, optimizacija energija se može olakšati korišćenjem diskretnih optimizacionih algoritama, poput *graph cut*-ova[^6] ili *message passing*[^7] koje su često bile u mogućnosti da ostvare približno globalan optimum. Iako se estimacija dispariteta može posmatrati i kao ograničeni slučaj optičkog protoka, malo autora je pokušalo da koristi diskretnu optimizaciju za estimaciju optičkog protoka.
+U referentnoj metodi\[^8] predstavljene su tri različite strategije optimizacije diskretnog pristupa, sa ciljem ispitivanja uticaja različitih algoritama na preciznost određivanja optičkog protoka.
 
-U referentnoj metodi[^8] su predložene tri različite strategije optimizacije diskretnog pristupa. Cilj rada je bio ispitivanje uticaja različitih algoritama na preciznost određivanja optičkog protoka.
+## 2. Metod
 
-## Metod
+### 2.1. Generisanje predloga
 
-### Generisanje predloga
-
-Polje kretanja se određuje nad parom slika; referentnoj slici i ciljanoj slici (slici koja je uslikana nekoliko trenutaka nakon referentne). Referentnu sliku želimo da pomoću vektora protoka pretvorimo u ciljanu sliku.
+Polje kretanja se određuje nad parom slika: referentnoj slici i ciljanoj slici (slici koja je uslikana nekoliko trenutaka nakon referentne). Referentnu sliku želimo da pomoću vektora protoka pretvorimo u ciljanu sliku.
 
 Ciljana slika se deli na ćelije visine $h$ i širine $w$. Svaki piksel referentne slike treba dobiti po $K$ predloga destinacije vektora protoka iz svake okolne ćelije ciljane slike, čime se dobija raznovrstan skup predloga od kojih će se kasnije birati konačni vektor protoka. Okolne ćelije definišemo kao ćelije u pravougaoniku širine $5w$ i visine $5h$, centriranom na referentnoj ćeliji. Za svaku ćeliju se koristi nasumična k-d šuma (eng: *randomized k-d tree forest*) za deskriptore piksela koji pripadaju toj ćeliji. To je efikasna struktura za nalaženje $K$ piksela najbližih datom pikselu, po sličnosti deskriptora računatih DAISY algoritmom. Za razliku od referentne metode koja čuva sve k-d šume tokom generisanja predloga, naša metoda pravi k-d šumu za jednu ćeliju, iskoristi je za nalaženje najsličnijih piksela u ćelijama u okolini i više je ne čuva. Za pravljenje k-d šuma koristi se algoritam iz biblioteke FLANN.[^9]
 
@@ -37,13 +59,13 @@ Iz skupa predloga svakog piksela se bira vektor protoka sa najmanjom cenom i kor
 
 Susedni pikseli često imaju sličan vektor protoka. Zato se dodatno uzima $N$ nasumičnih piksela iz lokalne Gausove distribucije centrirane na referentnom pikselu i iz svakog od njih bira vektor protoka sa najmanjom cenom. On se dodaje u skup predloga prvobitnog piksela, ako već nije prisutan. U slučaju da jeste, naša metoda ga ne dodaje, za razliku od referentne metode koja dodaje sledeći najbolji vektor protoka tog piksela. Zbog toga ne mora da sortira sve predloge iz datog piksela, čime dobija na efikasnosti, ali broj predloga nije isti za svaki piksel.
 
-#### DAISY
+#### 2.1.1. DAISY
 
 DAISY[^10] je algoritam koji pretvara lokalne regione slike u niskodimenzionalne invarijantne deskriptore koji mogu da se koriste za uparivanje i klasifikaciju.
 
 Direktno inspirisan SIFT-om,[^11] gleda se gradijent intenziteta piksela po određenim orijentacijama, ali kako se u SIFT-u za datu karakterističnu tačku računaju gradienti nad pravougaonim prozorom, DAISY komšije deli po krugovima različitih veličina čiji se centri nalaze na seriji koncentričnih prstenova. Prečnik svakog kruga je proporcionalan njegovom rastojanju od karakteristične tačke. Poenta ovakve podele komšija je u tome da se vektor koji opisuje tačku može izračunati vrlo brzo pomoću Gausovskih konvolucija i upravo zato je DAISY vrlo koristan za računanje deskriptora za svaki piksel.
 
-### Random Field Model
+### 2.2. Random Field Model
 
 Za par predloga $l$ i $k$ susednih piksela $p$ i $q$ definišemo *cenu slaganja* $\psi_{\mathbf{p}, \mathbf{q}}\left(l,k\right)$ kao Menhetn normu njihove razlike. Kao i cena vektora protoka, odsečena je odozgo sa $\tau_\psi$.
 
@@ -53,9 +75,9 @@ $$ \lambda \sum\_{\mathbf{p}} \varphi\_{\mathbf{p}}(l\_{\mathbf{p}})+\sum\_{\mat
 
 Vrednost $\lambda$ je težinski faktor. Simbolom $\sim$ su označeni susedni pikseli $\mathbf{p}$ i $\mathbf{q}$ na slici, a simbolom $l_\mathbf{p}$ redni broj predloga izabranog kao konačni vektor protoka piksela $\mathbf{p}$.
 
-### Pronalaženje optimalnih vektora
+### 2.3. Pronalaženje optimalnih vektora
 
-U svakom trenutku se čuva trenutno polje protoka, i ukupna cena se postepeno smanjuje odabirom bolje kombinacije vektora protoka iz skupa predloga svakog piksela. To se radi pomoću spuštanja po blokovima koordinata (eng: *block coordinate descent*), nalaženjem minimalnog zbira cena u pojedinačnom redu ili koloni piksela na slici. Ovo ne garantuje nalaženje globalnog minimuma cene, što je NP-težak problem, ali garantuje smanjivanje ukupne cene slike u svakom koraku spuštanja. Iako deluje da mogu biti od pomoći, u originalnom radu je pokazano da korišćenje algoritama detekcije ivica u ovom delu programa daje gore rezultate, tako da nisu korišćeni.
+U svakom trenutku se čuva trenutno polje protoka, i ukupna cena se postepeno smanjuje odabirom bolje kombinacije vektora protoka iz skupa predloga svakog piksela. To se radi pomoću spuštanja po blokovima koordinata (eng: *block coordinate descent*), nalaženjem minimalnog zbira cena u pojedinačnom redu ili koloni piksela na slici. Ovo ne garantuje nalaženje globalnog minimuma cene, što je NP-težak problem, ali garantuje smanjivanje ukupne cene slike u svakom koraku spuštanja. Iako deluje da mogu biti od pomoći, u originalnom radu je pokazano da korišćenje algoritama detekcije ivica u ovom delu programa daje lošije rezultate, tako da nisu korišćeni.
 
 U pojedinačnom redu piksela je potrebno naći kombinaciju vektora protoka iz predloga koja će dati minimalan zbir cena vektora protoka i cena slaganja, uzimajući u obzir trenutno stanje polja protoka u susedna dva reda. Cene na koje treba paziti su cene vektora protoka, cena slaganja sa pikselima iz susednih redova i cena slaganja sa pikselima iz istog reda.
 
@@ -71,13 +93,16 @@ Algoritam kreće od početka reda piksela, i u $\mathbf{C}(x, l)$ čuva najmanju
 
 Minimum u drugoj jednačini se nalazi pomoću *skupova sličnih predloga*.
 
-#### Skupovi sličnih predloga
+#### 2.3.1. Skupovi sličnih predloga
 
 Bez modifikacija algoritma, bilo bi neophodno računati cene slaganja svakog para vektora protoka iz svaka dva susedna piksela u redu. Radi optimizacije možemo koristiti činjenicu da su cene slaganja odsečene. Naša metoda pre BCD-a za svaki par susednih piksela pravi skupove sličnih predloga, označenih $\mathcal{S}$, koji za svaki predlog jednog od njih čuvaju redne brojeve predloga drugog piksela koji daju cenu slaganja manju od granične vrednosti, $\tau_\psi$.
 
 $$ \mathcal{S}\_{\mathbf{p}, \mathbf{q}, l}=\\\{ 0 \leq k < L(x,y)  |  \psi\_{\mathbf{p}, \mathbf{q}}(l,k)<\tau\_\psi \\\} $$
 
-Algoritam mora da računa samo cene slaganja za predloge prisutne u k-skupovima. Zbog raznovrsnosti predloga, velika većina cena slaganja je odsečena, što čini skupove malim i ubrzava algoritam. Minimum u jednačini popunjavanja matrice za predlog $l$ piksela $(x,y)$ je koristi minimum vrednosti $a$ i $b$, gde je $a$ najbolja vrednost dobijena koristeći predloge iz relevantnih skupova sličnih predloga, a $b$ vrednost koja podrazumeva cenu slaganja odsečenu na $\tau_\psi$.
+
+Algoritam računa cene slaganja isključivo za predloge prisutne u k-skupovima. Zbog raznovrsnosti predloga, većina cena slaganja se odseče, što rezultira manjim skupovima i ubrzava izvršavanje algoritma.
+Minimum u jednačini popunjavanja matrice za predlog $l$ piksela $(x,y)$ računa se kao minimum između vrednosti $a$ i $b$, gde je $a$ najbolja vrednost dobijena korišćenjem predloga iz relevantnih skupova sličnih predloga, dok je $b$ vrednost koja uključuje cenu slaganja odsečenu na prag $\tau_{\psi}$.
+
 
 $$
 a = \min \_{k \in \mathcal{S}\_{(x, y),(x-1, y), l}}(\psi\_{(x, y),(x-1, y)}(l, k)+\mathbf{C}(x-1, k))
@@ -87,11 +112,11 @@ $$
 b=\tau_\psi+\min \_{0 \leq k < L(x,y)}\left(\mathbf{C}(x-1, k)\right)
 $$
 
-### Baza podataka
+### 2.4. Baza podataka
 
-Za evaluaciju programa korišćena je KITTI[^12] baza za optički protok. Podaci su usnimljeni u *Karlsruhe*, gradu u Nemačkoj. Baza se sastoji iz 200 scena u trening setu i 200 scena u test setu. Svaka scena se sastoji iz sekvence dve uzastopno snimljene slike, referentne i ciljane.
+Za evaluaciju programa korišćena je KITTI [^12] baza za optički protok. Podaci su usnimljeni u *Karlsruhe*, gradu u Nemačkoj. Baza se sastoji iz 200 scena u trening setu i 200 scena u test setu. Svaka scena se sastoji iz sekvence dve uzastopno snimljene slike, referentne i ciljane.
 
-### Postprocesiranje
+### 2.5. Postprocesiranje
 
 Ranije opisani algoritam dodeljuje svaki piksel referentne slike pikselu ciljane slike. Kao unapređenje algoritma vrši se izbacivanje piksela na osnovu dva kriterijuma: provere konzistentnosti i uklanjanja malih segmenata, nakon čega se primenjuje EpicFlow[^13]. 
 
@@ -99,12 +124,12 @@ Provera konzistentnosti se vrši tako što se računa optički protok unapred, k
 
 Kako bi se dobilo u potpunosti definisano polje protoka koristi se EpicFlow algoritam, koji pikselima koji nemaju definisan protok računa isti, uzimajući u obzir okolne piksele i ivice slike. EpicFlow kreće od hipoteze da ivice slike definišu granice kretanja, odnosno da pikseli sa suprotne strane ivice odgovaraju kretaju različitih objekata.
 
-## Rezultati
+## 3. Rezultati
 
 
-### Kvantitativni rezultati
+### 3.1. Kvantitativni rezultati
 
-Uspešnost algoritma je merena na osnovu dve metrike: srednja greška i procenat pogrešnih piksela. Srednja greška je računata kao srednja vrednost zbira kvadrata razlike komponenata istinitog vektora pomeraja i naše procene. Pogrešan piksel se smatra onaj čija je greska veća od 3 piksela. Za evaluaciju su korišćeni podaci iz KITTI baze koja sadrži parove uzastopnih slika sa primerima manjih i većih pomeraja. Svaki par slika u skupu za trening sadrži i istinito polje pokreta.
+Uspešnost algoritma je merena na osnovu dve metrike: srednja greška i procenat pogrešnih piksela. Srednja greška je računata kao srednja vrednost zbira kvadrata razlike komponenata istinitog vektora pomeraja i naše procene. Pogrešan piksel se smatra onaj čija je greska veća od 3 piksela. Za evaluaciju korišćeni su podaci iz KITTI baze koja sadrži parove uzastopnih slika sa primerima manjih i većih pomeraja. Svaki par slika u skupu za trening sadrži i istinito polje pokreta.
 Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vršena nad skupom od po sedam parova slika.
 
 | BCD      | Srednja greška | Procenat pogrešnih piksela|
@@ -118,11 +143,12 @@ Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vr
 |6| 4.33|18.20|
 |7|4.30|18.15|
 
-![Srednja greska](/images/2022/estimacija-pokreta/a.svg)
+![Srednja greska vektora protoka](/images/2022/estimacija-pokreta/a.svg)
 
-![Ppp](/images/2022/estimacija-pokreta/b.svg)
+![Procenat pogresnih piksela](/images/2022/estimacija-pokreta/b.svg)
 
 ## Zaključak
+
 
 ## Literatura
 
