@@ -8,11 +8,13 @@ summary: Prepoznavanje znakovnog jezika je projekat rađen na letnjem kampu za s
 
 **Autori:**
 
-Zlata Stefanović, Vladan Bašić
+Zlata Stefanović, učenica III razreda Matematičke gimnazije u Beogradu
+
+Vladan Bašić, učenik IV razreda Gimnazije u Kraljevu
 
 **Mentori:**
 
-Aleksa Račić
+Aleksa Račić, Elektrotehnički fakultet u Beogradu
 
 <!-- TODO: Proveriti da li su sve slike dostupne za javno korišćenje. -->
 
@@ -36,9 +38,11 @@ Značajan broj istraživanja je urađeno na ovu temu.  Rad [^3] prikazuje poveć
 
 Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. Sastoji se od 26 znakova, za svako od 26 slova engleskog alfabeta, od kojih dva sadrže pokret, slovo J i slovo Z.
 
+{{< figure "Slika" "Prikaz slova američkog znakovnog jezika gde je svakom slovu alfabeta pridružena ruka ili pokret koji označavaju to slovo." "asl" >}}
+
 ![Prikaz slova američkog znakovnog jezika gde je svakom slovu alfabeta pridružena ruka ili pokret koji označavaju to slovo.](/images/2022/prepoznavanje-znakovnog-jezika/asl.png)
 
-<p align="center">Slika 1. Prikaz slova američkog znakovnog jezika gde je svakom slovu alfabeta pridružena ruka ili pokret koji označavaju to slovo</p>
+{{</ figure >}}
 
 Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [^4]. Korišćena je sintetička baza zbog velikog broja slika različitih pozadina, osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robusni. Primenjena je ista podela na trening i test podatke kao kod autora baze.
 
@@ -52,18 +56,23 @@ Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Na svakoj slici 
 - zumiranje za do 30%
 - U 50% slučajeva preslikavanje u odnosu na vertikalu
 
+
+{{< figure "Slika" "Augmentovane slike iz baze." "data_augmentation" >}}
+
 ![5 x 5 tabela sa augmentovanim slikama iz baze.](/images/2022/prepoznavanje-znakovnog-jezika/data-augmentation.png)
 
-<p align="center">Slika 2. Augmentovane slike iz baze</p>
+{{</ figure >}}
 
 
 ##### 2.1.2. Obrada baze za kNN
 
 Klasifikacija znakova je realizovana prvo kroz određivanje pozicije šake. Za olakšanje ovog procesa pronađena je 21 ključna tačka šake (ukupno 42 koordinate) pomoću *MediaPipe Holistic Pipeline*-a [^6].
 
+{{< figure "Slika" "Prikazane ključne tačke iz MediaPipe Holistic Pipeline." "keypoints" >}}
+
 ![Ključne tačke iz MediaPipe Holistic Pipeline na rukama saradnika Đorđa Marjanovića.](/images/2022/prepoznavanje-znakovnog-jezika/keypoints.png)
 
-<p align="center">Slika 3. Prikazane ključne tačke iz MediaPipe Holistic Pipeline</p>
+{{</ figure >}}
 
 Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti izračunate iz 21 tačke, pri čemu su dobijeni neprecizni rezultati. Drugi način predstavlja određivanje koordinate sredine šake i uzimanje njene vrednosti, što nije dalo dobre rezultate jer se često nalazila senka na tom delu slike. Konačni i najprecizniji način je bio uzimanje celog opsega ovih tačaka. Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je opseg takav da je najmanji moguć a da u njega i dalje spadaju sve HSV vrednosti ključnih tačaka:
 
@@ -72,9 +81,11 @@ $$HSV_{max} = max(kp_{1},kp_{2},...,kp_{n})$$
 
 Na osnovu dobijene pozicije šake, slika je isečena oko nje i preoblikovana na 512 x 512 piksela. Na novodobijenu sliku primenjena je binarizacija na osnovu dobijenog HSV opsega i morfološke operacije - erozija i dilatacija, radi uklanjanja šuma.
 
+{{< figure "Slika" "Binarizovane i isečene slike šaka." "knn-binarized" >}}
+
 ![Crno-bele slike šaka koje su binarizovane nakon isecanja.](/images/2022/prepoznavanje-znakovnog-jezika/knn-binarized.png)
 
-<p align="center">Slika 4. Binarizovane i isečene slike šaka</p>
+{{</ figure >}}
 
 
 ##### 2.1.3. Obrada baze za klasifikaciju ključnih tačaka
@@ -98,9 +109,11 @@ $$o = \frac{P_{bela}}{P_{polje}}$$
 
 Pod pretpostavkom da su ovako dobijeni podaci podeljeni na klastere, potreban je način za njihovu klasifikaciju. Za ovo je korišćen kNN algoritam. Iz binarizovane baze podataka izdvojeno je po 6 slika za svaku klasu i njihova obeležja korišćena su kao definišuća baza podataka. Na prethodno fitovanim podacima, u Euklidskoj metrici je izračunata razdaljina između uzorka i svih primera definišuće baze, nakon čega je izabrano $k$ najbližih primera. Od tih $k$ primera klasifikator bira klasu koja se najčešće pojavljuje.
 
+{{< figure "Slika" "Dijagram funkcionisanja metode korišćenjem k Nearest Neighbours (kNN)." "knn-diagram" >}}
+
 ![Dijagram funkcionisanja kNN metode, koja počinje od klasifikacije ključnih tačaka, zatim nastavlja na isecanje i preoblikovanje slika, paralelno sa time se određuje opseg boje kože a to onda utiče na binarizaciju slika. Nakon toga primenjuje se kNN i daje izlaz metode koji je u ovom slučaju slovo P.](/images/2022/prepoznavanje-znakovnog-jezika/knn-diagram.svg)
 
-<p align="center">Slika 5. Dijagram funkcionisanja metode korišćenjem k Nearest Neighbours (kNN)</p>
+{{</ figure >}}
 
 
 #### 2.3. Keypoint Classification
@@ -127,25 +140,36 @@ Radi poklapanja rezolucije slika iz baze i ulaznih podataka mreže implementiran
 Na osnovu $N$ i $k$ parametara, izračunata je tačnost metode u svakom od slučajeva. Vizuelni prikaz rezultata je dobijen u vidu mape intenziteta. Ispostavlja se da preciznost raste srazmerno parametru $N$ i obrnuto srazmerno parametru $k$, pri čemu je najbolji rezultat dobijen za $k = 1$ i $N = 20$, sa preciznošću od 56%.
 
 <!-- TODO: Prebaciti u SVG. -->
+
+{{< figure "Slika" "Mapa intenziteta preciznosti kNN metode." "knn-heatmap" >}}
+
 ![Mapa intenziteta preciznosti, tako da je na x osi parametar N, na y osi parametar k i skala ide od 0% do 56% preciznosti, gde je najveća preciznost za k = 1 i N = 20.](/images/2022/prepoznavanje-znakovnog-jezika/knn-heatmap.png)
 
-<p align="center">Slika 6. Mapa intenziteta preciznosti kNN metode.</p>
+{{</ figure >}}
+
 
 #### 3.2. Keypoint Classification
 
 U slučaju kada je korišćena aproksimacija dubine dobijena je preciznost od 95.6%, dok je preciznost bez nje bila znatno manja, 85.8%. Razlika između ova dva primera verovatno bi bila primetnija u realnoj primeni kada nisu sve slike šaka na sličnoj udaljenosti od same šake. Grafici rezultata u daljem radu prikazani su samo za bolju od dve metode. 
 
 <!-- TODO: Prebaciti u SVG. -->
+
+{{< figure "Slika" "Preciznost i greška na trening i validacionim skupovima metode sa klasifikacijom ključnih tačaka." "kc-accuracy-loss" >}}
+
 ![Dva grafika jedan do drugog, gde levi prikazuje preciznost na trening i validacionim skupovima a desni grešku.](/images/2022/prepoznavanje-znakovnog-jezika/kc-accuracy-loss.png)
 
-<p align="center">Slika 7. Preciznost i greška na trening i validacionim skupovima metode sa klasifikacijom ključnih tačaka.</p>
+{{</ figure >}}
+
 
 Matrica konfuzije predstavlja raspodelu učestalosti klasifikacije po klasama. Korisna je za primećivanje da li je neka klasa često pogrešno klasifikovana i kao šta. Na datoj matrici konfuzije najveća pogrešna vrednost je dobijena pripisivanjem slova "E" slovu "O" - šest puta.
 
 <!-- TODO: Prebaciti u SVG. -->
+
+{{< figure "Slika" "Matrica konfuzije koja prikazuje koja se slova sa kojim drugim slovima najčešće mešaju prilikom primene metode klasifikacije ključnih tačaka." "kc-confusion-matrix" >}}
+
 ![Matrica konfuzije, na x osi je predviđeno slovo a na y pravo. Daleko najveći broj primeraka nalazi se na dijagonali.](/images/2022/prepoznavanje-znakovnog-jezika/kc-confusion-matrix.png)
 
-<p align="center">Slika 8. Matrica konfuzije koja prikazuje koja se slova sa kojim drugim slovima najčešće mešaju prilikom primene metode klasifikacije ključnih tačaka</p>
+{{</ figure >}}
 
 
 #### 3.3. CNN
@@ -153,14 +177,19 @@ Matrica konfuzije predstavlja raspodelu učestalosti klasifikacije po klasama. K
 Ovako izmenjenom mrežom je dobijena preciznost od 96.25%. Iako precizniji od prethodnog metoda klasifikator za ovaj metod se znatno duže trenira.
 
 <!-- TODO: Prebaciti u SVG. -->
+
+{{< figure "Slika" "Preciznost i greška na trening i validacionim skupovima CNN metode." "emnist-accuracy-loss" >}}
+
 ![Dva grafika jedan do drugog, gde levi prikazuje preciznost na trening i validacionim skupovima a desni grešku.](/images/2022/prepoznavanje-znakovnog-jezika/emnist-accuracy-loss.png)
 
-<p align="center">Slika 9. Preciznost i greška na trening i validacionim skupovima CNN metode</p>
+{{</ figure >}}
 
-<!-- TODO: Prebaciti u SVG. -->
+{{< figure "Slika" "Matrica konfuzije koja prikazuje koja slova se najčešće mešaju sa kojim drugim slovima prilikom primene CNN metode." "emnist-confusion-matrix" >}}
+
 ![Matrica konfuzije, na x osi je predviđeno slovo a na y pravo. Daleko najveći broj primeraka nalazi se na dijagonali.](/images/2022/prepoznavanje-znakovnog-jezika/emnist-confusion-matrix.png)
 
-<p align="center">Slika 10. Matrica konfuzije koja prikazuje koja slova se najčešće mešaju sa kojim drugim slovima prilikom primene CNN metode</p>
+{{</ figure >}}
+<!-- TODO: Prebaciti u SVG. -->
 
 
 #### 3.4. EfficientNetB3
@@ -175,28 +204,14 @@ Urađeno je poređenje metoda kNN, KC, CNN i EfficientNetB3 pri prepoznavanju am
 
 ### Literatura
 
-[1]: D. N. Shah i N. A. Gajjar, _Automatic Hand Sign Recognition: Identify Unusuality through Latent Cognizance_, arXiv:2110.15542, 2021.  
+[^1]: D. N. Shah i N. A. Gajjar, _Automatic Hand Sign Recognition: Identify Unusuality through Latent Cognizance_, arXiv:2110.15542, 2021. [https://arxiv.org/abs/2110.15542](https://arxiv.org/abs/2110.15542) [pristupljeno 16.05.2025.]
 
-[https://arxiv.org/abs/2110.15542](https://arxiv.org/abs/2110.15542) [pristupljeno 16.05.2025.]
+[^2]: A. Sahu i S. Nandy, _Real-time Indian Sign Language (ISL) Recognition_, arXiv:2108.10970, 2021. [https://arxiv.org/abs/2108.10970](https://arxiv.org/abs/2108.10970) [pristupljeno 16.05.2025.]
 
-[2]: A. Sahu i S. Nandy, _Real-time Indian Sign Language (ISL) Recognition_, arXiv:2108.10970, 2021. 
+[^3]: K.Simonyan i A.Zisserman, _Very Deep Convolutional Networks for Large-Scale Image Recognition_, arXiv:1409.1556, 2014. [https://arxiv.org/abs/1409.1556](https://arxiv.org/abs/1409.1556) [pristupljeno 16.05.2025.]
 
-[https://arxiv.org/abs/2108.10970](https://arxiv.org/abs/2108.10970) [pristupljeno 16.05.2025.]
+[^4]: Lexset, _Synthetic ASL Alphabet_, Kaggle dataset, 2021. [https://kaggle.com/datasets/lexset/synthetic-asl-alphabet](https://kaggle.com/datasets/lexset/synthetic-asl-alphabet) [pristupljeno 16.05.2025.]
 
-[3]: K.Simonyan i A.Zisserman, _Very Deep Convolutional Networks for Large-Scale Image Recognition_, arXiv:1409.1556, 2014.
+[^5]: M. Tan i Q. Le, _EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks_, International Conference on Machine Learning (ICML), PMLR, 2019. [https://arxiv.org/abs/1905.11946](https://arxiv.org/abs/1905.11946) [pristupljeno 16.05.2025.]
 
-[https://arxiv.org/abs/1409.1556](https://arxiv.org/abs/1409.1556) [pristupljeno 16.05.2025.]
-
-[4]: Lexset, _Synthetic ASL Alphabet_, Kaggle dataset, 2021.  
-
-[https://kaggle.com/datasets/lexset/synthetic-asl-alphabet](https://kaggle.com/datasets/lexset/synthetic-asl-alphabet) [pristupljeno 16.05.2025.]
-
-[5]: M. Tan i Q. Le, _EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks_, International Conference on Machine Learning (ICML), PMLR, 2019. 
-
-[https://arxiv.org/abs/1905.11946](https://arxiv.org/abs/1905.11946) [pristupljeno 16.05.2025.]
-
-[6]: _MediaPipe Holistic Solution_, 2023. 
-
-[https://google.github.io/mediapipe/solutions/holistic.html](https://google.github.io/mediapipe/solutions/holistic.html) [pristupljeno 2022.]
-
-[https://github.com/google-ai-edge/mediapipe/blob/master/mediapipe/python/solutions/holistic.py](https://github.com/google-ai-edge/mediapipe/blob/master/mediapipe/python/solutions/holistic.py) [pristupljeno 16.05.2025.]
+[^6]: _MediaPipe Holistic Solution_, 2023. [https://google.github.io/mediapipe/solutions/holistic.html](https://google.github.io/mediapipe/solutions/holistic.html) [pristupljeno 2022.] [https://github.com/google-ai-edge/mediapipe/blob/master/mediapipe/python/solutions/holistic.py](https://github.com/google-ai-edge/mediapipe/blob/master/mediapipe/python/solutions/holistic.py) [pristupljeno 16.05.2025.]
