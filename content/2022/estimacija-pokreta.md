@@ -27,11 +27,15 @@ Drugi način jeste korišćenje spuštanja po blokovima koordinata za pronalaže
 
 Treći vid optimizacije je korišćenje skupova sličnih predloga prilikom obrade predloga susednih piksela. Procenjeno polje se unapređuje postprocesiranjem i izbačeni vektori se ponovo računaju interpolacijom korišćenjem EpicFlow algoritma. Rezultati su dobijeni evaluacijom nad KITTI bazom podataka.
 
-##Apstrakt na engleskom
+## Abstract
 
 In this paper we approach the problem of optical flow estimation from a discrete point of view and use three optimization methods which are able to reduce computation and memory demands. Their use allows us to estimate optical flow of sequences with large displacements. Firstly, our program generates flow vector proposals by finding matches between pixels in the reference image and the target image using a parameter, in this paper the similarity of their DAISY descriptors. The program is optimized by restricting the number of flow proposals to a fixed number. Proposals were extracted using the randomized k-d forest algorithm. Secondly, we use block coordinate descent for finding optimal combinations of aligned flow vectors. Lastly, we use sets of similar proposals to optimize the processing of proposals in neighboring pixels. The estimated field is refined in postprocessing and the flow vectors of unmatched regions are interpolated using EpicFlow. Results were obtained by evaluating the algorithm on the KITTI dataset.
 
+{{< figure "Slika" "Grafički apstrakt" "OGA" >}}
+
 ![Graficki apstrakt](/images/2022/estimacija-pokreta/OGA.svg)
+
+{{</ figure >}}
 
 ## 1. Uvod
 
@@ -143,14 +147,24 @@ Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vr
 |6| 4.33|18.20|
 |7|4.30|18.15|
 
+{{< figure "Slika" "Srednja greška vektora protoka" "OGA" >}}
+
 ![Srednja greska vektora protoka](/images/2022/estimacija-pokreta/a.svg)
+
+{{</ figure >}}
+
+{{< figure "Slika" "Procenat pogresnih piksela" "OGA" >}}
 
 ![Procenat pogresnih piksela](/images/2022/estimacija-pokreta/b.svg)
 
-## Zaključak
+{{</ figure >}}
 
 
-## Literatura
+
+## 4. Zaključak
+
+
+## 5. Literatura
 
 [^1]: Horn, B.K.P., Schunck, B.G. (1980). Determining optical flow. AI 17(1–3), 185–203
 
