@@ -236,7 +236,7 @@ Kao prvi pristup u proceni performansi neuronskih mreža, fitnes funkcija postav
 
 Nakon pokretanja koda, primećeno je da je program često neočekivano prekidao izvršavanje. Vizuelnom analizom simulacije utvrđeno je da se visina muve u određenim trenucima naglo i neprirodno menjala, što je moglo da se uoči i na prikazanom grafiku. 
 
-{{< figure "Slika" "Grafik naglih promena visina muve." "Figure_1">}}
+{{< figure "Slika" "Grafik naglih promena visina muve." "Figure_1" >}}
 
 ![slika](/images/2022/simulacija-muve/Figure_1.svg)
 
@@ -248,7 +248,7 @@ Zaključeno je da je problem bio u kontroli krila muve pomoću neuralne mreže s
 Nakon što je podešeno da se krila kontrolišu na svakih 10 milisekundi, problem je rešen.
 Dobijen je sledeći grafik:
 
-{{< figure "Slika" "Grafik nakon ispravljene kontrole visine." "Figure_2">}}
+{{< figure "Slika" "Grafik nakon ispravljene kontrole visine." "Figure_2" >}}
 
 ![slika](/images/2022/simulacija-muve/Figure_2.svg)
 
@@ -261,7 +261,7 @@ Drugim rečima, mreža ne optimizuje dovoljno fazu vraćanja krila na početni p
 Nakon što je fitnes izjednačen sa visinom muve po y osi u poslednjem trenutku simulacije, visina koju je buba dostizala je poboljšana za 2-3 puta.
 Grafik je onda izgledao ovako:
 
-{{< figure "Slika" "Grafik nakon poboljšanja kontrole visine." "Figure_3">}}
+{{< figure "Slika" "Grafik nakon poboljšanja kontrole visine." "Figure_3" >}}
 
 ![slika](/images/2022/simulacija-muve/Figure_3.svg)
 
@@ -283,7 +283,7 @@ Fitnes je visina muve u poslednjem trenutku od koje se oduzima jedna petina pros
 
 Nakon treniranja 50 generacija muva na 3 sekunde dobili smo sledeći grafik koji predstavlja fitnes u odnosu na broj generacija:
 
-{{< figure "Slika" "Grafik odnosa fitnesa i broja generacija." "fitness7">}}
+{{< figure "Slika" "Grafik odnosa fitnesa i broja generacija." "fitness7" >}}
 
 ![slika](/images/2022/simulacija-muve/fitness7.png)
 
@@ -291,7 +291,7 @@ Nakon treniranja 50 generacija muva na 3 sekunde dobili smo sledeći grafik koji
 
 Sledeći grafik predstavlja fitnes u odnosu na broj generacija, nakon treniranja od 1000 generacija:
 
-{{< figure "Slika" "Grafik odnosa fitnesa i broja generacija nakon treniranja većeg broja generacija." "figure1000">}}
+{{< figure "Slika" "Grafik odnosa fitnesa i broja generacija nakon treniranja većeg broja generacija." "figure1000" >}}
 
 ![slika](/images/2022/simulacija-muve/figure1000.png)
 
