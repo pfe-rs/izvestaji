@@ -8,11 +8,12 @@ summary: Prepoznavanje znakovnog jezika je projekat rađen na letnjem kampu za s
 
 **Autori:**
 
-Zlata Stefanović, Vladan Bašić
+Zlata Stefanović, učenica III razreda Matematičke gimnazije u Beogradu
+Vladan Bašić, učenik IV razreda Gimnazije u Kraljevu
 
 **Mentori:**
 
-Aleksa Račić
+Aleksa Račić, Elektrotehnički fakultet u Beogradu
 
 <!-- TODO: Proveriti da li su sve slike dostupne za javno korišćenje. -->
 
@@ -36,9 +37,15 @@ Značajan broj istraživanja je urađeno na ovu temu.  Rad [^3] prikazuje poveć
 
 Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. Sastoji se od 26 znakova, za svako od 26 slova engleskog alfabeta, od kojih dva sadrže pokret, slovo J i slovo Z.
 
+{{< figure "Slika" "Prikaz slova američkog znakovnog jezika gde je svakom slovu alfabeta pridružena ruka ili pokret koji označavaju to slovo." "fitness7">}}
+
 ![Prikaz slova američkog znakovnog jezika gde je svakom slovu alfabeta pridružena ruka ili pokret koji označavaju to slovo.](/images/2022/prepoznavanje-znakovnog-jezika/asl.png)
 
-<p align="center">Slika 1. Prikaz slova američkog znakovnog jezika gde je svakom slovu alfabeta pridružena ruka ili pokret koji označavaju to slovo</p>
+{{</ figure >}}
+
+
+
+<p align="center">Slika 1. </p>
 
 Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [^4]. Korišćena je sintetička baza zbog velikog broja slika različitih pozadina, osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robusni. Primenjena je ista podela na trening i test podatke kao kod autora baze.
 
@@ -175,27 +182,27 @@ Urađeno je poređenje metoda kNN, KC, CNN i EfficientNetB3 pri prepoznavanju am
 
 ### Literatura
 
-[1]: D. N. Shah i N. A. Gajjar, _Automatic Hand Sign Recognition: Identify Unusuality through Latent Cognizance_, arXiv:2110.15542, 2021.  
+[^1]: D. N. Shah i N. A. Gajjar, _Automatic Hand Sign Recognition: Identify Unusuality through Latent Cognizance_, arXiv:2110.15542, 2021.  
 
 [https://arxiv.org/abs/2110.15542](https://arxiv.org/abs/2110.15542) [pristupljeno 16.05.2025.]
 
-[2]: A. Sahu i S. Nandy, _Real-time Indian Sign Language (ISL) Recognition_, arXiv:2108.10970, 2021. 
+[^2]: A. Sahu i S. Nandy, _Real-time Indian Sign Language (ISL) Recognition_, arXiv:2108.10970, 2021. 
 
 [https://arxiv.org/abs/2108.10970](https://arxiv.org/abs/2108.10970) [pristupljeno 16.05.2025.]
 
-[3]: K.Simonyan i A.Zisserman, _Very Deep Convolutional Networks for Large-Scale Image Recognition_, arXiv:1409.1556, 2014.
+[^3]: K.Simonyan i A.Zisserman, _Very Deep Convolutional Networks for Large-Scale Image Recognition_, arXiv:1409.1556, 2014.
 
 [https://arxiv.org/abs/1409.1556](https://arxiv.org/abs/1409.1556) [pristupljeno 16.05.2025.]
 
-[4]: Lexset, _Synthetic ASL Alphabet_, Kaggle dataset, 2021.  
+[^4]: Lexset, _Synthetic ASL Alphabet_, Kaggle dataset, 2021.  
 
 [https://kaggle.com/datasets/lexset/synthetic-asl-alphabet](https://kaggle.com/datasets/lexset/synthetic-asl-alphabet) [pristupljeno 16.05.2025.]
 
-[5]: M. Tan i Q. Le, _EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks_, International Conference on Machine Learning (ICML), PMLR, 2019. 
+[^5]: M. Tan i Q. Le, _EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks_, International Conference on Machine Learning (ICML), PMLR, 2019. 
 
 [https://arxiv.org/abs/1905.11946](https://arxiv.org/abs/1905.11946) [pristupljeno 16.05.2025.]
 
-[6]: _MediaPipe Holistic Solution_, 2023. 
+[^6]: _MediaPipe Holistic Solution_, 2023. 
 
 [https://google.github.io/mediapipe/solutions/holistic.html](https://google.github.io/mediapipe/solutions/holistic.html) [pristupljeno 2022.]
 
