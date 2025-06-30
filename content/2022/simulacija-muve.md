@@ -240,7 +240,7 @@ Nakon pokretanja koda, primećeno je da je program često neočekivano prekidao 
 
 ![slika](/images/2022/simulacija-muve/Figure_1.svg)
 
-{{</ figure >}}
+{{</ figure >}}
 
 
 Zaključeno je da je problem bio u kontroli krila muve pomoću neuralne mreže svake milisekunde simulacije što je dovelo do toga da muva pokušava da pravi prebrze pokrete koji su mogli da postave određene promenjive na vrednosti koje odgovaraju beskonačnosti zbog kojih bi pri kasnijim proračunima došlo do greške.
@@ -252,7 +252,7 @@ Dobijen je sledeći grafik:
 
 ![slika](/images/2022/simulacija-muve/Figure_2.svg)
 
-{{</ figure >}}
+{{</ figure >}}
 
 Sa grafika se može zaključiti da je muva uspela da proizvede pokrete koji imitiraju mahanje krilima, međutim, intervali između zamaha su predugi. To dovodi do toga da muva naglo gubi visinu pre nego što ponovo aktivira krila. Ovakvo ponašanje ukazuje na to da mreža nije efikasno naučila povratni pokret krila u položaj iz kog se inicira naredni zamah.
 
@@ -265,7 +265,7 @@ Grafik je onda izgledao ovako:
 
 ![slika](/images/2022/simulacija-muve/Figure_3.svg)
 
-{{</ figure >}}
+{{</ figure >}}
 
 Uočeno je da je kod muve naučeno optimalno vraćanje krila u gornji položaj, bez dodatnog spuštanja.
 
@@ -287,7 +287,7 @@ Nakon treniranja 50 generacija muva na 3 sekunde dobili smo sledeći grafik koji
 
 ![slika](/images/2022/simulacija-muve/fitness7.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 Sledeći grafik predstavlja fitnes u odnosu na broj generacija, nakon treniranja od 1000 generacija:
 
@@ -295,7 +295,7 @@ Sledeći grafik predstavlja fitnes u odnosu na broj generacija, nakon treniranja
 
 ![slika](/images/2022/simulacija-muve/figure1000.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 Na kraju je produženo trajanje simulacije na 30 sekundi na kome se veoma lepo vidi muva maše krilima i kako se ne kreće toliko po x i z osama.
 

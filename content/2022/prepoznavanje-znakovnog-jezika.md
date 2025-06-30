@@ -42,7 +42,7 @@ Američki znakovni jezik (ASL) je najrasprostranjeniji znakovni jezik u svetu. S
 
 ![Prikaz slova američkog znakovnog jezika gde je svakom slovu alfabeta pridružena ruka ili pokret koji označavaju to slovo.](/images/2022/prepoznavanje-znakovnog-jezika/asl.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 Za bazu podataka korišćena je baza sintetički generisanih slika američkog znakovnog jezika [^4]. Korišćena je sintetička baza zbog velikog broja slika različitih pozadina, osvetljenja i boja kože u nadi da će modeli, kao posledica veće raznovrsnosti, biti više robusni. Primenjena je ista podela na trening i test podatke kao kod autora baze.
 
@@ -61,7 +61,7 @@ Svaka slika je pre klasifikacije izmenjena na nekoliko načina. Na svakoj slici 
 
 ![5 x 5 tabela sa augmentovanim slikama iz baze.](/images/2022/prepoznavanje-znakovnog-jezika/data-augmentation.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 
 ##### 2.1.2. Obrada baze za kNN
@@ -72,7 +72,7 @@ Klasifikacija znakova je realizovana prvo kroz određivanje pozicije šake. Za o
 
 ![Ključne tačke iz MediaPipe Holistic Pipeline na rukama saradnika Đorđa Marjanovića.](/images/2022/prepoznavanje-znakovnog-jezika/keypoints.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 Prvi pristup za utvrđivanje boje kože je uzimanje srednje vrednosti izračunate iz 21 tačke, pri čemu su dobijeni neprecizni rezultati. Drugi način predstavlja određivanje koordinate sredine šake i uzimanje njene vrednosti, što nije dalo dobre rezultate jer se često nalazila senka na tom delu slike. Konačni i najprecizniji način je bio uzimanje celog opsega ovih tačaka. Na osnovu HSV vrednosti u koordinatama ključnih tačaka određen je opseg takav da je najmanji moguć a da u njega i dalje spadaju sve HSV vrednosti ključnih tačaka:
 
@@ -85,7 +85,7 @@ Na osnovu dobijene pozicije šake, slika je isečena oko nje i preoblikovana na 
 
 ![Crno-bele slike šaka koje su binarizovane nakon isecanja.](/images/2022/prepoznavanje-znakovnog-jezika/knn-binarized.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 
 ##### 2.1.3. Obrada baze za klasifikaciju ključnih tačaka
@@ -113,7 +113,7 @@ Pod pretpostavkom da su ovako dobijeni podaci podeljeni na klastere, potreban je
 
 ![Dijagram funkcionisanja kNN metode, koja počinje od klasifikacije ključnih tačaka, zatim nastavlja na isecanje i preoblikovanje slika, paralelno sa time se određuje opseg boje kože a to onda utiče na binarizaciju slika. Nakon toga primenjuje se kNN i daje izlaz metode koji je u ovom slučaju slovo P.](/images/2022/prepoznavanje-znakovnog-jezika/knn-diagram.svg)
 
-{{</ figure >}}
+{{</ figure >}}
 
 
 #### 2.3. Keypoint Classification
@@ -145,7 +145,7 @@ Na osnovu $N$ i $k$ parametara, izračunata je tačnost metode u svakom od sluč
 
 ![Mapa intenziteta preciznosti, tako da je na x osi parametar N, na y osi parametar k i skala ide od 0% do 56% preciznosti, gde je najveća preciznost za k = 1 i N = 20.](/images/2022/prepoznavanje-znakovnog-jezika/knn-heatmap.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 
 #### 3.2. Keypoint Classification
@@ -158,7 +158,7 @@ U slučaju kada je korišćena aproksimacija dubine dobijena je preciznost od 95
 
 ![Dva grafika jedan do drugog, gde levi prikazuje preciznost na trening i validacionim skupovima a desni grešku.](/images/2022/prepoznavanje-znakovnog-jezika/kc-accuracy-loss.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 
 Matrica konfuzije predstavlja raspodelu učestalosti klasifikacije po klasama. Korisna je za primećivanje da li je neka klasa često pogrešno klasifikovana i kao šta. Na datoj matrici konfuzije najveća pogrešna vrednost je dobijena pripisivanjem slova "E" slovu "O" - šest puta.
@@ -169,7 +169,7 @@ Matrica konfuzije predstavlja raspodelu učestalosti klasifikacije po klasama. K
 
 ![Matrica konfuzije, na x osi je predviđeno slovo a na y pravo. Daleko najveći broj primeraka nalazi se na dijagonali.](/images/2022/prepoznavanje-znakovnog-jezika/kc-confusion-matrix.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 
 #### 3.3. CNN
@@ -182,13 +182,13 @@ Ovako izmenjenom mrežom je dobijena preciznost od 96.25%. Iako precizniji od pr
 
 ![Dva grafika jedan do drugog, gde levi prikazuje preciznost na trening i validacionim skupovima a desni grešku.](/images/2022/prepoznavanje-znakovnog-jezika/emnist-accuracy-loss.png)
 
-{{</ figure >}}
+{{</ figure >}}
 
 {{< figure "Slika" "Matrica konfuzije koja prikazuje koja slova se najčešće mešaju sa kojim drugim slovima prilikom primene CNN metode." "emnist-confusion-matrix" >}}
 
 ![Matrica konfuzije, na x osi je predviđeno slovo a na y pravo. Daleko najveći broj primeraka nalazi se na dijagonali.](/images/2022/prepoznavanje-znakovnog-jezika/emnist-confusion-matrix.png)
 
-{{</ figure >}}
+{{</ figure >}}
 <!-- TODO: Prebaciti u SVG. -->
 
 
