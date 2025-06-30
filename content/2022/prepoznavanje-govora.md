@@ -1,18 +1,31 @@
 ---
 title: Prepoznavanje govora
-summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaznike 2022. godine od Dimitrija Pešića i Lazara Zubovića.
+summary: Projekat iz prepoznavanja govora rađen na letnjem kampu za stare polaznike 2022. godine čiji su autori Dimitrije Pešić i Lazar Zubović.
 image: /images/2022/prepoznavanje-govora/graphical-abstract.svg
 imageAlt: Grafički apstrakt projekta. Prikazuje kako zvuk sa mikrofona prelazi u signal u vremenskom domenu, zatim u spektrogram, onda ulazi u neuralnu mrežu i na izlazu neuralne mreže su brojevi.
 ---
 
-## Apstrakt
+**Autori:**
+
+Dimitrije Pešić, učenik III razreda Prve gimnazije u Kragujevcu
+
+Lazar Zubović, učenik III razreda Gimnazije u Somboru
+
+**Mentori:**
+
+Pavle Pađin, Elektrotehnički fakultet u Beogradu
+
+Nataša Jovanović, Elektrotehnički fakultet u Beogradu
+
+### Apstrakt
+
 Prepoznavanje govora predstavlja jedan od najvećih izazova tehnologije. Sve veća potreba za digitalizacijom dovodi do potrebom za širenjem znanja u ovom polju. Dosadašnja istraživanja pokazuju efikasnost i tačnost prepoznavanja govora mnogih metoda sa i bez korišćenja dubokog učenja. Ovaj rad se fokusira na posmatranje i upoređivanje metoda poput konvolucionih neuronskih mreža, kao i nekoliko klasifikatora podataka koji ne koriste tehniku dubokog učenja, kako bi se utvrdilo šta je najbolji pristup za identifikovanje reči. Testirajući modele na FSDD bazi reči i bazi podataka koja se sastoji od srpskih reči, utvrđeno je da najtačnije rezultate pri obradi audio zapisa donosi konvoluciona neuronska mreža. Iz ovoga zaključujemo da je optimalno dalja istraživanja usmeriti ka dubokom učenju.
 
-## Apstrakt na engleskom
+### Abstract
 
 Speech recognition is one of the biggest challenges of technology. The growing need for digitalization is followed by the need to expand knowledge in this field. Research so far shows the effectiveness and accuracy of speech recognition methods with or without deep learning. This paper focuses on observing and comparing various methods such as convolutional nerual networks and data classifiers that don’t use deep learning in order to determine the best approach for identifying words. Testing on the FSDD word database and a database consisting of Serbian words, it was determined that the most accurate way to process audio recordings is by using convolutional neural networks, so it is most optimal to conduct further research in that direction.
 
-## Uvod
+### 1. Uvod
 Projekat "Prepoznavanje govora" pomaže pri rešavanju popularne dileme u AI tehnologiji, a to je kako da se glas pretvori u kucani tekst. Prepoznavanje govora je proces osposobljavanja nekog modela da identifikuje i odreaguje na zvuk proizveden ljudskim govorom. Model uzima audio signal u formi talasa, izvlači iz njega podatke, obrađuje ih i identifikuje izgovorenu reč.
 
 Motivacija projekta bila je u tome da se ne samo primene mnoge metode korišćene za prepoznavanje govora, već da se i uporede njihova praktičnost i tačnost. Primena projekta može se uočiti u mnogim svakodnevnim radnjama: audio pretraga na internetu, audio pretraga na uređajima za slepe ljude, pozivanje glasom, i slično.
@@ -27,19 +40,19 @@ Osvrt na rad ogleda se u setu metoda koje su pokrivene u referentnim radovima. U
 2. Klasifikatori, kojima su prosleđene MFCC karakteristike: Logistička regresija, Random Forest, SVM, XGBoost;
 3. Konvolucione neuronske mreže (CNN) koje inkomponuju proces ekstrakcije karakteristika iz signala, kao i proces klasifikacije.
 
-## Metode
+### 2. Metod
 
 Rešenje datog problema prepoznavanja govora svodi se na izradu spektrograma i obradu istih.
 
-### Spektrogrami
+#### 2.1. Spektrogrami
 
 Spektrogrami su vizuelne reprezentacije jačine signala. Mogu se posmatrati kao dvodimenzionalni grafici gde se može uočiti i treća dimenzija preko boja svakog dela spektrograma. Vremenska osa se gleda sa leve na desnu stranu po horizontalnoj osi. Vertikalna osa predstavlja frekvencijske komponente prisutne u signalu, dok boja označava jačinu svake od tih komponenti. U logaritamskoj je skali kako bi se prilagodila ljudskom uhu koje čuje po istom principu, što je dalje objašnjeno u samom radu.
 
 Spektrogram služi za prikazivanje amplitude svake frekvencijske komponente signala u nekom vremenskom intervalu. Intervali su mali, te se može pretpostaviti da se amplitude frekvencijskih komponenti ne menjaju u okviru jednog intervala.
 
-### Metode obrade spektrograma
+#### 2.2. Metode obrade spektrograma
 
-#### Logistička regresija
+##### 2.2.1. Logistička regresija
 
 Logistička regresija je metoda klasifikacije koja se može primeniti i koristiti svuda gde imamo promenljive koje se mogu kategorisati. Za razliku od linearne regresije, vrednosti njenih rezultata su ograničene između 0 i 1. 
 
@@ -61,7 +74,7 @@ Postoji slučaj kada nam se izbor svodi na dve kategorije. Da bi logistička reg
 
 U slučaju kada imamo više kategorija (u našem slučaju 10), koristi se Softmax regresija umesto Sigmoida kako bismo dobili deset verovatnoća čija je suma 1. Konačnu odluku o pravom izboru donosimo po tome koja kategorija ima najveću verovatnoću za zadate ulazne podatke.
 
-#### MFCCs
+##### 2.2.2. MFCCs
 
 MFCCs (*Mel-Frequency Cepstral Coefficients*) jesu koeficijenti koji opisuju karakteristike zvuka na osnovu njegovog spektrograma. Njihova primena u ovom projektu svodi se na izdvajanje ključnih odlika nekog zvuka kako bi reč mogla da se prepozna. Te odlike se zovu formonti i njih stvara ljudski vokalni trakt prilikom govora, menjajući čist glas koji stvaraju naše glasne žice dok vibriraju. Ove odlike se formiraju u reč.
 
@@ -81,7 +94,7 @@ Proces stvaranja kepstra je sledeći:
 
 {{</ figure >}}
 
-#### Random Forest
+##### 2.2.3. Random Forest
 
 *Random Forest* je klasifikator koji koristi više stabala odlučivanja (*Decision Tree*) i njihova pojedinačna predviđanja stapa u jedno konačno.
 
@@ -100,7 +113,7 @@ Pošto su pojedinačna stabla veoma osetljiva na podatke koji im se pruže, kori
 1.	Svakom stablu da nasumično izabere podatke sa kojima će da radi iz baze i time znatno smanji mogućnost *overfitting*-a.
 2.	Svako stablo dobija neki nasumičan karakteristika na kom će se trenirati, umesto da se trenira na skupu karakteristika, što bi zahtevalo i veću dubinu mreže. Ovaj aspekt, zvani *Random Subspace Method* ili *Attribute Bagging*, smanjuje korelaciju između stabala i time ih čini nezavisnijim jedne od drugih.
 
-#### XGBoost
+##### 2.2.4. XGBoost
 
 XGBoost (*Gradient Boosted Trees*), kao i *Random Forest*, koristi više stabala odlučivanja za predviđanje i labeliranje. 
 
@@ -115,7 +128,7 @@ Formula po kojoj se računa *Cross Entropy Loss* je sledeća:
 
 $L_{C E}(\hat{y}, y)=-[y \log \sigma(\mathbf{w} \cdot \mathbf{x}+b)+(1-y) \log (1-\sigma(\mathbf{w} \cdot \mathbf{x}+b))]$
 
-#### SVM
+##### 2.2.5. SVM
 
 Posao SVM klasifikatora je da u N-dimenzionalnom prostoru, gde je N broj parametara, pronađe hiperravan koja na najbolji način klasifikuje sve tačke koje predstavljaju podaci.
 
@@ -160,7 +173,7 @@ U suprotnom, ako je model napravio grešku, moramo da uključimo i funkciju gre�
 
 $$w=w+\alpha \cdot\left(y_i \cdot x_i-2 \lambda w\right)$$
 
-#### Konvolucione neuronske mreže
+##### 2.2.6. Konvolucione neuronske mreže
 
 Metoda konvolucionih neuronskih mreža pomaže za klasifikaciju podataka pomoću tehnike dubokog učenja. Neuronske mreže su inspirisane neuronima i sinapsama u ljudskom mozgu. U konvolucionu neuralnu mrežu pohranjujemo ulazne podatke u vidu spektrograma, nakon čega se oni provlače kroz nekoliko slojeva konvolucije, sažimanja i potpuno povezanih slojeva. Izlaz iz ove mreže se koristi za proračunavanje vrednosti kriterijumske funkcije, na osnovu čega se ažuriraju parametri mreže. Ovaj postupak se potom iterativno ponavlja u cilju minimizacije greške modela.
 
@@ -205,7 +218,7 @@ Parametri mreže se menjaju u cilju računanja dovoljno dobrog gradijentnog spus
 
 {{</ figure >}}
 
-## Istraživanje i rezultati
+### 3. Istraživanje i rezultati
 
 Testiranje metoda vršeno je na dve baze: FSDD baze i baze srpskih reči, koja je kreirana za potrebe projekta. FSDD baza sadrži engleske cifre od 0 do 9 koje su izgovorene od strane 50 različitih ljudi. Sadrži ukupno 3000 snimaka. Srpska baza sadrži 10 srpskih reči, gde su specifično birane reči koje su slične po nekim karakteristikama (ponavljanje slova, zamena slova, umanjenice, ...). Baza ukupno sadrži 500 snimaka, gde je 29 ljudi izgovaralo ove reči različitim naglaskom i intonacijom.
 
@@ -262,29 +275,49 @@ XGBoost i Random Forest su se pokazale kao najbolje metoda koje ne koriste tehni
 
 Konvoluciona neuronska mreža, kao metoda koja koristi duboko učenje, prevazišla je rezultate običnih metoda. To se može objasniti time što je CNN kompleksniji model, pa može da modeluje kompleksniju relaciju između paramatara koji su mu dati. Metode sa dubokim učenjem imaju široku primenu u oblasti mašinskog učenja zbog sličnosti ovih algoritama ljudskom mozgu. Jednostavnije metode često ne uspevaju da modeluju kompleksne veze između podataka, te je neophodno odlučiti se za kompleksnije metode poput dubokog učenja.
 
-## Zaključak
+### 4. Zaključak
 
 Projekat "Prepoznavanje govora" pokazuje načine rešavanja popularne dileme pretvaranja glasa u kucani tekst. Koristi se FSDD baza podataka za poređenje performansi pri prepoznavanju govora između sledećih metoda: SVM, CNN, Random Forest, XGBoost i logistička regresija. Uz FSDD, koristi se i samostalno napravljena baza podataka koja se sastoji od srpskih reči, gde je dokazano, testiranjem metoda, da su se ove metode pokazale kao veoma uspešne pri detektovanju izgovorenih reči. CNN model je imao najveću uspešnost pri prevođenju reči. Tačnost metoda dolazi čak do 97.28%, te je zaključak ovog rada da je CNN najpraktičnija metoda za rad. Dalja istraživanja bi trebalo usmeravati ka ispitivanju ove metode.
 
 
-## Literatura
+### Literatura
 
-1. Ananthi, S. and Dhanalakshmi, P. (2015) “SVM and HMM modeling techniques for speech recognition using LPCC and MFCC features” Advances in Intelligent Systems and Computing, pp. 519–526. Available at: https://doi.org/10.1007/978-3-319-11933-5_58.
+[1]: Ananthi, S. and Dhanalakshmi, P. (2015) “SVM and HMM modeling techniques for speech recognition using LPCC and MFCC features” Advances in Intelligent Systems and Computing, pp. 519–526. 
 
-2. Gandhi, R. „Support Vector Machine — introduction to machine learning algorithms“. Available at: https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47.
+https://doi.org/10.1007/978-3-319-11933-5_58 [pristupljeno 20.06.2025.]
 
-3. Yiu, T. „Understanding random forest“. Available at: https://towardsdatascience.com/understanding-random-forest-58381e0602d2. 
+[2]: Gandhi, R. „Support Vector Machine — introduction to machine learning algorithms“.
 
-4. Kam Ho, T. „The Random Subspace Method for Constructing Decision Forests“. Available at: https://pdfs.semanticscholar.org/b41d/0fa5fdaadd47fc882d3db04277d03fb21832.pdf.
+https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47 [pristupljeno 20.06.2025.]
 
-5. Bryll, R., Gutierrez-Osuna, R. and Quek, F. (2002) „Attribute bagging: Improving accuracy of classifier ensembles by using random feature subsets, Pattern Recognition“. Pergamon. Available at: https://www.sciencedirect.com/science/article/abs/pii/S0031320302001218?via%3Dihub.
+[3]: Yiu, T. „Understanding random forest“.  
 
-6. Swaminathan, S. „Logistic Regression — Detailed Overview“. Available at: https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc.
+https://towardsdatascience.com/understanding-random-forest-58381e0602d2 [pristupljeno 20.06.2025.]
 
-7. „What is logistic regression?“ IBM. Available at: https://www.ibm.com/topics/logistic-regression.
+[4]: Kam Ho, T. „The Random Subspace Method for Constructing Decision Forests“
 
-8. „Softmax Regression - Unsupervised feature learning and Deep Learning Tutorial“. Available at: http://deeplearning.stanford.edu/tutorial/supervised/SoftmaxRegression/.
+https://pdfs.semanticscholar.org/b41d/0fa5fdaadd47fc882d3db04277d03fb21832.pdf [pristupljeno 20.06.2025.]
 
-9. Kiran, U. (2021) „MFCC technique for speech recognition, Analytics Vidhya“. Available at: https://www.analyticsvidhya.com/blog/2021/06/mfcc-technique-for-speech-recognition/.
+[5]: Bryll, R., Gutierrez-Osuna, R. and Quek, F. (2002) „Attribute bagging: Improving accuracy of classifier ensembles by using random feature subsets, Pattern Recognition“. Pergamon.
 
-10. Randall, R.B. (2016) „A history of Cepstrum analysis and its application to mechanical problems, Mechanical Systems and Signal Processing“. Academic Press. Available at: https://www.sciencedirect.com/science/article/abs/pii/S0888327016305556. 
+https://www.sciencedirect.com/science/article/abs/pii/S0031320302001218?via%3Dihub [pristupljeno 20.06.2025.]
+
+[6]: Swaminathan, S. „Logistic Regression — Detailed Overview“.
+
+https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc [pristupljeno 20.06.2025.]
+
+[7]: „What is logistic regression?“ IBM.
+
+https://www.ibm.com/topics/logistic-regression [pristupljeno 20.06.2025.]
+
+[8]: „Softmax Regression - Unsupervised feature learning and Deep Learning Tutorial“.
+
+http://deeplearning.stanford.edu/tutorial/supervised/SoftmaxRegression/ [pristupljeno 20.06.2025.]
+
+[9]: Kiran, U. (2021) „MFCC technique for speech recognition, Analytics Vidhya“.
+
+https://www.analyticsvidhya.com/blog/2021/06/mfcc-technique-for-speech-recognition/ [pristupljeno 20.06.2025.]
+
+[10]: Randall, R.B. (2016) „A history of Cepstrum analysis and its application to mechanical problems, Mechanical Systems and Signal Processing“. Academic Press. 
+
+https://www.sciencedirect.com/science/article/abs/pii/S0888327016305556 [pristupljeno 20.06.2025.]
