@@ -1,13 +1,22 @@
 ---
 title: Simulacija muve
-summary: Simulacija muve je projekat rađen na letnjem kampu za stare polaznike 2022. godine od Aleksandra Raškovića i Tadeja Ristića.
+summary: Simulacija muve je projekat rađen na letnjem kampu za stare polaznike 2022. godine čiji su autori Aleksandar Rašković i Tadej Ristić.
 ---
+
+**Autori:**
+
+Aleksandar Rašković, Tadej Ristić
+
+**Mentori:**
+
 
 ### Apstrakt
 
+U radu je predstavljena implementacija fizičke simulacije leta muve u cilju učenja stabilnog letenja primenom veštačke inteligencije. Model muve obuhvata kinematičku i dinamičku simulaciju kretanja u trodimenzionalnom prostoru, sa posebnim akcentom na realističnu rotaciju krila i računanje sile otpora vazduha. Za kontrolu pokreta krila zaduzena je neuronska mreža, čiji su parametri optimizovani genetskim algoritmom. Primenom različitih definicija fitnes funkcije analiziran je uticaj kriterijuma treniranja na stabilnost i efikasnost leta. Eksperimentalni rezultati pokazuju da model uspeva da nauči simulaciju realističnog mahanja krilima, održavanje visine i smanjenje neželjenih bočnih odstupanja.
 
-### Apstrakt na engleskom
+### Abstract
 
+This paper presents an implementation of a physical simulation of a fly’s flight aimed at learning stable flying behavior using artificial intelligence. The fly model includes kinematic and dynamic simulation in three-dimensional space, with emphasis on realistic wing rotation and air drag force calculation. The wing movements are controlled by a neural network whose parameters are optimized using a genetic algorithm. By applying different definitions of the fitness function, the influence of training criteria on flight stability and efficiency was analyzed. Experimental results show that the model successfully learns realistic wing-flapping motion, maintains altitude, and reduces undesired lateral deviations.
 
 ### 1. Uvod
 
@@ -43,7 +52,7 @@ Koeficijent otpora zavisi od oblika tela i ugla pod kojim se telo kreće kroz fl
 Dodatna aproksimacija uvedena je u izračunavanju momenata sila i ugaonog ubrzanja. Umesto dinamičkog određivanja ose rotacije, rotacija je uvek računata oko centra mase muve. Na osnovu rezultantnih sila otpora sredine i gravitacione sile izračunavano je linearno i rotaciono ubrzanje sistema muve. Ta ubrzanja korišćena su za određivanje promene linearne i ugaone brzine u svakom diskretnom vremenskom koraku $dt$.
 
 
-### 2.3. Aparatura i metoda - ML
+#### 2.3. Aparatura i metoda - ML
 
 Za kontrolisanje simuliranog leta muve korišćena je neuronska mreža, dok je proces unapređenja mreže vršen primenom genetskog algoritma. Radi integracije sa sistemom simulacije, dodatno je razvijen kod koji koristi navedene komponente kao biblioteke za treniranje modela muve.
 
@@ -60,7 +69,7 @@ Razvijene su dve verzije neuronske mreže:
 Dalja razmatranja i prikaz implementacije fokusiraće se isključivo na vektorizovanu verziju neuronske mreže i prateće algoritme prilagođene takvom načinu obrade.
 
 
-#### 2.3.1. Opis interfejsa za treniranje
+##### 2.3.1. Opis interfejsa za treniranje
 
 Algoritam zahteva od korisnika da inicijalizuje populaciju tipa Population, nad kojom se kasnije poziva funkcija run. Prilikom inicijalizacije populacije, neophodno je proslediti broj jedinki u populaciji, kao i arhitekturu neuronske mreže.
 
@@ -87,7 +96,7 @@ Za svaki poziv funkcije Activate, mreži se prosleđuje $m$ setova ulaznih podat
 Vrednost $m$ može varirati između poziva funkcije Activate, dok vrednost $n$ mora ostati fiksna, u skladu sa arhitekturom mreže koja je unapred definisana.
 
 
-#### 2.3.2. Neuronska mreža
+##### 2.3.2. Neuronska mreža
 
 U okviru ove simulacije, neuronska mreža koristi se za predikciju položaja krila muve u narednom vremenskom koraku, na osnovu trenutnih prostornih parametara tela muve i njenih krila.
 Za neuronsku mrežu je implementirana propagacija unapred (eng. feedforward). Propagacija unazad (eng. backpropagatoin) nije potrebna jer se mreža trenira genetskim algoritmom.
@@ -132,14 +141,14 @@ $$
 Nelinearna funkcija, osim $tanh$, može biti i $sigmoid$ ili $ReLU$. Na kraju je dobijen izlaz mreže, odnosno matrica $A[l]$. Izlaz mreže je istog formata kao i ulazna matrica za mrežu, samo što umesto ulaznih podataka idu izlazni.
 
 
-#### 2.3.3. Genetski algoritam
+##### 2.3.3. Genetski algoritam
 
 Sve informacije o nekoj mreži se nalaze u objektu tipa Genome koji smo implementirali, koji je zapravo njen gen.
 Objekat gena sadrži razne podatke o mreži u sebi, kao i sve parametre mreže.
 Pri pravljenju populacije svi parametri dobijaju nasumične vrednosti po gausovoj (normalnoj) raspodeli sa standardnom devijacijom koju možemo da podešavamo.
 
 
-##### 2.3.3.1. Fitnes funkcija
+###### 2.3.3.1. Fitnes funkcija
 
 Kao što je prethodno navedeno, fitnes funkciju korisnik definiše kako bi evaluirao kvalitet svakog genoma u populaciji za konkretni zadatak.
 
@@ -157,13 +166,13 @@ Generisanje populacije za novu generaciju gena se sastoji iz 3 faze:
  - mutacija.
 
 
-##### 2.3.3.2. Faza selekcije
+###### 2.3.3.2. Faza selekcije
 
 Nakon što se završi fitnes funkcija program bira 10% najboljih gena, poređanih po fitnesu koji im je dodeljen u fitnes funkciji.
 Oni se smeštaju u niz, nazvan "bazenom za ukrštanje". Ovi geni će se koristiti za generisanje nove populacije gena.
 
 
-##### 2.3.3.3. Faza ukrštanja
+###### 2.3.3.3. Faza ukrštanja
 
 Novi geni se generišu tako što se nasumično biraju dva "roditelja" iz "bazena za ukrštanje", zatim se na njima vrši ukrštanje i novodobijeni gen se dodaje na novu populaciju. Proces se ponavlja dok se populacija ne popuni istim brojem gena kao što je bio u prethodnoj generaciji.
 
@@ -173,32 +182,31 @@ Novi gen može biti generisan iz dva roditelja primenom različitih metoda kombi
 Vrednost $x$ se definiše kao jedan od parametara koji se prosleđuju funkciji run prilikom izvršavanja genetskog algoritma, i omogućava korisniku da kontroliše stepen kombinovanja roditeljskih osobina u novim jedinkama.
 
 
-##### 2.3.3.4. Faza mutacije
+###### 2.3.3.4. Faza mutacije
 
 Nakon faze ukrštanja vrše se nasumične mutacije na svakom od novih gena.
 Mutacija podrazumeva da se vrednosti na nasumičnim mestima u genu postave na neke nove nasumične vrednosti. Učestalost mutacija u novom genu je takođe jedan od parametara koji se moše proslediti run funkciji.
 
 Ova faza je bitna kako bi održali diverzitet populacije, tj. kako se ne bi cela populacija svela na par sličnih gena i tako stagnirala.
 
-##### 2.3.3.5. Dodatna faza
+###### 2.3.3.5. Dodatna faza
 
 Umesto da svi geni iz nove populacije budu dobijeni na prethodni način, program 5% najboljih gena iz prošle generacije prepiše bez promena, kako se ne bi desilo da se kroz prethodne faze izgubi dosadašnji napredak.
 
 
-#### 2.3.4. Čuvanje podataka
+##### 2.3.4. Čuvanje podataka
 
-Za čuvanje podataka kao što su najbolji gen muve za određene generacije ili cela populacija u nekom trenutku treniranja, korišćena je biblioteku pickle.
+Za čuvanje podataka kao što su najbolji gen muve za određene generacije ili cela populacija u nekom trenutku treniranja, korišćena je biblioteka pickle.
 Ova biblioteka omogućava da u fajlovima sa .pickle ekstenzijom sačuvamo python objekat koji se lako može vratiti u program.
 Najbolji gen iz neke generacije se čuva kada njegov fitnes postane veći od parametra fitness_treshold, onda program čuva najbolji gen u fajl i povećava fitness_treshold za delta_fitness kako bi čuvao samo fajlove kada algoritam napravi neki pomak. Nakon što se završi treniranje na zadatom broju generacija, program čuva poslednju populaciju.
 Ovo je bitno ukoliko želimo da treniramo populaciju iz više puta.
 Omogućava nam menjanje fitnes funkcije i ostalih parametara između dva dela treniranja.
-Parametri fitness_treshold, delta_fitness i sl. mogu se proslediti run funkciji koju pozivamo nad populacijom.
+Parametri fitness_treshold, delta_fitness i sl. mogu se proslediti run funkciji koju se poziva nad populacijom.
 
 
-#### 2.3.5. Treniranje muve
+##### 2.3.5. Treniranje muve
 
-Jedan deo veze između genetskog algoritma i fizike je implementiran u fajlu bugControll.py.
-U njemu se generiše populacija p od 100 jedinki čija je arhitektura mreže \[15, 20, 20, 3].
+Jedan deo veze između genetskog algoritma i fizike je implementiran kodom koji generiše populaciju p od 100 jedinki čija je arhitektura mreže \[15, 20, 20, 3].
 Ovo znači da u ulaznom sloju u mrežu postoji 15 neurona, u dva skrivena sloja po 20 neurona i u izlaznom sloju postoji 3 neurona.
 Ulaznih 15 neurona predstavljaju trodimenzionalne vektore pozicije muve, rotacije muve, brzine muve, brzine rotacije muve i rotacije jednog krila.
 Mreža na izlazu izbacuje novu rotaciju krila u sledećem trenutku.
@@ -208,49 +216,48 @@ Ukoliko se aktivira opcija za nesimetrična krila, bilo bi potrebno 18 ulaznih n
 Prvo se pravi populacija sa odabranim karakteristikama i nad njom se poziva funkcija run kojoj se prosledjuju fitnes funkcija, broj generacija, šansa za preuzimanje gena od drugog roditalja umesto prvog u fazi ukrštanja, šansa da se desi mutacija za svaki parametar neuralne mreže u mutation fazi, i slični parametri.
 Takođe se prosleđuju i parametri vezani za čuvanje fajlova najboljih gena ili celih populacija.
 
-U ovom fajlu je takođe implementirana i fitnes funkcija nazvana main.
-Ona prima listu gena kao parametar.
+Fitnes funkcija nazvana main prima listu gena kao parametar.
 Na osnovu te liste generiše listu neuralnih mreža.
-Za svaku muvu, tj. gen, program poziva funkciju iz drugog fajla physics.py kojoj prosleđuje mrežu.
-Ta funkcija vrši simulaciju kretanja muve pomoću mreže koju je dobila i vraća podatke o poziciji, rotaciji i ostalim parametrima muve u svakom trenutku simulacije.
+Za svaku muvu, tj. gen, mreža se prosleđuje funkciji za simulaciju kretanja muve koja vraća podatke o poziciji, rotaciji i ostalim parametrima muve u svakom trenutku simulacije.
 
 Za svaki gen nakon izvršavanja pomenute funkcije računa se fitnes, gde se uzima da je fitnes jednak visini muve u poslednjem trenutku simulacije.
 Nakon što se ovaj proces izvrši za svaku muvu, funkcija se završava.
-Zatim se u fajlu geneticAlgo.py stvaraju nove generacije gena za muve i opet se pokreće fitnes funkcija sa novim genima.
+Zatim se stvaraju nove generacije gena za muve i opet se pokreće fitnes funkcija sa novim genima.
 
 
 ### 3. Istraživanje i rezultati
+Cilj istraživanja je podrazumevao razvoj kontrole leta muve uz maksimizaciju visine njenog položaja duž y-ose.
 
-Cilj je bio učenje leta muve tako da bude što viši po y koordinati.
+Kao prvi pristup u proceni performansi neuronskih mreža, fitnes funkcija postavljena je na vrednost prosečne visine muve tokom simulacije, odnosno na prosek y-koordinate njenog položaja. Dužina simulacije ograničena je na 3 sekunde. Za simulacije u trajanju od 1 sekunde, izvršavanje je trajalo značajno kraće od jedne sekunde realnog vremena, što je pozitivno uticalo na ukupnu brzinu treniranja.
 
-Prvi način koji je korišćen za procenu neuralnih mreža bio je postavljanje fitnes-a mreže na vrednost proseka visine muve u toku simulacije, tj. proseku y koordinate muve.
-Dužinu simulacije smo ograničili na 3 sekunde.
-Za simulacije 1 sekunde muve je bilo potrebno značajno manje od 1 sekunde realnog vremena.
-Ovo je značajno uticalo na brzinu treniranja.
-
-Nakon pokretanja koda, 
-Kada je kod pokrenut, primećeno je da program često neočekivano prekida izvršavanje. Vizuelna analiza simulacije pokazala je da se visina muve u određenim trenucima naglo i neprirodno menja, što se može uočiti na grafiku: 
+Nakon pokretanja koda, primećeno je da je program često neočekivano prekidao izvršavanje. Vizuelnom analizom simulacije utvrđeno je da se visina muve u određenim trenucima naglo i neprirodno menjala, što je moglo da se uoči i na prikazanom grafiku. 
 **Na svim graficima (osim ako drugačije nije naznačeno) će se nalaziti zavisnost visine bube od vremena proteklog od početka simulacije.**
 
 ![slika](/images/2022/simulacija-muve/Figure_1.svg)
 
-Zaključeno je da je problem bio pomeranju krila muve pomoću neuralne mreže svake milisekunde simulacije što je dovelo do toga da muva pokušava da pravi prebrze pokrete koji su mogli da postave određene promenjive na vrednosti koje odgovaraju beskonačnosti zbog kojih bi pri kasnijim proračunima došlo do pucanja programa.
+<p align="center">Slika 1. Grafik prikaza naglih promena visina muve</p>
 
-Nakon što je podešeno da se krila kontrolišu na svakih 10 milisekundi, ovaj problem se više nije dešavao.
+Zaključeno je da je problem bio u kontroli krila muve pomoću neuralne mreže svake milisekunde simulacije što je dovelo do toga da muva pokušava da pravi prebrze pokrete koji su mogli da postave određene promenjive na vrednosti koje odgovaraju beskonačnosti zbog kojih bi pri kasnijim proračunima došlo do greške.
+
+Nakon što je podešeno da se krila kontrolišu na svakih 10 milisekundi, problem je rešen.
 Dobijen je sledeći grafik:
 
 ![slika](/images/2022/simulacija-muve/Figure_2.svg)
+
+<p align="center">Slika 2. Grafik prikaza nakon ispravljene kontrole visine</p>
 
 Sa grafika se može zaključiti da je muva uspela da proizvede pokrete koji imitiraju mahanje krilima, međutim, intervali između zamaha su predugi. To dovodi do toga da muva naglo gubi visinu pre nego što ponovo aktivira krila. Ovakvo ponašanje ukazuje na to da mreža nije efikasno naučila povratni pokret krila u položaj iz kog se inicira naredni zamah.
 
 Drugim rečima, mreža ne optimizuje dovoljno fazu vraćanja krila na početni položaj, što rezultira neefikasnim održavanjem visine tokom simulacije.
 
-Program je promenjen tako da fitnes bude jednak visini muve po y osi u poslednjem trenutku simulacije, što je značanjno poboljšalo visinu koju je buba dostizala (2-3 puta).
+Nakon što je fitnes izjednačen sa visinom muve po y osi u poslednjem trenutku simulacije, visina koju je buba dostizala je poboljšana za 2-3 puta.
 Grafik je onda izgledao ovako:
 
 ![slika](/images/2022/simulacija-muve/Figure_3.svg)
 
-Uočava se da je muva uspela da nauči da na optimalan način vrati krila gore, bez da se dodatno spusti.
+<p align="center">Slika 3. Grafik prikaza poboljšanja kontrole visine</p>
+
+Uočeno je da je kod muve naučeno optimalno vraćanje krila u gornji položaj, bez dodatnog spuštanja.
 
 Nakon svakih $x$ generacija čuvani su svi podaci o položajima muva u datoj generaciji, što je omogućilo rekonstrukciju 3D prikaza celokupne simulacije. Na osnovu ovih prikaza, uočeno je da se muva ne kreće vertikalno već ukoso, odnosno značajno odstupa duž $x$ i $z$ ose.
 
@@ -262,31 +269,31 @@ $ fitness = Y_t - (\frac{1}{T} * \sum_{i = 1}^{T}(X_i)) * \frac{1}{5} - (\frac{1
 
 - T - vreme trajanja simulacije u milisekundama.
 
-Fitnes je visina muve u poslednjem trenutku od koje se oduzima prosečno odstupanje x i z koordinate muve od 0 podeljeno sa 5, jer to nije toliko bitno koliko i visina muve.
+Fitnes je visina muve u poslednjem trenutku od koje se oduzima jedna petina prosečnog odstupanja x i z koordinate muve od 0, jer to nije toliko bitno koliko i visina muve.
 
 Nakon treniranja 50 generacija muva na 3 sekunde dobili smo sledeći grafik koji predstavlja fitnes u odnosu na broj generacija:
 
 ![slika](/images/2022/simulacija-muve/fitness7.png)
 
-**Imati na umu da fitnes više ne predstavlja samo visinu b** 
+<p align="center">Slika 4. Grafik odnosa fitnesa i broja generacija</p>
 
 Sledeći grafik predstavlja fitnes u odnosu na broj generacija, nakon treniranja od 1000 generacija:
 
 ![slika](/images/2022/simulacija-muve/figure1000.png)
 
-Na kraju je produženo trajanje simulacije na 30 sekundi
+<p align="center">Slika 5. Grafik odnosa fitnesa i broja generacija nakon treniranja većeg broja generacija</p>
 
-na kome se veoma lepo vidi buba maše krilima i kako se ne kreće toliko po x i z osama.
+Na kraju je produženo trajanje simulacije na 30 sekundi na kome se veoma lepo vidi muva maše krilima i kako se ne kreće toliko po x i z osama.
 
 Simulacija kinematike se vrši sa vremenskim stepenom od 1ms.
-Radi preciznije simulacije bržih pokreta mougće je još smanjiti $dt$, ali time se usporava brzina treniranja simulacije.
+Radi preciznije simulacije bržih pokreta moguće je još smanjiti $dt$, ali time se usporava brzina treniranja simulacije.
 
-### Zaključak
-Videli smo da se na ovaj način mogu postići prilično realni rezultati i da je algoritam sposoban da nauči ono što zahtevamo od njega.
+### 4. Zaključak
 
-Ova ideja može da se proširi i da se iskoristi da se napravi kontroler za bubu pomoću koga će korisnik moći da odredi u kom smeru će se buba kretati.
-Buba bi trebalo da isprati komande koje joj korisnik zada.
-Ovo se može postići korišćenjem više mreža koje treniramo pomoću istog algoritma ali sa drugačijim fitnes funkcijama.
-Trebalo bi istrenirati mrežu gde buba lebdi oko jedne tačke, i mreže za kretanje u sva četiri pravca (ili 6 pravaca u slučaju da želimo da omogućimo i kretanje po y osi).
-Za treniranje možemo da koristimo i različite početne parametre za bubu, tj. buba neće kretati uvek iz stanja mirovanja pri određivanju svog funkcije.
-Ovako istrenirane mreže se na kraju mogu spojiti u jedan kontroler za bubu gde se pri određenim komandama pokreću i koriste određene mreže za kretanje bube.
+Pokazano je da se ovim pristupom mogu postići rezultati koji su prilično realistični, pri čemu je potvrđeno da je algoritam sposoban da nauči zadato ponašanje na osnovu definisanih uslova.
+
+Ova ideja može se proširiti razvojem kontrolera za upravljanje kretanjem bube, putem kog bi korisniku bilo omogućeno određivanje pravca kretanja. Kretanje bube trebalo bi da se odvija u skladu sa komandama koje zadaje korisnik.
+
+Ovakva funkcionalnost može se ostvariti korišćenjem više neuronskih mreža, treniranih istim algoritmom, ali sa različitim fitnes funkcijama. Neophodno je obučiti jednu mrežu za lebdenje bube u blizini određene tačke, kao i po jednu mrežu za kretanje u sva četiri pravca (odnosno šest pravaca, ukoliko se omogući kretanje i duž y-ose).
+
+Tokom procesa treniranja mogu se koristiti različiti početni parametri, tako da buba ne mora uvek započinjati kretanje iz stanja mirovanja. Na kraju, ovako istrenirane mreže mogu se integrisati u jedinstven kontroler, u kojem bi se, u zavisnosti od korisničke komande, aktivirala odgovarajuća mreža za upravljanje kretanjem bube.
