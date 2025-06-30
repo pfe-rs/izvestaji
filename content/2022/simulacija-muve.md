@@ -11,7 +11,7 @@ Tadej Ristić, učenik II razreda Računarske gimnazije u Beogradu
 
 **Mentori:**
 
-Vladan Bašić, Elektrotehnički fakultet u Beogradu
+Mladen Bašić, Elektrotehnički fakultet u Beogradu
 
 
 ## Apstrakt
