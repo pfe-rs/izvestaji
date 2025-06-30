@@ -104,7 +104,7 @@ Web kamera ja pričvršćena na naočare gde su postavljene i LE diode kako bi o
 
 ![Slika 1 - Izgled naočara](/images/2022/videookulografija/OPREMA1.jpg)   
 
-{{</ figure >}}
+{{</ figure >}}
 
 #### **3.2. Metode**
 
@@ -133,9 +133,9 @@ Slika u RGB spektru ima više informacija koje nam nisu potrebne, takođe slika 
 Konvertovanjem RGB vrednosti piksela slike koje zauzimaju 24 bita u grayscale prostor boja koji zauzima 8 bita memorije dobija se slika u monohromatkskom sistemu boja.
 Na slici 2 može se videti kako slika izgleda u RGB prostoru i njen sivi ekvivalent.
 
-{{< figure "Slika" "Slika 2 - RGB slika i njen sivi ekvivalent" "RGB2GRAY" >}}
+{{< figure "Slika" "Slika 2 - RGB slika i njen sivi ekvivalent" "RGB2GRAY" >}}
 ![Slika 2 - RGB slika i njen sivi ekvivalent](/images/2022/videookulografija/RGB2GRAY.png)  
-{{</ figure >}}
+{{</ figure >}}
 
 #### 3.2.1.2. Zamućivanje
 
@@ -152,9 +152,9 @@ Na Slici 3 prikazana je slika pre i posle primene Gausovog zamućivanja.
 
 
 
-{{< figure "Slika" "Slika 3 - Slika pre i nakon zamućivanja" "GRAY2BLURE">}}
+{{< figure "Slika" "Slika 3 - Slika pre i nakon zamućivanja" "GRAY2BLURE">}}
 ![Slika 3 - Slika pre i nakon zamućivanja](/images/2022/videookulografija/GRAY2BLURE.png) 
-{{</ figure >}}
+{{</ figure >}}
 
 #### 3.2.1.3. Binarizacija
 
@@ -167,9 +167,9 @@ Kako bi prag bio adaptivan u odnosu na konkretne karakteristike slike, on se def
 Rezultat primene ovog postupka jeste binarna (crno-bela) slika, nad kojom se dalje sprovodi proces segmentacije, tj. izdvajanje zenice.
  
 
-{{< figure "Slika" "Slika 4 - Slika pre in nakon binarizacije" "BLURE2BIN" >}}
+{{< figure "Slika" "Slika 4 - Slika pre in nakon binarizacije" "BLURE2BIN" >}}
 ![Slika 4 - Slika pre in nakon binarizacije](/images/2022/videookulografija/BLURE2BIN.png)   
-{{</ figure >}}
+{{</ figure >}}
 
 #### 3.2.1.4. Morfološke operacije
 
@@ -185,9 +185,9 @@ Ukoliko se dogodi da postoji barem jedno nepodudaranje, piksel slike koji se pok
 Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
 
 
-{{< figure "Slika" "Slika 5 - Slika pre i nakon primene erozije" "BIN2EROZIJA">}}
+{{< figure "Slika" "Slika 5 - Slika pre i nakon primene erozije" "BIN2EROZIJA">}}
 ![Slika 5 - Slika pre i nakon primene erozije](/images/2022/videookulografija/BIN2EROZIJA.png) 
-{{</ figure >}}
+{{</ figure >}}
 
 
 ##### 3.2.1.4.2. Dilatacija
@@ -198,9 +198,9 @@ Ukoliko se dogodi da postoji barem jedno poklapanje, piksel slike koji se poklap
 Nakon završetka ovog procesa, maska se pomera za jedan piksel udesno i tako se nastavlja postupak sve do kraja slike.
 
 
-{{< figure "Slika" "Slika 6 - Slika pre i nakon primene dilatacije" "BIN2DILATACIJA">}}
+{{< figure "Slika" "Slika 6 - Slika pre i nakon primene dilatacije" "BIN2DILATACIJA">}}
 ![Slika 6 - Slika pre i nakon primene dilatacije](/images/2022/videookulografija/BIN2DILATACIJA.png)
-{{</ figure >}}
+{{</ figure >}}
 
 
 
@@ -234,9 +234,9 @@ Na slici 7 levo prikazan je binarizovani okvir snimka u realnom vremenu, odnosno
 
 
 
-{{< figure "Slika" "Slika 7 - slika pre i nakon primene Keni algoritma" "BIN2CANNY" >}}
+{{< figure "Slika" "Slika 7 - slika pre i nakon primene Keni algoritma" "BIN2CANNY" >}}
 ![Slika 7 - slika pre i nakon primene Keni algoritma](/images/2022/videookulografija/BIN2CANNY.png)
-{{</ figure >}}
+{{</ figure >}}
 
 
 #### 3.2.1.6. Hafova transformacija za krug
@@ -267,9 +267,9 @@ Ovim postupkom vidi se ideja Hafove transformacije, a to je da svaka tačka u De
 
 
 
-{{< figure "Slika" "Slika 8 - Tačka prebačena iz dekartovog u parametarski sistem" "hafovatransformacija">}}
+{{< figure "Slika" "Slika 8 - Tačka prebačena iz dekartovog u parametarski sistem" "hafovatransformacija">}}
 ![Slika 8 - Tačka prebačena iz dekartovog u parametarski sistem](/images/2022/videookulografija/hafovatransformacija.png)
-{{</ figure >}}
+{{</ figure >}}
 
 
 
@@ -289,9 +289,9 @@ gde je:
 Sada, tačka neće predstavljati pravu već sinusoidu Slika 9, a presečne tačke se određuju na isti način kao što je ranije navedeno.
 
 
-{{< figure "Slika" "Slika 9 - Tačka u sinusoidnom obliku" "hafovatransformacija2">}}
+{{< figure "Slika" "Slika 9 - Tačka u sinusoidnom obliku" "hafovatransformacija2">}}
 ![Slika 9 - Tačka u sinusoidnom obliku](/images/2022/videookulografija/hafovatransformacija2.jpg)
-{{</ figure >}}
+{{</ figure >}}
 
 
 U narednom koraku definiše se parametarski prostor.
@@ -319,9 +319,9 @@ $y = b + r \cdot \sin{\theta}$.
 Kod elipsa različitih poluprečnika razlika je u tome što oni zahtevaju tri dimenzije, tj. u parametarski prostor se prenose kao kupasti oblik. 
 Ostatak postupka je isti kao i za LHT.
 
-{{< figure "Slika" "Slika 10 - 3D transformacija kruga" "hafovatransformacija3">}}
+{{< figure "Slika" "Slika 10 - 3D transformacija kruga" "hafovatransformacija3">}}
 ![Slika 10 - 3D transformacija kruga](/images/2022/videookulografija/hafovatransformacija3.png)
-{{</ figure >}}
+{{</ figure >}}
 
 
 
@@ -329,9 +329,9 @@ Na slici 11 može se videti detektovana zenica pomoću Hafove transformacije.
 
 
 
-{{< figure "Slika" "Slika 11 - Detektovana zenica" "Hhh">}}
+{{< figure "Slika" "Slika 11 - Detektovana zenica" "Hhh">}}
 ![Slika 11 - Detektovana zenica](/images/2022/videookulografija/Hhh.png)
-{{</ figure >}}
+{{</ figure >}}
 
 
 
@@ -347,9 +347,9 @@ Na taj način se dobija filtrirano merenje.
 
 Na slici 12 ispod se može videti grafik filtriranog signala, y ose u odnosu na vreme.
 
-{{< figure "Slika" "Slika 12 - Koordinate y-ose u odnosu na vreme t" "filtrirany">}}
+{{< figure "Slika" "Slika 12 - Koordinate y-ose u odnosu na vreme t" "filtrirany">}}
 ![Slika 12 - Koordinate y-ose u odnosu na vreme t](/images/2022/videookulografija/filtrirany.jpg)
-{{</ figure >}}
+{{</ figure >}}
 
 
 
@@ -364,9 +364,9 @@ Tokom testa, crvena tačka se pomera nakon definisanog vremenskog perioda, odnos
 
 
 
-{{< figure "Slika" "Slika 13 - Ekran tokom eksperimenta" "eksperiment">}}
+{{< figure "Slika" "Slika 13 - Ekran tokom eksperimenta" "eksperiment">}}
 ![Slika 13 - Ekran tokom eksperimenta](/images/2022/videookulografija/eksperiment.jpg)
-{{</ figure >}}
+{{</ figure >}}
 
 
 
@@ -446,9 +446,9 @@ Ovakvu matricu ćemo iskoristiti u formuli za pseudo inverziju i na taj način d
 
 Formula za pseudo inverziju:  $b = (X^T \cdot X)^{-1} \cdot Y \cdot X^{T}$ 
 
-{{< figure "Slika" "Slika 14 - Primer polinomialne regresije" "polinomialnaregresija">}}
+{{< figure "Slika" "Slika 14 - Primer polinomialne regresije" "polinomialnaregresija">}}
 ![Slika 14 - Primer polinomialne regresije](/images/2022/videookulografija/polinomialnaregresija.jpg)
-{{</ figure >}}
+{{</ figure >}}
 
 
 
@@ -476,9 +476,9 @@ Rezultati sa jednim snimanjem imaja prosečan pomeraj 121.6 piksela i prosečne 
 
 
 
-{{< figure "Slika" "Slika 15 - Primer " "desktop">}}
+{{< figure "Slika" "Slika 15 - Primer " "desktop">}}
 ![Slika 15 - Primer ](/images/2022/videookulografija/desktop.png)
-{{</ figure >}}
+{{</ figure >}}
 
 Na slici 15 prikazana je početna stranica jednog PC računara.
 Crvena kružnica na slici ima poluprečnik od 121,6 piksela, što predstavlja prosečni pomeraj kursora ovog sistema.
@@ -500,18 +500,18 @@ Očekivani rezultat bio bi usklađivanje koordinata zenice oka sa koordinatama t
 
 
 
-{{< figure "Slika" "Slika 16 - Očekivani rezultat" "histogram">}}
+{{< figure "Slika" "Slika 16 - Očekivani rezultat" "histogram">}}
 ![Slika 16 - Očekivani rezultat](/images/2022/videookulografija/histogram.png)
-{{</ figure >}}
+{{</ figure >}}
 
 
 Na dobijenim rezultatima vidi se sledeće - putanja oka prikazana na ekranu nije ista kao putanja kojom je ispitanik pomerao oči.
 
 
 
-{{< figure "Slika" "Slika 17 - Funkcija gustine verovatnoće" "fgv">}}
+{{< figure "Slika" "Slika 17 - Funkcija gustine verovatnoće" "fgv">}}
 ![Slika 17 - Funkcija gustine verovatnoće](/images/2022/videookulografija/fgv.png)
-{{</ figure >}}
+{{</ figure >}}
 
 
 Za postizanje veće preciznosti rezultata neophodno je sprovesti dodatna testiranja i prikupiti podatke od većeg broja ispitanika.
