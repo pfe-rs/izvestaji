@@ -1,0 +1,68 @@
+/*=================================================================
+    Footer section
+==================================================================*/
+#footer {
+    background-color: var(--dark-background-color);
+    display: flex;
+    padding: 30px;
+}
+
+.footer-bottom {
+    box-sizing: border-box;
+    justify-self: center;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-bottom h2 {
+    font-size: 14px;
+    line-height: 1;
+    color: var(--secondary-text-color);
+    font-weight: 400;
+    margin-top: 7px;
+    margin-bottom: 3px;
+}
+
+.footer-bottom h2 a {
+    color: var(--secondary-text-color);
+}
+
+.footer-bottom h2 a:hover, .footer-bottom h2 a:focus-visible {
+    color: var(--dark-text-color);
+}
+
+.footer-bottom a {
+    color: var(--accent-color);
+}
+
+.footer-rss-link {
+    justify-self: flex-end;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.footer-rss-link svg {
+    background-color: var(--dark-background-color);
+    border-radius: 3px;
+    fill: var(--dark-text-color);
+    height: 30px;
+    width: 30px;
+}
+
+.footer-rss-link:hover svg,
+.footer-rss-link:focus-visible svg {
+    background-color: var(--accent-color);
+    border-radius: 3px;
+    fill: var(--dark-text-color);
+    height: 30px;
+    width: 30px;
+}
+
+@media (max-width: 767px) {
+    #footer {
+        flex-direction: column;
+    }
+    .footer-rss-link {
+        justify-self: center;
+    }
+}

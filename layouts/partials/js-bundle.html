@@ -1,0 +1,9 @@
+{{ $js := slice }}
+{{ range (index .context.Site.Params.bundles.js .bundle) -}}
+    {{ $js = $js | append (resources.Get . | js.Build (dict "params" $.context.Site.Params.bundles.jsParams)) }}
+{{ end }}
+{{ range .resources }}
+    {{ $js = $js | append . }}
+{{ end }}
+{{ $js := $js | resources.Concat (print "js/" .bundle ".js") | minify | fingerprint "sha512" }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>

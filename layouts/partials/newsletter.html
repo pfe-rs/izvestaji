@@ -1,0 +1,54 @@
+{{ if .context.Site.Params.newsletter.enable }}
+
+{{ $data := index $.context.Site.Data $.context.Site.Language.Lang }}
+
+<section class="newsletter section" id="newsletter">
+    <div class="container">
+        <form
+            action="https://pfe.us14.list-manage.com/subscribe/post?u={{ .context.Site.Params.newsletter.auth.u }}&amp;id={{ .context.Site.Params.newsletter.auth.id }}&amp;f_id={{ .context.Site.Params.newsletter.auth.f_id }}"
+            method="post"
+        >
+            <div class="row">
+                <div class="col">
+                    <div class="title text-center">
+                        <h2 id="newsletter">{{ $data.newsletter.title }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                    <p>
+                        {{ $data.newsletter.description }}
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="newsletter-entry col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                    <div class="input-box">
+                        <label id="newsletter-email-label" for="mce-EMAIL">
+                            Email
+                            <svg>
+                                <use xlink:href="#email"></use>
+                            </svg>
+                            {{ $.context.Scratch.Add "icons" "email" }}
+                        </label>
+                        <input aria-labelledby="newsletter-email-label" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="{{ $data.newsletter.fields.placeholder }}" required>
+                    </div>
+                    {{ with .tags }}
+                        {{ $tag_ids := slice }}
+                        {{ range . }}
+                        {{ $tag_ids = $tag_ids | append (index $.context.Site.Params.newsletter.tags .) }}
+                        {{ end }}
+                        {{ $tags := delimit $tag_ids "," }}
+                        <input type="hidden" name="tags" value="{{ $tags }}">
+                    {{ end }}
+                    <input type="submit" value="{{ $data.newsletter.fields.submit }}" name="subscribe" id="mc-embedded-subscribe" class="button">
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+{{ end }}
+
+{{ partial "css-bundle" (dict "context" .context "bundle" "newsletter") }}

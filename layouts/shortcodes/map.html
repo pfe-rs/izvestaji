@@ -1,0 +1,21 @@
+{{ with $.Site.Data.map }}
+<div id="map">
+    <svg viewBox="{{ .viewBox }}" xmlns="http://www.w3.org/2000/svg" id="map_svg" x="0px" y="0px" width="100%">
+		{{ range $key, $val := .areas }}
+		<g><path class="country" id="{{ $key }}" d="{{ $val }}" /></g>
+		{{ end }}
+    </svg>
+</div>
+<script type="application/json" id="bounding-box-data">{{ .boundingBox | jsonify }}</script>
+<script type="application/json" id="city-data">{{ .cities | jsonify }}</script>
+<script type="application/json" id="icon-data">
+	{{- $iconDict := dict -}}
+	{{- range readDir "static/images/places" -}}
+		{{- $iconName := replace .Name ".png" "" -}}
+		{{- with (imageConfig (print "static/images/places/" .Name)) -}}
+			{{- $iconDict = merge $iconDict (dict $iconName .Width) -}}
+		{{- end -}}
+	{{- end -}}
+	{{- $iconDict | jsonify -}}
+</script>
+{{ end }}

@@ -1,0 +1,133 @@
+{{ define "main" }}
+
+{{ partial "page-title" . }}
+
+<section class="blog section" id="blog">
+    <div class="container">
+        <div class="row">
+            <article class="col-12">
+                {{ .Page.Content }}
+            </article>
+        </div>
+        {{ range $index, $section := .Sections.ByTitle.Reverse }}
+            {{ $year := .Title }}
+            {{ if gt $index 0 }}
+            <div class="row mt-5">
+                <div class="col-12">
+                    <hr style="border: 2px solid var(--border-color, #ddd); margin: 2rem 0;">
+                </div>
+            </div>
+            {{ end }}
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h2>{{ i18n "papers-from-year" }} {{ $year }}</h2>
+                    <p>{{ .Summary }}</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                {{ range .RegularPages }}
+                <article class="col-12 col-md-6 col-lg-4">
+                    <div class="post-item">
+                        <a href="{{ .RelPermalink }}">
+                            {{ if .Site.Params.displayImagesInList }}
+                                {{ $image := .Params.svg_image | default .Params.image }}
+                                {{ if $image }}
+                                    <div class="post-thumb">
+                                        {{ if (strings.HasSuffix $image ".svg") }}
+                                            <img src="{{ $image }}" class="img-fluid" alt="{{ .Title }}">
+                                        {{ else }}
+                                            {{ $imageResource := resources.Get $image }}
+                                            {{ if $imageResource }}
+                                                {{- if $.Site.Params.compression -}}
+                                                    {{- $imageResource = $imageResource.Fit $.Site.Params.imageDimensions.blogThumb -}}
+                                                {{- end -}}
+                                                <img src="{{ $imageResource.RelPermalink }}" class="img-fluid" alt="{{ .Title }}">
+                                            {{ else }}
+                                                <img src="/images/gallery-default.jpg" class="img-fluid" alt="{{ .Title }}">
+                                            {{ end }}
+                                        {{ end }}
+                                    </div>
+                                {{ else }}
+                                    <div class="post-thumb">
+                                        <img src="/images/gallery-default.jpg" class="img-fluid" alt="{{ .Title }}">
+                                    </div>
+                                {{ end }}
+                            {{ end }}
+                            <div class="post-title">
+                                <h2 class="mt-0">
+                                    {{ .Title }}
+                                </h2>
+                            </div>
+                        </a>
+                        {{- if not .Date.IsZero -}}
+                        <div class="post-meta">
+                            <span>
+                                <time datetime="{{ .Date }}">
+                                    {{ .Date.Format .Site.Params.dateFormat }}
+                                </time>
+                            </span>
+                        </div>
+                        {{- end -}}
+                        <div class="post-content">
+                            <p>
+                                {{ .Summary }}
+                                <a href="{{ .RelPermalink }}" tabindex="-1">{{ i18n "read-more" }}...</a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                {{ end }}
+            </div>
+        {{ end }}
+
+        {{ if eq (len .Sections) 0 }}
+            <div class="row">
+                {{ range .RegularPages }}
+                <article class="col-12 col-md-6 col-lg-4">
+                    <div class="post-item">
+                        <a href="{{ .RelPermalink }}">
+                            {{ if .Site.Params.displayImagesInList }}
+                                {{ $image := .Params.svg_image | default .Params.image }}
+                                {{ if $image }}
+                                    <div class="post-thumb">
+                                        {{ if (strings.HasSuffix $image ".svg") }}
+                                            <img src="{{ $image }}" class="img-fluid" alt="{{ .Title }}">
+                                        {{ else }}
+                                            {{ $imageResource := resources.Get $image }}
+                                            {{ if $imageResource }}
+                                                {{- if $.Site.Params.compression -}}
+                                                    {{- $imageResource = $imageResource.Fit $.Site.Params.imageDimensions.blogThumb -}}
+                                                {{- end -}}
+                                                <img src="{{ $imageResource.RelPermalink }}" class="img-fluid" alt="{{ .Title }}">
+                                            {{ else }}
+                                                <img src="/images/gallery-default.jpg" class="img-fluid" alt="{{ .Title }}">
+                                            {{ end }}
+                                        {{ end }}
+                                    </div>
+                                {{ else }}
+                                    <div class="post-thumb">
+                                        <img src="/images/gallery-default.jpg" class="img-fluid" alt="{{ .Title }}">
+                                    </div>
+                                {{ end }}
+                            {{ end }}
+                            <div class="post-title">
+                                <h2 class="mt-0">{{ .Title }}</h2>
+                            </div>
+                        </a>
+                        <div class="post-content">
+                            <p>
+                                {{ .Summary }}
+                                <a href="{{ .RelPermalink }}" tabindex="-1">{{ i18n "read-more" }}...</a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                {{ end }}
+            </div>
+        {{ end }}
+    </div>
+</section>
+
+{{ end }}

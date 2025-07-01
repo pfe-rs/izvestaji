@@ -1,0 +1,9 @@
+{{ $css := slice }}
+{{ range (index .context.Site.Params.bundles.css .bundle) -}}
+    {{ $css = $css | append (resources.Get .) }}
+{{ end }}
+{{ range .resources }}
+    {{ $css = $css | append . }}
+{{ end }}
+{{ $css := $css | resources.Concat (print "css/" .bundle ".css") | postCSS | minify | fingerprint "sha512" }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" media="screen" />

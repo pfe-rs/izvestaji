@@ -1,0 +1,24 @@
+/* Not currently used */
+/*=================================================================
+    Service section
+==================================================================*/
+.service-list .block {
+    background: #f0326b;
+    color: #fff;
+    padding: 30px;
+}
+
+.service-list .block i {
+    font-size: 30px;
+}
+
+.service-list .block h3 {
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.service-list .block ul li {
+    margin-bottom: 6px;
+    color: #f9f9f9;
+}
+

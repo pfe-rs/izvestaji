@@ -1,0 +1,39 @@
+{{ define "main" }}
+
+{{ partial "page-title" . }}
+
+<section class="blog section" id="blog">
+    <div class="container">
+        <div class="row">
+            <article class="col-md-8 mx-auto">{{ .Page.Content }}</article>
+        </div>
+        <div class="row mt-50 justify-content-center">
+            {{ range sort .Pages "File.Path" "desc" }}
+            <article class="col-12 col-md-4">
+                <div class="post-item">
+                    {{ if fileExists (print "static/" .Params.image) }}
+                    <a href="{{ .RelPermalink }}">
+                    <div class="post-thumb">
+                        {{ $title := .Title }}
+                        {{ $image := resources.Get .Params.image }}
+                        {{ if $.Site.Params.compression -}}
+                            {{ $image = $image.Fill (print $.Site.Params.imageDimensions.galleryThumb " Center") }}
+                        {{ end }}
+                        <img class="img-fluid" src="{{ $image.RelPermalink }}" alt="{{ i18n "album-alt" $title | markdownify }}">
+                    </div>
+                    </a>
+                    {{ end }}
+                    <div class="post-title">
+                        <h3 class="mt-0">
+                            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        </h3>
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+{{ end }}
+

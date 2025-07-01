@@ -1,0 +1,24 @@
+nav.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pagination ul {
+    margin: 0;
+    display: inline-flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.pagination .page-item .page-link {
+    color: var(--text-color);
+    border-color: var(--guide-line-color);
+}
+
+.pagination .page-item.active .page-link {
+    color: var(--background-color);
+    background-color: var(--accent-color);
+    border-left: none;
+    border-right: none;
+}

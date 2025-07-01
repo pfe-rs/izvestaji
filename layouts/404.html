@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+<section class="page-404">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>404</h1>
+                <h2>{{ i18n "page-not-found" }}</h2>
+                <a class="fat-button" href="{{ .Site.BaseURL }}">{{ i18n "return-home" }}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ end }}
+{{ define "styles" }}
+{{ partial "css-bundle" (dict "context" . "bundle" "404") }}
+{{ end }}
+

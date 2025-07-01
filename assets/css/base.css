@@ -1,0 +1,307 @@
+/* CSS variables for all colors on the site */
+:root {
+    /* Main background color */
+    --background-color: #FFFFFF;
+    /* RGB components of the main background color */
+    --background-color-rgb: 255, 255, 255;
+    /* For surfaces that stand out */
+    --accent-color: #009999;
+    /* Darkened active color for hovered elements */
+    --accent-color-darkened: #007070;
+    /* Color of most text */
+    --text-color: #1F2532;
+    /* Color of text with less emphasis */
+    --lower-contrast-text-color: #5B5B5B;
+    /* Text color on dark surfaces */
+    --dark-text-color: #FFFFFF;
+    /* Text color on secondary surfaces */
+    --secondary-text-color: #BBBCBE;
+    /* Background color of dark surfaces, such as the navigation bar */
+    --dark-background-color:#1F2532;
+    /* Background color on secondary surfaces */
+    --secondary-background-color: #F9F9F9;
+    /* When an element has a permanent shadow, this is its color */
+    --permanent-shadow-color: rgba(0, 0, 0, 0.12);
+    /* When an element has a shadow only on hover, this is its color */
+    --hover-shadow-color: #CCC;
+    /* Background color of elements that overlay the main content */
+    --overlay-background-color: rgba(0, 0, 0, 0.8);
+    /* Background color when hovering over team member cards */
+    --card-hover-background-color: #F4F4F4;
+    /* Outline color of team specialization tags */
+    --specialization-outline-color: #E0E0E0;
+    /* Link color */
+    --link-color: #007BFF;
+    /* Guide line color */
+    --guide-line-color: #CCC;
+    --guide-line-color-darker: #AAA;
+    /* Soft card background */
+    --soft-card-background: #EEE;
+}
+
+html {
+    background-color: var(--dark-background-color);
+}
+
+body {
+    line-height: 1.4;
+    font-family: "Titillium Web", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--background-color);
+}
+
+p {
+    font-family: "Titillium Web", sans-serif;
+    color: var(--text-color);
+    font-size: 15px;
+    text-align: justify;
+    text-align-last: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 600;
+}
+
+ul {
+    list-style: disc;
+    margin: 0 0 1rem 1rem;
+    padding: 0;
+}
+
+ol {
+    list-style: decimal;
+    margin: 0 0 1rem 1rem;
+    padding: 0;
+}
+
+figure {
+    margin: 0;
+}
+
+a {
+    transition: all .3s ease-in 0s;
+}
+
+iframe {
+    border: 0;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    outline: 0;
+}
+
+a:focus, a:hover {
+    color: var(--link-color);
+    text-decoration: underline;
+    outline: 0;
+}
+
+.btn-main, .btn-main-sm {
+    background: var(--accent-color);
+    color: var(--dark-text-color);
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 40px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+
+.btn-main:hover, .btn-main-sm:hover {
+    background: var(--dark-background-color);
+    color: var(--dark-text-color);
+}
+
+.btn-main-sm {
+    padding: 8px 20px;
+    font-size: 12px;
+}
+
+/* Not currently used
+.btn-transparent {
+    color: #fff;
+    border: 1px solid #fff;
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 10px 40px;
+    text-transform: uppercase;
+}
+
+.btn-transparent:hover {
+    color: #fff;
+}
+*/
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.btn:focus {
+    color: var(--secondary-text-color);
+}
+
+#home {
+    position: relative;
+}
+
+.section {
+    padding: 50px 0;
+}
+
+p img, div img {
+    display: block;
+    max-width: 100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 40px 0;
+    }
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .padding-0 {
+        padding: 0 15px;
+    }
+}
+
+.section-sm {
+    padding: 70px 0;
+}
+
+.section-xs {
+    padding: 40px 0;
+}
+
+.btn.active:focus, .btn:active:focus, .btn:focus {
+    outline: 0;
+}
+
+blockquote {
+    margin: 1rem 1rem 1rem 1rem;
+    padding: 1rem 0 0.5rem 1rem;
+    font-size: 22px;
+    line-height: 22px;
+    border-left: 0.3rem solid var(--hover-shadow-color);
+    font-style: italic;
+}
+
+blockquote > p {
+    color: var(--lower-contrast-text-color);
+    margin: 0.5rem 0 0 0;
+}
+
+blockquote::before {
+    position: absolute;
+    content: "”";
+    font-size: 60px;
+    font-family: sans-serif;
+    color: var(--hover-shadow-color);
+}
+
+.svg-xmlns {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.svg-frontpage-icon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.img-fluid {
+    box-shadow: 0 0 30px 0 var(--permanent-shadow-color);
+    border-radius: 0.25rem;
+}
+
+table {
+    width: 100%;
+    margin: 15px 0px 25px 0;
+    border-collapse: collapse;
+    border: 1px solid var(--secondary-text-color);
+}
+
+table th {
+    padding: 8px 12px;
+    border: 1px solid var(--secondary-text-color);
+    border-bottom: 3px double var(--secondary-text-color);
+}
+
+table tr th:empty {
+    display: none;
+}
+
+table td {
+    padding: 5px 10px;
+    border: 1px solid var(--secondary-text-color);
+}
+
+a.skip-to-content {
+    background-color: var(--accent-color);
+    color: var(--dark-text-color);
+    padding: 10px 15px;
+    position: absolute;
+    border-radius: 5px;
+    border: 3px solid var(--dark-text-color);
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    z-index: 9999;
+    transition: transform .15s ease 0s;
+}
+
+a.skip-to-content:focus {
+    transform: translate(-50%, 25px);
+}
+
+a.skip-to-content:hover {
+    background-color: var(--accent-color-darkened);
+}
+
+iframe {
+    max-width: 100%;
+    padding-bottom: 15px;
+}
+
+code {
+    color: var(--text-color)
+}
+
+/* TEMP: Prijave */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .container {
+        max-width: 990px;
+    }
+}

@@ -1,0 +1,23 @@
+{{ if $.Site.Params.tracking.enable }}
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+
+<section class="tracking-banner" id="tracking">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-9 col-lg-10">
+                <h2>{{ $data.tracking.title }}</h2>
+                <p>{{ $data.tracking.description | markdownify }}</p>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-2 buttons">
+                <button id="tracking-accept" tabindex="1">
+                    {{ $data.tracking.buttons.allow }}
+                </button>
+                <button id="tracking-deny"  tabindex="1">
+                    {{ $data.tracking.buttons.deny }}
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ end }}

@@ -1,0 +1,79 @@
+section.tracking-banner {
+    display: none;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 9998;
+    background-color: var(--secondary-background-color);
+    padding: 15px 0;
+    border-top: 3px solid var(--hover-shadow-color);
+}
+
+.tracking-banner h2, .tracking-banner p {
+    color: var(--text-color);
+}
+
+.tracking-banner h2 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+.tracking-banner p {
+    margin: 0;
+    padding: 0;
+}
+
+.tracking-banner .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tracking-banner button {
+    background-color: var(--lower-contrast-text-color);
+    color: var(--dark-text-color);
+    border: none;
+    border-radius: 2px;
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color .2s, color .2s ease-in 0s;
+}
+
+.tracking-banner button:focus {
+    outline: none;
+}
+
+.tracking-banner button:hover, .tracking-banner button:focus-visible {
+    background-color: var(--dark-background-color) !important;
+    color: var(--dark-text-color);
+}
+
+.tracking-banner button:focus-visible {
+    outline: 3px solid var(--hover-shadow-color);
+}
+
+.tracking-banner button:first-of-type {
+    background-color: var(--accent-color);
+}
+
+@media (max-width: 767px) {
+    .tracking-banner .buttons {
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 767px) {
+    .tracking-banner .buttons {
+        flex-direction: row;
+        flex-flow: row-reverse;
+    }
+}
+
+@media (max-width: 399px) {
+    .tracking-banner button {
+        padding: 8px 5px;
+    }
+}

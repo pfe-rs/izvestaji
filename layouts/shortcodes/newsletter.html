@@ -1,0 +1,25 @@
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+
+<form class="newsletter-inline"
+    action="https://pfe.us14.list-manage.com/subscribe/post?u={{ .Site.Params.newsletter.auth.u }}&amp;id={{ .Site.Params.newsletter.auth.id }}&amp;f_id={{ .Site.Params.newsletter.auth.f_id }}"
+    method="post"
+>
+    <div class="newsletter-description">
+        <h2>{{ $data.newsletter.title }}</h2>
+        <p>{{ $data.newsletter.description }}</p>
+    </div>
+    <div class="newsletter-entry">
+        <input aria-label="{{ $data.newsletter.fields.email }}" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="{{ $data.newsletter.fields.placeholder }}" required>
+        {{ with (split (.Get 0) " ") }}
+            {{ $tag_ids := slice }}
+            {{ range . }}
+            {{ $tag_ids = $tag_ids | append (index $.Site.Params.newsletter.tags .) }}
+            {{ end }}
+            {{ $tags := delimit $tag_ids "," }}
+            <input type="hidden" name="tags" value="{{ $tags }}">
+        {{ end }}
+        <input type="submit" value="{{ $data.newsletter.fields.submit }}" name="subscribe" id="mc-embedded-subscribe" class="button">
+    </div>
+</form>
+
+{{ partial "css-bundle" (dict "context" . "bundle" "newsletter") }}

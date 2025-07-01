@@ -1,0 +1,22 @@
+body .katex-display {
+    display: flex;
+    justify-content: center;
+}
+
+.equation {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.equation .equation-number {
+    position: absolute;
+    right: 0;
+}
+
+.equation .katex-display, 
+.equation .katex-display .katex, 
+.equation .katex-display > .katex > .katex-html {
+    display: inline;
+}

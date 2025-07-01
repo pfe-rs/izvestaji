@@ -1,0 +1,51 @@
+.faq dl {
+    margin: 25px 0 20px 0;
+    padding: 0 25px 0 25px;
+    width: 100%;
+}
+
+.faq dt {
+    position: relative;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 600;
+    margin: 0 0 2px 0;
+    padding: 0;
+}
+
+.faq dd {
+    position: relative;
+    text-align: justify;
+    text-align-last: left;
+    margin: 0 0 15px 0;
+    padding: 0;
+}
+
+.faq dt::before {
+    position: absolute;
+    content: "";
+    width: 7px;
+    height: 2px;
+    left: -20px;
+    top: calc(13px - 1px);
+    background-color: var(--text-color);
+}
+
+@media (max-width: 575px) {
+    .faq dl {
+        margin: 15px 0 20px 0;
+        padding: 0;
+    }
+
+    .faq dt {
+        text-indent: 12px;
+    }
+
+    .faq dt::before {
+        width: 4px;
+        height: 4px;
+        left: 0px;
+        top: 11.5px;
+        /* background-color: var(--guide-line-color-darker); */
+    }
+}

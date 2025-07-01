@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-12 col-lg-9 mx-auto">
+        <ol class="overview">
+            {{ range $.content }}
+            <li>
+                {{ if .anchor }}<a href="#{{ .anchor }}">{{ end }}
+                    {{ .text | markdownify }}
+                {{ if .anchor }}</a>{{ end }}
+            </li>
+            {{ end }}
+        </ol>
+    </div>
+</div>
+
+{{ partial "css-bundle" (dict "context" .context "bundle" "overview") }}

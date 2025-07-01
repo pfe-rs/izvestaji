@@ -1,0 +1,60 @@
+{{- /* Find Serbian translation if it exists */ -}}
+{{- $serbianURL := "" -}}
+{{- $found := false -}}
+
+{{- if .Page.IsTranslated -}}
+  {{- range .Page.Translations -}}
+    {{- if eq .Language.Lang "sr" -}}
+      {{- $serbianURL = .RelPermalink -}}
+      {{- $found = true -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* If no translation found, try to construct Serbian URL manually */ -}}
+{{- if not $found -}}
+  {{- $currentURL := .Page.RelPermalink -}}
+  {{- if hasPrefix $currentURL "/en/" -}}
+    {{- /* Remove /en/ prefix to get Serbian URL */ -}}
+    {{- $serbianURL = strings.TrimPrefix "/en" $currentURL -}}
+    {{- $found = true -}}
+  {{- else -}}
+    {{- /* If we're already on Serbian site, the URL is correct */ -}}
+    {{- $serbianURL = $currentURL -}}
+    {{- $found = true -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $found -}}
+<div class="serbian-version-note">
+  <p><em>For the complete technical details, methodology, and results, please refer to the <a href="{{ $serbianURL }}" class="serbian-link">full paper in Serbian</a>.</em></p>
+</div>
+
+<style>
+.serbian-version-note {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff;
+  border-radius: 0 4px 4px 0;
+}
+
+.serbian-version-note p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.serbian-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.serbian-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+</style>
+{{- end -}}

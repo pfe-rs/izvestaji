@@ -196,11 +196,14 @@ U direktorijumu gde ste otvorili komandnu liniju bi trebalo da se pojavi direkto
 Nakon što ste otvorili direktorijum, u Terminal meniju izaberite New Terminal kako biste otvorili komandnu liniju unutar VS Code. Unutar te komandne linije pokrenite `hugo server` komandu, koja, ukoliko ste instalirali Hugo, bi trebalo da izgradi Markdown fajlove na sajtu i pokrene ga na [localhost:1313](http://localhost:1313/). Nakon što Hugo ispiše da se na tom mestu servira sajt, posetite tu adresu i trebalo bi da vidite glavnu stranu sajta sa izveštajima.
 
 ### Uređivanje
-Izveštaj vašeg projekta nalazi se u `content/[godina]/[ime-projekta].md` fajlu. Ukoliko ne postoji, možete ga napraviti pokretanjem komande `hugo new [godina]/[ime-projekta].md`. Format u kom se izveštaji pišu jeste [Markdown](https://www.markdownguide.org/), i [primere](#markdown-primeri) njega možete videti u fajlu sa ovim uputstvom nakon što preuzmete repozitorijum (`content/uputstvo.md`). Na vrhu strane nalazi se [YAML](https://yaml.org/) zaglavlje sa sledećim opcijama:
+Izveštaj vašeg projekta nalazi se u `content/zbornik/[godina]/[ime-projekta].md` fajlu. Ukoliko ne postoji, možete ga napraviti pokretanjem komande `hugo new zbornik/[godina]/[ime-projekta].md`. Format u kom se izveštaji pišu jeste [Markdown](https://www.markdownguide.org/), i [primere](#markdown-primeri) njega možete videti u fajlu sa ovim uputstvom nakon što preuzmete repozitorijum (`content/uputstvo.md`). Na vrhu strane nalazi se [YAML](https://yaml.org/) zaglavlje sa sledećim opcijama:
 - `title`: Naslov vašeg projekta
 - `summary`: Sažet opis vašeg projekta
+- `svg_image`: Thumbnail koji ce se prikazati na kartici
 
-Ako dodajete slike, unutar `static` direktorijuma napravite direktorijum `images` (ako već ne postoji), zatim u njemu direktorijum za vašu godinu (npr. `2022`), zatim u njemu direktorijum za svoj projekat (npr. `ime-projekta`) i unutar njega stavite sliku (npr. `slika.svg`). Nakon toga, kao putanju do slike možete iskoristiti `/images/2022/ime-projekta/slika.svg`. Preferirajte slike u vektorskim formatima!
+Za englesku verziju je potrebno da napravite `content/zbornik/[godina]/[ime-projekta].en.md`
+
+Ako dodajete slike, unutar `static` direktorijuma napravite direktorijum `images` (ako već ne postoji), zatim u njemu direktorijum za vašu godinu (npr. `2022`), zatim u njemu direktorijum za svoj projekat (npr. `ime-projekta`) i unutar njega stavite sliku (npr. `slika.svg`). Nakon toga, kao putanju do slike možete iskoristiti `/images/zbornik/2022/ime-projekta/slika.svg`. Preferirajte slike u vektorskim formatima!
 
 Dok vam je pokrenuta `hugo server` komanda, možete otvoriti svoj izveštaj navigacijom do njega kroz glavnu stranu, i nakon uređivanja izveštaja izmene bi trebalo da budu odmah vidljive na strani.
 

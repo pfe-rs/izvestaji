@@ -1,0 +1,11 @@
+/* Not currently used */
+/*=================================================================
+    Clients section
+==================================================================*/
+.client-service-list li{
+    font-size: 20px;
+}
+.client-service-list li i{
+    margin-right: 10px;
+    color: #f0326b;
+}

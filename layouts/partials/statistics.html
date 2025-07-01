@@ -1,0 +1,20 @@
+{{ if $.Site.Params.statistics.enable }}
+{{ $data := index .Site.Data .Site.Language.Lang }}
+{{ with $data.statistics }}
+    <section class="section statistics">
+        <div class="container">
+            <div class="row statistics-title title">
+                <h2>{{ .title }}</h2>
+            </div>
+            <div class="row statistics-list">
+                {{ range .items }}
+                <div class="stat-item">
+                    <h3>{{ .number }}</h3>
+                    <p>{{ .text }}</p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </section>
+{{ end }}
+{{ end }}

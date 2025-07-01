@@ -1,0 +1,16 @@
+<figure class="credited-photo">
+  <div>
+  {{- if $.Site.Params.compression -}}
+      {{- $image := resources.Get (.Get 0) -}}
+      {{- $image = $image.Fit .Site.Params.imageDimensions.blogImage -}}
+      <img src="{{ $image.RelPermalink }}" alt="{{ .Get 1 }}">
+  {{- else -}}
+    <img src="{{ .Get 0 | relURL }}" alt="{{ .Get 1 }}" />
+  {{- end -}}
+  {{- if .Get 2 -}}
+    <figcaption>
+      <span>{{ i18n "photo-credit" }}: {{ .Get 2 }}</span>
+    </figcaption>
+  {{- end -}}
+  </div>
+</figure>

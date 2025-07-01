@@ -1,0 +1,26 @@
+{{ if $.Site.Params.feature.enable }}
+
+{{ $data := index .Site.Data .Site.Language.Lang }}
+
+{{ with $data.feature }}
+    <section class="features section-xs">
+        <div class="container">
+            <div class="row">
+            {{ range .item }}
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <div class="feature-block color-bg text-center">
+                        <svg class="svg-frontpage-icon feature-icon text-center">
+                            <use xlink:href="#{{ .icon }}"></use>
+                        </svg>
+                        {{ $.Scratch.Add "icons" .icon }}
+                        <h2>{{ .title }}</h2>
+                        <p>{{ .description }}</p>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </section>
+{{ end }}
+
+{{ end }}

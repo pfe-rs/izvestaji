@@ -1,0 +1,14 @@
+<section class="content-card">
+    <div class="{{ .Get 2 }}">
+        {{ .Inner }}
+    </div>
+    {{ $imagename := .Get 1 }}
+    {{ if fileExists (print "static/images/" $imagename) }}
+        {{ $image := resources.Get (print "images/" $imagename) }}
+        {{ if $.Site.Params.compression }}
+            {{ $image = $image.Fit $.Site.Params.imageDimensions.contentCard }}
+        {{ end }}
+        <img src="{{ $image.RelPermalink }}" alt="{{ .Get 0 }}" class="{{ .Get 2 }}">
+    {{ end }}
+
+</section>

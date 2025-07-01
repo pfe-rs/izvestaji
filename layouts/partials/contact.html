@@ -1,0 +1,33 @@
+{{ if .Site.Params.contact.enable }}
+
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+
+<section class="contact-us section" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title text-center">
+                    <h2 id="contact">{{ $data.contact.title }}</h2>
+                    <span class="border"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row social-icons-bar">
+            {{ range $data.contact.fields }}
+            <div class="social-icon">
+                <a href="{{ .url }}" target="_blank">
+                    <svg class="svg-frontpage-icon feature-icon text-center">
+                        <use xlink:href="#{{ .icon }}"></use>
+                    </svg>
+                    {{ $.Scratch.Add "icons" .icon }}
+                    <h3>{{ .name }}</h3>
+                </a>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+{{ end }}
+
+{{ partial "css-bundle" (dict "context" . "bundle" "mainpage") }}

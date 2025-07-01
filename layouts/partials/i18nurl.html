@@ -1,0 +1,6 @@
+{{- $page := .context.GetPage .url -}}
+{{- if $page -}}
+{{- $page.RelPermalink -}}
+{{- else -}}
+{{- .url | relURL -}}/
+{{- end -}}

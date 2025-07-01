@@ -1,33 +1,333 @@
-baseURL: 'https://pfe-izvestaji.pages.dev'
-languageCode: 'sr-RS'
-theme: navigator
-defaultContentLanguage: sr
+# Base URL of the website
+# This can also be set using --baseURL in the command line
+# and will be overriden when running `hugo server`
+baseURL: "https://pfe.rs/"
+# Default language of the content
+defaultContentLanguage: "sr"
+# Whether titles of lists (such as "Projects" under /project/) should have an "s" appended to them
+# (no, because we're using Serbian, and we'll just end up with "Projektis")
 pluralizelisttitles: "false"
-title: "PFE Izveštaji"
+languages:
+  sr:
+    # Language code of the website
+    languageCode: "sr-RS"
+    languageName: Srpski
+    # Title of the website
+    title: "Naučno-inženjerski centar „PFE”"
+    weight: 1
+    params:
+      # Header multiline title displayed in navbar (split lines using |)
+      headerTitle: "Naučno-inženjerski|centar PFE"
+      # Default OpenGraph website description
+      description: |
+        Neprofitna organizacija koja nudi besplatno neformalno obrazovanje motivisanim učenicima i učenicama
+        srednjih škola iz oblasti veštačke inteligencije, robotike, primenjene fizike, računarskih nauka i
+        srodnih oblasti kroz praktičan rad i mentorstvo vrhunskih stručnjaka.
+  en:
+    languageCode: "en-US"
+    languageName: English
+    title: "PFE Science and Engineering Center"
+    weight: 2
+    permalinks:
+      vesti: /news/:slug
+      galerija: /gallery/:slug
+      tim: /team/:slug
+    params:
+      headerTitle: "PFE Science and|Engineering Center"
+      description: |
+        A non-profit organization that offers free non-formal education to motivated high school students in artificial
+        intelligence, robotics, physics, computer science and related fields through practical work and mentorship of
+        professionals from world-renowned companies, as well as university professors and assistants.
+
+# Whether Hugo should generate our robots.txt file
 enableRobotsTXT: true
+# Dsable tags and categories page
 disableKinds:
   - taxonomy
   - term
-params:
-  mainSections:
-    - "2022"
-  dateFormat: "02/01/2006"
-  logo: https://pfe.rs/images/logo.png
-menu:
-  nav:
-    - name: "pocetna"
-      url: ""
-      weight: 1
-    - name: "uputstvo"
-      url: "uputstvo"
-      weight: 2
-    - name: "2022"
-      url: "2022"
-      weight: 3
 
+# Image resizing parameters
+# See https://gohugo.io/content-management/image-processing/#image-processing-config
+imaging:
+  resampleFilter: MitchellNetravali
+  quality: 80
+# Blog summary minimum length in words (ends on whole sentence)
+summaryLength: 1
+module:
+  # Maps directories from the physical file system into Hugo's virtual file system
+  # See https://gohugo.io/hugo-modules/configuration/#module-config-mounts
+  mounts:
+    # Default mounts
+    - source: content
+      target: content
+    - source: static
+      target: static
+    - source: layouts
+      target: layouts
+    - source: data
+      target: data
+    - source: assets
+      target: assets
+    - source: i18n
+      target: i18n
+    - source: archetypes
+      target: archetypes
+    # Used for grabbing resources while resizing images
+    - source: static/images
+      target: assets/images
+
+# Specify possible outputs formats for layouts/index.something files
+outputs:
+  home:
+    - HTML
+    - RSS
+    - HEADERS
+
+# Define Netlify output type for files like _headers and _redirects
+mediaTypes:
+  text/netlify:
+    suffixes: [""]
+    delimiter: ""
+
+# Define the HEADERS output format mentioned in `outputs`
+outputFormats:
+  HEADERS:
+    mediatype: text/netlify
+    baseName: _headers
+    isPlainText: true
+    notAlternative: true
+
+# Various parameters for site configuration, accessible through `$.Site.Params`
+params:
+  # Display article images in list view
+  displayImagesInList: true
+  # Whether image compression should be done
+  compression: true
+  # Content Security policy of the site
+  # Set to blank to disable
+  # See https://content-security-policy.com/
+  csp: default-src 'none';
+    script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://cdn.jsdelivr.net;
+    style-src 'self' https://cdn.jsdelivr.net;
+    img-src 'self' https://www.googletagmanager.com;
+    connect-src 'self' https://www.google-analytics.com;
+    font-src 'self' https://cdn.jsdelivr.net;
+    object-src 'none';
+    media-src 'self';
+    frame-src https://www.youtube.com;
+    child-src 'self';
+    form-action 'self' https://pfe.us14.list-manage.com https://newsletter.pfe-rs.pages.dev;
+    base-uri 'none';
+    worker-src 'none';
+    manifest-src 'self';
+    prefetch-src 'none';
+  # Default date format on the site
+  dateFormat: "02/01/2006"
+  # Location of the website's logo
+  logo: "images/logo.png"
+  # OpenGraph default image
+  ogImage: "images/og-image.jpg"
+  # Dimensions used when resizing the image during compression
+  imageDimensions:
+    # Navbar logo image
+    navbarLogo: 128x128
+    # Size of blog post image
+    blogImage: 900x1800
+    # Size of blog thumbnail image
+    blogThumb: 537x302
+    # Size of OpenGraph image
+    ogImage: 1200x1200
+    # Size of the thumbnails in gallery
+    galleryThumb: 640x640
+    # Size of the fullscreen image view in the gallery
+    galleryFull: 1600x1600
+    # Size of team member images
+    team: 300x300
+    # Size of Content card background images
+    contentCard: 800x800
+    # Size of hero cover
+    heroCover: 2560x2560
+    # Landing page about image
+    aboutImage: 500x500
+    # Size of images in two column layout
+    interleavedListImage: 700x420
+  # Navigation bar accent color for supported browsers
+  browserThemeColor: "#009999"
+  # Configuration for the site's Twitter account
+  # (commented out because the site does not currently have a Twitter account)
+  # twitter: pfe.rs
+  # Sections of the site whose posts will be listed on the main page
+  mainSections:
+    - vesti
+  # Call to action header button
+  cta: false
+  # Bundle configuration
+  # See README.md for details on bundling resources
+  bundles:
+    css:
+      site:
+        - lib/bootstrap/bootstrap.min.css
+        - css/base.css
+        - css/title.css
+        - css/navbar.css
+        - css/posts.css
+        - css/footer.css
+        - css/fonts.css
+        - css/fat-button.css
+        - css/three-columns-img.css
+        - css/content-card.css
+        - css/credited-photo.css
+        - css/tracking.css
+        - css/pagination.css
+        - css/faq.css
+        - css/equation.css
+      newsletter:
+        - css/newsletter.css
+      team-list:
+        - css/team-list.css
+        - css/breadcrumbs.css
+      team-index:
+        - lib/leaflet/leaflet.css
+        - css/map.css
+        - css/team-categories.css
+      interleaved-list:
+        - css/interleaved-list.css
+      timeline:
+        - css/timeline.css
+      overview:
+        - css/overview.css
+      gallery:
+        - css/gallery.css
+        - css/scroll-popup.css
+      404:
+        - css/404.css
+      mainpage:
+        - css/mainpage-header.css
+        - css/contact.css
+        - css/blog.css
+        - css/about.css
+        - css/mission.css
+        - css/statistics.css
+        - css/feature.css
+      confidential:
+        - css/confidential.css
+    js:
+      site:
+        - js/script.js
+        - js/video.js
+        - js/google-analytics.js
+        - js/equation.js
+      team-list:
+        - js/team-list.js
+      team-index:
+        - lib/leaflet/leaflet.js
+        - js/map.js
+      gallery:
+        - js/gallery.js
+        - js/scroll-popup.js
+      confidential:
+        - js/confidential.js
+    jsParams:
+      # Google Analytics Measurement ID
+      googleAnalytics: "G-HRW5Y745NB"
+      confidentialBackUrl: "https://pfe.rs/"
+  # Whether the navigation bar should be fixed to the top
+  menufixed: false
+  # Hero configuration on top of the main page
+  hero:
+    enable: true
+    button: false
+    coverImage: "images/pocetna/hero.png"
+    video:
+      mp4: /videos/h264/promo.mp4
+      webm: /videos/vp9/promo.webm
+      poster: /images/video/promo.jpg
+  # Mission statement below hero
+  mission:
+    enable: true
+  # About section with pictures
+  about:
+    enable: true
+  # Highlighted features
+  feature:
+    enable: true
+  # Statistics
+  statistics:
+    enable: true
+  # Latest posts in news section
+  blog:
+    enable: true
+  # Contact section on bottom
+  contact:
+    enable: true
+  # Newsletter section on bottom
+  newsletter:
+    enable: true
+    # URL authentication parameters acquired from
+    # https://us14.admin.mailchimp.com/audience/forms/embedded-form/editor/
+    auth:
+      u: 85f491cc89cfde172fa720d0c
+      id: d770b55058
+      f_id: 0012f8e0f0
+    tags:
+      website: "7168249"
+      frontpage: "7168341"
+      news: "7168345"
+      donations: "7168349"
+  sharing:
+    buttons:
+      - icon: facebook
+        name: Facebook
+        url: https://www.facebook.com/sharer.php?u=$URL
+      - icon: twitter
+        name: Twitter
+        url: https://twitter.com/share?url=$URL&text=$TITLE&hashtags=pfe
+      - icon: linkedin
+        name: LinkedIn
+        url: https://www.linkedin.com/shareArticle?url=$URL&title=$TITLE
+      - icon: reddit
+        name: Reddit
+        url: https://reddit.com/submit?url=$URL&title=$TITLE
+      - icon: pinterest
+        name: Pinterest
+        url: http://pinterest.com/pin/create/link/?url=$URL
+      - icon: email
+        name: Email
+        url: mailto:?body=$TITLE%0A$URL
+  # Cookie tracking banner
+  tracking:
+    enable: true
+  footer:
+    name: PFE
+    license:
+      name: CC BY-NC-ND 4.0
+      url: https://creativecommons.org/licenses/by-nc-nd/4.0/
+    privacypolicy:
+      url: /politika-privatnosti
+    rss:
+      enable: true
+      feed: "vesti"
+
+# Compile-time execution security
+security:
+  funcs:
+    getenv:
+      - ^CONTENT_
+
+# Configuration of right quotation marks
 markup:
   goldmark:
     extensions:
       typographer:
-        leftDoubleQuote: '&bdquo;'
-        leftSingleQuote: '&sbquo;'
+        leftDoubleQuote: "&bdquo;"
+        leftSingleQuote: "&sbquo;"
+
+# Navbar configuration
+menu:
+  nav:
+    - name: "uputstvo"
+      url: "uputstvo"
+      weight: 1
+    - name: "zbornik"
+      url: "zbornik"
+      weight: 2

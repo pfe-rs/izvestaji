@@ -1,0 +1,44 @@
+#map {
+    width: 100%;
+    max-height: 450px;
+    background-color: var(--secondary-text-color);
+    margin: 15px 0 30px 0;
+}
+
+#map .country {
+    fill: var(--lower-contrast-text-color);
+    stroke: var(--dark-background-color);
+    stroke-width: 1.2pt;
+}
+
+#map #srbija, #map #bosna {
+    fill: var(--accent-color);
+}
+
+.leaflet-control-attribution {
+    display: none;
+}
+
+.leaflet-popup {
+    outline: 1.5px solid var(--dark-background-color);
+}
+
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: center;
+	border-radius: 2px;
+}
+
+.leaflet-popup-content {
+	margin: 8px;
+	line-height: 1;
+    font-size: 11pt;
+}
+
+.leaflet-popup-tip {
+    outline: 1.5px solid var(--dark-background-color);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+	display: none;
+}

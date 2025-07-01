@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+<section class="blog-single section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8 mx-auto">
+                <h1>{{ .Title }}</h1>
+                {{- if not .Date.IsZero -}}
+                <div class="post-meta mb-4">
+                    <span>
+                        {{ i18n "objavljeno" }}
+                        <time datetime="{{ .Date }}">
+                            {{ .Date.Format .Site.Params.dateFormat }}
+                        </time>
+                    </span>
+                </div>
+                {{- end -}}
+                {{- if and (.Params.image) (not .Params.nocover) -}}
+                    <img src="{{ .Params.image | absURL }}" class="post-image" alt="{{ if .Params.imageAlt }}{{ .Params.imageAlt }}{{ else }}{{ .Title }}{{ end }}">
+                {{- end -}}
+                {{ .Content }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+{{ $equationCSS := resources.Get "css/equation.css" | minify }}
+<link rel="stylesheet" href="{{ $equationCSS.Permalink }}">
+{{ $figureCSS := resources.Get "css/figure.css" | minify }}
+<link rel="stylesheet" href="{{ $figureCSS.Permalink }}">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
+
+{{ end }}

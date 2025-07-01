@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="_1-10"
+   data-name="1-10"
+   viewBox="0 0 32 32"
+   version="1.1"
+   sodipodi:docname="besplatno.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="19.047689"
+     inkscape:cx="13.70245"
+     inkscape:cy="18.348683"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="_1-10" />
+  <title
+     id="title2">Money</title>
+  <g
+     id="Money"
+     transform="matrix(1.1428571,0,0,1.1428571,-2.2857143,-2.2857136)">
+    <path
+       d="M 8,12 H 7 a 2,2 0 0 0 -2,2 v 1 a 1,1 0 0 0 2,0 v -1 h 1 a 1,1 0 0 0 0,-2 z"
+       id="path4" />
+    <path
+       d="M 8,20 H 7 v -1 a 1,1 0 0 0 -2,0 v 1 a 2,2 0 0 0 2,2 h 1 a 1,1 0 0 0 0,-2 z"
+       id="path6" />
+    <path
+       d="m 14,13 a 4,4 0 1 0 4,4 4,4 0 0 0 -4,-4 z m 0,6 a 2,2 0 1 1 2,-2 2,2 0 0 1 -2,2 z"
+       id="path8" />
+    <path
+       d="M 26,13.032 V 10 A 5.006,5.006 0 0 0 21,5 H 7 a 5.006,5.006 0 0 0 -5,5 v 10 a 5.006,5.006 0 0 0 5,5 h 14 c 0.087,0 0.166,-0.012 0.25,-0.016 C 21.837,26.178 23.46,27 25.5,27 28.065,27 30,25.71 30,24 v -8 c 0,-1.6 -1.692,-2.81 -4,-2.968 z M 28,20 c 0,0.29 -0.876,1 -2.5,1 C 23.876,21 23,20.29 23,20 v -1.48 a 6.75,6.75 0 0 0 5,0 z m 0,-4 c 0,0.29 -0.876,1 -2.5,1 -1.624,0 -2.5,-0.71 -2.5,-1 0,-0.29 0.876,-1 2.5,-1 1.624,0 2.5,0.71 2.5,1 z M 7,7 h 14 a 3,3 0 0 1 3,3 v 0.026 A 4.948,4.948 0 0 0 21,9 H 7 A 4.948,4.948 0 0 0 4,10.026 V 10 A 3,3 0 0 1 7,7 Z M 7,23 A 3,3 0 0 1 4,20 v -6 a 3,3 0 0 1 3,-3 h 14 a 2.991,2.991 0 0 1 2.873,2.2 5.534,5.534 0 0 0 -0.942,0.311 A 2,2 0 0 0 21,12 h -1 a 1,1 0 0 0 0,2 h 1 v 1 A 1,1 0 0 0 21.085,15.4 2.232,2.232 0 0 0 21,16 v 4 h -1 a 1,1 0 0 0 0,2 h 1 v 1 z m 18.5,2 C 23.876,25 23,24.29 23,24 v -1.48 a 6.75,6.75 0 0 0 5,0 V 24 c 0,0.29 -0.876,1 -2.5,1 z"
+       id="path10" />
+  </g>
+  <metadata
+     id="metadata833">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Money</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -1,0 +1,58 @@
+/* Not currently used */
+.pricing-table .pricing-item {
+    margin-bottom: 15px;
+    border-radius: 3px;
+    padding-bottom: 40px;
+    text-align: center;
+    background: #f9f9f9;
+}
+
+.pricing-table .pricing-item a.btn-main, .pricing-table .pricing-item a.btn-main-sm {
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.pricing-table .pricing-item ul {
+    padding: 20px 0 10px;
+}
+
+.pricing-table .pricing-item li {
+    font-weight: 400;
+    padding: 10px 0;
+    color: #666;
+}
+
+.pricing-table .pricing-item li i {
+    margin-right: 6px;
+}
+
+.pricing-table .price-title {
+    padding: 30px 0 20px;
+    text-align: center;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    color: #fff;
+}
+
+.pricing-table .price-title > h3 {
+    color: #fff;
+    font-weight: 700;
+    margin: 0 0 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.pricing-table .price-title > p {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-top: 5px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.pricing-table .price-title .value {
+    font-size: 50px;
+    padding: 10px 0;
+}

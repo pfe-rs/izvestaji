@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="_1-10"
+   data-name="1-10"
+   viewBox="0 0 32 32"
+   version="1.1"
+   sodipodi:docname="strucno.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="6.734375"
+     inkscape:cx="17.670534"
+     inkscape:cy="23.832947"
+     inkscape:window-width="1920"
+     inkscape:window-height="1055"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="_1-10" />
+  <title
+     id="title2">Businessman</title>
+  <g
+     id="Business_Man"
+     data-name="Business Man"
+     transform="matrix(1.1428571,0,0,1.1428571,-2.2857136,-2.2857136)">
+    <path
+       d="m 18,16 h -4 a 9.01,9.01 0 0 0 -9,9 v 2 a 3,3 0 0 0 3,3 h 16 a 3,3 0 0 0 3,-3 V 25 A 9.01,9.01 0 0 0 18,16 Z M 14.618,28 14.242,27.249 A 0.993,0.993 0 0 1 14.176,26.527 L 15.755,21 h 0.49 l 1.58,5.527 a 1,1 0 0 1 -0.067,0.722 L 17.382,28 Z m 2.264,-10 -0.5,1 h -0.764 l -0.5,-1 z M 7,27 v -2 a 7.006,7.006 0 0 1 5.927,-6.909 l 1.005,2.009 -1.679,5.878 A 2.98,2.98 0 0 0 12.4,28 H 8 A 1,1 0 0 1 7,27 Z m 18,0 a 1,1 0 0 1 -1,1 h -4.4 a 2.986,2.986 0 0 0 0.146,-2.023 l -1.678,-5.877 1,-2.008 A 7,7 0 0 1 25,25 Z"
+       id="path4" />
+    <path
+       d="m 23,9 a 7,7 0 1 0 -7,7 7.008,7.008 0 0 0 7,-7 z M 16,4 A 4.938,4.938 0 0 1 18.287,4.58 6.964,6.964 0 0 1 13,7 6.9,6.9 0 0 1 11.52,6.823 4.992,4.992 0 0 1 16,4 Z m 0,10 A 5.006,5.006 0 0 1 11,9 C 11,8.922 11.02,8.848 11.023,8.771 A 8.954,8.954 0 0 0 13,9 8.957,8.957 0 0 0 19.843,5.841 4.949,4.949 0 0 1 21,9 5.006,5.006 0 0 1 16,14 Z"
+       id="path6" />
+  </g>
+  <metadata
+     id="metadata829">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Businessman</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

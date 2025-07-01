@@ -1,0 +1,18 @@
+figure {
+    padding: 20px 0;
+}
+
+figure > div {
+    display: grid;
+    grid-auto-flow: column;
+}
+
+figure > figcaption {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.post-image {
+    width: 100%;
+    margin-bottom: 25px;
+}

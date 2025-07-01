@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12 col-lg-9 mx-auto">
+        <ul class="timeline">
+        <time class="line-start">{{ $.content.year }}</time>
+        {{ range $.content.entries }}
+            <li class="timeline-side {{ .side }}">
+                <h2>{{ .title }}</h2>
+                <ul class="{{ if .spacingTop }}pt-{{ .spacingTop }}{{ end }}">
+                    {{ range $v := .list }}
+                    <li class="timeline-entry {{ if .width }}width-{{ .width }}{{ end }}">
+                        <h3>{{ .name }}</h3>
+                        <time>{{ .date }}</time>
+                        <p>{{ .description | markdownify }}</p>
+                        {{ if .image }}
+                        <img src="/images/{{ .image.src }}" alt="{{ .image.alt }}"
+                            {{ if .image.position }}
+                                class="position-{{ .image.position }}"
+                            {{ else }}
+                                class="position-middle"
+                            {{ end }}
+                        >
+                        {{ end }}
+                    </li>
+                    {{ end }}
+                </ul>
+            </li>
+        {{ end }}
+        </ul>
+    </div>
+</div>
+
+{{ partial "css-bundle" (dict "context" .context "bundle" "timeline") }}

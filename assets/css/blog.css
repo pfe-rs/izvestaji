@@ -1,0 +1,32 @@
+.section.blog {
+    padding: 0;
+    margin: 40px 0 50px 0;
+}
+
+.section.blog .title {
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.section.blog .post-item {
+    margin-bottom: 30px;
+}
+
+.section.blog .post-item .post-title {
+    margin-top: 20px;
+}
+
+.section.blog .post-item .post-title h3,
+.section.blog .post-item .post-title h3 a {
+    font-size: 23px;
+    color: var(--text-color);
+}
+
+.section.blog .post-item a:hover {
+    color: var(--text-color);
+}
+
+.section.blog .post-item a:focus-visible .post-title h2,
+.section.blog .post-item h3 a:focus-visible {
+    color: var(--link-color);
+}

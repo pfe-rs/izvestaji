@@ -1,0 +1,3 @@
+{{ with resources.GetMatch (print "icons/" (.Get 0) ".svg") }}
+{{- .Content | safeHTML -}}
+{{ end }}

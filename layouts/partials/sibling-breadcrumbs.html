@@ -1,0 +1,12 @@
+<div class="breadcrumbs">
+    <h1>{{ .Title }}</h1>
+    <ul>
+    {{ range $i, $p := .Parent.Pages }}
+        {{ if ne $.Title $p.Title }}
+        <li>
+            <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+        </li>
+        {{ end }}
+    {{ end }}
+    </ul>
+</div>

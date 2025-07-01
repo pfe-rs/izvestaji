@@ -1,0 +1,6 @@
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+<ul class="team-categories">
+    {{ range $data.team.categories }}
+    <a href="{{ .path }}"><li>{{ .name }}</li></a>
+    {{ end }}
+</ul>

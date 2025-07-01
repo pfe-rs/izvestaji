@@ -1,0 +1,33 @@
+.page-404 {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+}
+
+.page-404 h1 {
+    font-size: 200px;
+}
+
+.page-404 .fat-button {
+    margin-top: 25px;
+    left: unset;
+    transform: unset;
+}
+
+@media (max-width: 575px) {
+    .page-404 {
+        height: 100vh;
+        align-items: start;
+        padding-top: 35px;
+    }
+    
+    .page-404 h1 {
+        font-size: 120px;
+    }
+
+    .page-404 h2 {
+        font-size: 24px;
+    }
+}

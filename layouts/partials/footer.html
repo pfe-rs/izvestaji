@@ -1,9 +1,27 @@
-<script src="{{ `plugins/jquery/dist/jquery.min.js` | absURL }}"></script>
-<script src="{{ `plugins/bootstrap/dist/js/popper.min.js` | absURL }}"></script>
-<script src="{{ `plugins/bootstrap/dist/js/bootstrap.min.js` | absURL }}"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
-{{ $script := resources.Get "js/script.js" | minify }}
-<script src="{{ $script.Permalink }}"></script>
+{{ .Scratch.Add "icons" (slice "rss") }}
+
+{{ if .Params.kiosk }}
+{{ else }}
+
+<footer id="footer" class="bg-one">
+    <div class="footer-bottom">
+        <h2>
+            &#169; {{ .Site.Params.footer.name }} {{ now.Format "2006" }}
+            ::
+            <a href="{{ .Site.Params.footer.license.url }}" target="_blank">{{ .Site.Params.footer.license.name }}</a>
+        </h2>
+        <h2>
+            <a href="{{ partial "i18nurl.html" (dict "context" . "url" .Site.Params.footer.privacypolicy.url) }}">{{ i18n "privacy-policy" }}</a>
+        </h2>
+        {{ "<!-- Theme based on Navigator by Themefisher: https://gethugothemes.com/products/navigator. Theme has been modified to fit the site. Licensed under MIT: https://gethugothemes.com/license. -->" | safeHTML }}
+    </div>
+    {{ with .Site.Params.footer.rss }}
+    {{ if .enable }}
+    <a href="{{ partial "i18nurl.html" (dict "context" $ "url" .feed) }}index.xml" title="{{ i18n "rss-feed" }}" class="footer-rss-link">
+        <svg><use xlink:href="#rss"></use></svg>
+    </a>
+    {{ end }}
+    {{ end }}
+</footer>
+
+{{ end }}

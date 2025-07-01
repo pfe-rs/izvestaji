@@ -1,0 +1,77 @@
+section.confidential-banner {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0.8) 85%);
+}
+
+.confidential-banner>.container {
+    max-width: unset;
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.confidential-banner>.container>.row {
+    max-width: 768px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 0;
+}
+
+.confidential-banner .buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 10px;
+}
+
+.confidential-banner button {
+    background-color: var(--lower-contrast-text-color);
+    color: var(--dark-text-color);
+    border: none;
+    border-radius: 2px;
+    width: auto;
+    padding: 5px 12px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color .2s, color .2s ease-in 0s;
+}
+
+.confidential-banner button:focus {
+    outline: none;
+}
+
+.confidential-banner button:hover, .confidential-banner button:focus-visible {
+    background-color: var(--dark-background-color) !important;
+    color: var(--dark-text-color);
+}
+
+.confidential-banner button:focus-visible {
+    outline: 3px solid var(--hover-shadow-color);
+}
+
+.confidential-banner button:last-of-type {
+    background-color: var(--accent-color);
+}
+
+@media (max-width: 399px) {
+    .confidential-banner .buttons {
+        flex-direction: column;
+        flex-flow: column-reverse;
+    }
+    .confidential-banner .button {
+        width: 100%;
+        padding: 8px 5px;
+    }
+}

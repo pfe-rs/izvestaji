@@ -1,0 +1,63 @@
+.fat-button {
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 12px 20px 12px 20px;
+    border-radius: 3px;
+    background-color: var(--accent-color);
+    color: var(--white);
+    transform: translateX(-50%);
+    left: 50%;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    transition: all .2s;
+    gap: 0;
+    text-align: center;
+    align-items: center;
+}
+
+.fat-button svg {
+    height: 30px;
+    width: 30px;
+    fill: var(--white);
+    transform: scale(0.65);
+    margin-right: 8px;
+}
+
+.fat-button:hover, .fat-button:focus-visible, .fat-button:active {
+    background-color: var(--accent-color-darkened);
+    color: var(--white);
+    text-decoration: none;
+}
+
+.fat-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 20px;
+    row-gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 20px 0 15px 0;
+}
+
+.fat-button-group .fat-button {
+    transform: none;
+    margin: 0;
+    left: unset;
+}
+
+@media (max-width: 575px) {
+    .fat-button-group {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 430px) {
+    .fat-button {
+        width: 100%;
+    }
+}

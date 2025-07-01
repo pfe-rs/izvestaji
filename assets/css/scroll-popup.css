@@ -1,0 +1,33 @@
+#scroll-popup {
+    background-color: var(--dark-background-color);
+    color: var(--dark-text-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 3px solid var(--dark-text-color);
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    visibility: hidden;
+    position: fixed;
+    top: 25px;
+    left: 50vw;
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    z-index: 8999;
+    transition: all 0.2s ease-in-out;
+}
+
+#scroll-popup:hover {
+    background-color: var(--accent-color);
+}
+
+#scroll-popup.show {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+    transform: translate(-50%, 0%);
+}
+
+#gallery-preview.show ~ #scroll-popup.show {
+    display: none;
+}

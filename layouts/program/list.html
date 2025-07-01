@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+{{ .Scratch.Add "icons" (slice "download" "paper") }}
+
+<section class="blog-single section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h1>{{ .Title }}</h1>
+                {{- $timeline := partial "timeline" (dict "context" . "content" $data.program.timeline) -}}
+                {{- $timeline = print "</div></div>" $timeline "<div class=\"row\"><div class=\"col-md-8 mx-auto\">" -}}
+                {{- $content := .Content -}}
+                {{- $content = replaceRE "{timeline}" $timeline $content }}
+                {{ $content | safeHTML }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ end }}

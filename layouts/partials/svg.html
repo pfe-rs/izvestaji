@@ -1,0 +1,15 @@
+{{ with $.Params.embedIcons }}
+    {{ $.Scratch.Add "icons" . }}
+{{ end }}
+
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-xmlns">
+    {{- range uniq (.Scratch.Get "icons") -}}
+        {{/* Due to weird rendering order, sometimes an array is appended here. */}}
+        {{ if eq (printf "%T" .) "string" }}
+        {{- $id := . -}}
+        {{ with resources.GetMatch (print "icons/" $id ".svg") }}
+        <symbol width="30" height="30" version="1.1" viewBox="0 0 26.46 26.46" id="{{ $id }}">{{- htmlUnescape (replaceRE "<svg [^>]+>(.*)</svg>" "$1" .Content) | safeHTML -}}</symbol>
+        {{ end }}
+        {{ end }}
+    {{- end -}}
+</svg>

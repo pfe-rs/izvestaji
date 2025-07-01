@@ -1,0 +1,41 @@
+{{ if .Site.Params.hero.enable }}
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+
+<section class="hero-area">
+    <div class="hero-area-background">
+        
+    </div>
+    <div class="container">
+        <div class="block">
+            {{ with $data.hero.heading }}
+                <h1>
+                    {{ range split . "|" }}
+                    <span>{{ . }}</span>
+                    {{ end }}
+                </h1>
+            {{ end }}
+            {{ range (split $data.hero.description "\n") }}
+                <p>{{ . | markdownify }}</p>
+            {{ end }}
+            {{ if .Site.Params.hero.button }}
+                <div class="button">
+                    <a href="{{ with $data.hero.btnURL }}{{.}}{{ end }}">
+                        {{ i18n "apply" }}
+                    </a>
+                </div>
+            {{ end }}
+        </div>
+        {{ with .Site.Params.hero.video }}
+        <div class="block">
+            <video class="pfe-video" {{ with .poster }}poster="{{ . }}"{{ end }} width="200" height="112.5" preload="none">
+                {{ with .webm }}<source src="{{ . }}" type="video/webm">{{ end }}
+                {{ with .mp4 }}<source src="{{ . }}" type="video/mp4">{{ end }}
+            </video>
+        </div>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
+
+{{ $res := resources.Get "css/hero.tmpl.css" | resources.ExecuteAsTemplate "hero.css" . }}
+{{ partial "css-bundle" (dict "context" . "bundle" "mainpage" "resources" (slice $res)) }}

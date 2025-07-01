@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+<section class="blog-single section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8 mx-auto">
+                <h1>{{ .Title }}</h1>
+                {{ .Content }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ end }}
+{{ define "scripts" }}
+{{ partial "js-bundle" (dict "context" . "bundle" "team-index") }}
+{{ end }}
+{{ define "styles" }}
+{{ partial "css-bundle" (dict "context" . "bundle" "team-index") }}
+{{ end }}

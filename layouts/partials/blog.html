@@ -1,0 +1,59 @@
+{{ if .Site.Params.blog.enable }}
+{{ if (where .Site.RegularPages "Type" "in" site.Params.mainSections) }}
+
+<section class="section blog" id="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title text-center">
+                    <a href="{{ partial "i18nurl" (dict "context" . "url" (index site.Params.mainSections 0)) }}">
+                        <h2>{{ i18n "latest-news" }}</h2>
+                    </a>
+                    <span class="border"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            {{ range first 3 (where .Site.RegularPages "Type" "in" site.Params.mainSections) }}
+            <article class="col-12 col-md-9 col-lg-4">
+                <div class="post-item">
+                    <a href="{{ .RelPermalink }}">
+                        <div class="post-thumb">
+                            {{ $image := .Params.image }}
+                            {{ if not $image }}
+                                {{ $image = "/images/gallery-default.jpg" }}
+                            {{ end }}
+                            {{ $image := resources.Get $image }}
+                            {{- if $.Site.Params.compression -}}
+                                {{- $image = $image.Fit $.Site.Params.imageDimensions.blogThumb -}}
+                            {{- end -}}
+                            <img class="img-fluid" src="{{ $image.RelPermalink }}" alt="{{ .Title }}">
+                        </div>
+                        <div class="post-title">
+                            <h3 class="mt-0">
+                                {{ .Title }}
+                            </h3>
+                        </div>
+                    </a>
+                    <div class="post-meta">
+                        <span>
+                            <time datetime="{{ .Date }}">
+                                {{ .Date.Format .Site.Params.dateFormat }}
+                            </time>
+                        </span>
+                    </div>
+                    <div class="post-content">
+                        <p>
+                            {{ .Summary }}
+                            <a href="{{ .RelPermalink }}" tabindex="-1">{{ i18n "read-more" }}...</a>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+{{ end }}
+{{ end }}

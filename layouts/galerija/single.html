@@ -1,0 +1,72 @@
+{{ define "main" }}
+
+{{ .Scratch.Add "icons" (slice "arrow-left" "arrow-right") }}
+
+{{ partial "page-title" . }}
+
+<section class="blog section" id="blog">
+    <div id="gallery-preview">
+        <figure>
+            <img id="image-preview" src="{{ .Site.BaseURL }}/images/loader.gif" alt="">
+            <div id="preview-footer">
+                <svg class="svg-social-icon" id="preview-previous" aria-label="{{ i18n "previous-image" }}">
+                    <use xlink:href="#arrow-left"></use>
+                </svg>
+                <figcaption id="caption-preview"></figcaption>
+                <svg class="svg-social-icon" id="preview-next" aria-label="{{ i18n "next-image" }}">
+                    <use xlink:href="#arrow-right"></use>
+                </svg>
+            </div>
+        </figure>
+    </div>
+    <a href="{{ .Page.Parent.RelPermalink }}" id="scroll-popup" tabindex="-1">
+        {{ i18n "back-to-gallery" }}
+    </a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">{{ .Page.Content }}</div>
+        </div>
+        <div class="row mt-30">
+            {{ $path := print "images/" .File.Dir .File.ContentBaseName "/" }}
+            {{ $descriptions := "" }}
+            {{/*  {{ if fileExists (print "static/" $path "descriptions.txt") }}
+                {{ $descriptions = split (readFile (print "static/" $path "descriptions.txt")) "\n" }}
+            {{ end }}  */}}
+            {{ range $index, $url := (readDir (print "static/" $path)) }}
+            {{ if or ($url.IsDir) (strings.HasSuffix $url.Name ".txt") (eq $url.Name "_thumb.jpg")  }}
+            {{ else }}
+            <article class="col-16 col-md-4">
+                <div class="post-item">
+                    <div class="post-thumb">
+                        {{ $image := resources.Get (print $path $url.Name) }}
+                        {{ $image2 := $image }}
+                        {{- if $.Site.Params.compression -}}
+                            {{- $image = $image.Fill (print $.Site.Params.imageDimensions.galleryThumb " Center") -}}
+                            {{- $image2 = $image2.Fit $.Site.Params.imageDimensions.galleryFull -}}
+                        {{- end -}}
+                        <img
+                            tabindex="0"
+                            class="gallery-thumb img-fluid"
+                            src="{{ $image.RelPermalink }}"
+                            data-index="{{ $index }}"
+                            data-fullscreen="{{ $image2.RelPermalink }}"
+                            {{ if $descriptions }}
+                            alt="{{ index $descriptions $index }}"
+                            {{ end }}
+                        >
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+{{ end }}
+{{ define "scripts" }}
+{{ partial "js-bundle" (dict "context" . "bundle" "gallery") }}
+{{ end }}
+{{ define "styles" }}
+{{ partial "css-bundle" (dict "context" . "bundle" "gallery") }}
+{{ end }}

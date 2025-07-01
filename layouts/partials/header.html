@@ -1,0 +1,90 @@
+{{ .Scratch.Add "icons" (slice "hamburger" "translate") }}
+
+{{ if .Params.kiosk }}
+{{ else }}
+{{ if .Site.Params.menufixed }}
+<section class="header navigation top-bar">
+{{ else }}
+<section class="header navigation">
+{{ end }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg">
+                    <a tabindex="-1" class="navbar-brand" href="{{ .Site.BaseURL | relLangURL }}">
+                        {{- $image := resources.Get .Site.Params.logo -}}
+                        {{- if $.Site.Params.compression -}}
+                            {{- $image = $image.Fit .Site.Params.imageDimensions.navbarLogo -}}
+                        {{- end -}}
+                        <img src="{{ $image.RelPermalink }}" alt="{{ i18n "logo" }}">
+                        {{ if not .IsHome }}
+                        <h1>
+                            {{ range (split .Site.Params.headerTitle "|") }}
+                                <span>{{ . }}</span>
+                            {{ end }}
+                        </h1>
+                        {{ end }}
+                    </a>
+                    <div class="d-flex align-items-center">
+                        {{ if eq .Site.Params.cta true }}
+                            {{ if ne .Params.cta false }}
+                                <a href="{{ partial "i18nurl.html" (dict "context" $ "url" "prijave") }}" class="navbar-cta navbar-cta-mobile">{{ i18n "apply" }}</a>
+                            {{ end }}
+                        {{ end }}
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                            aria-controls="navigation" aria-expanded="false" aria-label="{{ i18n "toggle-navigation" }}">
+                            <svg><use xlink:href="#hamburger"></use></svg>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ .Site.BaseURL | relLangURL }}">{{ i18n "home" }}</a>
+                            </li>
+                            {{ range site.Menus.nav }}
+                            {{ if .HasChildren }}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    {{ i18n .Name }}
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item mobile" href="{{ partial "i18nurl.html" (dict "context" $ "url" .URL) }}">{{ i18n (print .Name "-base") }}</a>
+                                    {{ range .Children }}
+                                        <a class="dropdown-item" href="{{ partial "i18nurl.html" (dict "context" $ "url" .URL) }}">{{ i18n .Name }}</a>
+                                    {{ end }}
+                                </div>
+                            </li>
+                            {{ else }}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ partial "i18nurl.html" (dict "context" $ "url" .URL) }}">{{ i18n .Name }}</a>
+                            </li>
+                            {{ end }}
+                            {{ end }}
+                            {{ if .IsTranslated }}
+                            <li class="nav-item dropdown language-list">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" aria-label="{{ i18n "select-language" }}">
+                                    <svg><use xlink:href="#translate"></use></svg>
+                                </a>
+                                <div class="dropdown-menu">
+                                    {{ range .Translations }}
+                                    <a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
+                                    {{ end }}
+                                </div>
+                            </li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                    {{ if eq .Site.Params.cta true }}
+                        {{ if ne .Params.cta false }}
+                            <a href="{{ partial "i18nurl.html" (dict "context" $ "url" "prijave") }}" class="navbar-cta navbar-cta-desktop">{{ i18n "apply" }}</a>
+                        {{ end }}
+                    {{ end }}
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ end }}

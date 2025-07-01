@@ -1,0 +1,20 @@
+.single-page-header {
+    background: var(--dark-background-color);
+    padding: 50px 0;
+    text-align: center;
+    color: var(--dark-text-color);
+    position: relative;
+}
+
+.single-page-header .breadcrumb {
+    background: transparent;
+    display: inline-block;
+}
+
+.single-page-header .breadcrumb li {
+    display: inline-block;
+}
+
+.single-page-header .breadcrumb li a {
+    color: var(--accent-color);
+}

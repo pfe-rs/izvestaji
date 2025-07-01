@@ -1,0 +1,160 @@
+.post-item {
+    background: var(--background-color);
+    margin-bottom: 40px;
+}
+
+.post-item .post-thumb {
+    margin: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.post-item .post-thumb img {
+    height: auto;
+    width: auto;
+    max-width: 100%;
+}
+
+.post-item .post-title {
+    margin-top: 20px;
+}
+
+.post-item .post-title h2, .post-item .post-title h3 a {
+    font-size: 23px;
+    color: var(--text-color);
+}
+
+.post-item a:hover {
+    color: var(--text-color);
+}
+
+.post-item a:focus-visible .post-title h2, .post-item h3 a:focus-visible {
+    color: var(--link-color);
+}
+
+.post-item .post-meta {
+    font-size: 14px;
+    color: var(--lower-contrast-text-color);
+}
+
+.post-item .post-meta a {
+    color: var(--text-color);
+    margin: 3px 0;
+}
+
+.post-item .post-content p {
+    color: var(--lower-contrast-text-color);
+    margin: 10px 0;
+}
+
+.post-item .btn-main, .post-item .btn-main-sm {
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 8px 20px;
+    margin: 15px 0;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: var(--lower-contrast-text-color);
+}
+
+.post-image {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+ul.sharing {
+    display: block;
+    margin: 0;
+    list-style: none;
+    font-size: 0;
+}
+
+ul.sharing li {
+    display: inline-block;
+    align-items: center;
+    flex-direction: row;
+    margin: 0 5px 0 0;
+    transition: .2s ease-in-out 0s;
+}
+
+ul.sharing li a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    background-color: var(--secondary-text-color);
+}
+
+ul.sharing li a:hover, ul.sharing li a:focus-visible {
+    background-color: var(--accent-color);
+}
+
+ul.sharing li a:hover svg, ul.sharing li a:focus-visible svg {
+    fill: var(--white);
+}
+
+ul.sharing li a:hover span, ul.sharing li a:focus-visible span {
+    color: var(--white);
+}
+
+ul.sharing li svg {
+    padding: 0;
+    margin: 0;
+    height: 15px;
+    width: 15px;
+    fill: var(--card-hover-background-color);
+}
+
+ul.sharing li svg use {
+    transform: scale(0.5);
+}
+
+ul.sharing li span {
+    color: var(--card-hover-background-color);
+    font-size: 14px;
+}
+
+.sharing-heading {
+    font-size: 20px;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    margin: 15px 0 10px 0;
+    padding: 10px 0 0 0;
+}
+
+@media (max-width: 576px) {
+    ul.sharing, .sharing-heading {
+        text-align: center;
+    }
+
+    ul.sharing li {
+        margin: 0 15px 0 0;
+    }
+
+    ul.sharing li a {
+        gap: 0;
+        padding: 5px;
+    }
+
+    ul.sharing li svg {
+        height: 30px;
+        width: 30px;
+    }
+
+    ul.sharing li svg use {
+        transform: scale(1);
+    }
+
+    ul.sharing li span {
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    ul.sharing li {
+        margin: 0 5px 5px 0;
+    }
+}

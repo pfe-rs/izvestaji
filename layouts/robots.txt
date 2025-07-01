@@ -1,0 +1,7 @@
+User-agent: *
+{{ range .Data.Pages -}}
+{{- if eq .Sitemap.Priority 0.0 -}}
+Disallow: {{ .RelPermalink }}
+{{- end -}}
+{{- end }}
+Sitemap: {{ `sitemap.xml` | absURL }}

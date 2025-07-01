@@ -1,0 +1,78 @@
+{{ define "main" }}
+
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+{{ .Scratch.Add "icons" (slice "email" "github" "instagram" "linkedin" "twitter" "website") }}
+
+<section class="blog-single section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8 mx-auto">
+                {{ if ne .Params.breadcrumbs false }}
+                    {{ partial "sibling-breadcrumbs" . }}
+                {{ else }}
+                    <h1>{{ .Title }}</h1>
+                {{ end }}
+                {{ .Content }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mx-auto mt-10">
+                <div class="team-list-cards">
+                    {{ range index $data.team .File.ContentBaseName }}
+                        <section class="team-member-card" tabindex="0">
+                            {{ if fileExists (print "static/images/team/" .name ".jpg") }}
+                                {{- $image := resources.Get (print "images/team/" .name ".jpg") -}}
+                                {{- if $.Site.Params.compression -}}
+                                    {{- $image = $image.Resize $.Site.Params.imageDimensions.team -}}
+                                {{- end -}}
+                                <img src="{{ $image.RelPermalink }}" alt="{{ .name }}">
+                            {{ else }}
+                                <img src="{{ .Site.BaseURL }}/images/team/placeholder.png" alt="{{ .name }}">
+                            {{ end }}
+                            <div class="member-short">
+                                <div class="member-name">
+                                    <h2>{{ .name }}</h2>
+                                    {{ if .title }}
+                                        <h3 class="multiline">
+                                        {{range split .title "|" }}
+                                            <span>{{ . }}</span>
+                                        {{ end }}
+                                        </h3>
+                                    {{ else }}
+                                    {{/*  <h3>{{ .location }}</h3>  */}}
+                                    {{ end }}
+                                </div>
+                                <ul class="member-socials">
+                                    {{ range $key, $value := .links }}
+                                        {{ $social := index (where $.Site.Data.socials "name" $key) 0 }}
+                                        {{ if $social -}}
+                                        <li>
+                                            <a href="{{ $social.prefix }}{{ $value }}{{ $social.postfix }}" target="_blank" tabindex="0" aria-label="{{ humanize $key }}">
+                                                <svg class="svg-social-icon"><use xlink:href="#{{ $key }}"></use></svg>
+                                            </a>
+                                        </li>
+                                        {{- end }}
+                                    {{ end }}
+                                </ul>
+                            </div>
+                            <p>{{ .biography }}</p>
+                            <ul class="member-specialization">
+                                {{ range .interests }}
+                                    <li>{{ . }}</li>
+                                {{ end }}
+                            </ul>
+                        </section>
+                    {{ end }}
+                </div>                    
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ end }}
+{{ define "scripts" }}
+{{ partial "js-bundle" (dict "context" . "bundle" "team-list") }}
+{{ end }}
+{{ define "styles" }}
+{{ partial "css-bundle" (dict "context" . "bundle" "team-list") }}
+{{ end }}

@@ -1,0 +1,24 @@
+{{ $data := index $.Site.Data $.Site.Language.Lang }}
+{{ if os.Getenv "CONTENT_CONFIDENTIAL" }}
+
+<section class="confidential-banner" id="confidential">
+    <div class="container">
+        <div class="row">
+            <h2>{{ $data.confidential.title }}</h2>
+            <p>{{ $data.confidential.description | markdownify }}</p>
+            <div class="buttons">
+                <button id="confidential-back" tabindex="1">
+                    {{ $data.confidential.buttons.back }}
+                </button>
+                <button id="confidential-okay" tabindex="1">
+                    {{ $data.confidential.buttons.okay }}
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ partial "js-bundle" (dict "context" . "bundle" "confidential") }}
+{{ partial "css-bundle" (dict "context" . "bundle" "confidential") }}
+
+{{ end }}

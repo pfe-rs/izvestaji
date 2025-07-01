@@ -1,0 +1,7 @@
+{{ with .Parent }}
+    {{ partial "breadcrumbs" . }}
+    {{ if not .IsHome }}
+        {{ if not .Parent.IsHome }}/{{ end }}
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ end }}
+{{ end }}

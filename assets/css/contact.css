@@ -1,0 +1,70 @@
+.contact-us {
+    background: var(--secondary-background-color);
+    padding: 40px 0;
+}
+
+.contact-us .title {
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.contact-us .social-icons-bar {
+    justify-content: center;
+    gap: 50px;
+    margin: 0;
+}
+
+.social-icon a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-icon use {
+    fill: var(--text-color);
+    transition: .2s ease-in-out 0s;
+}
+
+.social-icon svg {
+    margin: 0 0 10px 0;
+}
+
+.social-icon h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--lower-contrast-text-color);
+    transition: .2s ease-in-out 0s;
+}
+
+.social-icon a:hover, .social-icon a:focus {
+    text-decoration: none;
+}
+
+.social-icon a:hover use, .social-icon a:focus use {
+    fill: var(--accent-color);
+}
+
+.social-icon a:hover h3, .social-icon a:focus h3 {
+    color: var(--accent-color);
+}
+
+@media (max-width: 767px) {
+    .contact-us .social-icons-bar {
+        gap: 50px 90px;
+    }
+}
+
+@media (max-width: 420px) {
+    .contact-us .social-icons-bar {
+        gap: 50px 0;
+    }
+    .contact-us .social-icon {
+        width: 50%;
+    }
+}
+
+@media (max-width: 300px) {
+    .contact-us .social-icon {
+        width: 100%;
+    }
+}

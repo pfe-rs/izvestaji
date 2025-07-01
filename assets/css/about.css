@@ -1,0 +1,151 @@
+/*=================================================================
+    About us section
+==================================================================*/
+
+.about {
+    padding: 0;
+    margin: 40px 0;
+}
+
+.about .about-row {
+    margin-top: 50px;
+}
+
+.about .about-content-left {
+    padding: 0;
+    margin-right: 75px;
+    margin-left: 40px;
+}
+
+.about .about-content-right {
+    padding: 0;
+    margin-left: 75px;
+    margin-right: 40px;
+}
+
+.about .title {
+    padding: 0;
+    margin-bottom: -20px;
+}
+
+.about h3 {
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.about .about-image {
+    padding: 0;
+}
+
+.about img {
+    aspect-ratio: 1;
+}
+
+@media (max-width: 992px) {
+    .about h3 {
+        font-size: 25px;
+    }
+}
+
+.about h4 {
+    font-size: 14px;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.about p {
+    line-height: 1.6;
+}
+
+@media (max-width: 991px) {
+    .about .content {
+        padding: 5px 0;
+    }
+
+    .about img {
+        margin-bottom: 50px;
+    }
+
+    .about .about-content-left {
+        margin-right: 0;
+        margin-left: 0;
+        padding-left: 20px;
+    }
+    
+    .about .about-content-right {
+        margin-left: 0;
+        margin-right: 0;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .about .title {
+        margin-bottom: 15px;
+    }
+
+    .about .title .border {
+        display: none;
+    }
+
+    .about .row {
+        margin-top: 10px;
+    }
+
+    .about .about-image {
+        padding: 0 15px;
+    }
+
+    .about img {
+        margin-bottom: 0;
+    }
+
+    .about .content h3 {
+        margin-top: 35px;
+        text-align: center !important;
+    }
+
+    .about .about-content-left, .about .about-content-right {
+        margin: 0;
+        padding: 0 15px;
+    }
+}
+
+
+/*=================================================================
+    About us 2 section
+==================================================================*/
+/* Not currently used
+.about-2 {
+    background: #F7F7F7;
+}
+
+.about-2 h2 {
+    position: relative;
+}
+
+.about-2 h2:before {
+    position: absolute;
+    left: -15%;
+    top: 18px;
+    content: '';
+    display: inline-block;
+    width: 12%;
+    height: 3px;
+    background-color: #ffa535;
+    background-image: linear-gradient(100deg, #f9643d, #fe2a77);
+}
+
+@media (max-width: 768px) {
+    .about-2 h2:before {
+        display: none;
+    }
+}
+*/
+
+.about-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}

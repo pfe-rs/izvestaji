@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+  {{ partial "hero" . }}
+
+  {{ partial "mission" . }}
+  
+  {{ partial "feature" . }}
+
+  {{ partial "blog" . }}
+
+  {{ partial "about" . }}
+
+  {{ partial "statistics" . }}
+
+  {{ partial "contact" . }}
+
+  {{ partial "newsletter" (dict "context" . "tags" (slice "website" "frontpage")) }}
+
+{{ end }}

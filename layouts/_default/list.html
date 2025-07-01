@@ -1,8 +1,7 @@
 {{ define "main" }}
 
-{{ partial "page-title.html" . }}
+{{ partial "page-title" . }}
 
-<!-- Blog Section Start -->
 <section class="blog section" id="blog">
     <div class="container">
         <div class="row">
@@ -12,19 +11,21 @@
         </div>
         <div class="row">
             {{ if ne .Params.list false }}
-                {{ range (.Paginator 100).Pages }}
-                <!-- single blog post -->
+                {{ range (.Paginator 6).Pages }}
                 <article class="col-12 col-md-6 col-lg-4">
                     <div class="post-item">
-                        <a href="{{ .Permalink }}">
+                        <a href="{{ .RelPermalink }}">
                             {{ if .Site.Params.displayImagesInList }}
                                 {{ $image := .Params.image }}
                                 {{ if not $image }}
                                     {{ $image = "/images/gallery-default.jpg" }}
                                 {{ end }}
                                 {{ $image := resources.Get $image }}
+                                {{- if $.Site.Params.compression -}}
+                                    {{- $image = $image.Fit $.Site.Params.imageDimensions.blogThumb -}}
+                                {{- end -}}
                                 <div class="post-thumb">
-                                    <img src="{{ $image.Permalink }}" class="img-fluid" alt="{{ .Title }}">
+                                    <img src="{{ $image.RelPermalink }}" class="img-fluid" alt="{{ .Title }}">
                                 </div>
                             {{ end }}
                             <div class="post-title">
@@ -45,19 +46,21 @@
                         <div class="post-content">
                             <p>
                                 {{ .Summary }}
-                                <a href="{{ .Permalink }}" tabindex="-1">{{ i18n "procitaj-vise" }}...</a>
+                                <a href="{{ .RelPermalink }}" tabindex="-1">{{ i18n "read-more" }}...</a>
                             </p>
                         </div>
                     </div>
                 </article>
-                <!-- /single blog post -->
                 {{ end }}
                 <div class="col-12 text-center">
-                    {{ template "_internal/pagination.html" . }}
+                    {{ partial "pagination" . }}
                 </div>
             </div>
         {{ end }}
     </div>
 </section>
 
+{{ partial "newsletter" (dict "context" . "tags" (slice "website" "news")) }}
+
 {{ end }}
+

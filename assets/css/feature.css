@@ -1,0 +1,35 @@
+.features {
+    padding: 0;
+    margin: 40px 0;
+}
+
+.features .row {
+    justify-content: center;
+}
+
+.features use {
+    fill: var(--accent-color);
+}
+
+.features .feature-block {
+    padding: 30px 20px;
+}
+
+@media (max-width: 480px) {
+    .features .feature-block {
+        padding: 15px;
+    }
+}
+
+.features .feature-block .feature-icon {
+    margin-bottom: 15px;
+}
+
+.features .feature-block h2 {
+    color: var(--text-color);
+    font-size: 18px;
+}
+
+.features .feature-block p {
+    color: var(--lower-contrast-text-color);
+}

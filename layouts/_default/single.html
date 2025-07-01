@@ -8,7 +8,7 @@
                 {{- if not .Date.IsZero -}}
                 <div class="post-meta mb-4">
                     <span>
-                        {{ i18n "objavljeno" }}
+                        {{ i18n "published" }}
                         <time datetime="{{ .Date }}">
                             {{ .Date.Format .Site.Params.dateFormat }}
                         </time>
@@ -16,12 +16,50 @@
                 </div>
                 {{- end -}}
                 {{- if and (.Params.image) (not .Params.nocover) -}}
-                    <img src="{{ .Params.image | absURL }}" class="post-image" alt="{{ if .Params.imageAlt }}{{ .Params.imageAlt }}{{ else }}{{ .Title }}{{ end }}">
+                    {{ if .Params.imageCredit }}
+                    <figure class="credited-photo">
+                        <div>
+                    {{ end }}
+                        {{- if $.Site.Params.compression -}}
+                            {{- $image := resources.Get .Params.image -}}
+                            {{- $image = $image.Fit .Site.Params.imageDimensions.blogImage -}}
+                            <img src="{{ $image.RelPermalink }}" {{ if not .Params.imageCredit }}class="post-image"{{ end }} alt="{{ if .Params.imageAlt }}{{ .Params.imageAlt }}{{ else }}{{ .Title }}{{ end }}">
+                        {{ else }}
+                            <img src="{{ .Params.image | relURL }}" {{ if not .Params.imageCredit }}class="post-image"{{ end }} alt="{{ if .Params.imageAlt }}{{ .Params.imageAlt }}{{ else }}{{ .Title }}{{ end }}">
+                        {{- end -}}
+                    {{- if .Params.imageCredit -}}
+                            <figcaption>
+                                <span>{{ i18n "photo-credit" }}: {{ .Params.imageCredit }}</span>
+                            </figcaption>
+                        </div>
+                    </figure>
+                    {{- end -}}
                 {{- end -}}
                 {{ .Content }}
+                {{ if in .Site.Params.mainSections .Type }}
+                    <h2 class="sharing-heading">{{ i18n "podeli-vest" }}</h2>
+                    <ul class="sharing">
+                        {{ range .Site.Params.sharing.buttons }}
+                            {{ $url := replace .url "$URL" (htmlEscape $.RelPermalink) }}
+                            {{ $url = replace $url "$TITLE" (htmlEscape $.Title) }}
+                            <li>
+                                <a href="{{ $url | safeURL }}" target="_blank">
+                                    <svg>
+                                        <use xlink:href="#{{ .icon }}"></use>
+                                    </svg><span>{{ .name }}</span>
+                                </a>
+                                {{ $.Scratch.Add "icons" .icon }}
+                            </li>
+                        {{ end }}
+                    </ul>
+                {{ end }}
             </div>
         </div>
     </div>
 </section>
+
+{{ if in .Site.Params.mainSections .Type }}
+    {{ partial "newsletter" (dict "context" . "tags" (slice "website" "news")) }}
+{{ end }}
 
 {{ end }}

@@ -1,0 +1,223 @@
+.hero-area {
+    padding: 80px 0 80px 0;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: var(--dark-background-color);
+}
+
+.hero-area .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 2;
+    gap: 35px 50px;
+}
+
+.hero-area .block {
+    position: relative;
+}
+
+.hero-area .block h1 {
+    font-family: "Lovelo Black", sans-serif;
+    color: var(--dark-text-color);
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero-area .block h1 span {
+    display: inline-block;
+}
+
+.hero-area .block p {
+    color: var(--dark-text-color);
+    font-size: 20px;
+    margin: 0px;
+}
+
+.hero-area .block .list-inline {
+    margin-top: 50px;
+}
+
+.hero-area .button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.hero-area .button a {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--dark-text-color);
+    padding: 10px 32px;
+    border-radius: 2px;
+    text-align: center;
+    transition: .2s background-color ease-in-out 0s;
+}
+
+.hero-area .button a:hover, .hero-area .button a:focus {
+    background-color: var(--accent-color-darkened);
+    text-decoration: none;
+}
+
+.hero-area .button a:focus-visible {
+    outline: 3px solid var(--dark-text-color);
+}
+
+.hero-area-background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.hero-area video {
+    width: 540px;
+    height: auto;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: 3px solid var(--background-color);
+}
+
+.hero-area video:focus-visible {
+    outline: 3px solid var(--accent-color);
+}
+
+.header, .hero-area-background {
+    /*
+    {{ if fileExists (print "static/" .Site.Params.hero.coverImage) }}
+        {{- $image := resources.Get .Site.Params.hero.coverImage -}}
+        {{- if $.Site.Params.compression -}}
+            {{- $image = $image.Filter
+                (images.Contrast 0)
+                (images.Gamma 1)
+                (images.Brightness 0)
+                (images.Saturation 0)
+                (images.GaussianBlur 0)
+            -}}
+            {{- $image = ($image.Fit (print $.Site.Params.imageDimensions.heroCover " jpg")) -}}
+        {{- end -}}
+    */
+        background-image: url('{{ $image.RelPermalink }}');
+    /*
+    {{ end }}
+    */
+    background-color: var(--dark-background-color);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    z-index: 1;
+}
+
+.navigation {
+    transition: none;
+}
+
+.navigation .dropdown .dropdown-menu {
+    background-color: var(--accent-color);
+}
+
+.navigation .dropdown .dropdown-item:hover, .navigation .dropdown .dropdown-item:focus-visible {
+    color: var(--dark-background-color);
+}
+
+.navigation .navbar-cta {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .navigation .dropdown .dropdown-menu {
+        background-color: transparent;
+    }
+    .navigation .dropdown .dropdown-item:hover, .navigation .dropdown .dropdown-item:focus-visible {
+        color: var(--accent-color);
+    }
+}
+
+@media (max-width: 1199px) {
+    .hero-area {
+        padding-top: 60px;
+    }
+
+    .hero-area .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-area .block {
+        max-width: 770px;
+    }
+
+    .hero-area .button {
+        display: none;
+    }
+
+    .navigation .navbar-cta-desktop {
+        display: block;
+    }
+
+    .hero-area video {
+        width: 100%;
+        outline: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .hero-area {
+        padding: 60px 0 60px 0;
+    }
+
+    .hero-area .block {
+        max-width: 570px;
+    }
+
+    .hero-area .block h1 {
+        font-size: 45px;
+        margin-bottom: 20px;
+    }
+
+    .navigation .navbar-cta-desktop {
+        display: none;
+    }
+
+    .navigation .navbar-cta-mobile {
+        display: block;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .hero-area .block {
+        max-width: 510px;
+    }
+
+    .hero-area .block h1 {
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .hero-area {
+        padding: 25px 0 20px 0;
+    }
+
+    .hero-area .container {
+        row-gap: 20px;
+    }
+
+    .hero-area .block p {
+        text-align: left;
+    }
+}

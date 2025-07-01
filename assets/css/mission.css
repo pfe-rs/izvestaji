@@ -1,0 +1,25 @@
+.about-sm {
+    margin: 0;
+    background-color: var(--specialization-outline-color);
+    padding: 20px 0;
+}
+
+.about-sm .container .row {
+    justify-content: center;
+}
+
+.about-sm p {
+    font-size: 22px;
+    text-align: center;
+    text-align-last: center;
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .about-sm {
+        padding: 16px 0;
+    }
+    .about-sm p {
+        font-size: 20px;
+    }
+}

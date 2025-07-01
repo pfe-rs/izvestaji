@@ -1,0 +1,30 @@
+.breadcrumbs {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumbs h1 {
+    margin-bottom: 0;
+}
+
+.breadcrumbs ul {
+    list-style: none;
+    margin: 0;
+}
+
+.breadcrumbs ul li {
+    display: inline-block;
+}
+
+.breadcrumbs ul li::before {
+    content: "/";
+    color: var(--lower-contrast-text-color);
+}
+
+.breadcrumbs ul li:first-of-type::before {
+    content: none;
+}

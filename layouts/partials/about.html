@@ -1,0 +1,47 @@
+{{ if $.Site.Params.about.enable }}
+{{ $data := index .Site.Data .Site.Language.Lang }}
+{{ with $data.about }}
+    <section class="about section-sm" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="title text-center">
+                        <h2>{{ .title }}</h2>
+                        <span class="border"></span>
+                    </div>
+                </div>
+            </div>
+            {{ range .item }}
+            <div class="row justify-content-center about-row {{ if .positionRight }}flex-row-reverse{{ end }}">
+                <div class="col-lg-4 col-md-6 col-sm-12 text-center about-image">
+                    {{- $image := resources.Get .image -}}
+                    {{- if $.Site.Params.compression -}}
+                        {{- $image = ($image.Fill $.Site.Params.imageDimensions.aboutImage) -}}
+                    {{- end -}}
+                    <img src="{{ $image.RelPermalink }}" class="img-fluid" alt="{{ .alt }}">
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 {{ if .positionRight }}about-content-right{{ else }}about-content-left{{ end }}">
+                    <div class="content">
+                        {{ range .paragraphs }}
+                            <h3>{{ .title }}</h3>
+                            <p>
+                                {{ .description | markdownify }}
+                            {{ with .link }}
+                                {{ if .big }}
+                                    </p>
+                                    <a class="fat-button" href="{{ .href }}">{{ .title }}</a>
+                                {{ else }}
+                                    <br>
+                                    <a href="{{ .href }}">{{ .title }}</a>
+                                {{ end }}
+                            {{ end }}
+                                </p>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </section>
+    {{ end }}
+{{ end }}
