@@ -163,6 +163,12 @@ Tabela prikazuje zavisnost metrike od broja izvršenih BCD-ova. Testiranja su vr
 
 ## 4. Zaključak
 
+U radu je predstavljen uspešan diskretni pristup za estimaciju pokreta. Metoda generiše vektore protoka na osnovu sličnosti DAISY deskriptora, a zatim ih optimizuje.
+
+Ključni deo algoritma je iterativno poboljšanje rešenja pomoću spuštanja po blokovima koordinata (BCD), što je, prema evaluaciji na KITTI bazi, drastično smanjilo početnu grešku. Efikasnost je postignuta sa tri optimizacione tehnike, dok je finalni rezultat dodatno unapređen postprocesiranjem uz EpicFlow.
+
+Pristup se pokazao kao robustno i precizno rešenje, sposobno da se efikasno nosi i sa velikim pomerajima između slika.
+
 
 ## 5. Literatura
 
