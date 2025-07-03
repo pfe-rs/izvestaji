@@ -8,7 +8,7 @@ svg_image: /images/zbornik/2022/estimacija-pokreta/OGA.svg
 
 Novak Stijepić, Mathematical Grammar School, Belgrade
 
-Milica Goljak, First Gymnasium, Kragujevac
+Milica Gojak, First Kragujevac Gymnasium, Kragujevac
 
 **Mentor** 
 
