@@ -1,3 +1,7 @@
+---
+title: Predviđanje rezultata Formule 1
+---
+
 # Predviđanje rezultata trke Formule 1
 
 Polaznici: Darija Vasiljević, Marina Stojilković  
@@ -5,7 +9,7 @@ Mentori: Andrej Bantulić, Milica Gojak i Marija Nedeljković
 
 # Apstrakt
 
-	U ovom radu radu razvijen je sistem za predviđanje konačnog redosleda vozača u trkama Formule 1 koristeći javno dostupne podatke iz perioda 2018-2024 godine. Upoređene su performanse statističkih modela (linearna regresija, SVM, Naivni Bajes) i savremenih algoritama mašinskog učenja (duboke neuronske mreže i XGBoost) koji su trenirani nag malim skupom podataka. Razmatrana su dva pristupa:  listwise (predviđanje cele liste) i pairwise (predviđanje vozača na boljoj poziciji iz parova). Evaluacija modela pokazuje da pairwise pristupi, naročito XGBoost treniran nad parovima, postižu najbolje performanse: RMSE \= 1.58, NDCG \= 0.987, MRR \= 0.89, Kendall Tau \= 0.86 i Spearman \= 0.92, što ukazuje na precizno rangiranje vozača i visoku tačnost predviđanja pobednika. Rad demonstrira da kombinacija obrade karakteristika i modernih modela može značajno unaprediti predikciju rezultata u dinamičnom sportu poput Formule 1\.
+U ovom radu radu razvijen je sistem za predviđanje konačnog redosleda vozača u trkama Formule 1 koristeći javno dostupne podatke iz perioda 2018-2024 godine. Upoređene su performanse statističkih modela (linearna regresija, SVM, Naivni Bajes) i savremenih algoritama mašinskog učenja (duboke neuronske mreže i XGBoost) koji su trenirani nag malim skupom podataka. Razmatrana su dva pristupa:  listwise (predviđanje cele liste) i pairwise (predviđanje vozača na boljoj poziciji iz parova). Evaluacija modela pokazuje da pairwise pristupi, naročito XGBoost treniran nad parovima, postižu najbolje performanse: RMSE \= 1.58, NDCG \= 0.987, MRR \= 0.89, Kendall Tau \= 0.86 i Spearman \= 0.92, što ukazuje na precizno rangiranje vozača i visoku tačnost predviđanja pobednika. Rad demonstrira da kombinacija obrade karakteristika i modernih modela može značajno unaprediti predikciju rezultata u dinamičnom sportu poput Formule 1\.
 
 # Abstract
 
@@ -271,7 +275,7 @@ Na slici 12 prikazane su vrednosti metrika na validaciji (NDCG, *Kendall’s τ*
 ## 3.6. *XGBoost* sa *pairwise* treniranjem
 
 Na slici 13 prikazana je konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima.   
-![*Slika 13*: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima](static\images\zbornik\2025\formula-1\xgb-par.png)
+![*Slika 13*: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima](static/images/zbornik/2025/formula-1/xgb-par.png)
 Vrednosti metrika su:
 
 * RMSE: 1.58 \- model u proseku greši 1.58 mesta, što je relativno niska greška za probleme rangiranja 20 vozača  
@@ -279,7 +283,6 @@ Vrednosti metrika su:
 * MRR: 0.89 \- model ima visoku šansu da pobednika predvidi visoko na rang listi  
 * Kendall Tau: 0.86 \- postoji jaka pozitivna povezanost između predikcija i stvarnog ranga  
 * Spearman: 0.92 \- model dobro uči relativni redosled instanci  
-* 
 
 Na slici ispod prikazan je primer rangiranja jedne trke ovim modelom.
 
@@ -289,11 +292,11 @@ Na slici ispod prikazan je primer rangiranja jedne trke ovim modelom.
 
 # Diskusija
 
-	Statistički metodi nisu dali zadovoljavajuće rezultate zbog svoje suviše jednostavne prirode. Duboka neuralna mreža (DNN) trenirana da predvidi celu rang-listu pokazala se neuspešnom, pre svega zato što korišćena funkcija gubitka nije bila adekvatna za taj zadatak. XGBoost i DNN model treniran da predvidi koji je od dva vozača bolji davaju znatno bolje rezultate. Sa druge strane, *Rolling Window* pristup zasnovan na XGBoost modelu pokazivao je izraženo overfitovanje, što je ograničilo njegovu praktičnu primenu. Kao najefikasniji pristup pokazao se XGBoost sa treniranjem par po par.
+Statistički metodi nisu dali zadovoljavajuće rezultate zbog svoje suviše jednostavne prirode. Duboka neuralna mreža (DNN) trenirana da predvidi celu rang-listu pokazala se neuspešnom, pre svega zato što korišćena funkcija gubitka nije bila adekvatna za taj zadatak. XGBoost i DNN model treniran da predvidi koji je od dva vozača bolji davaju znatno bolje rezultate. Sa druge strane, *Rolling Window* pristup zasnovan na XGBoost modelu pokazivao je izraženo overfitovanje, što je ograničilo njegovu praktičnu primenu. Kao najefikasniji pristup pokazao se XGBoost sa treniranjem par po par.
 
 ## Predlozi poboljšanja
 
-	Metrike ukazuju na postojanje prostora za poboljšanje. Moguća unapređenja uključuju dodavanje novih karakteristika koje dodatno opisuju kontekst trke: istorijski rezultati vozača na određenoj stazi, kao i performanse u specifičnim vremenskim uslovima (npr. pojedini vozači postižu značajno bolje rezultate u kišnim uslovima). Iako u ovom projektu stariji podaci nisu korišćeni, oni bi mogli da daju kontekst modelu o funkcionisanju sporta, a na novijim podacima bi mogao da se *finetune*\-uje.  Prikupljanje novih podataka i inženjering karakteristika bi omogućili i korišćenje složenijih modela, poput mreža za obradu vremenskih sekvenci, kao što su rekurentne neuralne mreže, *Long-Short Term Memory* (LSTM) mreže i transformeri koje bi znatno poboljšale predviđanja.
+Metrike ukazuju na postojanje prostora za poboljšanje. Moguća unapređenja uključuju dodavanje novih karakteristika koje dodatno opisuju kontekst trke: istorijski rezultati vozača na određenoj stazi, kao i performanse u specifičnim vremenskim uslovima (npr. pojedini vozači postižu značajno bolje rezultate u kišnim uslovima). Iako u ovom projektu stariji podaci nisu korišćeni, oni bi mogli da daju kontekst modelu o funkcionisanju sporta, a na novijim podacima bi mogao da se *finetune*\-uje.  Prikupljanje novih podataka i inženjering karakteristika bi omogućili i korišćenje složenijih modela, poput mreža za obradu vremenskih sekvenci, kao što su rekurentne neuralne mreže, *Long-Short Term Memory* (LSTM) mreže i transformeri koje bi znatno poboljšale predviđanja.
 
 ## Literatura
 
