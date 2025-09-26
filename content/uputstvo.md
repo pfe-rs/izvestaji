@@ -19,7 +19,7 @@ Proces pisanja izveštaja sa vašeg letnjeg projekta teče ovako:
 9. Nazad na korak 7 dok tim za objavu izveštaja više ne bude imao komentara
 10. Neko iz tima za objavu izveštaja formatira vaš izveštaj kao Markdown i pošalje vam da pogledate kako izgleda
 11. Vi [instalirate i pokrenete Hugo server na svom računaru](#tehnički-detalji), a zatim [pošaljete svoj izveštaj u Markdown formatu i sa svim slikama na pregled](#slanje-na-pregled)
-12. Tim za objavu izveštaja komentariše na vaš *pull request* sa dodatnim komentarima o formatu pri objavljivanju
+12. Tim za objavu izveštaja komentariše na vaš *pull request* u [GitHub repository-u](https://github.com/pfe-rs/izvestaji) sa dodatnim komentarima o formatu pri objavljivanju.
 13. Ispravite pomenute komentare
 14. Nazad na korak 12 dok izveštaj ne bude bio spreman za objavu
 15. Vaš *pull request* se spoji sa glavnom granom
