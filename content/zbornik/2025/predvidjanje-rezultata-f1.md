@@ -13,7 +13,7 @@ U ovom radu radu razvijen je sistem za predviđanje konačnog redosleda vozača 
 
 # Abstract
 
-1. # Uvod
+# 1. Uvod
 
 Formula 1 je sport koji se u velikoj meri oslanja na analizu podataka. Informacije koje timovi prikupljaju u toku trkačkih vikenda su veoma značajne za osmišljanje adekvatne strategije za trku, podešavanje bolida, otkrivanje potencijalnih problema i unapređenje bolida. Za vreme trke i pripremnih treninga prikupljaju se podaci sa preko 250 senzora na bolidu. U toku jednog kruga prikupi se oko 30MB podataka. U Mercedesu tvrde da tokom jednog vikenada prikupe preko jednog terabajta podataka.   
 Većina prethodnih radova koji se bave predviđanjem rerzultata trke Formule 1 nemaju cilj da rangiraju sve vozače. Na primer, rad \[1\] bavi se klasifikacijom vozača na kraju trke u 4 klase. Klasa 0 predstavlja pozicije od 11\. do 20, klasa 1 od 7\. do 10\. mesta, klasa 2 uključuje 4, 5\. i 6\. poziciju, dok klasa 3 obuhvata prva 3 mesta. Ovakav pristup ima tačnost 65% kada se koristi duboka neuralna mreža (DNN) mreža. Umesto dobijanja cele rang-liste dobija se klasifikacija u 4 klase, što značajno ograničava praktičnu primenu. Model ne može steći adekvatnu sliku o performansama vozača, niti pružiti uvid u mogući tok trke ili se koristiti za kompleksnija predviđanja.   
@@ -90,7 +90,10 @@ Vrednosti *⍴* se kreću od \-1 (obrnuti rangovi) do 1 (savršeno slaganje rang
 
 RMSE je standardna mera koja pokazuje prosečnu veličinu greške između stvarnih i predviđenih vrednosti. Izračunava se kao kvadratni koren prosečne kvadratne greške:
 
-RMSE \= 1nt \= 1n(yt-ŷt)2,  
+$$
+RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+$$
+ 
 gde su:
 
 *    *y* — stvarna vrednost,  
