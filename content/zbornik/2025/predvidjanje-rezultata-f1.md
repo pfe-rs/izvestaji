@@ -5,7 +5,7 @@ Mentori: Andrej Bantulić, Milica Gojak i Marija Nedeljković
 
 # Apstrakt
 
-	U ovom radu radu razvijen je sistem za predviđanje konačnog redosleda vozača u trkama Formule 1 koristeći javno dostupne podatke iz perioda 2018-2024 godine. Upoređene su performanse statističkih modela (linearna regresija, SVM, Naivni Bajes) i savremenih algoritama mašinskog učenja (duboke neuronske mreže i XGBoost). Razmatrana su dva pristupa:  listwise (predviđanje cele liste) i pairwise (predviđanje vozača na boljoj poziciji iz parova). Evaluacija modela pokazuje da pairwise pristupi, naročito XGBoost treniran nad parovima, postižu najbolje performanse: RMSE \= 1.58, NDCG \= 0.987, MRR \= 0.89, Kendall Tau \= 0.86 i Spearman \= 0.92, što ukazuje na precizno rangiranje vozača i visoku tačnost predviđanja pobednika. Rad demonstrira da kombinacija obrade karakteristika i modernih modela može značajno unaprediti predikciju rezultata u dinamičnom sportu poput Formule 1\.
+	U ovom radu radu razvijen je sistem za predviđanje konačnog redosleda vozača u trkama Formule 1 koristeći javno dostupne podatke iz perioda 2018-2024 godine. Upoređene su performanse statističkih modela (linearna regresija, SVM, Naivni Bajes) i savremenih algoritama mašinskog učenja (duboke neuronske mreže i XGBoost) koji su trenirani nag malim skupom podataka. Razmatrana su dva pristupa:  listwise (predviđanje cele liste) i pairwise (predviđanje vozača na boljoj poziciji iz parova). Evaluacija modela pokazuje da pairwise pristupi, naročito XGBoost treniran nad parovima, postižu najbolje performanse: RMSE \= 1.58, NDCG \= 0.987, MRR \= 0.89, Kendall Tau \= 0.86 i Spearman \= 0.92, što ukazuje na precizno rangiranje vozača i visoku tačnost predviđanja pobednika. Rad demonstrira da kombinacija obrade karakteristika i modernih modela može značajno unaprediti predikciju rezultata u dinamičnom sportu poput Formule 1\.
 
 # Abstract
 
@@ -166,13 +166,13 @@ Za preciznije predviđanje rezultata trka Formule 1 koristi se duboka neuronska 
 
 Pre nego što podatke prosledimo linearim slojevima, kategoričke vrednosti se prvo pretvaraju u numeričke pomoću embedding slojeva. Embedding sloj mapira svaku kategoriju na vektor realnih brojeva, omogućavajući linearnoj mreži da ih analizira i uči odnose između različitih kategorija. Kodiranje se radi pomoću factorize funkcije iz biblioteke pandas u Python-u, koja svakoj jedinstvenoj kategoriji dodeljuje jedinstveni ceo broj, čime se kategoričke vrednosti lako mogu proslediti embedding sloju.
 
-Ova mreža sadrži više linearnih slojeva sa LeakyReLU aktivacijom, batch normalizacijom i dropout regularizacijom. Na slici  prikazana je precizna arhitektura mreže.
+Ova mreža sadrži više linearnih slojeva sa LeakyReLU aktivacijom, batch normalizacijom i dropout regularizacijom. Na slici 2 prikazana je precizna arhitektura mreže.
 
-![Slika2: Arhitektura duboke neuralne mreže](static\images\zbornik\2025\formula-1\dnn20.png)
+![*Slika 2*: Arhitektura duboke neuralne mreže](static\images\zbornik\2025\formula-1\dnn20.png)
 
-Drugi pristup je mreža koja kao ulaz dobija parove vozača, a na izlazu daje predikciju koji je od njih bolji. Ova mreža sadrži tri linearna sloja sa ReLU aktivacijom, batch normalizacijom i dropout regularizacijom. Na slici prikazana je precizna arhitektura ove mreže.
+Drugi pristup je mreža koja kao ulaz dobija parove vozača, a na izlazu daje predikciju koji je od njih bolji. Ova mreža sadrži tri linearna sloja sa ReLU aktivacijom, batch normalizacijom i dropout regularizacijom. Na slici 3 prikazana je precizna arhitektura ove mreže.
 
-Slika: Arhitektura duboke neuralne mreže za par po par pristup
+![*Slika 3*: Arhitektura duboke neuralne mreže za par po par pristup](static\images\zbornik\2025\formula-1\dnn-par.png)
 
 ## 
 
@@ -206,8 +206,8 @@ U mašinskom učenju vrlo često podela podataka na set za treniranje, validacij
 
 ## 2.7. *Rolling window* tehnika i *XGBoost*
 
-	Ovaj problem se može rešavati korišćenjem *Rolling window* tehnike. Ona podrazumeva podelu skupa podataka na manje vremenske okvire. Postoje dva pristupa. U oba se počinje od najstarijih podataka, i oni koji slede predstavljaju podatke za testiranje.  Slika 2 prikazuje da prvi pristup podrazumeva pomeranje okvira za testiranje podataka ka novijim podacima. Drugi način je da se okvir proširuje, na primer počinjemo od cele 2018\. sezone, i postepeno proširujemo da okvir uključuje sve do pete trke pred kraj 2024, a tih preostalih 5 koristimo kao test set. U ovom projektu tehnika *Rolling window* se kombinuje sa modelom *XGBoost*. Veličina prozora je konstantna i iznosi 30 trka, validacija se vršila na 2, a test na 4 trke. U svakoj iteraciji prozor se pomerao za 6 trka.  
-![*Slika 3:* Prikaz *Rolling window* tehnike ](static\images\zbornik\2025\formula-1\roll.png)  
+	Ovaj problem se može rešavati korišćenjem *Rolling window* tehnike. Ona podrazumeva podelu skupa podataka na manje vremenske okvire. Postoje dva pristupa. U oba se počinje od najstarijih podataka, i oni koji slede predstavljaju podatke za testiranje.  Slika 4 prikazuje da prvi pristup podrazumeva pomeranje okvira za testiranje podataka ka novijim podacima. Drugi način je da se okvir proširuje, na primer počinjemo od cele 2018\. sezone, i postepeno proširujemo da okvir uključuje sve do pete trke pred kraj 2024, a tih preostalih 5 koristimo kao test set. U ovom projektu tehnika *Rolling window* se kombinuje sa modelom *XGBoost*. Veličina prozora je konstantna i iznosi 30 trka, validacija se vršila na 2, a test na 4 trke. U svakoj iteraciji prozor se pomerao za 6 trka.  
+![*Slika 4:* Prikaz *Rolling window* tehnike ](static\images\zbornik\2025\formula-1\roll.png)  
 
 
 ## 2.8. XGBoost sa pairwise treniranjem
@@ -229,46 +229,49 @@ U mašinskom učenju vrlo često podela podataka na set za treniranje, validacij
 
 ## 3.2. Statistički modeli
 
-Na slikama 3, 4 i 5 prikazani su rezultati predikcije plasmana vozača u test skupu trka koristeći tri pomenuta statistička modela. Slika 3 prikazuje rezultate linearne regresije primenjene u pairwise pristupu. Slika 4 prikazuje rezultate dobijene korišćenjem SVM-a, takođe u pairwise pristupu. 
+Na slikama 5, 6 i 7 prikazani su rezultati predikcije plasmana vozača u test skupu trka koristeći tri pomenuta statistička modela. Slika 5 prikazuje rezultate linearne regresije primenjene u pairwise pristupu. Slika 6 prikazuje rezultate dobijene korišćenjem SVM-a, takođe u pairwise pristupu. 
 
-Slika: Konfuziona matrica linearne regresije (levo) i SVM modela(desno)
+![*Slika 5*: Konfuziona matrica linearne regresije](static\images\zbornik\2025\formula-1\linreg.png)
+
+![*Slika 6*: Konfuziona matrica SVM](static\images\zbornik\2025\formula-1\svm.png)
+
 
 Model linearne regresije daje tačnost 80,1%, a SVM 82,8%. Analizom ovih tačnosti i konfuzionih matrica može se uočiti da oba modela uspešno predviđaju relativni plasman u većini parova, ali retko uspevaju da precizno rekonstruišu tačan konačan plasman vozača.
 
-Na slici 5 je prikazana matrica konfuzije za sve trke iz test skupa podataka. Njenom analizom može se uočiti da glavna dijagonala nije izražena. Takođe, pobednik je ispravno predviđen svega 3 puta što ukazuje da model nema mogućnosti da generalizuje na novije podatke. Ovakvo ponašanje je očekivano jer je Formula 1 veoma dinamičan sport i neophodni su kompleksniji modeli koji mogu da prate zavisnost plasmana od vremeskih uslova i konfiguracije staze, kao i evoluciju timova i vozača. Vrednosti metrika iz tabele 3 ukazuju da ovaj model jako loše rangira vozače, u proseku sa greškom većom od 7 pozicija.  
+Na slici 7 je prikazana matrica konfuzije kada je korišćen model Naivni Bajes sa Laplasovim zaglađenjem. Njenom analizom može se uočiti da glavna dijagonala nije izražena. Takođe, pobednik je ispravno predviđen svega 3 puta što ukazuje da model nema mogućnosti da generalizuje na novije podatke. Ovakvo ponašanje je očekivano jer je Formula 1 veoma dinamičan sport i neophodni su kompleksniji modeli koji mogu da prate zavisnost plasmana od vremeskih uslova i konfiguracije staze, kao i evoluciju timova i vozača. Vrednosti metrika iz tabele 3 ukazuju da ovaj model jako loše rangira vozače, u proseku sa greškom većom od 7 pozicija.  
    
-*Slika 3*: Matrica konfuzije za model naivni Bajes sa Laplasovim zaglađenjem 
+![*Slika 7*: Matrica konfuzije za model naivni Bajes sa Laplasovim zaglađenjem ](static\images\zbornik\2025\formula-1\bajes.png)
 
 ## 3.3. Duboka neuralna mreža
 
-Za treniranje mreže nad svih 20 vozača po trci korišćen je SGD optimizator i ListNetLoss funkcija gubitka, specijalno dizajnirana za zadatke rangiranja. Na slici prikazani su grafikoni gubitka i NDCG metrike kroz epohe.
+Za treniranje mreže nad svih 20 vozača po trci korišćen je SGD optimizator i ListNetLoss funkcija gubitka, specijalno dizajnirana za zadatke rangiranja. Na slici 8 prikazani su grafikoni gubitka i NDCG metrike kroz epohe.
 
-Slika: Gubitak i NDCG kroz epohe tokom treniranja duboke neuralne mreže
+![*Slika 8* : Gubitak i NDCG kroz epohe tokom treniranja duboke neuralne mreže](static\images\zbornik\2025\formula-1\dnn-obican-trening.png)
 
-Za treniranje druge mreže nad parovima vozača korišćen je Adam optimizator i Binary Cross-entropy Loss With Logits funkcija gubitka. Ova funkcija gubitka kombinuje sigmoid aktivaciju i standardni binary cross-entropy, tako da model direktno uči verovatnoću da je jedna instanca u paru rangirana više od druge. Ovakav pairwise pristup dubokoj neuralnoj mreži dao je 74,5% tačnosti. Na slici prikazan je primer rangiranja jedne trke ovog modela.
+Za treniranje druge mreže nad parovima vozača korišćen je Adam optimizator i Binary Cross-entropy Loss With Logits funkcija gubitka. Ova funkcija gubitka kombinuje sigmoid aktivaciju i standardni binary cross-entropy, tako da model direktno uči verovatnoću da je jedna instanca u paru rangirana više od druge. Ovakav pairwise pristup dubokoj neuralnoj mreži dao je 74,5% tačnosti. Na slici 9 prikazan je primer rangiranja jedne trke ovog modela.
 
-![Slika 4: Primer rangiranja jedne trke duboke neuralne mreže](static\images\zbornik\2025\formula-1\jedna-trka-primer.png)
+![*Slika 9*: Primer rangiranja jedne trke duboke neuralne mreže](static\images\zbornik\2025\formula-1\jedna-trka-primer.png)
 
 
 ## 3.4. XGBoost
 
-![*Slika 5:*  Matica konfuzije za XGBoost sa pairwise cljnom funkcijom ](static\images\zbornik\2025\formula-1\xgb-pairwise.png)
-![*Slika 6:*  Matica konfuzije za XGBoost sa NDCG cljnom funkcijom ](static\images\zbornik\2025\formula-1\xgb-ndcg.png)  
+![*Slika 10:*  Matica konfuzije za XGBoost sa pairwise cljnom funkcijom ](static\images\zbornik\2025\formula-1\xgb-pairwise.png)
+![*Slika 11:*  Matica konfuzije za XGBoost sa NDCG cljnom funkcijom ](static\images\zbornik\2025\formula-1\xgb-ndcg.png)  
 
 
-Na slici 4 prikazane su matrice konfuzije kada je XGBoost treniran sa ciljnom funkcijom NDCG i kada je korišćena ciljna funkcija *pairwise*. Na osnovu ovih konfuzionih matrica može se zaključiti da *pairwise* pristup daje izraženiju dijagonalu. Ovo je očekivano jer NDCG prioritizuje tačno rangiranje prvih 10 vozača, dok *pairwise* pristup bolje opisuje pojedinačne rezultate među vozačima. Oba modela su tačno predvidela pobednika u 17 trka, dok sa *pairwise* ciljnom funkcijom model bolje predviđa i drugo mesto (10 pogođenih nasuprot 8). Sve metrike prikazane u tabeli 3 ukazuju na značajno bolje performanse ovih modela u poređenju sa statističkom analizom.
+Na slici 11 prikazane su matrice konfuzije kada je XGBoost treniran sa ciljnom funkcijom NDCG i na slici 10 kada je korišćena ciljna funkcija *pairwise*. Na osnovu ovih konfuzionih matrica može se zaključiti da *pairwise* pristup daje izraženiju dijagonalu. Ovo je očekivano jer NDCG prioritizuje tačno rangiranje prvih 10 vozača, dok *pairwise* pristup bolje opisuje pojedinačne rezultate među vozačima. Oba modela su tačno predvidela pobednika u 17 trka, dok sa *pairwise* ciljnom funkcijom model bolje predviđa i drugo mesto (10 pogođenih nasuprot 8). Sve metrike prikazane u tabeli 3 ukazuju na značajno bolje performanse ovih modela u poređenju sa statističkom analizom.
 
 ## 3.5. *Rolling window* tehnika i *XGBoost*
 
-![*Slika 7:* Prikaz vrednosti metrika (NDCG, *Kendall’s τ* i Spermanov rang korelacijie) na validaciji (levo) i vredvosti RMSE na validaciji (desno)](static\images\zbornik\2025\formula-1\metrika-roll.png)
+![*Slika 12:* Prikaz vrednosti metrika (NDCG, *Kendall’s τ* i Spermanov rang korelacijie) na validaciji (levo) i vredvosti RMSE na validaciji (desno)](static\images\zbornik\2025\formula-1\metrika-roll.png)
 
 
-Na slici 5 prikazane su vrednosti metrika na validaciji (NDCG, *Kendall’s τ* i Spermanov rang korelacijie) i vrednosti RMSE. Primećuje se da se metrike ne podoljšavaju. NDCG veoma malo osciluje sa vrednostima između 0,9 i 1\. Kod vrednosti *Kendall’s τ* i Spermanovog ranga korelacijie javljaju se veliki padovi. Takođe, RMSE se ne spušta ispod 11 što ukazuje da model u proseku pravi toliku grešku pri rangiranju vozača. Kako nije primećen rastući trend, odnosno opadajući za RMSE, za ovaj metod nije vršeno testiranje. Korišćenjem *Rolling window* tehnike prethodna stabla se ne modifikuju, već se na prethodna stabla dodaju se nova. Ova osobina XGBoost algoritma dovodi do prenaučavanja i slabijih prediktivnih sposobnosti, zbog čega metod nije dao zadovoljavajuće rezultate. 
+Na slici 12 prikazane su vrednosti metrika na validaciji (NDCG, *Kendall’s τ* i Spermanov rang korelacijie) i vrednosti RMSE. Primećuje se da se metrike ne podoljšavaju. NDCG veoma malo osciluje sa vrednostima između 0,9 i 1\. Kod vrednosti *Kendall’s τ* i Spermanovog ranga korelacijie javljaju se veliki padovi. Takođe, RMSE se ne spušta ispod 11 što ukazuje da model u proseku pravi toliku grešku pri rangiranju vozača. Kako nije primećen rastući trend, odnosno opadajući za RMSE, za ovaj metod nije vršeno testiranje. Korišćenjem *Rolling window* tehnike prethodna stabla se ne modifikuju, već se na prethodna stabla dodaju se nova. Ova osobina XGBoost algoritma dovodi do prenaučavanja i slabijih prediktivnih sposobnosti, zbog čega metod nije dao zadovoljavajuće rezultate. 
 
 ## 3.6. *XGBoost* sa *pairwise* treniranjem
 
-Na slici prikazana je konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima.   
-![Slika 8: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima]static\images\zbornik\2025\formula-1\xgb-par.png
+Na slici 13 prikazana je konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima.   
+![*Slika 13*: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima](static\images\zbornik\2025\formula-1\xgb-par.png)
 Vrednosti metrika su:
 
 * RMSE: 1.58 \- model u proseku greši 1.58 mesta, što je relativno niska greška za probleme rangiranja 20 vozača  
@@ -280,11 +283,13 @@ Vrednosti metrika su:
 
 Na slici ispod prikazan je primer rangiranja jedne trke ovim modelom.
 
-![][image10]
+![*Slika 14*: Primer rangiranja jedne trke XGBoost-om treniranog nad parovima](static\images\zbornik\2025\formula-1\jedna-trka-xgb.png)
 
-Slika: Primer rangiranja jedne trke XGBoost-om treniranog nad parovima
+
 
 # Diskusija
+
+	Statistički metodi nisu dali zadovoljavajuće rezultate zbog svoje suviše jednostavne prirode. Duboka neuralna mreža (DNN) trenirana da predvidi celu rang-listu pokazala se neuspešnom, pre svega zato što korišćena funkcija gubitka nije bila adekvatna za taj zadatak. XGBoost i DNN model treniran da predvidi koji je od dva vozača bolji davaju znatno bolje rezultate. Sa druge strane, *Rolling Window* pristup zasnovan na XGBoost modelu pokazivao je izraženo overfitovanje, što je ograničilo njegovu praktičnu primenu. Kao najefikasniji pristup pokazao se XGBoost sa treniranjem par po par.
 
 ## Predlozi poboljšanja
 
