@@ -72,7 +72,7 @@ Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangira
  𝜏 = 2(C-D)n(n \- 1),  
 gde su:
 
-*     *C* — broj konkordantnih parova,  
+*    *C* — broj konkordantnih parova,  
 *    *D* — broj diskordantnih parova.
 
 Vrednosti 𝜏 se kreću u opsegu \[-1, 1\], gde 1 označava savršeno slaganje rangova, 0 odsustvo korelacije, a \-1 potpuno obrnut redosled.
@@ -82,7 +82,7 @@ Vrednosti 𝜏 se kreću u opsegu \[-1, 1\], gde 1 označava savršeno slaganje 
 Spearmanova korelacija meri koliko su dva rangiranja slična. Umesto da gleda stvarne vrednosti, posmatra samo redosled elemenata.  
 Za niz od *n* elemenata, prvo se izračunaju razlike između rangova svakog elementa u dve liste, označene kao di.  
 Speranov rang korelacije se definiše kao:  
- \= 1 \- 6 di2n (n2-1)
+ ⍴ = 1 \- 6 di2n (n2-1)
 
 Vrednosti *⍴* se kreću od \-1 (obrnuti rangovi) do 1 (savršeno slaganje rangova), dok označava *⍴ \= 0* odsustvo monotone veze.
 
@@ -103,7 +103,7 @@ Manja vrednost RMSE znači da su predviđanja bliža stvarnim vrednostima.
 
 ### 2.3.1. Linearna regresija
 
-	Linearna regresija predstavlja jednu od najosnovnijih statističkih i mašinskih metoda za modelovanje zavisnosti između jedne zavisne promenljive (target) i jedne ili više nezavisnih promenljivih (feature). Suština linearne regresije ogleda se u pretpostavci da postoji linearna veza između ulaznih karakteristika i izlazne vrednosti, koja se može opisati linearnom funkcijom oblika:
+Linearna regresija predstavlja jednu od najosnovnijih statističkih i mašinskih metoda za modelovanje zavisnosti između jedne zavisne promenljive (target) i jedne ili više nezavisnih promenljivih (feature). Suština linearne regresije ogleda se u pretpostavci da postoji linearna veza između ulaznih karakteristika i izlazne vrednosti, koja se može opisati linearnom funkcijom oblika:
 
 y \= β₀ \+ β₁x₁ \+ β₂x₂ \+ … \+ βnxn 
 
