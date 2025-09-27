@@ -37,9 +37,13 @@ Podaci o vozačima, stazama, konstruktorima, rezultatima trka, kvalifikacija, sp
 
 *Tabela 1*: Karakteristike korišćene prilikom treniranja modela 
 
-Na slici 1 prikazana je matrica korelacije karakteristika definisanih u tabeli 1\. Većina karakteristika nema izraženu međusodnu korelaciju. Jaka negativna korelacija prisutna je kod karakteristika koje opisuju broj krugova i dužinu staze jer dužina Velike nagrade iznosi najmanje 300km, sa izuzetkom Velike nagrade Monaka. Jaka pozitivna korelacija uočava se  između početne pozicije vozača i rezultata na kraju trke.  
-![*Slika 1*: Matrica korelacije korišćenih karakteristika](/images/zbornik/2025/formula-1/matrica-korelacije.png)
-*Slika 1*: Matrica korelacije korišćenih karakteristika
+Na slici 1 prikazana je matrica korelacije karakteristika definisanih u tabeli 1\. Većina karakteristika nema izraženu međusodnu korelaciju. Jaka negativna korelacija prisutna je kod karakteristika koje opisuju broj krugova i dužinu staze jer dužina Velike nagrade iznosi najmanje 300km, sa izuzetkom Velike nagrade Monaka. Jaka pozitivna korelacija uočava se  između početne pozicije vozača i rezultata na kraju trke. 
+ 
+{{< figure "/images/zbornik/2025/formula-1/matrica-korelacije.png" "Slika 1: Matrica korelacije korišćenih karakteristika" "matrica-korelacije" >}}
+
+![Slika 1: Matrica korelacije korišćenih karakteristika](/images/zbornik/2025/formula-1/matrica-korelacije.png)  
+*Slika 1: Matrica korelacije korišćenih karakteristika*
+
 
 ## 2.2.Metrike
 
@@ -229,6 +233,7 @@ U mašinskom učenju vrlo često podela podataka na set za treniranje, validacij
 
 Ovaj problem se može rešavati korišćenjem *Rolling window* tehnike. Ona podrazumeva podelu skupa podataka na manje vremenske okvire. Postoje dva pristupa. U oba se počinje od najstarijih podataka, i oni koji slede predstavljaju podatke za testiranje.  Slika 4 prikazuje da prvi pristup podrazumeva pomeranje okvira za testiranje podataka ka novijim podacima. Drugi način je da se okvir proširuje, na primer počinjemo od cele 2018\. sezone, i postepeno proširujemo da okvir uključuje sve do pete trke pred kraj 2024, a tih preostalih 5 koristimo kao test set. U ovom projektu tehnika *Rolling window* se kombinuje sa modelom *XGBoost*. Veličina prozora je konstantna i iznosi 30 trka, validacija se vršila na 2, a test na 4 trke. U svakoj iteraciji prozor se pomerao za 6 trka.  
 ![*Slika 4:* Prikaz *Rolling window* tehnike ](/images/zbornik/2025/formula-1/roll.png)  
+
 *Slika 4:* Prikaz *Rolling window* tehnike
 
 ## 2.8. XGBoost sa pairwise treniranjem
