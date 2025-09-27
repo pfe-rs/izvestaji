@@ -50,7 +50,7 @@ NDCG je mera kvaliteta rangiranja koja opisuje koliko uspešno algoritam rangira
 Ova vrednost se računa kroz tri etape:
 
 1. Discounted Cumulative Gain (DCG) se računa kao:
-<div align="center">
+
 $$
 DCG_k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
 $$
@@ -64,7 +64,7 @@ Gde je:
 2. *Ideal* DCG (IDCG) predstavlja maksimalni mogući DCG za date relevantnosti, tj. vrednost DCG kada su stavke savršeno rangirane po relevantnosti.  
 3. *Normalized* DCG (NDCG) se definiše kao odnos ostvarenog DCG i idealnog DCG:
 
-<div align="center">
+
 $$
 NDCG_k = \frac{DCG_k}{IDCG_k}
 $$
@@ -75,7 +75,7 @@ Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangira
 
 *Kendall's* 𝜏 je statistička mera koja procenjuje sličnost između dva rangiranja. Zasniva se na broju saglasnih (konkordantnih) i nesaglasnih (diskordantnih) parova u dva poređenja. Za niz od n elemenata, Kendall's 𝜏 se računa kao:
 
-<div align="center">
+
 $$
 \tau = \frac{C - D}{\frac{n(n - 1)}{2}}
 $$
@@ -92,7 +92,7 @@ Vrednosti 𝜏 se kreću u opsegu \[-1, 1\], gde 1 označava savršeno slaganje 
 Spearmanova korelacija meri koliko su dva rangiranja slična. Umesto da gleda stvarne vrednosti, posmatra samo redosled elemenata.  
 Za niz od *n* elemenata, prvo se izračunaju razlike između rangova svakog elementa u dve liste, označene kao di.  
 Speranov rang korelacije se definiše kao:  
-<div align="center">
+
 $$
 \rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
 $$
@@ -102,7 +102,7 @@ Vrednosti *⍴* se kreću od \-1 (obrnuti rangovi) do 1 (savršeno slaganje rang
 ### 2.2.4. *Root Mean Squared Error*
 
 RMSE je standardna mera koja pokazuje prosečnu veličinu greške između stvarnih i predviđenih vrednosti. Izračunava se kao kvadratni koren prosečne kvadratne greške:
-<div align="center">
+
 $$
 RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
 $$
@@ -120,7 +120,7 @@ Manja vrednost RMSE znači da su predviđanja bliža stvarnim vrednostima.
 ### 2.3.1. Linearna regresija
 
 Linearna regresija predstavlja jednu od najosnovnijih statističkih i mašinskih metoda za modelovanje zavisnosti između jedne zavisne promenljive (target) i jedne ili više nezavisnih promenljivih (feature). Suština linearne regresije ogleda se u pretpostavci da postoji linearna veza između ulaznih karakteristika i izlazne vrednosti, koja se može opisati linearnom funkcijom oblika:
-<div align="center">
+
 $$y \= β₀ \+ β₁x₁ \+ β₂x₂ \+ … \+ βnxn $$
 
 gde su:
@@ -130,7 +130,7 @@ gde su:
 * β₀, β₁, β₂, …, βn \- parametri modela koji određuju značaj pojedinih faktora
 
 U slučaju predviđanja rezultata trke Formule 1, linearna regresija se može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
-<div align="center">
+
 $$fᵢⱼ \= β₀ \+ β₁(xᵢ₁-xⱼ₁) \+ β₂(xᵢ₂−xⱼ₂) \+ … \+ βₙ(xᵢₙ−xⱼₙ)$$
 
 Na osnovu ove vrednosti donosi se binarna odluka:
@@ -146,7 +146,7 @@ Serijom ovakvih parnih poređenja između svih vozača u jednoj trci formira se 
 Support Vector Machine (SVM) predstavlja jednu od osnovnih metoda nadgledanog učenja koja se koristi za klasifikaciju i regresiju. SVM uči hiper-ravan koji najbolje razdvaja klase u prostoru karakteristika, maksimizujući marginu između podataka iz različitih klasa.
 
 U slučaju predviđanja rezultata trke Formule 1, kao i kod linearne regresije, SVM se takođe može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
-<div align="center">
+
 $$fᵢⱼ \= w · (xᵢ \- xⱼ) \+ b$$
 
 gde su:
@@ -160,7 +160,7 @@ Na osnovu ove vrednosti donosi se binarna odluka, 1 ako vozač i završava ispre
 ### *2.3.3.* Naivini Bajes sa Laplasovim zaglađivanjem
 
 Naivni Bajes je linearni probabilistički klasifikator koji se zasniva na Bajesovoj formuli verovatnoće hipoteze. Bajesova formula se zasniva na pretpostavci da slučajni događaji $H_1, H_2, ..., H_n$ čine potpun sistem hipoteza, to jest da predstavljaju ceo prostor događaja i međusobno su disjunktni. Ako je *A* događaj za koji važi P(A) \> 0, tada se verovatnoća da je hipoteza Hi dovela do realizacije događaja *A* računa po formuli:
-<div align="center">
+
 $$
 P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i)}{P(A)},
 $$
@@ -174,11 +174,11 @@ gde je:
 * $P(H_i|A)$ verovatnoća da je hipoteza Hi dovela do realizacija događaja *A*
 
 U ovom pristupu 70% podataka (103 trke) korišćeno je za trening, a 30% (45 trka) za testiranje. Kako je ova podela izvršena hronološki, neki vozači, staze i timovi su nepoznati modelu. Da bi se ovaj probem rešio, korišćeno je Laplasovo zagrađivanje (*Laplace smoothening*) koje je predstavljeno formulom:  
-<div align="center">
+
 $$
 P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i) + \alpha}{P(A) + |V|},
 $$
-  
+
 gde je:
 
 * *α* \- korektivni faktor (u projektu iznosi 1\)  
