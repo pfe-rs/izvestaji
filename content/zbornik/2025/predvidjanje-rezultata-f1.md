@@ -50,18 +50,22 @@ Ova vrednost se računa kroz tri etape:
 
 1. Discounted Cumulative Gain (DCG) se računa kao:
 
-   DCGk \= i \= 1krelilog2(i \+ 1\)
+   $$
+   DCG_k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
+   $$
 
    Gde je:
 
-* reli— relevantnost stavke na poziciji *i* (u ovom eksperimentu poziciji 1 odgovara vrednost 20, drugoj 19, a poslednjoj relevantnost   
+* $$rel_i$$— relevantnost stavke na poziciji *i* (u ovom eksperimentu poziciji 1 odgovara vrednost 20, drugoj 19, a poslednjoj relevantnost   
 * *k* — broj pozicija koje se uzimaju u obzir (u ovom eksperimentu uzima se vrednost 10, jer prvih 10 vozača dobija poene).
 
 
 2. *Ideal* DCG (IDCG) predstavlja maksimalni mogući DCG za date relevantnosti, tj. vrednost DCG kada su stavke savršeno rangirane po relevantnosti.  
 3. *Normalized* DCG (NDCG) se definiše kao odnos ostvarenog DCG i idealnog DCG:
 
-   NDCGk=DCGkIDCGk
+   $$
+   NDCG_k = \frac{DCG_k}{IDCG_k}
+   $$
 
 Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangiranje, dok vrednosti bliže 0 označavaju loše performanse algoritma rangiranja.
 
@@ -69,7 +73,10 @@ Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangira
 
 *Kendall's* 𝜏 je statistička mera koja procenjuje sličnost između dva rangiranja. Zasniva se na broju saglasnih (konkordantnih) i nesaglasnih (diskordantnih) parova u dva poređenja. Za niz od n elemenata, Kendall's 𝜏 se računa kao:
 
- 𝜏 = 2(C-D)n(n \- 1),  
+$$
+\tau = \frac{C - D}{\frac{n(n - 1)}{2}}
+$$
+
 gde su:
 
 *    *C* — broj konkordantnih parova,  
@@ -82,7 +89,10 @@ Vrednosti 𝜏 se kreću u opsegu \[-1, 1\], gde 1 označava savršeno slaganje 
 Spearmanova korelacija meri koliko su dva rangiranja slična. Umesto da gleda stvarne vrednosti, posmatra samo redosled elemenata.  
 Za niz od *n* elemenata, prvo se izračunaju razlike između rangova svakog elementa u dve liste, označene kao di.  
 Speranov rang korelacije se definiše kao:  
- ⍴ = 1 \- 6 di2n (n2-1)
+
+$$
+\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
+$$
 
 Vrednosti *⍴* se kreću od \-1 (obrnuti rangovi) do 1 (savršeno slaganje rangova), dok označava *⍴ \= 0* odsustvo monotone veze.
 
@@ -108,7 +118,7 @@ Manja vrednost RMSE znači da su predviđanja bliža stvarnim vrednostima.
 
 Linearna regresija predstavlja jednu od najosnovnijih statističkih i mašinskih metoda za modelovanje zavisnosti između jedne zavisne promenljive (target) i jedne ili više nezavisnih promenljivih (feature). Suština linearne regresije ogleda se u pretpostavci da postoji linearna veza između ulaznih karakteristika i izlazne vrednosti, koja se može opisati linearnom funkcijom oblika:
 
-y \= β₀ \+ β₁x₁ \+ β₂x₂ \+ … \+ βnxn 
+$$y \= β₀ \+ β₁x₁ \+ β₂x₂ \+ … \+ βnxn $$
 
 gde su:
 
@@ -118,7 +128,7 @@ gde su:
 
 U slučaju predviđanja rezultata trke Formule 1, linearna regresija se može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
 
-fᵢⱼ \= β₀ \+ β₁(xᵢ₁-xⱼ₁) \+ β₂(xᵢ₂−xⱼ₂) \+ … \+ βₙ(xᵢₙ−xⱼₙ)
+$$fᵢⱼ \= β₀ \+ β₁(xᵢ₁-xⱼ₁) \+ β₂(xᵢ₂−xⱼ₂) \+ … \+ βₙ(xᵢₙ−xⱼₙ)$$
 
 Na osnovu ove vrednosti donosi se binarna odluka:
 
@@ -134,7 +144,7 @@ Support Vector Machine (SVM) predstavlja jednu od osnovnih metoda nadgledanog u�
 
 U slučaju predviđanja rezultata trke Formule 1, kao i kod linearne regresije, SVM se takođe može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
 
-fᵢⱼ \= w · (xᵢ \- xⱼ) \+ b
+$$fᵢⱼ \= w · (xᵢ \- xⱼ) \+ b$$
 
 gde su:
 
@@ -146,19 +156,25 @@ Na osnovu ove vrednosti donosi se binarna odluka, 1 ako vozač i završava ispre
 
 ### *2.3.3.* Naivini Bajes sa Laplasovim zaglađivanjem
 
-Naivni Bajes je linearni probabilistički klasifikator koji se zasniva na Bajesovoj formuli verovatnoće hipoteze. Bajesova formula se zasniva na pretpostavci da slučajni događaji H1, H2, ..., Hn čine potpun sistem hipoteza, to jestd da predstavljaju ceo prostor događaja i međusobno su disjunktni. Ako je *A* događaj za koji važi P(A) \> 0, tada se verovatnoća da je hipoteza Hi dovela do realizacije događaja *A* računa po formuli:
+Naivni Bajes je linearni probabilistički klasifikator koji se zasniva na Bajesovoj formuli verovatnoće hipoteze. Bajesova formula se zasniva na pretpostavci da slučajni događaji $$H_1, H_2, ..., H_n$$ čine potpun sistem hipoteza, to jest da predstavljaju ceo prostor događaja i međusobno su disjunktni. Ako je *A* događaj za koji važi P(A) \> 0, tada se verovatnoća da je hipoteza Hi dovela do realizacije događaja *A* računa po formuli:
 
-P(Hi|A) \=P(Hi)P(A|Hi)P(A) ,
+$$
+P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i)}{P(A)},
+$$
+
 
 gde je:
 
-* P(A) verovatnoća da se odigrao događaj A  
-* P(Hi) verovatnća hipoteze Hi  
-* P(A∣Hi) uslovna verovatnoća događaja *A* pod uslovom Hi  
-* P(Hi|A) verovatnoća da je hipoteza Hi dovela do realizacija događaja *A*
+* $$P(A) $$verovatnoća da se odigrao događaj A  
+* $$P(H_i)$$ verovatnća hipoteze Hi  
+* $$P(A∣H_i)$$ uslovna verovatnoća događaja *A* pod uslovom Hi
+* $$P(H_i|A)$$ verovatnoća da je hipoteza Hi dovela do realizacija događaja *A*
 
 U ovom pristupu 70% podataka (103 trke) korišćeno je za trening, a 30% (45 trka) za testiranje. Kako je ova podela izvršena hronološki, neki vozači, staze i timovi su nepoznati modelu. Da bi se ovaj probem rešio, korišćeno je Laplasovo zagrađivanje (*Laplace smoothening*) koje je predstavljeno formulom:  
-P(Hi|A) \=P(Hi)P(A|Hi) \+ αP(A) \+ |V|,  
+$$
+P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i) + \alpha}{P(A) + |V|},
+$$
+  
 gde je:
 
 * *α* \- korektivni faktor (u projektu iznosi 1\)  
@@ -181,13 +197,6 @@ Drugi pristup je mreža koja kao ulaz dobija parove vozača, a na izlazu daje pr
 
 ![*Slika 3*: Arhitektura duboke neuralne mreže za par po par pristup](images\zbornik\2025\formula-1\dnn-par.png)
 
-## 
-
-## 
-
-## 
-
-## 
 
 ## 2.5. Extreme Gradient Boosting \- XGBoost
 
@@ -214,7 +223,7 @@ U mašinskom učenju vrlo često podela podataka na set za treniranje, validacij
 ## 2.7. *Rolling window* tehnika i *XGBoost*
 
 Ovaj problem se može rešavati korišćenjem *Rolling window* tehnike. Ona podrazumeva podelu skupa podataka na manje vremenske okvire. Postoje dva pristupa. U oba se počinje od najstarijih podataka, i oni koji slede predstavljaju podatke za testiranje.  Slika 4 prikazuje da prvi pristup podrazumeva pomeranje okvira za testiranje podataka ka novijim podacima. Drugi način je da se okvir proširuje, na primer počinjemo od cele 2018\. sezone, i postepeno proširujemo da okvir uključuje sve do pete trke pred kraj 2024, a tih preostalih 5 koristimo kao test set. U ovom projektu tehnika *Rolling window* se kombinuje sa modelom *XGBoost*. Veličina prozora je konstantna i iznosi 30 trka, validacija se vršila na 2, a test na 4 trke. U svakoj iteraciji prozor se pomerao za 6 trka.  
-![*Slika 4:* Prikaz *Rolling window* tehnike ](images\zbornik\2025\formula-1\roll.png)  
+![*Slika 4:* Prikaz *Rolling window* tehnike ](/images/zbornik/2025/formula-1/roll.png)  
 
 
 ## 2.8. XGBoost sa pairwise treniranjem
