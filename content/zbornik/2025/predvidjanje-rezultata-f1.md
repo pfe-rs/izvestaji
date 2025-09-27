@@ -12,6 +12,7 @@ Mentori: Andrej Bantulić, Milica Gojak i Marija Nedeljković
 U ovom radu radu razvijen je sistem za predviđanje konačnog redosleda vozača u trkama Formule 1 koristeći javno dostupne podatke iz perioda 2018-2024 godine. Upoređene su performanse statističkih modela (linearna regresija, SVM, Naivni Bajes) i savremenih algoritama mašinskog učenja (duboke neuronske mreže i XGBoost) koji su trenirani nag malim skupom podataka. Razmatrana su dva pristupa:  listwise (predviđanje cele liste) i pairwise (predviđanje vozača na boljoj poziciji iz parova). Evaluacija modela pokazuje da pairwise pristupi, naročito XGBoost treniran nad parovima, postižu najbolje performanse: RMSE \= 1.58, NDCG \= 0.987, MRR \= 0.89, Kendall Tau \= 0.86 i Spearman \= 0.92, što ukazuje na precizno rangiranje vozača i visoku tačnost predviđanja pobednika. Rad demonstrira da kombinacija obrade karakteristika i modernih modela može značajno unaprediti predikciju rezultata u dinamičnom sportu poput Formule 1\.
 
 # Abstract
+This paper presents a system for predicting the final standings of drivers in Formula 1 races using publicly available data from 2018 to 2024. The performance of statistical models (linear regression, Support Vector Machine, Naive Bayes) and modern machine learning algorithms (deep neural networks and XGBoost) was compared on a relatively small dataset. Two approaches were considered: listwise (predicting the entire ranking) and pairwise (predicting which driver in a pair will achieve a better position). Model evaluation shows that pairwise approaches, especially XGBoost trained on driver pairs, achieve the best performance: RMSE = 1.58, NDCG = 0.987, MRR = 0.89, Kendall Tau = 0.86, and Spearman = 0.92, indicating accurate driver ranking and high precision in predicting race winners. The study demonstrates that combining feature engineering with modern models can significantly improve race outcome predictions in a dynamic sport like Formula 1.
 
 # 1. Uvod
 
@@ -37,7 +38,7 @@ Podaci o vozačima, stazama, konstruktorima, rezultatima trka, kvalifikacija, sp
 *Tabela 1*: Karakteristike korišćene prilikom treniranja modela 
 
 Na slici 1 prikazana je matrica korelacije karakteristika definisanih u tabeli 1\. Većina karakteristika nema izraženu međusodnu korelaciju. Jaka negativna korelacija prisutna je kod karakteristika koje opisuju broj krugova i dužinu staze jer dužina Velike nagrade iznosi najmanje 300km, sa izuzetkom Velike nagrade Monaka. Jaka pozitivna korelacija uočava se  između početne pozicije vozača i rezultata na kraju trke.  
- ![*Slika 1*: Matrica korelacije korišćenih karakteristika](images/zbornik/2025/formula-1/matrica-korelacije.png)
+ ![*Slika 1*: Matrica korelacije korišćenih karakteristika](/images/zbornik/2025/formula-1/)
  
 
 ## 2.2.Metrike
@@ -49,23 +50,24 @@ NDCG je mera kvaliteta rangiranja koja opisuje koliko uspešno algoritam rangira
 Ova vrednost se računa kroz tri etape:
 
 1. Discounted Cumulative Gain (DCG) se računa kao:
+<div align="center">
+$$
+DCG_k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
+$$
 
-   $$
-   DCG_k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
-   $$
+Gde je:
 
-   Gde je:
-
-* $$rel_i$$— relevantnost stavke na poziciji *i* (u ovom eksperimentu poziciji 1 odgovara vrednost 20, drugoj 19, a poslednjoj relevantnost   
+* $rel_i$— relevantnost stavke na poziciji *i* (u ovom eksperimentu poziciji 1 odgovara vrednost 20, drugoj 19, a poslednjoj relevantnost   
 * *k* — broj pozicija koje se uzimaju u obzir (u ovom eksperimentu uzima se vrednost 10, jer prvih 10 vozača dobija poene).
 
 
 2. *Ideal* DCG (IDCG) predstavlja maksimalni mogući DCG za date relevantnosti, tj. vrednost DCG kada su stavke savršeno rangirane po relevantnosti.  
 3. *Normalized* DCG (NDCG) se definiše kao odnos ostvarenog DCG i idealnog DCG:
 
-   $$
-   NDCG_k = \frac{DCG_k}{IDCG_k}
-   $$
+<div align="center">
+$$
+NDCG_k = \frac{DCG_k}{IDCG_k}
+$$
 
 Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangiranje, dok vrednosti bliže 0 označavaju loše performanse algoritma rangiranja.
 
@@ -73,6 +75,7 @@ Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangira
 
 *Kendall's* 𝜏 je statistička mera koja procenjuje sličnost između dva rangiranja. Zasniva se na broju saglasnih (konkordantnih) i nesaglasnih (diskordantnih) parova u dva poređenja. Za niz od n elemenata, Kendall's 𝜏 se računa kao:
 
+<div align="center">
 $$
 \tau = \frac{C - D}{\frac{n(n - 1)}{2}}
 $$
@@ -89,7 +92,7 @@ Vrednosti 𝜏 se kreću u opsegu \[-1, 1\], gde 1 označava savršeno slaganje 
 Spearmanova korelacija meri koliko su dva rangiranja slična. Umesto da gleda stvarne vrednosti, posmatra samo redosled elemenata.  
 Za niz od *n* elemenata, prvo se izračunaju razlike između rangova svakog elementa u dve liste, označene kao di.  
 Speranov rang korelacije se definiše kao:  
-
+<div align="center">
 $$
 \rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
 $$
@@ -99,7 +102,7 @@ Vrednosti *⍴* se kreću od \-1 (obrnuti rangovi) do 1 (savršeno slaganje rang
 ### 2.2.4. *Root Mean Squared Error*
 
 RMSE je standardna mera koja pokazuje prosečnu veličinu greške između stvarnih i predviđenih vrednosti. Izračunava se kao kvadratni koren prosečne kvadratne greške:
-
+<div align="center">
 $$
 RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
 $$
@@ -117,7 +120,7 @@ Manja vrednost RMSE znači da su predviđanja bliža stvarnim vrednostima.
 ### 2.3.1. Linearna regresija
 
 Linearna regresija predstavlja jednu od najosnovnijih statističkih i mašinskih metoda za modelovanje zavisnosti između jedne zavisne promenljive (target) i jedne ili više nezavisnih promenljivih (feature). Suština linearne regresije ogleda se u pretpostavci da postoji linearna veza između ulaznih karakteristika i izlazne vrednosti, koja se može opisati linearnom funkcijom oblika:
-
+<div align="center">
 $$y \= β₀ \+ β₁x₁ \+ β₂x₂ \+ … \+ βnxn $$
 
 gde su:
@@ -127,7 +130,7 @@ gde su:
 * β₀, β₁, β₂, …, βn \- parametri modela koji određuju značaj pojedinih faktora
 
 U slučaju predviđanja rezultata trke Formule 1, linearna regresija se može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
-
+<div align="center">
 $$fᵢⱼ \= β₀ \+ β₁(xᵢ₁-xⱼ₁) \+ β₂(xᵢ₂−xⱼ₂) \+ … \+ βₙ(xᵢₙ−xⱼₙ)$$
 
 Na osnovu ove vrednosti donosi se binarna odluka:
@@ -143,7 +146,7 @@ Serijom ovakvih parnih poređenja između svih vozača u jednoj trci formira se 
 Support Vector Machine (SVM) predstavlja jednu od osnovnih metoda nadgledanog učenja koja se koristi za klasifikaciju i regresiju. SVM uči hiper-ravan koji najbolje razdvaja klase u prostoru karakteristika, maksimizujući marginu između podataka iz različitih klasa.
 
 U slučaju predviđanja rezultata trke Formule 1, kao i kod linearne regresije, SVM se takođe može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
-
+<div align="center">
 $$fᵢⱼ \= w · (xᵢ \- xⱼ) \+ b$$
 
 gde su:
@@ -156,8 +159,8 @@ Na osnovu ove vrednosti donosi se binarna odluka, 1 ako vozač i završava ispre
 
 ### *2.3.3.* Naivini Bajes sa Laplasovim zaglađivanjem
 
-Naivni Bajes je linearni probabilistički klasifikator koji se zasniva na Bajesovoj formuli verovatnoće hipoteze. Bajesova formula se zasniva na pretpostavci da slučajni događaji $$H_1, H_2, ..., H_n$$ čine potpun sistem hipoteza, to jest da predstavljaju ceo prostor događaja i međusobno su disjunktni. Ako je *A* događaj za koji važi P(A) \> 0, tada se verovatnoća da je hipoteza Hi dovela do realizacije događaja *A* računa po formuli:
-
+Naivni Bajes je linearni probabilistički klasifikator koji se zasniva na Bajesovoj formuli verovatnoće hipoteze. Bajesova formula se zasniva na pretpostavci da slučajni događaji $H_1, H_2, ..., H_n$ čine potpun sistem hipoteza, to jest da predstavljaju ceo prostor događaja i međusobno su disjunktni. Ako je *A* događaj za koji važi P(A) \> 0, tada se verovatnoća da je hipoteza Hi dovela do realizacije događaja *A* računa po formuli:
+<div align="center">
 $$
 P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i)}{P(A)},
 $$
@@ -165,12 +168,13 @@ $$
 
 gde je:
 
-* $$P(A) $$verovatnoća da se odigrao događaj A  
-* $$P(H_i)$$ verovatnća hipoteze Hi  
-* $$P(A∣H_i)$$ uslovna verovatnoća događaja *A* pod uslovom Hi
-* $$P(H_i|A)$$ verovatnoća da je hipoteza Hi dovela do realizacija događaja *A*
+* $P(A)$ verovatnoća da se odigrao događaj A  
+* $P(H_i)$ verovatnća hipoteze Hi  
+* $P(A∣H_i)$ uslovna verovatnoća događaja *A* pod uslovom Hi
+* $P(H_i|A)$ verovatnoća da je hipoteza Hi dovela do realizacija događaja *A*
 
 U ovom pristupu 70% podataka (103 trke) korišćeno je za trening, a 30% (45 trka) za testiranje. Kako je ova podela izvršena hronološki, neki vozači, staze i timovi su nepoznati modelu. Da bi se ovaj probem rešio, korišćeno je Laplasovo zagrađivanje (*Laplace smoothening*) koje je predstavljeno formulom:  
+<div align="center">
 $$
 P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i) + \alpha}{P(A) + |V|},
 $$
@@ -191,11 +195,11 @@ Pre nego što podatke prosledimo linearim slojevima, kategoričke vrednosti se p
 
 Ova mreža sadrži više linearnih slojeva sa LeakyReLU aktivacijom, batch normalizacijom i dropout regularizacijom. Na slici 2 prikazana je precizna arhitektura mreže.
 
-![*Slika 2*: Arhitektura duboke neuralne mreže](images\zbornik\2025\formula-1\dnn20.png)
+![*Slika 2*: Arhitektura duboke neuralne mreže](/images/zbornik/2025/formula-1/dnn20.png)
 
 Drugi pristup je mreža koja kao ulaz dobija parove vozača, a na izlazu daje predikciju koji je od njih bolji. Ova mreža sadrži tri linearna sloja sa ReLU aktivacijom, batch normalizacijom i dropout regularizacijom. Na slici 3 prikazana je precizna arhitektura ove mreže.
 
-![*Slika 3*: Arhitektura duboke neuralne mreže za par po par pristup](images\zbornik\2025\formula-1\dnn-par.png)
+![*Slika 3*: Arhitektura duboke neuralne mreže za par po par pristup](/images/zbornik/2025/formula-1/dnn-par.png)
 
 
 ## 2.5. Extreme Gradient Boosting \- XGBoost
@@ -247,39 +251,39 @@ Pored ugrađenog pairwise pristupau XGBoost-u, isproban je još jedan pristup ko
 
 Na slikama 5, 6 i 7 prikazani su rezultati predikcije plasmana vozača u test skupu trka koristeći tri pomenuta statistička modela. Slika 5 prikazuje rezultate linearne regresije primenjene u pairwise pristupu. Slika 6 prikazuje rezultate dobijene korišćenjem SVM-a, takođe u pairwise pristupu. 
 
-![*Slika 5*: Konfuziona matrica linearne regresije](images\zbornik\2025\formula-1\linreg.png)
+![*Slika 5*: Konfuziona matrica linearne regresije](/images/zbornik/2025/formula-1/linreg.png)
 
-![*Slika 6*: Konfuziona matrica SVM](images\zbornik\2025\formula-1\svm.png)
+![*Slika 6*: Konfuziona matrica SVM](/images/zbornik/2025/formula-1/svm.png)
 
 
 Model linearne regresije daje tačnost 80,1%, a SVM 82,8%. Analizom ovih tačnosti i konfuzionih matrica može se uočiti da oba modela uspešno predviđaju relativni plasman u većini parova, ali retko uspevaju da precizno rekonstruišu tačan konačan plasman vozača.
 
 Na slici 7 je prikazana matrica konfuzije kada je korišćen model Naivni Bajes sa Laplasovim zaglađenjem. Njenom analizom može se uočiti da glavna dijagonala nije izražena. Takođe, pobednik je ispravno predviđen svega 3 puta što ukazuje da model nema mogućnosti da generalizuje na novije podatke. Ovakvo ponašanje je očekivano jer je Formula 1 veoma dinamičan sport i neophodni su kompleksniji modeli koji mogu da prate zavisnost plasmana od vremeskih uslova i konfiguracije staze, kao i evoluciju timova i vozača. Vrednosti metrika iz tabele 3 ukazuju da ovaj model jako loše rangira vozače, u proseku sa greškom većom od 7 pozicija.  
-   
-![*Slika 7*: Matrica konfuzije za model naivni Bajes sa Laplasovim zaglađenjem ](images\zbornik\2025\formula-1\bajes.png)
+
+![*Slika 7*: Matrica konfuzije za model naivni Bajes sa Laplasovim zaglađenjem ](/images/zbornik/2025/formula-1/bajes.png)
 
 ## 3.3. Duboka neuralna mreža
 
 Za treniranje mreže nad svih 20 vozača po trci korišćen je SGD optimizator i ListNetLoss funkcija gubitka, specijalno dizajnirana za zadatke rangiranja. Na slici 8 prikazani su grafikoni gubitka i NDCG metrike kroz epohe.
 
-![*Slika 8* : Gubitak i NDCG kroz epohe tokom treniranja duboke neuralne mreže](images\zbornik\2025\formula-1\dnn-obican-trening.png)
+![*Slika 8* : Gubitak i NDCG kroz epohe tokom treniranja duboke neuralne mreže](/images/zbornik/2025/formula-1/dnn-obican-trening.png)
 
 Za treniranje druge mreže nad parovima vozača korišćen je Adam optimizator i Binary Cross-entropy Loss With Logits funkcija gubitka. Ova funkcija gubitka kombinuje sigmoid aktivaciju i standardni binary cross-entropy, tako da model direktno uči verovatnoću da je jedna instanca u paru rangirana više od druge. Ovakav pairwise pristup dubokoj neuralnoj mreži dao je 74,5% tačnosti. Na slici 9 prikazan je primer rangiranja jedne trke ovog modela.
 
-![*Slika 9*: Primer rangiranja jedne trke duboke neuralne mreže](images\zbornik\2025\formula-1\jedna-trka-primer.png)
+![*Slika 9*: Primer rangiranja jedne trke duboke neuralne mreže](/images/zbornik/2025/formula-1/jedna-trka-primer.png)
 
 
 ## 3.4. XGBoost
 
-![*Slika 10:*  Matica konfuzije za XGBoost sa pairwise cljnom funkcijom ](images\zbornik\2025\formula-1\xgb-pairwise.png)
-![*Slika 11:*  Matica konfuzije za XGBoost sa NDCG cljnom funkcijom ](images\zbornik\2025\formula-1\xgb-ndcg.png)  
+![*Slika 10:*  Matica konfuzije za XGBoost sa pairwise cljnom funkcijom ](/images/zbornik/2025/formula-1/xgb-pairwise.png)
+![*Slika 11:*  Matica konfuzije za XGBoost sa NDCG cljnom funkcijom ](/images/zbornik/2025/formula-1/xgb-ndcg.png)  
 
 
 Na slici 11 prikazane su matrice konfuzije kada je XGBoost treniran sa ciljnom funkcijom NDCG i na slici 10 kada je korišćena ciljna funkcija *pairwise*. Na osnovu ovih konfuzionih matrica može se zaključiti da *pairwise* pristup daje izraženiju dijagonalu. Ovo je očekivano jer NDCG prioritizuje tačno rangiranje prvih 10 vozača, dok *pairwise* pristup bolje opisuje pojedinačne rezultate među vozačima. Oba modela su tačno predvidela pobednika u 17 trka, dok sa *pairwise* ciljnom funkcijom model bolje predviđa i drugo mesto (10 pogođenih nasuprot 8). Sve metrike prikazane u tabeli 3 ukazuju na značajno bolje performanse ovih modela u poređenju sa statističkom analizom.
 
 ## 3.5. *Rolling window* tehnika i *XGBoost*
 
-![*Slika 12:* Prikaz vrednosti metrika (NDCG, *Kendall’s τ* i Spermanov rang korelacijie) na validaciji (levo) i vredvosti RMSE na validaciji (desno)](images\zbornik\2025\formula-1\metrika-roll.png)
+![*Slika 12:* Prikaz vrednosti metrika (NDCG, *Kendall’s τ* i Spermanov rang korelacijie) na validaciji (levo) i vredvosti RMSE na validaciji (desno)](/images/zbornik/2025/formula-1/metrika-roll.png)
 
 
 Na slici 12 prikazane su vrednosti metrika na validaciji (NDCG, *Kendall’s τ* i Spermanov rang korelacijie) i vrednosti RMSE. Primećuje se da se metrike ne podoljšavaju. NDCG veoma malo osciluje sa vrednostima između 0,9 i 1\. Kod vrednosti *Kendall’s τ* i Spermanovog ranga korelacijie javljaju se veliki padovi. Takođe, RMSE se ne spušta ispod 11 što ukazuje da model u proseku pravi toliku grešku pri rangiranju vozača. Kako nije primećen rastući trend, odnosno opadajući za RMSE, za ovaj metod nije vršeno testiranje. Korišćenjem *Rolling window* tehnike prethodna stabla se ne modifikuju, već se na prethodna stabla dodaju se nova. Ova osobina XGBoost algoritma dovodi do prenaučavanja i slabijih prediktivnih sposobnosti, zbog čega metod nije dao zadovoljavajuće rezultate. 
@@ -287,7 +291,7 @@ Na slici 12 prikazane su vrednosti metrika na validaciji (NDCG, *Kendall’s τ*
 ## 3.6. *XGBoost* sa *pairwise* treniranjem
 
 Na slici 13 prikazana je konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima.   
-![*Slika 13*: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima](images/zbornik/2025/formula-1/xgb-par.png)
+![*Slika 13*: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima](/images/zbornik/2025/formula-1/xgb-par.png)
 Vrednosti metrika su:
 
 * RMSE: 1.58 \- model u proseku greši 1.58 mesta, što je relativno niska greška za probleme rangiranja 20 vozača  
@@ -298,7 +302,7 @@ Vrednosti metrika su:
 
 Na slici ispod prikazan je primer rangiranja jedne trke ovim modelom.
 
-![*Slika 14*: Primer rangiranja jedne trke XGBoost-om treniranog nad parovima](images\zbornik\2025\formula-1\jedna-trka-xgb.png)
+![*Slika 14*: Primer rangiranja jedne trke XGBoost-om treniranog nad parovima](/images/zbornik/2025/formula-1/jedna-trka-xgb.png)
 
 
 
