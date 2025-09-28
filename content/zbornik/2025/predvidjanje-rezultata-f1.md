@@ -54,9 +54,9 @@ Ova vrednost se računa kroz tri etape:
 
 1. *Discounted Cumulative Gain* (DCG) se računa kao:
 
-$$
+$$ \begin{aligned}
 DCG_k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
-$$
+\end{aligned}$$
 
 Gde je:
 
@@ -67,9 +67,9 @@ Gde je:
 2. *Ideal* DCG (IDCG) predstavlja maksimalni mogući DCG za date relevantnosti, tj. vrednost DCG kada su stavke savršeno rangirane po relevantnosti.  
 3. *Normalized* DCG (NDCG) se definiše kao odnos ostvarenog DCG i idealnog DCG:
 
-$$
+$$\begin{aligned}
 NDCG_k = \frac{DCG_k}{IDCG_k}
-$$
+\end{aligned}$$
 
 Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangiranje, dok vrednosti bliže 0 označavaju loše performanse algoritma rangiranja.
 
@@ -78,9 +78,9 @@ Vrednosti ove metrike su u intervalu \[0, 1\], gde 1 označava savršeno rangira
 *Kendall's* 𝜏 je statistička mera koja procenjuje sličnost između dva rangiranja. Zasniva se na broju saglasnih (konkordantnih) i nesaglasnih (diskordantnih) parova u dva poređenja. Za niz od n elemenata, Kendall's 𝜏 se računa kao:
 
 
-$$
+$$\begin{aligned}
 \tau = \frac{C - D}{\frac{n(n - 1)}{2}}
-$$
+\end{aligned}$$
 
 gde su:
 
@@ -95,9 +95,9 @@ Spearmanova korelacija meri koliko su dva rangiranja slična. Umesto da gleda st
 Za niz od *n* elemenata, prvo se izračunaju razlike između rangova svakog elementa u dve liste, označene kao $d_i$.  
 Speranov rang korelacije se definiše kao:  
 
-$$
+$$\begin{aligned}
 \rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
-$$
+\end{aligned}$$
 
 Vrednosti *⍴* se kreću od \-1 (obrnuti rangovi) do 1 (savršeno slaganje rangova), dok *⍴ \= 0* označava odsustvo monotone veze.
 
@@ -105,9 +105,9 @@ Vrednosti *⍴* se kreću od \-1 (obrnuti rangovi) do 1 (savršeno slaganje rang
 
 RMSE je standardna mera koja pokazuje prosečnu veličinu greške između stvarnih i predviđenih vrednosti. Izračunava se kao kvadratni koren prosečne kvadratne greške:
 
-$$
+$$\begin{aligned}
 RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
-$$
+\end{aligned}$$
 
 gde su:
 
@@ -120,9 +120,9 @@ Manja vrednost RMSE znači da su predviđanja bliža stvarnim vrednostima.
 ### 2.2.5 *Mean Reciprocal Rank* (MRR)
 *Mean Reciprocal Rank* (MRR) može se koristiti u Formuli 1 da se oceni koliko dobro model predviđa pobednika trke. Ako je pravi pobednik visoko rangiran u listi predviđanja, doprinos MRR-u je veći. Formula glasi:
 
-$$
+$$\begin{aligned}
 \text{MRR} = \frac{1}{|R|} \sum_{i=1}^{|R|} \frac{1}{\text{rank}_i}
-$$
+\end{aligned}$$
 
 gde je $R$ skup trka, a $\text{rank}_i$ pozicija na kojoj je model rangirao stvarnog pobednika u trci $i$.
 Vrednosti ove metrike kreću se između 0 i 1. Vrednost 1 ukazuje da je pobednik svaki put pogođen, a vrednosti bliže nuli da je poboenik rangiran pri dnu liste.
@@ -133,7 +133,7 @@ Vrednosti ove metrike kreću se između 0 i 1. Vrednost 1 ukazuje da je pobednik
 
 Linearna regresija predstavlja jednu od najosnovnijih statističkih i mašinskih metoda za modelovanje zavisnosti između jedne zavisne promenljive (*target*) i jedne ili više nezavisnih promenljivih (*feature*). Suština linearne regresije ogleda se u pretpostavci da postoji linearna veza između ulaznih karakteristika i izlazne vrednosti, koja se može opisati linearnom funkcijom oblika:
 
-$$y \= β₀ \+ β₁x₁ \+ β₂x₂ \+ … \+ β_n x_n $$
+$$\begin{aligned}y \= β₀ \+ β₁x₁ \+ β₂x₂ \+ … \+ β_n x_n \end{aligned}$$
 
 gde su:
 
@@ -143,7 +143,7 @@ gde su:
 
 U slučaju predviđanja rezultata trke Formule 1, linearna regresija se može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
 
-$$fᵢⱼ \= β₀ \+ β₁(xᵢ₁-xⱼ₁) \+ β₂(xᵢ₂−xⱼ₂) \+ … \+ βₙ(xᵢₙ−xⱼₙ)$$
+$$ \begin{aligned} fᵢⱼ \= β₀ \+ β₁(xᵢ₁-xⱼ₁) \+ β₂(xᵢ₂−xⱼ₂) \+ … \+ βₙ(xᵢₙ−xⱼₙ) \end{aligned}$$
 
 Na osnovu ove vrednosti donosi se binarna odluka:
 
@@ -159,7 +159,7 @@ Serijom ovakvih parnih poređenja između svih vozača u jednoj trci formira se 
 
 U slučaju predviđanja rezultata trke Formule 1, kao i kod linearne regresije, SVM se takođe može koristiti u okviru pairwise pristupa, gde se vrše poređenja između parova vozača. Za svaki par vozača (i,j) formira se ulazni vektor razlika njihovih karakteristika, a model donosi odluku:
 
-$$fᵢⱼ \= w · (xᵢ \- xⱼ) \+ b$$
+$$\begin{aligned}fᵢⱼ \= w · (xᵢ \- xⱼ) \+ b\end{aligned}$$
 
 gde su:
 
@@ -173,9 +173,9 @@ Na osnovu ove vrednosti donosi se binarna odluka, 1 ako vozač i završava ispre
 
 Naivni Bajes je linearni probabilistički klasifikator koji se zasniva na Bajesovoj formuli verovatnoće hipoteze. Bajesova formula se zasniva na pretpostavci da slučajni događaji $H_1, H_2, ..., H_n$ čine potpun sistem hipoteza, to jest da predstavljaju ceo prostor događaja i međusobno su disjunktni. Ako je *A* događaj za koji važi P(A) \> 0, tada se verovatnoća da je hipoteza Hi dovela do realizacije događaja *A* računa po formuli:
 
-$$
+$$ \begin{aligned}
 P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i)}{P(A)},
-$$
+\end{aligned}$$
 
 
 gde je:
@@ -187,9 +187,9 @@ gde je:
 
 U ovom pristupu 70% podataka (103 trke) korišćeno je za trening, a 30% (45 trka) za testiranje. Kako je ova podela izvršena hronološki, neki vozači, staze i timovi su nepoznati modelu. Da bi se ovaj probem rešio, korišćeno je Laplasovo zagrađivanje (*Laplace smoothening*) koje je predstavljeno formulom:  
 
-$$
+$$ \begin{aligned}
 P(H_i \mid A) = \frac{P(H_i) \, P(A \mid H_i) + \alpha}{P(A) + |V|},
-$$
+\end{aligned}$$
 
 gde je:
 
