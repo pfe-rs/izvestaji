@@ -1,5 +1,7 @@
 ---
 title: Predviđanje rezultata Formule 1
+summary : Projekat koji se bavi predviđanjem rezultata trke Formule 1,rađen na letnjem kampu za starije polaznike 2025. godine, radile su Darija Vasiljević i Marina Stojilković. 
+svg_image: /images/zbornik/2025/formula-1/graf-apstrakt.svg
 ---
 
 
