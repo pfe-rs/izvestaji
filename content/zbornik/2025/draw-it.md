@@ -1,5 +1,6 @@
 ---
 title: Draw it
+summary : Projekat koji se bavi klasifikacijom crteža u realnom vremenu rađen na letnjem kampu za stare polaznike 2025. godine čiji su autori Lena Stanković i Nemanja Obradović.
 ---
 
 # Komparativna analiza performansi različitih arhitektura neuronskih mreža za klasifikaciju skiciranih crteža u realnom vremenu
