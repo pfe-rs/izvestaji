@@ -331,6 +331,12 @@ Statistički metodi nisu dali zadovoljavajuće rezultate zbog svoje suviše jedn
 
 Metrike ukazuju na postojanje prostora za poboljšanje. Moguća unapređenja uključuju dodavanje novih karakteristika koje dodatno opisuju kontekst trke: istorijski rezultati vozača na određenoj stazi, kao i performanse u specifičnim vremenskim uslovima (npr. pojedini vozači postižu značajno bolje rezultate u kišnim uslovima). Iako u ovom projektu stariji podaci nisu korišćeni, oni bi mogli da daju kontekst modelu o funkcionisanju sporta, a na novijim podacima bi mogao da se *finetune*\-uje.  Prikupljanje novih podataka i inženjering karakteristika bi omogućili i korišćenje složenijih modela, poput mreža za obradu vremenskih sekvenci, kao što su rekurentne neuralne mreže (RNN), *Long-Short Term Memory* (LSTM) mreže i transformeri koje bi znatno poboljšale predviđanja.
 
+
+# 5. Zaključak
+Statističke metode su bile previše jednostavne da bi davale kvalitetna predviđanja. DNN treniran na celoj listi nije dao dobre rezultate jer arhitektura i loss funkcija nisu bile usklađene. Takođe, DNN treniran na parovima nije ostvario zadovoljavajuće pairwise performanse, pa nije dalje testiran na ostalim metrike.
+
+XGBoost treniran nad ručno podeljenim parovima dao je najbolje rezultate. Pristup sa *rolling window* nije bio uspešan, jer vrlo brzo dolazi do overfitovanja — stabla se ne ažuriraju već se samo dodaju nova.
+
 ## Literatura
 
 \[1\] Kike FRANSSEN. COMPARISON OF NEURAL NETWORK ARCHITECTURES IN RA-  
