@@ -47,12 +47,9 @@ U projektu je korišćen *Quick, Draw\! dataset*. Ovaj skup podataka sadrži pre
 
 Korišćena je *Simplified Drawing Files* verzija dataseta *Quick, Draw\!*, koja sadrži podatke u formatu *.ndjson*, pri čemu svaki fajl odgovara jednoj klasi crteža, dok svaka linija unutar fajla predstavlja jedan uzorak te klase. Iz svakog uzorka izdvojene su sekvence x i y koordinata koje opisuju poteze korisnika tokom crtanja. Na osnovu tih koordinata rekonstruisani su crteži prikazivanjem poteza kao crnih linija na beloj pozadini. Svaki crtež konvertovan je u sliku dimenzija 256×256 piksela, kao što se može videti na slici 2, čime je omogućen direktan ulaz u konvolutivne neuronske mreže.  
 
-![Slika 2. Primer slike iz Quick, Draw! dataseta](/qdprimer.png)
+![Slika 1. Primer slike iz Quick, Draw! dataseta](/images/zbornik/2025/draw-it/qdprimer.png)
 
-Slika 2. Primer slike iz Quick, Draw! dataseta
-
-
-{{< figure src="/qdprimer.png" title="Slika 2. Primer slike iz Quick, Draw! dataseta." >}}
+*Slika 1.* Primer slike iz Quick, Draw! dataseta
 
 Nakon generisanja, slike su podeljene u tri seta: jedan sa 3 klase po 1000 slika, drugi sa 10 klasa po 5000 slika i treći sa 25 klasa po 10 000 slika. Ova struktura omogućava testiranje modela u uslovima različite složenosti klasifikacije.
 
@@ -66,9 +63,9 @@ Ovi podaci su, kao i slike, podeljeni u tri skupa: 3 klase sa po 1000 primera, 1
 
 Kako bi se testirali modeli na skupu podataka koji nije potpuno isti kao Quick, Draw\! dataset koji je korišćen za treniranje modela, napravljen je dataset koji sadrži crteže nacrtane od strane drugih ljudi koje smo mi prikupili. Na ovom skupu testiran je odabrani model kako bi se procenilo da li njegova tačnost omogućava upotrebu u realnom vremenu, tj. da li model može pouzdano prepoznavati crteže dok se crtaju. Kreirani skup ima 10 klasa. Primeri slika iz dataseta nalaze se na slici 3.   
 
-![Slika 3. Primeri slika iz kreiranog dataseta](/krompir.png)
+![Slika 2. Primeri slika iz kreiranog dataseta](/images/zbornik/2025/draw-it/krompir.png)
 
-Slika 3. Primeri slika iz kreiranog dataseta
+*Slika 2.* Primeri slika iz kreiranog dataseta
 
 ### 3.2. VGG16
 
@@ -96,9 +93,9 @@ Trening na najvećem korišćenom skupu podataka, 25 klasa sa po 10000 slika, bi
 
 Pored poznatijih arhitektura, korišćena je i jedna jednostavnija konvoluciona mreža. Cilj njene implementacije bio je da se uporede performanse manje, brže mreže sa složenijim i dubljim modelima. Ova mreža ima znatno manji broj parametara, pa se očekivala niža tačnost, ali i znatno manja računarska složenost, brže treniranje i veći broj frejmova u sekundi (FPS \- frames per second) tokom izvođenja. Arhitektura mreže preuzeta je iz referentnog rada (rad), a njen prikaz dat je na slici 4.
 
-![Slika 4. Arhitektura konvolucione mreže](/cnn.png)
+![Slika 3. Arhitektura konvolucione mreže](/images/zbornik/2025/draw-it/cnn.png)
 
-Slika 4. Arhitektura konvolucione mreže
+*Slika 3.* Arhitektura konvolucione mreže
 
 Korišćena konvoluciona neuronska mreža sastoji se od tri konvoluciona sloja i dva fully connected sloja. Prvi konvolucioni sloj primenjuje 64 filtera dimenzije 5×5 sa ReLU aktivacijom, nakon čega sledi max-pooling. Drugi i treći konvolucioni slojevi imaju istu strukturu kao prvi, ali dodatno uključuju i *batch normalization*, što doprinosi stabilnijem treniranju. Nakon trećeg konvolucionog sloja, izlaz se prolazi kroz *flatten* operaciju, kojom se višedimenzionalni tenzor pretvara u jednodimenzionalni vektor, neophodan za rad fully connected slojeva. Prosleđuje se kroz fully connected sloj sa 500 neurona, ReLU aktivacijom i dropout regularizacijom (0.5). Na kraju, poslednji linearni sloj mapira aktivacije na broj izlaznih klasa. Ova arhitektura je kompaktna i brza, a istovremeno dovoljno izražajna da može efikasno učiti reprezentacije iz ulaznih slika dimenzije 32×32.
 
@@ -185,6 +182,8 @@ Model VGG16 nije treniran na setu od 25 klasa, jer bi njegovo treniranje na GPU 
 | 10 klasa | 95.45 | **98.36** | 85.35 | 90.85 | / | / |
 | 25 klasa | 92.59 | / | 91.03 | **94.54** | / | / |
 
+*Tabela 1.* Uporedni prikaz tačnosti modela
+
 Najveća tačnost na setovima sa 3 i 10 klasa postignuta je korišćenjem konvolucione neuralne mreže VGG16, dok je na skupu od 25 klasa najveća postignuta tačnost bila prilikom korišćenja MobileNet modela.
 
 ### 4.2. Preciznost
@@ -195,6 +194,7 @@ Najveća tačnost na setovima sa 3 i 10 klasa postignuta je korišćenjem konvol
 | 10 klasa | 95.74 | **98.36** | 86.22 | 91.03 | / | / |
 | 25 klasa | 93.06 | / | 91.59 | **94.64** | / | / |
 
+*Tabela 2.* Uporedni prikaz preciznosti modela
 	  
 Najveća preciznost na setovima sa 3 i 10 klasa postignuta je korišćenjem mreže VGG16, dok je na skupu od 25 klasa najveća postignuta preciznost bila prilikom korišćenja MobileNet modela.
 
@@ -206,6 +206,8 @@ Najveća preciznost na setovima sa 3 i 10 klasa postignuta je korišćenjem mre�
 | 10 klasa | 95.47 | **98.36** | 85.44 | 90.85 | / | / |
 | 25 klasa | 92.59 | / | 91.03 | **94.54** | / | / |
 
+*Tabela 3.* Uporedni prikaz odziva modela
+
 Najveća vrednost odziva na setovima sa 3 i 10 klasa postignuta je korišćenjem mreže VGG16, dok je na skupu od 25 klasa najveća postignuta vrednost odziva bila prilikom korišćenja MobileNet modela.
 
 ### 4.4. F1 skor
@@ -216,6 +218,8 @@ Najveća vrednost odziva na setovima sa 3 i 10 klasa postignuta je korišćenjem
 | 10 klasa | 95.50 | **98.36** | 85.53 | 90.91 | / | / |
 | 25 klasa | 92.68 | / | 91.11 | **94.54** | / | / |
 
+*Tabela 4.* Uporedni prikaz F1 skorova modela
+
 Najveća vrednost F1 skora na setovima sa 3 i 10 klasa postignuta je korišćenjem mreže VGG16, dok je na skupu od 25 klasa najveća postignuta vrednost F1 skora bila prilikom korišćenja MobileNet modela.  
 	
 
@@ -224,6 +228,8 @@ Najveća vrednost F1 skora na setovima sa 3 i 10 klasa postignuta je korišćenj
 | Model | AlexNet | VGG16 | CNN | MobileNet | LSTM | BiLSTM |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | FPS | 17.95 | 2.37 | **256.03** | 48.84 | 285.66 | **621.53** |
+
+*Tabela 5.* Uporedni prikaz vrednosti FPS-a modela
 
 	  
 Najveća vrednost FPS postignuta je korišćenjem mreže BiLSTM, dok je konvoluciona mreža koja je postigla najveći FPS bila konvoluciona neuronska mreža jednostavne strukture.
@@ -234,9 +240,9 @@ Model je testiran na skupu podataka kreiranom prikupljanjem crteža koje su nacr
 Na ovom testnom skupu model je postigao tačnost od **74.19%**. Detaljnija analiza performansi modela može se videti iz matrice konfuzije, prikazane na slici 5. 
 
 
-![Slika 5. Matrica konfuzije na kreiranom skupu podataka](/matrica.png)
+![Slika 4. Matrica konfuzije na kreiranom skupu podataka](/images/zbornik/2025/draw-it/matrica.png)
 
-Slika 5. Matrica konfuzije na kreiranom skupu podataka
+*Slika 4.* Matrica konfuzije na kreiranom skupu podataka
 
 ## 5\. Diskusija
 
