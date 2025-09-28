@@ -1,8 +1,7 @@
 ---
 title: Draw it
+summary: Komparativna analiza performansi različitih arhitektura neuronskih mreža za klasifikaciju skiciranih crteža u realnom vremenu
 ---
-
-# Komparativna analiza performansi različitih arhitektura neuronskih mreža za klasifikaciju skiciranih crteža u realnom vremenu
 
 Lena Stanković i Nemanja Obradović
 
@@ -51,8 +50,6 @@ Korišćena je *Simplified Drawing Files* verzija dataseta *Quick, Draw\!*, koja
 
 Slika 2. Primer slike iz Quick, Draw! dataseta
 
-
-{{< figure src="/qdprimer.png" title="Slika 2. Primer slike iz Quick, Draw! dataseta." >}}
 
 Nakon generisanja, slike su podeljene u tri seta: jedan sa 3 klase po 1000 slika, drugi sa 10 klasa po 5000 slika i treći sa 25 klasa po 10 000 slika. Ova struktura omogućava testiranje modela u uslovima različite složenosti klasifikacije.
 
