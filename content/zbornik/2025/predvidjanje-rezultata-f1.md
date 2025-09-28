@@ -38,8 +38,6 @@ Podaci o vozačima, stazama, konstruktorima, rezultatima trka, kvalifikacija, sp
 
 Na slici 1 prikazana je matrica korelacije karakteristika definisanih u tabeli 1\. Većina karakteristika nema izraženu međusodnu korelaciju. Jaka negativna korelacija prisutna je kod karakteristika koje opisuju broj krugova i dužinu staze jer dužina Velike nagrade iznosi najmanje 300km, sa izuzetkom Velike nagrade Monaka. Jaka pozitivna korelacija uočava se  između početne pozicije vozača i rezultata na kraju trke. 
 
-{{< figure "/images/zbornik/2025/formula-1/matrica-korelacije.png" "Slika 1: Matrica korelacije korišćenih karakteristika" "matrica-korelacije" >}}
-
 ![Slika 1: Matrica korelacije korišćenih karakteristika](/images/zbornik/2025/formula-1/matrica-korelacije.png)  
 *Slika 1: Matrica korelacije korišćenih karakteristika*
 
@@ -271,14 +269,12 @@ Pored ugrađenog *pairwise* pristupa u *XGBoost*-u, isproban je još jedan prist
 Na slikama 5, 6 i 7 prikazani su rezultati predikcije plasmana vozača u test skupu trka koristeći tri pomenuta statistička modela. Slika 5 prikazuje rezultate linearne regresije primenjene u *pairwise* pristupu. Slika 6 prikazuje rezultate dobijene korišćenjem SVM-a, takođe u *pairwise* pristupu. 
 
 
-{{</ figure >}}
-{{< figure *Slika 5*: Konfuziona matrica linearne regresije"" "*Slika 6*: Konfuziona matrica SVM" >}}
+
 
 ![*Slika 5*: Konfuziona matrica linearne regresije](/images/zbornik/2025/formula-1/linreg.png)
 *Slika 5*: Konfuziona matrica linearne regresije
 ![*Slika 6*: Konfuziona matrica SVM](/images/zbornik/2025/formula-1/svm.png)
 *Slika 6*: Konfuziona matrica SVM
-{{</ figure >}}
 
 Model linearne regresije daje tačnost 80,1%, a SVM 82,8%. Analizom ovih tačnosti i konfuzionih matrica može se uočiti da oba modela uspešno predviđaju relativni plasman u većini parova, ali retko uspevaju da precizno rekonstruišu tačan konačan plasman vozača.
 
