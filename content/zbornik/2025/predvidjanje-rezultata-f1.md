@@ -252,12 +252,17 @@ Pored ugrađenog *pairwise* pristupa u *XGBoost*-u, isproban je još jedan prist
 
 ## 3.1 Performanse modela
 
-| Model | *NDCG* | *Kendall’s τ* | Spermanov rang korelacije | *RMSE* |
-| :---- | :---- | :---- | :---- | :---- |
-| Naivini Bajes sa Laplasovim zaglađivanjem | 0,6818 | 0,1329 | 0,1829 | 7,2450 |
-| *XGBoost* \- pairwise | 0,9619 | 0,5753 | 0,7241 | 4,0755 |
-| XGBoost \- NDCG | 0,9586 | 0,5694 | 0,7048 | 4,3400 |
-| XGBoost \- Rolling window tehnika | \- | \- | \- | \- |
+| Model | *NDCG* | *Kendall’s τ* | Sperman | *RMSE* | *Pairwise* tačnost |
+| :---- | :---- | :---- | :---- | :---- | :---- |
+| Linearna regresija | *\-* | *\-* | \- | *\-* | *80,1%* |
+| SVM | *\-* | *\-* | \- | *\-* | *82,8%* |
+| Naivini Bajes | 0,6818 | 0,1329 | 0,1829 | 7,2450 | \- |
+| *XGBoost* \- *pairwise* | 0,9619 | 0,5753 | 0,7241 | 4,0755 | \- |
+| *XGBoost* \- NDCG | 0,9586 | 0,5694 | 0,7048 | 4,3400 | \- |
+| *XGBoost* \- *Rolling window*  | \- | \- | \- | \- | \- |
+| DNN | 0,73 | \- | \- | \- | \- |
+| DNN \- pairwise | \- | \- | \- | \- | 74,5% |
+| *XGBoost* \- treniranje nad parovima | 0,987 | 0,86 | 0,92 | 1,58 | \- |  
 
 *Tabela 3*: Uporedni prikaz metrika za različite modele
 
@@ -315,7 +320,7 @@ Na slici 12 prikazana je konfuziona matrica *XGBoost*\-a treniranog na ručno fo
 ![*Slika 12*: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima](/images/zbornik/2025/formula-1/xgb-par.png)
 *Slika 12*: Konfuziona matrica *XGBoost*\-a treniranog na ručno formiranim parovima
 
-Vrednosti metrika su prikazane u tabeli 2. Pored ovih računata je i metrika *Mean Reciprocal Rank* (MRR) koja iznosi 0,89. Kako je ova metrika veoma blizu 1 može se zaključiti da model jako dobro predviđa poziciju pobdnika. Vrednost RMSE iznosi 1,58 što ukazuje da model pravi jako mala odsupanja u rangovima vozača. Metrika NDCG ukazuje da model dobro rangira vrh liste, dok *Kendall’s τ* i Spermanov rang korelacije pokazuju da postoji jaka pozitivna povezanost između predikcija i stvarnog ranga.
+Vrednosti metrika su prikazane u tabeli 3. Pored ovih računata je i metrika *Mean Reciprocal Rank* (MRR) koja iznosi 0,89. Kako je ova metrika veoma blizu 1 može se zaključiti da model jako dobro predviđa poziciju pobdnika. Vrednost RMSE iznosi 1,58 što ukazuje da model pravi jako mala odsupanja u rangovima vozača. Metrika NDCG ukazuje da model dobro rangira vrh liste, dok *Kendall’s τ* i Spermanov rang korelacije pokazuju da postoji jaka pozitivna povezanost između predikcija i stvarnog ranga.
 
 
 # 4. Diskusija
