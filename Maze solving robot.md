@@ -1,9 +1,4 @@
----
-title: Maze solving robot
-summary: Maze solving robot je projekat rađen na letnjem kampu za stare polaznike 2025. godine čiji su autori Anastasija Rajković i Jovana Trkulja.
----
-
-
+### Letnji kamp Primenjene fizike i elektronike za starije polaznike, 2025. godina
 # **Maze solving robot**
 ### Autori projekta : Jovana Trkulja, Anastasija Rajković
 ### Projekat mentorisali: Bojana Malešević, Vladan Bašić, Dimitrije Pešić, Đorđe Manojlović
@@ -12,14 +7,13 @@ summary: Maze solving robot je projekat rađen na letnjem kampu za stare polazni
 
 ## Apstrakt 
 
-Ovaj rad prikazuje parcijalnu realizaciju simulacije robota koji rešava lavirint korišćenjem SLAM algoritama [^1][^3][^4]. Simulirani LIDAR senzor [^6][^2] omogućava detekciju prepreka i generisanje point-cloud [^7] mape, dok algoritmi Split and Merge [^5] i Seeded Region Growing [^7] omogućavaju segmentaciju linija zidova. Robot se inicijalno postavlja klikom miša i koristi frontier-based (pristup zasnovan na granicama neistraženih oblasti) strategiju kretanja za istraživanje prostora. Zbog vremenskog ograničenja i nemodularnosti koda, projekat je ostao parcijalan, sa ograničenim testiranjem i bez kvantitativne evaluacije. Ipak, dobijeni rezultati pokazuju osnovnu funkcionalnost delova sistema i pružaju čvrstu osnovu za dalji razvoj, uključujući optimizaciju mapiranja, modularniji dizajn koda i primenu metrika performansi.
+Ovaj rad prikazuje parcijalnu realizaciju simulacije robota koji rešava lavirint korišćenjem SLAM algoritama [1][3][4]. Simulirani LIDAR senzor [6][2] omogućava detekciju prepreka i generisanje point-cloud [7] mape, dok algoritmi Split and Merge [5] i Seeded Region Growing [7] omogućavaju segmentaciju linija zidova. Robot se inicijalno postavlja klikom miša i koristi frontier-based (pristup zasnovan na granicama neistraženih oblasti) strategiju kretanja za istraživanje prostora. Zbog vremenskog ograničenja i nemodularnosti koda, projekat je ostao parcijalan, sa ograničenim testiranjem i bez kvantitativne evaluacije. Ipak, dobijeni rezultati pokazuju osnovnu funkcionalnost delova sistema i pružaju čvrstu osnovu za dalji razvoj, uključujući optimizaciju mapiranja, modularniji dizajn koda i primenu metrika performansi.
 
 ## Abstract 
 
 This work presents a partial implementation of a maze-solving robot simulation using SLAM algorithms. A simulated LIDAR sensor enables obstacle detection and generation of a point-cloud map, while Split and Merge and Seeded Region Growing algorithms provide line segmentation of maze walls. The robot is initially positioned via mouse click and navigates using a frontier-based exploration strategy. Due to time constraints and non-modular code, the project remains partial, with limited testing and no quantitative evaluation. Nevertheless, the results demonstrate the basic functionality of the system and provide a solid foundation for further development, including map optimization, modular code design, and implementation of performance metrics.
 
-![Slika 1. Grafički apstrakt](/images/2025/maze-solving-robot/grafiski-apstark.svg)
-
+# GRAFIČKI APSTRAKT SLIKA 
 
 ## Uvod 
 
@@ -54,9 +48,6 @@ U ovom poglavlju predstaviće se način na koji je realizovan projekat simulacij
 
 Lavirint je simuliran kao skup povezanih pravougaonika na beloj pozadini, pri čemu su zidovi crni. Algoritam garantuje povezane hodnike i omogućava da robot slobodno istražuje celu mapu. Segmenti zidova čuvaju se kao lista krajnjih tačaka, što olakšava vizuelizaciju u Pygame-u.
 
-![Slika 2. Primer nasumično generisane mape](/images/2025/maze-solving-robot/nasumicno-generisanje-mape.png)
-
-
 ### LIDAR senzor i point-cloud mapa
 
 U projektu je korišćen simulirani LIDAR senzor, koji emituje zrake pod različitim uglovima i detektuje prvu prepreku (crni piksel) na svom putu. Za svaku detektovanu tačku računaju se globalne koordinate na osnovu trenutne pozicije i orijentacije robota.
@@ -72,8 +63,7 @@ Point-cloud (prevedeno oblak tačaka) je skup svih detektovanih tačaka i predst
   
 Simulacija LIDAR-a je pojednostavljena u odnosu na to kako pravi LIDAR senzor funkcioniše u 3D prostoru, ali je dovoljno precizna da se vidi kako robot detektuje zidove i generiše point-cloud mapu, koja se ažurira prilikom kretanja robota.
 
-![Slika 3. Vizuelizacija rada simuliranog LIDAR senzora: robot (roze tačka) generiše oblak tačaka koji označava zidove lavirinta, dok žute ćelije prikazuju već istražene delove mape.](/images/2025/maze-solving-robot/nasumicno-vizuelizacija-lidar-senzora.png)
-
+# Slika 2. Vizuelizacija rada simuliranog LIDAR senzora: robot (roze tačka) generiše oblak tačaka koji označava zidove lavirinta, dok žute ćelije prikazuju već istražene delove mape
 
 ## Detekcija linijskih segmenata i algoritmi
 
@@ -93,8 +83,7 @@ Seeded Region Growing (SRG) algoritam se koristi kao dopuna Split and Merge meto
 
 Kratki segmenti koji nastaju segmentacijom spajaju se u duže linije ako su približno kolinearni i blizu jedan drugom. Time se smanjuje broj objekata koje je potrebno čuvati i crtati u realnom vremenu. Segmenti se čuvaju i koriste za kasniju lokalizaciju robota.
 
-![Slika 4. Detekcija linijskih segmenata](/images/2025/maze-solving-robot/detekcija-linijskih-segmenata.png)
-
+# Slika 3. Detekcija linijskih segmenata
 
 ## Kretanje robota i interakcija sa okolinom
 
@@ -129,16 +118,10 @@ Ovi parcijalni rezultati jasno pokazuju da implementirani algoritmi funkcionišu
 
 ## Reference 
 
-[^1]: S. Riisgaard i M. R. Blas, “SLAM for Dummies: A Tutorial Approach to Simultaneous Localization and Mapping”, Massachusetts Institute of Technology, 2005.
-
-[^2]: Y. Ran, X. Xu i Z. Tan, “A Review of 2D Lidar SLAM Research,” Remote Sens., vol. 17, str. 1214, 2025.
-
-[^3]: F. A. A. Cheein, N. Lopez, C. M. Soria, F. A. di Sciascio, F. Lobo Pereira i R. Carelli, “SLAM algorithm applied to robotics assistance for navigation in unknown environments,” Journal of NeuroEngineering and Rehabilitation, vol. 7, no. 10, pp. 1–21, 2010.
-
-[^4]: L. Zhang i B. K. Ghosh, “Line segment based map building and localization using 2D laser rangefinder,” u Proc. IEEE Int. Conf. Robotics and Automation, San Francisco, CA, USA, 24–28 Apr. 2000, pp. 2538–2543.
-
-[^5]: H. Gao, X. Zhang, Y. Fang i J. Yuan, “A line segment extraction algorithm using laser data based on seeded region growing,” Int. J. Adv. Robot. Syst., vol. 15, no. 1, str. 1729881418755245, Feb. 2018.
-
-[^6]: S. Malik, “Lidar SLAM: The Ultimate Guide to Simultaneous Localization and Mapping,” Wevolver, 04-May-2023. Dostupno: https://www.wevolver.com/article/lidar-slam?utm_source=chatgpt.com
-
-[^7]: “Point cloud,” Wikipedia. Dostupno: https://en.wikipedia.org/wiki/Point_cloud
+[1] S. Riisgaard i M. R. Blas, “SLAM for Dummies: A Tutorial Approach to Simultaneous Localization and Mapping”, Massachusetts Institute of Technology, 2005.
+[2] Y. Ran, X. Xu i Z. Tan, “A Review of 2D Lidar SLAM Research,” Remote Sens., vol. 17, str. 1214, 2025.
+[3] F. A. A. Cheein, N. Lopez, C. M. Soria, F. A. di Sciascio, F. Lobo Pereira i R. Carelli, “SLAM algorithm applied to robotics assistance for navigation in unknown environments,” Journal of NeuroEngineering and Rehabilitation, vol. 7, no. 10, pp. 1–21, 2010.
+[4] L. Zhang i B. K. Ghosh, “Line segment based map building and localization using 2D laser rangefinder,” u Proc. IEEE Int. Conf. Robotics and Automation, San Francisco, CA, USA, 24–28 Apr. 2000, pp. 2538–2543.
+[5] H. Gao, X. Zhang, Y. Fang i J. Yuan, “A line segment extraction algorithm using laser data based on seeded region growing,” Int. J. Adv. Robot. Syst., vol. 15, no. 1, str. 1729881418755245, Feb. 2018.
+[6] S. Malik, “Lidar SLAM: The Ultimate Guide to Simultaneous Localization and Mapping,” Wevolver, 04-May-2023. Dostupno: https://www.wevolver.com/article/lidar-slam?utm_source=chatgpt.com
+[7] “Point cloud,” Wikipedia. Dostupno: https://en.wikipedia.org/wiki/Point_cloud

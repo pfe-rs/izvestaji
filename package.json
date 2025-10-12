@@ -6,9 +6,9 @@
     "repository": "https://github.com/pfe-rs/website.git",
     "license": "CC-BY-NC-ND-4.0",
     "devDependencies": {
-        "@fullhuman/postcss-purgecss": "5.0.0",
-        "autoprefixer": "10.4.16",
+        "@fullhuman/postcss-purgecss": "^5.0.0",
+        "autoprefixer": "^10.4.21",
         "postcss": "8.4.31",
-        "postcss-cli": "10.1.0"
+        "postcss-cli": "^10.1.0"
     }
 }
