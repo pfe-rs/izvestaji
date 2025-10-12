@@ -4,19 +4,21 @@ summary: Maze solving robot je projekat rađen na letnjem kampu za stare polazni
 ---
 
 
-# **Maze solving robot**
-### Autori projekta : Jovana Trkulja, Anastasija Rajković
-### Projekat mentorisali: Bojana Malešević, Vladan Bašić, Dimitrije Pešić, Đorđe Manojlović
-
+###### Autori
+Jovana Trkulja, Anastasija Rajković
+###### Mentori 
+Bojana Malešević, Vladan Bašić, Dimitrije Pešić, Đorđe Manojlović
 
 
 ## Apstrakt 
 
 Ovaj rad prikazuje parcijalnu realizaciju simulacije robota koji rešava lavirint korišćenjem SLAM algoritama [^1][^3][^4]. Simulirani LIDAR senzor [^6][^2] omogućava detekciju prepreka i generisanje point-cloud [^7] mape, dok algoritmi Split and Merge [^5] i Seeded Region Growing [^7] omogućavaju segmentaciju linija zidova. Robot se inicijalno postavlja klikom miša i koristi frontier-based (pristup zasnovan na granicama neistraženih oblasti) strategiju kretanja za istraživanje prostora. Zbog vremenskog ograničenja i nemodularnosti koda, projekat je ostao parcijalan, sa ograničenim testiranjem i bez kvantitativne evaluacije. Ipak, dobijeni rezultati pokazuju osnovnu funkcionalnost delova sistema i pružaju čvrstu osnovu za dalji razvoj, uključujući optimizaciju mapiranja, modularniji dizajn koda i primenu metrika performansi.
 
+
 ## Abstract 
 
 This work presents a partial implementation of a maze-solving robot simulation using SLAM algorithms. A simulated LIDAR sensor enables obstacle detection and generation of a point-cloud map, while Split and Merge and Seeded Region Growing algorithms provide line segmentation of maze walls. The robot is initially positioned via mouse click and navigates using a frontier-based exploration strategy. Due to time constraints and non-modular code, the project remains partial, with limited testing and no quantitative evaluation. Nevertheless, the results demonstrate the basic functionality of the system and provide a solid foundation for further development, including map optimization, modular code design, and implementation of performance metrics.
+
 
 ![Slika 1. Grafički apstrakt](/images/2025/maze-solving-robot/grafiski-apstark.svg)
 
