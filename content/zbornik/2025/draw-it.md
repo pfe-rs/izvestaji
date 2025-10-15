@@ -19,11 +19,11 @@ slika
 
 ## 1\. Uvod
 
-Prepoznavanje skica crtanih slobodnom rukom predstavlja izuzetno komplikovan zadatak. Skice mogu biti jako apstraktne, a takođe zavise i od stila osobe koja ih crta, pa ista stvar može biti predstavljena na različite načine. Skice su izvedene samo crno-belim linijama, bez boja, tekstura ili bogatih vizualnih tragova, što može dodatno otežati klasifikaciju prilikom korišćenja unapred treiranih modela. Zbog ovih faktora, čak i ljudima često nije lako da sa sigurnošću prepoznaju šta je nacrtano, posebno ako je crtež minimalan ili stilizovan. Upravo ta apstraktnost i raznovrsnost čine ovaj problem naročito kompleksnim za automatizovano rešavanje.  
+Prepoznavanje skica crtanih slobodnom rukom predstavlja izuzetno komplikovan zadatak. Skice mogu biti jako apstraktne, a takođe zavise i od stila osobe koja ih crta, pa ista stvar može biti predstavljena na različite načine. Skice su izvedene samo crno-belim linijama, bez boja, tekstura ili bogatih vizualnih tragova, što može dodatno otežati klasifikaciju prilikom korišćenja unapred treniranih modela. Zbog ovih faktora, čak i ljudima često nije lako da sa sigurnošću prepoznaju šta je nacrtano, posebno ako je crtež minimalan ili stilizovan. Upravo ta apstraktnost i raznovrsnost čine ovaj problem naročito kompleksnim za automatizovano rešavanje.  
 
 *Draw it* je igrica slična igri *Pictionary*, u kojoj korisnici imaju zadatak da nacrtaju jedan od dva ponuđena pojma u ograničenom vremenu, na što prepoznatljiviji način. Nakon crtanja, računar pokušava da pogodi šta je nacrtano, a korisnik dobija poene za tačne pogodke. Projekat se bazira na implementaciji kompletne igrice, uključujući korisnički interfejs koji omogućava crtanje zadatih pojmova, kao i neuronsku mrežu koja pokušava da prepozna crtež.  
 
-Glavni fokus rada, međutim, nije sama igra, već upoređivanje performansi različitih arhitektura neuronskih mreža u zadatku klasifikacije ručno nacrtanih skica. Testirane su konvolutivne mreže (AlexNet, VGG16, MobileNet V3 Small i konvoluciona neuronska mreža jednostavne strukture CNN), kao i rekurentna mreže LSTM (Long Short-Term Memory) i BiLSTM (Bidirectional Long Short-Term Memory), sa ciljem da se utvrdi koji model daje najbolje rezultate. Nakon izbora najuspešnijeg modela, on je integrisan u samu igricu.
+Glavni fokus rada, međutim, nije sama igra, već upoređivanje performansi različitih arhitektura neuronskih mreža u zadatku klasifikacije ručno nacrtanih skica. Testirane su konvolucione mreže (AlexNet, VGG16, MobileNet V3 Small i konvoluciona neuronska mreža jednostavne strukture CNN), kao i rekurentna mreže LSTM (Long Short-Term Memory) i BiLSTM (Bidirectional Long Short-Term Memory), sa ciljem da se utvrdi koji model daje najbolje rezultate. Nakon izbora najuspešnijeg modela, on je integrisan u samu igricu.
 
 Jedan od ciljeva projekta bio je i poređenje performansi neuronskih mreža sa rezultatima koje postižu ljudi u istom zadatku. Pošto ovakvo poređenje nije bilo prisutno u dosadašnjim radovima koji su analizirani, ono predstavlja doprinos ovog istraživanja u proceni koliko blizu ljudskom nivou razumevanja može da dođe mašinsko prepoznavanje u kontekstu apstraktnih i pojednostavljenih crteža.
 
@@ -36,7 +36,7 @@ Međutim, za treniranje složenijih modela, kao što su AlexNet, VGG16 i MobileN
 
 ## 3\. Metod
 
-U okviru ovog rada izvršena je komparativna analiza performansi pet različitih arhitektura neuronskih mreža: VGG16, AlexNet, konvolucione neuronske mreže jednostavne strukture (CNN - Convoutional Neural Network), MobileNet V3 Small i rekurentne neuronske mreže sa dugim kratkoročnim pamćenjem (LSTM i  BiLSTM). Nakon toga razvijen je korisnički interfejs i igrica koja integriše izabrani model, omogućavajući korisnicima interaktivno crtanje i prepoznavanje pojmova u realnom vremenu.
+U okviru ovog rada izvršena je komparativna analiza performansi pet različitih arhitektura neuronskih mreža: VGG16, AlexNet, konvolucione neuronske mreže jednostavne strukture (CNN - Convolutional Neural Network), MobileNet V3 Small i rekurentne neuronske mreže sa dugim kratkoročnim pamćenjem (LSTM i  BiLSTM). Nakon toga razvijen je korisnički interfejs i igrica koja integriše izabrani model, omogućavajući korisnicima interaktivno crtanje i prepoznavanje pojmova u realnom vremenu.
 
 ### 3.1. Baza podataka
 
@@ -44,7 +44,7 @@ U projektu je korišćen *Quick, Draw\! dataset*. Ovaj skup podataka sadrži pre
 
 #### 3.1.1. Priprema podataka za konvolucione neuronske mreže
 
-Korišćena je *Simplified Drawing Files* verzija dataseta *Quick, Draw\!*, koja sadrži podatke u formatu *.ndjson*, pri čemu svaki fajl odgovara jednoj klasi crteža, dok svaka linija unutar fajla predstavlja jedan uzorak te klase. Iz svakog uzorka izdvojene su sekvence x i y koordinata koje opisuju poteze korisnika tokom crtanja. Na osnovu tih koordinata rekonstruisani su crteži prikazivanjem poteza kao crnih linija na beloj pozadini. Svaki crtež konvertovan je u sliku dimenzija 256×256 piksela, kao što se može videti na slici 2, čime je omogućen direktan ulaz u konvolutivne neuronske mreže.  
+Korišćena je *Simplified Drawing Files* verzija dataseta *Quick, Draw\!*, koja sadrži podatke u formatu *.ndjson*, pri čemu svaki fajl odgovara jednoj klasi crteža, dok svaka linija unutar fajla predstavlja jedan uzorak te klase. Iz svakog uzorka izdvojene su sekvence x i y koordinata koje opisuju poteze korisnika tokom crtanja. Na osnovu tih koordinata rekonstruisani su crteži prikazivanjem poteza kao crnih linija na beloj pozadini. Svaki crtež konvertovan je u sliku dimenzija 256×256 piksela, kao što se može videti na slici 1, čime je omogućen direktan ulaz u konvolutivne neuronske mreže.  
 
 ![Slika 1. Primer slike iz Quick, Draw! dataseta](/images/zbornik/2025/draw-it/qdprimer.png)
 
@@ -60,7 +60,7 @@ Ovi podaci su, kao i slike, podeljeni u tri skupa: 3 klase sa po 1000 primera, 1
 
 #### 3.1.3. Kreiranje novog dataset-a
 
-Kako bi se testirali modeli na skupu podataka koji nije potpuno isti kao Quick, Draw\! dataset koji je korišćen za treniranje modela, napravljen je dataset koji sadrži crteže nacrtane od strane drugih ljudi koje smo mi prikupili. Na ovom skupu testiran je odabrani model kako bi se procenilo da li njegova tačnost omogućava upotrebu u realnom vremenu, tj. da li model može pouzdano prepoznavati crteže dok se crtaju. Kreirani skup ima 10 klasa. Primeri slika iz dataseta nalaze se na slici 3.   
+Kako bi se testirali modeli na skupu podataka koji nije potpuno isti kao Quick, Draw\! dataset koji je korišćen za treniranje modela, napravljen je dataset koji sadrži crteže nacrtane od strane drugih ljudi koje smo mi prikupili. Na ovom skupu testiran je odabrani model kako bi se procenilo da li njegova tačnost omogućava upotrebu u realnom vremenu, tj. da li model može pouzdano prepoznavati crteže dok se crtaju. Kreirani skup ima 10 klasa. Primeri slika iz dataseta nalaze se na slici 2.   
 
 ![Slika 2. Primeri slika iz kreiranog dataseta](/images/zbornik/2025/draw-it/krompir.png)
 
@@ -90,7 +90,7 @@ Trening na najvećem korišćenom skupu podataka, 25 klasa sa po 10000 slika, bi
 
 ### 3.4. CNN \- konvoluciona neuronska mreža jednostavne strukture
 
-Pored poznatijih arhitektura, korišćena je i jedna jednostavnija konvoluciona mreža. Cilj njene implementacije bio je da se uporede performanse manje, brže mreže sa složenijim i dubljim modelima. Ova mreža ima znatno manji broj parametara, pa se očekivala niža tačnost, ali i znatno manja računarska složenost, brže treniranje i veći broj frejmova u sekundi (FPS \- frames per second) tokom izvođenja. Arhitektura mreže preuzeta je iz referentnog rada (rad), a njen prikaz dat je na slici 4.
+Pored poznatijih arhitektura, korišćena je i jedna jednostavnija konvoluciona mreža. Cilj njene implementacije bio je da se uporede performanse manje, brže mreže sa složenijim i dubljim modelima. Ova mreža ima znatno manji broj parametara, pa se očekivala niža tačnost, ali i znatno manja računarska složenost, brže treniranje i veći broj frejmova u sekundi (FPS \- frames per second) tokom izvođenja. Arhitektura mreže preuzeta je iz referentnog rada (rad), a njen prikaz dat je na slici 3.
 
 ![Slika 3. Arhitektura konvolucione mreže](/images/zbornik/2025/draw-it/cnn.png)
 
@@ -236,7 +236,7 @@ Najveća vrednost FPS postignuta je korišćenjem mreže BiLSTM, dok je konvoluc
 ### 4.6\. Test na novom skupu podataka
 
 Model je testiran na skupu podataka kreiranom prikupljanjem crteža koje su nacrtali drugi korisnici, kako bi se testirala njegova sposobnost generalizacije na primere koji se razlikuju od Quick, Draw\! dataseta korišćenog za treniranje. Za evaluaciju je korišćen AlexNet model.  
-Na ovom testnom skupu model je postigao tačnost od **74.19%**. Detaljnija analiza performansi modela može se videti iz matrice konfuzije, prikazane na slici 5. 
+Na ovom testnom skupu model je postigao tačnost od **74.19%**. Detaljnija analiza performansi modela može se videti iz matrice konfuzije, prikazane na slici 4. 
 
 
 ![Slika 4. Matrica konfuzije na kreiranom skupu podataka](/images/zbornik/2025/draw-it/matrica.png)
@@ -266,7 +266,6 @@ Dalji rad uključuje dopunu evaluacionih metrika, iscrtavanje ROC krive, kao i p
 Poređenje performansi modela sa ljudskim odgovorima radilo bi se tako što bi se kreirali snimci koji simuliraju igranje igrice, a zatim bi ti snimci bili dati i modelu i korisnicima radi predviđanja pojma. Bio bi upoređivan broj pokušaja ili vreme potrebno da se dođe do tačne predikcije. 
 
 ## 8\. Literatura
-
 1. T. Guo, J. Dong, H. Li and Y. Gao, "Simple convolutional neural network on image classification," 2017 IEEE 2nd International Conference on Big Data Analysis (ICBDA), Beijing, China, 2017, pp. 721-724, doi: 10.1109/ICBDA.2017.8078730.  
 2. E. Hilal Korkut, E. Surer, “Sketch Recognition for Interactive Game Experiences Using Neural Networks” 2023  Department of Modeling and Simulation, Graduate School of Informatics, Middle East Technical University, 06800 Ankara, Turkey  
 3. N. More, S. Patil, A. Pasi,B. Palkar, V. Venkatramanan, P. Mishra, "Pocket-Sized AI: Evaluating Lightweight CNNs for Real-Time Sketch Detection" 2025 K.J.Somaiya School of engineering, Somaiya Vidyavihar University, Vidyavihar, Mumbai, India, pp. 648-658  
