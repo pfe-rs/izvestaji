@@ -1,7 +1,7 @@
 ---
 title: Kolorizacija crno-belih slika
 summary: Kolorizacija crno-belih slika je projekat rađen na letnjem kampu za stare polaznike 2025. čiji su autori Jana Mitrović i Natalija Janković
-svg_image: /images/zbornik/2025/kolorizacija-crno-belih-slika/slika5.svg
+svg_image: /images/zbornik/2025/kolorizacija-crno-belih-slika/graficki-apstrakt.svg
 ---
 
 **Autori:**
@@ -16,7 +16,7 @@ Aleksa Račić,
 
 Andrej Bantulić
 
-![Grafički apstrakt](/images/zbornik/2022/robot-valjak/graficki_apstrakt.svg)
+![Grafički apstrakt](/images/zbornik/2025/kolorizacija-crno-belih-slika/graficki-apstrakt.svg)
 
 ### Apstrakt
 
@@ -45,7 +45,7 @@ Cilj ovog rada je postizanje superiornijih rezultata na istim metrikama u odnosu
 
 {{< figure "Slika" "Grafički apstrakt" "graficki-apstrakt" >}}
 
-![Grafički apstrakt](images/zbornik/2025/kolorizacija-crno-belih-slika/apstrakt.svg)
+![Grafički apstrakt](images/zbornik/2025/kolorizacija-crno-belih-slika/graficki-apstrakt.svg)
 
 {{</ figure >}}
 
@@ -57,7 +57,7 @@ Za ovu problematiku, GAN mreža predstavlja odlično rešenje baš zbog diskrimi
 
 {{< figure "Slika" "GAN mrežna arhitektura" "gan-arhitektura" >}}
 
-![GAN mrežna arhitektura](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika2.svg)
+![GAN mrežna arhitektura](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika-2.svg)
 
 {{</ figure >}}
 
@@ -67,7 +67,7 @@ Prostor *ab* se kvantizuje na, u ovom slučaju, 313 diskretnih centara boja kori
 
 {{< figure "Slika" "Kvantizovan ab prostor boja kao mreža s korakom 10. Svaki od 313 parova ab vrednosti je prikazano kao boja koju predstavljaju." "ab-kvantizovano" >}}
 
-![AB kvantizovan prostor](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika3.svg)
+![AB kvantizovan prostor](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika-3.svg)
 
 {{</ figure >}}
 
@@ -87,7 +87,7 @@ Na ulazu se generatoru prosleđuje tenzor *L* kanala slike (crno-bela fotografij
 
 {{< figure "Slika" "Arhitektura generatora" "gen-arhitektura" >}}
 
-![Arhitektura generatora](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika4.svg)
+![Arhitektura generatora](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika-4.svg)
 
 {{</ figure >}}
 
@@ -160,7 +160,7 @@ Zatim se u diskriminator pusti ta fotografija s originalnim bojama i s izgeneris
 
 {{< figure "Slika " "Petlja adverserijalnog treninga suprostavljenih modela" "petlja" >}}
 
-![Petlja adverserijalnog treninga suprostavljenih modela](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika5.svg)
+![Petlja adverserijalnog treninga suprostavljenih modela](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika-5.svg)
 
 {{</ figure >}}
 
@@ -174,7 +174,6 @@ $$ L_{cl} = - \sum_{h,w} v(Z_{h,w}) \sum_{q} Z_{h,w,q} \log(\hat{Z}_{h,w,q}) ,$$
 
 gde $Z_{h,w,q}$ predstavlja *soft-encoding* originalnih boja piksela $(h, w)$, a $v(Z_{h,w})$ je težinski koeficijent koji rebalansira uticaj retkih boja.
 
-
 Svakom pikselu se dodeljuje težinski koeficijent na osnovu kombinacije empirijske distribucije boja iz trening skupa i uniformne distribucije verovatnoće po svih 313 kvantizovanih boja, dodeljujući veću težinu ređim bojama. U okviru dataset-a postoji nejednaka distribucija boja, gde nesaturisani, sivkasti tonovi dominiraju nad jarkim, dobro saturisanim bojama (oblaci, nebo, pozadine pretežno sivkastih, “ispranih”, sepia tonova dominiraju fotografijama). Iz tog razloga se uvodi rebalansiranje klasa tokom računanja gubitka generisanja boja. Jarke boje koje se ređe pojavljuju u datasetu dobijaju veću težinu od čestih boja. Ovaj pristup podrazumeva izglađivanje empirijske distribucije Gausovim kernelom koje kombinovanjem sa uniformnom distribucijom sprečava preterano naglašavanje čestih, neutralnih boja i podstiče generisanje živopisnijih kolorizacija. Na ovaj način, greške u predviđanju retkih, jarko saturisanih boja se strože kažnjavaju od grešaka u predviđanju čestih, neutralnih boja, kako bi se obezbedilo pažljivije generisanje čestih, neutralnih i sivkastih tonova, koje je bilo problematično u svim prethodnim radovima.
 
 Više o ovakvom prisupu računanja greške generatora, a i samog generisanja boja se može pronaći više u radu[^1]. Na osnovu ovog greške generator trenira, čime se završava jedna iteracija treninga, prikazana na Slici 4.
@@ -187,21 +186,17 @@ Dakle, zaključuje se da rezultati treninga zavise od obima dataset-a (sporije k
 
 Radi evaluacije rezultata ovog rada, sprovedena je anketa u kojoj je učestvovalo 94 ispitanika - *colorization Turing test*. Anketa je sadržala 14 slika gde su ispitanici imali zadatak da procene da li je slika originalna ili generisana. Za konačne rezultate ankete uzeto je u obzir, procentualno, koliko je ljudi generisanu sliku ocenilo da je originalna. Na taj način su dobijeni sledeći rezultati:
 
-
 {{< figure "Slika" "Dijagram rezultata" "dijagram-rezultata" >}}
 
-![Primeri izgenerisanih slika](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika6.svg)
+![Dijagram rezultata](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika-6.svg)
 
 {{</ figure >}}
 
-
-
 S obzirom da je referentni rad[^1] imao uspešnost od 32% na istoj evalucionoj metrici - *colorization Turing test-u*, inovativna implementacija GAN arhitekture u rešavanju ovog problema pokazuje značajno uspešniji rezultat. Anketu možete pronaći [ovde](https://docs.google.com/forms/d/e/1FAIpQLSckAf7mrPl3uzO6_WB6pkY3sjX3dAu7_iZIYt9om3Y474OcMQ/viewform?usp=header), a na slici {{< ref "Slika" "rezultati" >}}. je par primera izgenerisanih fotografija ovim GAN modelom.
-
 
 {{< figure "Slika" "Primeri izgenerisanih slika" "rezultati" >}}
 
-![Dijagram rezultata](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika7.svg)
+![Primeri izgenerisanih slika](/images/zbornik/2025/kolorizacija-crno-belih-slika/slika-7.svg)
 
 {{</ figure >}}
 

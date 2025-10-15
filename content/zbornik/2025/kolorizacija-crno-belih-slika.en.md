@@ -1,7 +1,7 @@
 ---
 title: Black&white photo colorization
 summary: Black&white photo colorization project done at the 2025 summer camp for experienced participants by Jana Mitrović and Natalija Janković.
-svg_image: /images/zbornik/2025/kolorizacija-crno-belih-slika/slika5.svg
+svg_image: /images/zbornik/2025/kolorizacija-crno-belih-slika/graficki-apstrakt.svg
 ---
 
 **Authors:**
@@ -16,7 +16,7 @@ Aleksa Račić,
 
 Andrej Bantulić
 
-![Grafički apstrakt](/images/zbornik/2025/kolorizacija-crno-belih-slika/apstrakt.svg)
+![Grafički apstrakt](/images/zbornik/2025/kolorizacija-crno-belih-slika/graficki-apstrakt.svg)
 
 ### Abstract
 
