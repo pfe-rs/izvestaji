@@ -14,6 +14,8 @@ Jelena Marinković, Elektrotehnički fakultet u Beogradu
 
 Novak Stijepić, Elektrotehnički fakultet u Beogradu
 
+Marija Nedeljković,
+
 
 ## Apstrakt
 
