@@ -56,6 +56,8 @@ Nakon generisanja, slike su podeljene u tri seta: jedan sa 3 klase po 1000 slika
 
 Korišćena je *raw* verzija Quick, Draw\! skupa podataka, koja sadrži dodatne informacije uključujući i vremenske oznake. Svaki crtež je predstavljen kao niz poteza, gde je svaki potez trostruka sekvenca x, y i t vrednosti. Ove podatke smo transformisali u oblik \[\[x0, y0, t0\], \[x1, y1, t1\], …, \[xn, yn, tn\]\], što omogućava upotrebu vremenske dinamike u modelima poput LSTM-a. Takođe je kreirana i verzija sa vremenskim razlikama između podataka Δt, kako bi se ispitalo koja reprezentacija daje bolje rezultate.  
 
+Da bi svi podaci imali jednaku dužinu, primenjen je postupak popunjavanja sekvenci (*padding*), kojim su kraće sekvence popunjene nulama do maksimalne dužine. Korišćena je i funkcija objedinjavanja serija (*collate funkction*), koja primenjuje popunjavanje sekvenci i formira tenzore odgovarajućih dimenzija.
+
 Ovi podaci su, kao i slike, podeljeni u tri skupa: 3 klase sa po 1000 primera, 10 klasa sa po 5000 i 25 klasa sa po 10 000 primera. 
 
 #### 3.1.3. Kreiranje novog dataset-a
