@@ -20,16 +20,16 @@ Ovaj rad prikazuje parcijalnu realizaciju simulacije robota koji rešava lavirin
 This work presents a partial implementation of a maze-solving robot simulation using SLAM algorithms. A simulated LIDAR sensor enables obstacle detection and generation of a point-cloud map, while Split and Merge and Seeded Region Growing algorithms provide line segmentation of maze walls. The robot is initially positioned via mouse click and navigates using a frontier-based exploration strategy. Due to time constraints and non-modular code, the project remains partial, with limited testing and no quantitative evaluation. Nevertheless, the results demonstrate the basic functionality of the system and provide a solid foundation for further development, including map optimization, modular code design, and implementation of performance metrics.
 
 
-![Slika 1. Grafički apstrakt](/images/2025/maze-solving-robot/grafiski-apstark.svg)
+![Slika 1. Grafički apstrakt](/images/2025/maze-solving-robot/graficki-apstrakt.svg)
 
 
 ## 1. Uvod 
 
-Autonomni roboti predstavljaju jedno od najaktivnijih polja istraživanja u oblasti savremene robotike i veštačke inteligencije. Njihova primena obuhvata širok spektar oblasti, od industrijske automatizacije, preko autonomnih vozila i dronova, do istraživanja prostora nepristupačnih čoveku. Ključni izazov u razvoju ovakvih sistema jeste sposobnost robota da se samostalno orijentiše u nepoznatom okruženju. Ovaj problem je široko poznat kao SLAM (eng. Simultaneous Localization and Mapping, srp. Simultana Lokalizacija i Mapiranje).
+Autonomni roboti predstavljaju jedno od najaktivnijih polja istraživanja u oblasti savremene robotike i veštačke inteligencije. Njihova primena obuhvata širok spektar oblasti, od industrijske automatizacije, preko autonomnih vozila i dronova, do istraživanja prostora nepristupačnih čoveku. Ključni izazov u razvoju ovakvih sistema jeste sposobnost robota da se samostalno orijentiše u nepoznatom okruženju. Ovaj problem je široko poznat kao SLAM (eng. Simultaneous Localization and Mapping).
 
 SLAM podrazumeva da robot, bez prethodnog znanja o prostoru, izgradi mapu svog okruženja dok u isto vreme procenjuje sopstvenu poziciju u toj mapi. Ovaj zadatak je veoma složen jer zahteva obradu podataka iz senzora, efikasnu reprezentaciju prostora i metode za smanjenje grešaka koje se akumuliraju tokom kretanja.
 
-Brojna istraživanja pokazala su da različiti pristupi SLAM-u, poput metoda baziranih na detekciji karakterističnih obeležja, omogućavaju robusnu lokalizaciju i mapiranje. Primena SLAM metoda u realnim sistemima suočava se sa izazovima kao što su ograničene mogućnosti senzora, akumulacija grešaka u proceni položaja i složenost algoritama potrebnih za obradu podataka u realnom vremenu.
+Primena SLAM metoda u realnim sistemima suočava se sa izazovima kao što su ograničene mogućnosti senzora, akumulacija grešaka u proceni položaja i složenost algoritama potrebnih za obradu podataka u realnom vremenu.
 
 Cilj ovog rada bio je da se kroz simulaciju u Python okruženju razvije pojednostavljen model robota koji rešava lavirint koristeći osnovne principe SLAM-a. Fokus je stavljen na implementaciju detekcije prepreka i mapiranja prostora na osnovu LIDAR podataka, kao i na razmatranje izazova i ograničenja koja se javljaju prilikom ovakvog pristupa.
 
@@ -63,9 +63,9 @@ Lavirint je simuliran kao skup povezanih pravougaonika na beloj pozadini, pri č
 
 ### 3.2. LIDAR senzor i point-cloud mapa
 
-U projektu je korišćen simulirani LIDAR senzor, koji emituje zrake pod različitim uglovima i detektuje prvu prepreku (crni piksel) na svom putu. Za svaku detektovanu tačku računaju se globalne koordinate na osnovu trenutne pozicije i orijentacije robota.
+U projektu je korišćen simulirani LIDAR senzor, koji emituje zrake pod različitim uglovima i detektuje prvu prepreku (crni piksel) na svom putu. Pozicija i orijentacija robota su uvek bile poznate, pa su koordinate detektovanih tačaka računate na osnovu pozicije robota i rastojanja piksela u odnosu na njega. Kompletna SLAM implementacija, gde robot ne zna svoju poziciju, nije urađena zbog ograničenog vremena.
 
-Point-cloud (prevedeno oblak tačaka) je skup svih detektovanih tačaka i predstavlja trenutni „otisak“, to jest skup viđenih zidova. U praksi, mapa oblaka tačaka omogućava sledeće:
+Point-cloud (prevedeno oblak tačaka) je skup svih detektovanih tačaka (prepreka) pomoću senzora. U praksi, mapa oblaka tačaka omogućava sledeće:
 
  - vizuelizaciju detektovanih prepreka u realnom vremenu,
 
@@ -73,74 +73,58 @@ Point-cloud (prevedeno oblak tačaka) je skup svih detektovanih tačaka i predst
  - ulaz za algoritme linijske segmentacije,
 
 
- - osnovu za formiranje jednostavne occupancy mape (mape zauzetosti polja) i planiranje kretanja.
+ - osnovu za formiranje jednostavne *occupancy* mape (mape zauzetosti polja) i planiranje kretanja.
   
-Simulacija LIDAR-a je pojednostavljena u odnosu na to kako pravi LIDAR senzor funkcioniše u 3D prostoru, ali je dovoljno precizna da se vidi kako robot detektuje zidove i generiše mapu oblaka tačaka, koja se ažurira prilikom kretanja robota.
+Simulacija LIDAR-a je pojednostavljena u odnosu na to kako pravi LIDAR senzor funkcioniše u 3D prostoru, ali je dovoljno precizna da se vidi kako robot detektuje zidove i generiše mapu oblaka tačaka, koja se ažurira u toku kretanja robota.
 
-![Slika 3. Vizuelizacija rada simuliranog LIDAR senzora: robot (roze tačka) generiše oblak tačaka koji označava zidove lavirinta, dok žute ćelije prikazuju već istražene delove mape.](/images/2025/maze-solving-robot/nasumicno-vizuelizacija-lidar-senzora.png)
+![Slika 3. Vizuelizacija rada simuliranog LIDAR senzora: robot (roze tačka) generiše oblak tačaka koji označava zidove lavirinta, dok žute ćelije prikazuju već istražene delove mape.](/images/2025/maze-solving-robot/vizuelizacija-lidar-senzora.png)
 
 
 ### 3.3. Detekcija linijskih segmenata i algoritmi
 
-Mapa oblaka tačaka je poprilično gusta i često može sadržati šum (male greške senzora u detekciji), pa je neophodna linijska segmentacija. U projektu su korišćene dve komplementarne metode:
+Mapa oblaka tačaka je poprilično gusta jer sadrži puno tačaka i često može sadržati šum (male greške senzora u detekciji), pa je neophodna linijska segmentacija. U projektu su korišćene dve komplementarne metode:
 
-**1. Split and Merge algoritam** 
+1. *Split and Merge* algoritam 
 
-Split and Merge algoritam koristi se za segmentaciju oblaka tačaka iz LIDAR senzora u linije koje aproksimiraju zidove lavirinta. Počinje gledanjem svih tačaka i crtanjem jedne velike linije koja povezuje prvu i poslednju tačku unutar segmenta. Zatim proverava da li se sve ostale tačke segmenta uklapaju na ovu liniju. Ako su neke tačke suviše udaljene od linije, ona deli liniju na manje delove kako bi bolje odgovarala zidu. Nakon toga, posmatra susedne linije da vidi da li su ravne i da li se mogu spojiti, popravljajući sitne izbočine ili praznine. Radeći ovo iznova i iznova, algoritam pravi čist skup pravih linija koje pokazuju gde su zidovi, pomažući da se bolje razume lavirint i da se otarasi dodatnih neurednih podataka.
+Split and Merge algoritam koristi se za segmentaciju oblaka tačaka iz LIDAR senzora u linije koje aproksimiraju pozicije zidova lavirinta. Počinje gledanjem svih tačaka i crtanjem jedne velike linije koja povezuje prvu i poslednju tačku unutar segmenta. Zatim proverava da li se sve ostale tačke segmenta uklapaju na ovu liniju. Linija se deli na manje segmente ukoliko neka od detektovanih tačaka značajno odstupa, radi preciznijeg predstavljanja zida. Nakon toga, posmatra susedne linije da vidi da li su ravne i da li se mogu spojiti, popravljajući sitne izbočine ili praznine. Radeći ovo iznova i iznova, algoritam pravi čist skup pravih linija koje pokazuju gde su zidovi, pomažući da se bolje razume lavirint.
 
-**2. Seeded Region Growing (SRG) algoritam** 
+2. *Seeded Region Growing (SRG)* algoritam
 
-
-
-Seeded Region Growing (SRG) algoritam se koristi kao dopuna Split and Merge metodama, kako bi se smanjilo preterano deljenje linija i greške segmentacije, naročito u prisustvu praznina u mapi. Algoritam započinje od inicijalnih „semenki“ (piksela), što mogu biti pojedinačne tačke ili veći segmenti. Svaka susedna tačka proverava se u odnosu na kriterijume udaljenosti i sličnosti pravca; ukoliko zadovoljava te uslove, dodaje se u postojeću regiju. Proces se ponavlja sve dok više nema tačaka koje mogu da se uključe u regiju. Na ovaj način, SRG stvara stabilne i kontinualne linijske segmente, smanjujući previše mali broj fragmentisanih linija i samim tim omogućavajući preciznije mapiranje zidova lavirinta.
+Seeded Region Growing (SRG) algoritam se koristi kao dopuna Split and Merge algoritma, kako bi se smanjilo preterano deljenje linija i greške segmentacije, naročito u prisustvu praznina u mapi. Algoritam započinje od inicijalnih „semenki“ (piksela) na mapi, što mogu biti pojedinačne tačke ili veći segmenti. Svaka susedna tačka proverava se u odnosu na kriterijume udaljenosti i sličnosti pravca; ukoliko zadovoljava te uslove, dodaje se u postojeću regiju. Proces se ponavlja sve dok više nema tačaka koje mogu da se uključe u regiju. Na ovaj način, SRG stvara stabilne i kontinualne linijske segmente i samim tim omogućava preciznije mapiranje zidova lavirinta.
 
 ### 3.4. Optimizacija memorije
 
-Kratki segmenti koji nastaju segmentacijom spajaju se u duže linije ako su približno kolinearni i blizu jedan drugom. Time se smanjuje broj objekata koje je potrebno čuvati i crtati u realnom vremenu. Segmenti se čuvaju i koriste za kasniju lokalizaciju robota.
+Kratki segmenti koji nastaju segmentacijom spajaju se u duže linije ako su približno kolinearni i blizu jedan drugom. Time se smanjuje broj objekata koje je potrebno čuvati u memoriji i crtati u realnom vremenu. Segmenti se čuvaju i koriste za kasniju lokalizaciju robota.
 
 ![Slika 4. Detekcija linijskih segmenata](/images/2025/maze-solving-robot/detekcija-linijskih-segmenata.png)
 
 
 ### 3.5. Kretanje robota i interakcija sa okolinom
 
-Robot se inicijalno postavlja na mapu klikom miša na belu pozadinu. Koordinate klika određuju njegovu početnu poziciju, pri čemu sistem proverava da li se kliknuta tačka nalazi na slobodnom prostoru, tako da robot ne bude smešten unutar zida. Ovaj jednostavan način interakcije omogućava korisniku da fleksibilno postavi robota na željenu lokaciju u simulaciji.
+Robot se inicijalno postavlja na mapu klikom miša na belu pozadinu. Koordinate klika određuju njegovu početnu poziciju, pri čemu sistem proverava da li se kliknuta tačka nalazi na slobodnom prostoru (prostor belih piksela), tako da robot ne bude smešten unutar zida.
 
-Kretanje robota bazirano je na strategiji „do najbližeg neistraženog crnog piksela“. Takvi pikseli predstavljaju granicu između već poznatog slobodnog prostora i još neistraženih delova lavirinta. Robot kontinuirano identifikuje najbliži neistraženi piksel, tj. tačku, koju postavlja kao cilj kretanja, što omogućava postupno istraživanje nepoznatog prostora.
+Kretanje robota bazirano je na strategiji „do najbližeg neistraženog crnog piksela“. Takvi pikseli predstavljaju granicu između već poznatog slobodnog prostora i još neistraženih delova lavirinta. Robot kontinuirano identifikuje najbliži neistraženi piksel koji postavlja kao cilj kretanja.
 
-Dok se robot kreće ka izabranom pikselu, koristi jednostavnu logiku izbegavanja prepreka. Ova logika omogućava da robot menja putanju u slučaju da naiđe na zid, a da pri tome ne gubi cilj istraživanja. Istovremeno, mapa se ažurira u realnom vremenu, što omogućava kontinualnu detekciju i segmentaciju zidova i drugih prepreka. Zahvaljujući ovakvoj integraciji LIDAR senzora i algoritama segmentacije, robot može da prilagođava svoje kretanje prema ažuriranim informacijama iz okoline, čak i u parcijalnoj implementaciji projekta.
+Dok se robot kreće ka izabranom pikselu, koristi jednostavnu logiku izbegavanja prepreka. Ova logika omogućava da robot menja putanju u slučaju da naiđe na zid, a da pri tome ne gubi cilj istraživanja. Zahvaljujući ovakvoj integraciji LIDAR senzora i algoritama segmentacije, robot može da prilagođava svoje kretanje prema novim informacijama iz okoline, čak i u parcijalnoj implementaciji projekta.
 
 ### 3.6. Evaluacija i metrike
 
-Iako konačni rezultati nisu dobijeni, planirane metrike uključuju procenat pokrivenog prostora, preciznost linijskih segmenata, efikasnost kretanja i performanse vizualizacije. Ove metrike odlične su za kvantitativnu procenu sistema i pokazuju potencijal za dalji razvoj projekta dok je još uvek u parcijalnom stanju.
+Iako konačni rezultati nisu dobijeni, planirane metrike uključuju procenat uspešnosti lokalizacije robota unutar lavirinta, procenat tačnosti mapiranja prostora i poređenje brzina pronalaska izlaza iz različitih lavirinata.
 
 ## 4. Rezultati
 
-U ovoj fazi projekta simulacija robota u lavirintu omogućila je testiranje ključnih funkcionalnosti implementiranih SLAM algoritama, iako je realizacija ostala parcijalna. Prvi rezultati pokazali su da simulirani LIDAR senzor uspešno detektuje prepreke i generiše mapu oblaka tačaka, što je omogućilo vizuelizaciju poznatih zidova u realnom vremenu. Ova mapa je služila kao ulaz za algoritme linijske segmentacije, čime je omogućeno približno prikazivanje zidova lavirinta kroz linijske segmente.
+Simulacija robota u lavirintu je omogućila testiranje važnih funkcionalnosti SLAM metoda, iako je realizacija projekta parcijalna. Simulirani Lidar senzor uspešno detektuje prepreke i generiše mapu oblaka tačaka, koja se koristila za linijsku segmentaciju i vizuelizaciju zidova u realnom vremenu.
 
-Iako mapa oblaka tačaka omogućava vizuelizaciju i segmentaciju, u parcijalnoj implementaciji javljali su se problemi sa prevelikim brojem tačaka, što je otežavalo rad algoritama u realnom vremenu i zahtevalo optimizaciju segmentacije i memorije.
+Robot se inicijalno mogao postaviti klikom miša na slobodni prostor lavirinta i uspešno je koristio strategiju "do najbližeg neistraženog piksela" sa logikom izbegavanja prepreka prilikom kretanja, što mu je omogućilo istraživanje lavirinata i mapiranje zidova.
 
-Segmentacija linija, ostvarena kombinacijom Split and Merge i Seeded Region Growing algoritama, dala je stabilne i kontinualne linijske segmente. Iako su mnogi segmenti veoma kratki zbog prirode algoritama, optimizacija memorije je omogućila njihovo spajanje u duže linije, smanjujući opterećenje memorije računara i omogućavajući neprekidnu vizuelizaciju u toku simulacije. Rezultat je sistem koji uspešno prikazuje zidove lavirinta i čuva linijske segmente za potencijalnu kasniju lokalizaciju robota.
+Zbog nemodularnosti koda, tehničkih ograničenja i ograničenog vremena, simulacija nije testirana u svim scenarijima, a kvantitativne metrike nisu primenjene. Parcijalni rezultati pokazuju da implemetirane metode funkcionišu i služe kao osnova za dalji razvoj sistema.
 
-Robot se mogao inicijalno postaviti klikom miša na crnu pozadinu, čime su definisane koordinate početne pozicije u slobodnom prostoru. Kretanje robota implementirano je strategijom „do najbližeg neistraženog crnog piksela“, gde robot odabira najbliži crni piksel i pomera se ka njemu koristeći jednostavnu lokalnu logiku izbegavanja prepreka. U praksi, robot je uspešno istraživao deo lavirinta, mapirajući zidove i prilagođavajući putanju u skladu sa podacima dobijenim iz mape oblaka tačaka.
+## 5. Zaključak
 
-Zbog nemodularnosti koda, tehničkih ograničenja i ograničenog vremena, simulacija nije bila testirana u svim mogućim scenarijima i nije moguće prikazati kvantitativne metrike kao što su procenat pokrivenog prostora ili preciznost linijskih segmenata. Ipak, parcijalni rezultati jasno pokazuju da implementirani algoritmi odlično funkcionišu u osnovnom obliku i da sistem može poslužiti kao osnova za dalji razvoj i evaluaciju performansi robota u potpunoj implementaciji.
+Projekat simulacije robota u lavirintu korišćenjem SLAM principa uspešno prikazuje funkcionalnosti mapiranja, detekcije linijskih segmenata i kretanja robota. Iako implementacija nije potpuna, rezultati pokazuju da primenjeni algoritmi odlično funkcionišu i omogućavaju uspešnu vizuelizaciju i istraživanje nepoznatog prostora.
 
-## 5. Diskusija 
+Ovi rezultati pružaju uvid u princip rada autonomnih robotskih sistema i potencijal za dalji razvoj, uključujući modularniji dizajn koda i testiranje na složenijim lavirintima. Integrisanje odometrije bi mogla poboljšati robusnost lokalizacije, dok bi implementacija kvantitativnih metrika omogućila detaljniju evaluaciju performansi. Ovi koraci otvaraju mogućnost za realističniju i efikasniju realizaciju sistema, uključujući prenos algoritama na stvarnog robota ili razvoj kompleksnijih simulacija u 3D okruženju.
 
-Projekat simulacije robota u lavirintu korišćenjem SLAM principa pruža odličan uvid u osnovne funkcionalnosti mapiranja, detekcije linija i kretanja robota, iako je implementacija ostala nedovršena. Testiranje simulacije pokazalo je da LIDAR senzor uspešno detektuje prepreke i generiše mapu oblaka tačaka, što omogućava vizuelizaciju zidova u realnom vremenu i ulaz za algoritme linijske segmentacije. Međutim, u ovoj implementaciji uočeni su problemi sa prevelikim brojem tačaka u mapi, što je otežavalo rad algoritama u realnom vremenu i zahtevalo optimizaciju segmentacije i memorije.
-
-Segmentacija linija korišćenjem Split and Merge i Seeded Region Growing algoritama dala je precizne i stabilne linijske segmente, ali veoma kratki segmenti stvaraju veliki broj objekata u memoriji. Ovo može dovesti do kočenja simulacije kod većih mapa, što ukazuje na potrebu za daljom optimizacijom. Spajanjem kratkih linijskih segmenata u duže linije smanjuje se broj objekata koji se čuvaju i crtaju u realnom vremenu, čime se povećava efikasnost simulacije i omogućava dalji rad sistema bez značajnog opterećenja memorije.
-
-Kretanje robota testirano je korišćenjem strategije „do najbližeg neistraženog crnog piksela“, pri čemu robot uspešno istražuje prostor, ažurira mapu oblaka tačaka i prilagođava putanju prema novim informacijama iz okoline. Kretanje robota zbog teškoća nije bilo uspešno testirano, što ograničava kvantitativnu evaluaciju performansi. Ipak, opisane metode omogućavaju uvid u princip rada sistema i potencijal za dalji razvoj.
-
-Zaključno, iako projekat nije u potpunosti realizovan, dobijeni parcijalni rezultati pružaju jasan uvid u rad robota i funkcionalnost primenjenih SLAM algoritama, potvrđujući da ovaj pristup predstavlja dobru osnovu za dalji razvoj autonomnih sistema u simulaciji i eventualnoj implementaciji na stvarnom robotu, u 3D dimenziji.
-
-## 6. Zaključak
-
-
-Projekat simulacije robota u lavirintu korišćenjem SLAM principa uspešno demonstrira osnovne funkcionalnosti mapiranja, detekcije linijskih segmenata i kretanja robota. Implementirani LIDAR senzor i algoritmi za detekciju linija omogućili su generisanje mape oblaka tačaka i stabilnu segmentaciju zidova, dok  strategija kretanja "do prvog neistraženog crnog piksela" pokazuje princip sistematskog istraživanja prostora.
-
-Ovi parcijalni rezultati jasno pokazuju da implementirani algoritmi funkcionišu u osnovnom obliku i predstavljaju dobru osnovu za dalja poboljšanja. Budući rad mogao bi da obuhvati modularniji dizajn koda, dodatnu optimizaciju mape oblaka tačaka i segmentacije linija, kao i testiranje na složenijim lavirintima. Implementacija opisanih kvantitativnih metrika omogućila bi detaljniju evaluaciju performansi sistema. Pored toga, integrisanje odometrije zajedno sa LIDAR senzorom obezbedila bi robusniju lokalizaciju robota, smanjila efekat grešaka pri segmentaciji i omogućila poređenje različitih metoda fuzije senzorskih podataka. Ovi koraci otvorili bi mogućnost za potpuniju i efikasniju realizaciju sistema, uključujući i prenos algoritama na stvarnog robota ili razvoj kompleksnije simulacije u 3D okruženju.
 
 ## 7. Literatura 
 
