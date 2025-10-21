@@ -34,16 +34,16 @@ slika
 
 Prepoznavanje skica crtanih slobodnom rukom predstavlja izuzetno komplikovan zadatak. Skice mogu biti jako apstraktne, a takođe zavise i od stila osobe koja ih crta, pa ista stvar može biti predstavljena na različite načine. Skice su izvedene samo crno-belim linijama, bez boja, tekstura ili bogatih vizualnih tragova, što može dodatno otežati klasifikaciju prilikom korišćenja unapred treniranih modela. Zbog ovih faktora, čak i ljudima često nije lako da sa sigurnošću prepoznaju šta je nacrtano, posebno ako je crtež minimalan ili stilizovan. Upravo ta apstraktnost i raznovrsnost čine ovaj problem naročito kompleksnim za automatizovano rešavanje.  
 
-*Draw it* je igrica slična igri *Pictionary*, u kojoj korisnici imaju zadatak da nacrtaju jedan od dva ponuđena pojma u ograničenom vremenu, na što prepoznatljiviji način. Nakon crtanja, računar pokušava da pogodi šta je nacrtano, a korisnik dobija poene za tačne pogodke. Projekat se bazira na implementaciji kompletne igrice, uključujući korisnički interfejs koji omogućava crtanje zadatih pojmova, kao i neuronsku mrežu koja pokušava da prepozna crtež.  
+*Draw it* je igrica slična igri *Pictionary*, u kojoj korisnici imaju zadatak da nacrtaju jedan od dva ponuđena pojma u ograničenom vremenu, na što prepoznatljiviji način. Nakon crtanja, računar pokušava da pogodi šta je nacrtano, a korisnik dobija poene za tačne pogotke. Projekat se bazira na implementaciji kompletne igrice, uključujući korisnički interfejs koji omogućava crtanje zadatih pojmova, kao i neuronsku mrežu koja pokušava da prepozna crtež.  
 
-Glavni fokus rada, međutim, nije sama igra, već upoređivanje performansi različitih arhitektura neuronskih mreža u zadatku klasifikacije ručno nacrtanih skica. Testirane su konvolucione mreže (AlexNet, VGG16, MobileNet V3 Small i konvoluciona neuronska mreža jednostavne strukture CNN), kao i rekurentna mreže LSTM (Long Short-Term Memory) i BiLSTM (Bidirectional Long Short-Term Memory), sa ciljem da se utvrdi koji model daje najbolje rezultate. Nakon izbora najuspešnijeg modela, on je integrisan u samu igricu.
+Glavni fokus rada, međutim, nije sama igra, već upoređivanje performansi različitih arhitektura neuronskih mreža u zadatku klasifikacije ručno nacrtanih skica. Testirane su konvolucione mreže (AlexNet, VGG16, MobileNet V3 Small i konvoluciona neuronska mreža jednostavne strukture CNN), kao i rekurentne mreže LSTM (*Long Short-Term Memory*) i BiLSTM (*Bidirectional Long Short-Term Memory*), sa ciljem da se utvrdi koji model daje najbolje rezultate. Nakon izbora najuspešnijeg modela, on je integrisan u samu igricu.
 
 Jedan od ciljeva projekta bio je i poređenje performansi neuronskih mreža sa rezultatima koje postižu ljudi u istom zadatku. Pošto ovakvo poređenje nije bilo prisutno u dosadašnjim radovima koji su analizirani, ono predstavlja doprinos ovog istraživanja u proceni koliko blizu ljudskom nivou razumevanja može da dođe mašinsko prepoznavanje u kontekstu apstraktnih i pojednostavljenih crteža.
 
 
 ## 2\. Aparatura
 
-Za treniranje modela korišćeni su CPU resursi (Intel Core i5-1235U), koji su bili dovoljni za manje složene arhitekture poput jednostavne CNN mreže i rekurentnih mreža (LSTM i BiLSTM). Ovaj procesor obezbedio je dovoljno računarske snage za osnovno treniranje manjih modela u lokalnim uslovima.  
+Za treniranje modela korišćeni su CPU resursi (Intel Core i5-1235U), koji su bili dovoljni za manje složene arhitekture poput jednostavne CNN mreže i rekurentnih mreža (LSTM i BiLSTM). Ovaj procesor obezbedio je dovoljnu računarsku snagu za osnovno treniranje manjih modela u lokalnim uslovima.  
 
 Međutim, za treniranje složenijih modela, kao što su AlexNet, VGG16 i MobileNet V3, korišćeni su GPU resursi dostupni putem Paperspace platforme. U tim slučajevima korišćene su grafičke kartice NVIDIA RTX A4000 i NVIDIA Quadro P4000. RTX A4000 je savremena profesionalna kartica visoke performanse pogodna za rad sa dubokim neuronskim mrežama, dok je Quadro P4000 stariji, ali i dalje pouzdan model za srednje složene arhitekture. Korišćenjem ovih GPU resursa značajno je ubrzan proces treniranja u poređenju sa lokalnim CPU okruženjem.
 
@@ -63,7 +63,7 @@ Korišćena je *Simplified Drawing Files* verzija dataseta *Quick, Draw\!*, koja
 
 *Slika 1.* Primer slike iz Quick, Draw! dataseta
 
-Nakon generisanja, slike su podeljene u tri seta: jedan sa 3 klase po 1000 slika, drugi sa 10 klasa po 5000 slika i treći sa 25 klasa po 10 000 slika. Ova struktura omogućava testiranje modela u uslovima različite složenosti klasifikacije.
+Nakon generisanja, slike su podeljene u tri skupa: jedan sa 3 klase po 1000 slika, drugi sa 10 klasa po 5000 slika i treći sa 25 klasa po 10 000 slika. Ova struktura omogućava testiranje modela u uslovima različite složenosti klasifikacije.
 
 #### 3.1.2. Priprema podataka za rekurentnu neuronsku mrežu
 
@@ -131,7 +131,7 @@ Treniranje modela je na skupu sa 25 klasa izvršeno na A4000 GPU putem Paperspac
 
 ### 3.6. RNN
 
-Rekurentne neuronske mreže (RNN) predstavljaju arhitekturu prilagođenu obradi sekvencijalnih podataka, jer imaju sposobnost da zadrže informacije iz prethodnih koraka kroz skrivena stanja. Međutim, klasične RNN mreže imaju problem dugoročnog pamćenja zbog pojava poput nestajućih gradijenata. Zbog toga se često koristi LSTM (Long Short-Term Memory), koji kroz posebnu strukturu sačinjenu od ulazne, izlazne i forget kapije uspešnije čuva i prenosi informacije kroz duže sekvence. Ova arhitektura se pokazala kao efikasna u zadacima koji uključuju vremenske tokove ili nizove koordinata, kao što je slučaj sa podacima o potezima u crtežima.
+Rekurentne neuronske mreže (RNN) predstavljaju arhitekturu prilagođenu obradi sekvencijalnih podataka, jer imaju sposobnost da zadrže informacije iz prethodnih koraka kroz skrivena stanja. Međutim, klasične RNN imaju problem dugoročnog pamćenja zbog pojava poput nestajućih gradijenata. Zbog toga se često koristi LSTM (*Long Short-Term Memory*), koji kroz posebnu strukturu sačinjenu od ulazne, izlazne i *forget* kapije uspešnije čuva i prenosi informacije kroz duže sekvence. Ova arhitektura se pokazala kao efikasna u zadacima koji uključuju vremenske tokove ili nizove koordinata, kao što je slučaj sa podacima o potezima u crtežima.
 
 #### 3.6.1. LSTM
 
@@ -155,11 +155,11 @@ Plan za dalji razvoj podrazumeva prenos igre na HTML interfejs, nakon odabira ko
 
 #### 3.8.1. Tačnost, preciznost, odziv i f1 skor
 
-Tačnost (accuracy) predstavlja procenat ispravno klasifikovanih primera u odnosu na ukupan broj uzoraka, pružajući opštu ocenu uspešnosti modela. Preciznost (precision) meri koliko su pozitivne predikcije modela tačne, odnosno koliki je udeo istinski pozitivnih među svim primerima koje je model označio kao pozitivne. Odziv (recall) pokazuje koliko model uspešno detektuje sve stvarno pozitivne slučajeve, naglašavajući sposobnost modela da ne propusti relevantne primere.
+Tačnost (*accuracy*) predstavlja procenat ispravno klasifikovanih primera u odnosu na ukupan broj uzoraka, pružajući opštu ocenu uspešnosti modela. Preciznost (*precision*) meri koliko su pozitivne predikcije modela tačne, odnosno koliki je udeo istinski pozitivnih među svim primerima koje je model označio kao pozitivne. Odziv (*recall*) pokazuje koliko model uspešno detektuje sve stvarno pozitivne slučajeve, naglašavajući sposobnost modela da ne propusti relevantne primere.
 
-Tačnost (Accuracy) \= (TP \+ TN) / (TP \+ TN \+ FP \+ FN)  
-Preciznost (Precision) \= TP / (TP \+ FP)  
-Odziv (Recall) \= TP / (TP \+ FN)  
+Tačnost \= (TP \+ TN) / (TP \+ TN \+ FP \+ FN)  
+Preciznost \= TP / (TP \+ FP)  
+Odziv \= TP / (TP \+ FN)  
 
 F1 skor predstavlja harmonijsku sredinu preciznosti i odziva, kombinujući obe metrike u jednu vrednost. Ova mera je naročito korisna kada postoji neuravnoteženost klasa, jer pruža balans između preciznosti i odziva, omogućavajući objektivniju procenu performansi modela u takvim uslovima.  
 
@@ -171,7 +171,7 @@ Pored osnovnih metrika, kao što su tačnost, preciznost, odziv i F1 skor, za du
 
 #### 3.8.3. ROC kriva
 
-ROC (Receiver Operating Characteristic) kriva predstavlja važan alat za evaluaciju performansi modela za klasifikaciju slika. Ona vizuelno prikazuje sposobnost modela da pravilno razlikuje klase. ROC kriva omogućava procenu uspešnosti modela u različitim uslovima tako što prikazuje odnos između senzitivnosti (TPR \- true positive rate) i specifičnosti (FPR \- false positive rate) pri različitim pragovima odlučivanja. TPR i FPR se računaju po sledećim formulama:
+ROC (*Receiver Operating Characteristic*) kriva predstavlja važan alat za evaluaciju performansi modela za klasifikaciju slika. Ona vizuelno prikazuje sposobnost modela da pravilno razlikuje klase. ROC kriva omogućava procenu uspešnosti modela u različitim uslovima tako što prikazuje odnos između senzitivnosti (TPR \- *true positive rate*) i specifičnosti (FPR \- *false positive rate*) pri različitim pragovima odlučivanja. TPR i FPR se računaju po sledećim formulama:
 
 TPR \= TP / (TP \+ FN)
 
@@ -263,7 +263,7 @@ Na ovom testnom skupu model je postigao tačnost od **74.19%**. Detaljnija anali
 Tačnost postignuta rekurentnim mrežama bila je primetno niža u odnosu na rezultate prikazane u referentnim radovima. Jedan od mogućih razloga za to jeste razlika u tipu ulaznih podataka. Za razliku od ranijih radova, u ovom istraživanju korišćeni su i vremenski podaci, apsolutno vreme ili razlika između poteza, kao dodatni fičeri. Ipak, pokazalo se da vreme verovatno nije relevantan podatak za prepoznavanje crteža, jer brzina crtanja može značajno varirati među korisnicima i ne mora biti povezana sa oblikom ili sadržajem crteža. Uvođenjem takvog varijabilnog podatka moguće je da je mreža dobila dodatni šum, što je negativno uticalo na učenje i smanjilo ukupnu tačnost klasifikacije.  
 
 
-Budući da VGG16 zbog niske vrednosti FPS-a nije razmatran za finalnu implementaciju, fokus je na metrikama ostalih mreža. Na setovima od 3 i 10 klasa najbolje rezultate ostvaruje AlexNet, dok MobileNet postiže najbolje rezultate na skupu od 10 klasa. Može se pretpostaviti da razlika između rezultata ova dva modela nastaje zato što MobileNet brzo overfituje na setovima sa manjim brojem klasa, zbog čega se AlexNet bolje ponaša u tim uslovima.  
+Budući da VGG16 zbog niske vrednosti FPS-a nije razmatran za finalnu implementaciju, fokus je na metrikama ostalih mreža. Na setovima od 3 i 10 klasa najbolje rezultate ostvaruje AlexNet, dok MobileNet postiže najbolje rezultate na skupu od 25 klasa. Može se pretpostaviti da razlika između rezultata ova dva modela nastaje zato što MobileNet brzo overfituje na setovima sa manjim brojem klasa, zbog čega se AlexNet bolje ponaša u tim uslovima.  
 
 
 Analiza matrice konfuzije pokazuje da model nikada ne predviđa klasu ‘krompir’. Detaljnija analiza primeraka iz klase ‘krompir’ u Quick, Draw\! dataset-u ukazuje da većina crteža dodiruje ivice okvira za crtanje, što nije očekivano ponašanje korisnika. Ova pretpostavka je kasnije potvrđena proverom u programu koji radi u realnom vremenu sa 10 klasa.
