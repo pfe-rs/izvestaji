@@ -15,7 +15,7 @@ U ovom radu prikazan je razvoj i evaluacija simulacionog sistema za autonomno pr
 
 This paper presents the development and evaluation of a simulation system for autonomous object tracking using an unmanned aerial vehicle. The system was designed within a virtual environment that includes terrain generation with varying levels of complexity, modeling of the drone’s field of view, as well as the implementation of motion prediction and path planning algorithms. A Kalman filter was employed to estimate the target’s position when the object leaves the field of view, while the A\* algorithm enabled efficient route planning in the presence of obstacles. The simulation was configured to operate in the ArduPilot environment under SITL mode and visually represented in the Gazebo simulator. Performance analysis covered metrics such as object visibility, prediction accuracy, maintenance of safe distance, and frequency of line-of-sight interruptions. The obtained results indicate that the developed model successfully integrates predictive and adaptive approaches, thereby laying the groundwork for further research and improvements of autonomous tracking systems in real-world conditions.
 
-![](static/images/zbornik/2025/simulacije-autonomnog-drona/grafabs.png)
+![](static/images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg)
 
 
 ### **1\. Uvod**
