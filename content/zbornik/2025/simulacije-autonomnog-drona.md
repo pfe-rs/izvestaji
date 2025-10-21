@@ -2,7 +2,10 @@
 
 **Simulacije autonomnog drona za praćenje objekta**
 
-polaznice: Ana Bogdanović i Lana Lejić                     Mentori: Aleksa Račić, Nikola Drakulić i Djordje Marijanović
+Polaznice: Ana Bogdanović i Lana Lejić                    
+Mentori: Aleksa Račić, Nikola Drakulić i Djordje Marijanović
+
+Ključne reči: autonomni dron, praćenje objekta, Kalmanov filter, A* algoritam, simulacija, ArduPilot, Gazebo
 
 ### **Apstrakt:**
 
@@ -23,7 +26,7 @@ Jedan od važnih izazova u ovoj oblasti jeste problem praćenja objekata u dinam
 
 Ovaj projekat ima za cilj da razvije simulacioni sistem za autonomno praćenje objekta u virtuelnom prostoru. Dron u simulaciji koristi algoritme za planiranje putanje, prilagođavanje orijentacije i predikciju kretanja objekta, dok se sama kompleksnost sistema postepeno povećava. Poseban akcenat stavlja se na prilagođavanje položaja drona u zavisnosti od vidnog polja i prepreka u okruženju, kao i na procenu efikasnosti putem jasno definisanih metrika, poput preciznosti pozicioniranja, brzine reakcije i tačnosti detekcije.
 
-Na ovaj način, projekat ne samo da doprinosi razumevanju procesa autonomnog praćenja objekata, već stvara osnovu za dalja istraživanja u pravcu integracije simulacionih i realnih sistema. Dobijeni rezultati mogu poslužiti kao polazna tačka za razvoj robustnijih algoritama u realnim uslovima, čime se približavamo primeni autonomnih dronova u složenim i kritičnim zadacima.
+Na ovaj način, projekat ne samo da doprinosi razumevanju procesa autonomnog praćenja objekata, već stvara osnovu za dalja istraživanja u pravcu integracije simulacionih i realnih sistema. Dobijeni rezultati mogu poslužiti kao polazna tačka za razvoj robustnijih algoritama u realnim uslovima, čime se približavamo praktičnoj upotrebi autonomnih dronova u složenim i kritičnim zadacima. Iako brojni radovi istražuju autonomno praćenje pomoću vizuelnih i prediktivnih algoritama, relativno mali broj njih integriše planiranje putanje i predikciju kretanja u jedinstvenom simulacionom okviru, što predstavlja cilj ovog istraživanja.
 
 ### **2\. Metodologija**
 
@@ -33,7 +36,7 @@ Na ovaj način, projekat ne samo da doprinosi razumevanju procesa autonomnog pra
 
 ---
 
-Za postizanje realistične simulacije, neophodno je definisati trodimenzionalni teren koji uključuje prepreke različitog oblika, položaja i dimenzija. Generisanje ovakvog terena omogućava modeliranje okruženja u kojem se dron i objekti kreću, čime se stvaraju uslovi koji su analogni stvarnim urbanim i prirodnim scenarijima. Prepreke u prostoru imaju ulogu fizičkih barijera koje ograničavaju vidno polje, otežavaju planiranje putanje i direktno utiču na ponašanje algoritma za navigaciju.
+Za postizanje realistične simulacije, neophodno je definisati trodimenzionalni teren koji uključuje prepreke različitog oblika, položaja i dimenzija. Generisanje ovakvog terena omogućava modeliranje okruženja u kojem se dron i objekti kreću, čime se stvaraju uslovi koji su analogni stvarnim urbanim i prirodnim scenarijima. Prepreke u prostoru imaju ulogu fizičkih barijera koje ograničavaju vidno polje, otežavaju planiranje putanje i direktno utiču na ponašanje algoritma za navigaciju. Tereni korišćeni u simulaciji dizajnirani su ručno, kako bi se omogućila kontrola nad složenošću okruženja i precizno ispitalo ponašanje sistema u različitim uslovima.
 
 U okviru simulacije, dron i objekat se definišu kao tačkasti entiteti sa pridruženim parametrima položaja i brzine. Njihovo kretanje odvija se diskretno, kroz vremenske korake pri čemu se pozicije ažuriraju na osnovu vektora brzine i izabranog pravca. Ovakav pristup omogućava da se svaka promena stanja prikaže kroz animaciju u kojoj se jasno vizuelizuje kako se dron kreće prema cilju, kako objekat menja pravac i kako prepreke utiču na dinamiku interakcije. Animacija tako postaje sredstvo za praćenje ponašanja sistema u realnom vremenu, dok se brzine i pravci kretanja prikazuju preko vektorskih odnosa između entiteta.
 
@@ -42,7 +45,7 @@ Merenje kompleksnosti terena služi za buduću evaluaciju merenja i poredjenje i
 Za kvantitativnu procenu koristi se metrika:
 
 $$
-K = \alpha \cdot \frac{N}{N_{\text{max}}} \;+\; \beta \cdot \left(1 - \min\!\left(\frac{d_{\text{avg}}}{d_{\text{max}}},\,1\right)\right)
+K = \alpha \cdot \frac{N}{N_{\text{max}}} \+ \beta \cdot \left(1 - \min\!\left(\frac{d_{\text{avg}}}{d_{\text{max}}},\,1\right)\right)
 $$
 
 gde $N$ označava broj prepreka, $N\_{max}$maksimalni dozvoljeni broj prepreka, $avg\_{d}$ prosečnu udaljenost između centara prepreka, a $d\_{max}$ maksimalnu moguću udaljenost u okviru mreže. Težinski koeficijenti $\alpha$ i $\beta$ omogućavaju balansiranje uticaja gustine i razuđenosti. Dobijena vrednost $K$ potom se skalarno normalizuje i prevodi u diskretnu ocenu složenosti u rasponu od 1 (najlakše) do 5 (najzahtevnije).
@@ -176,9 +179,9 @@ Ovakav pristup kombinuje prediktivnu logiku, adaptivno planiranje putanje i prov
 
 ![][image5]
 
-*Slika 3\.  grafički prikaz testiranja mogućih putanja*
+*Slika 4\.  grafički prikaz testiranja mogućih putanja*
 
-#### **2.6 Simulacija u realnom fizickom okruzenju**
+#### **2.6 Simulacija u realnom fizičkom okruzenju**
 
 Korišćenjem ArduPilota u SITL režimu, moguće je simulirati ponašanje drona bez fizičkog uređaja, on obrađuje sve komandne signale i senzorske podatke, simulira ponašanje drona (npr. stabilizaciju, let, izvršavanje komandi). ArduPilot emituje podatke i prima komande putem MAVLink protokola. Komande dolaze iz koda pisanog u dronekit-u. Kroz DroneKit, korisnik može programirati automatske misije i kontrolisati dron u realnom vremenu. Simulacija leta i okruženje prikazani su u Gazeboo simulatoru, omogućavajući korisniku da vizualno prati kretanje drona i testira sve algoritme bez rizika i fizičke opreme.
 
