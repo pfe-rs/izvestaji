@@ -1,7 +1,6 @@
 ---
 title: Simulacije autonomnog drona za praćenje objekta
 ---
-**Simulacije autonomnog drona za praćenje objekta**
 
 Polaznice: Ana Bogdanović i Lana Lejić                    
 Mentori: Aleksa Račić, Nikola Drakulić i Djordje Marijanović
