@@ -2,6 +2,7 @@
 title: "Detekcija faza sna"
 date: 2025-10-21
 draft: false
+svg_image: 
 ---
 
 # Detekcija faza sna
