@@ -1,5 +1,3 @@
-### **Naslov:**
-
 **Simulacije autonomnog drona za praćenje objekta**
 
 Polaznice: Ana Bogdanović i Lana Lejić                    
