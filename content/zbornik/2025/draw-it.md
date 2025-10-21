@@ -1,6 +1,7 @@
 ---
 title: Draw it
 summary : Projekat koji se bavi klasifikacijom crteža u realnom vremenu rađen na letnjem kampu za stare polaznike 2025. godine čiji su autori Lena Stanković i Nemanja Obradović.
+png_image: /images/zbornik/2025/draw-it/graf_aps.png
 ---
 **Autori:**
 
@@ -14,7 +15,7 @@ Jelena Marinković, Elektrotehnički fakultet u Beogradu
 
 Novak Stijepić, Elektrotehnički fakultet u Beogradu
 
-Marija Nedeljković,
+Marija Nedeljković, Univerzitet u Kembridžu
 
 
 ## Apstrakt
