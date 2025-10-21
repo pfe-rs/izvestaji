@@ -1,8 +1,7 @@
 ---
 title: "Detekcija faza sna"
-date: 2025-10-21
-draft: false
-svg_image: 
+summary : Projekat koji se bavi detekcijom faze sna rađen na letnjem kampu za stare polaznike 2025. godine čiji su autori Lazar Denić i Andrej Odri.
+svg_image: /images/zbornik/2025/detekcija_apstrakt.svg
 ---
 
 # Detekcija faza sna
