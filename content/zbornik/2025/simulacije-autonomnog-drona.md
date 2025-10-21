@@ -8,7 +8,7 @@ svg_image: /images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg
 
 Ana Bogdanović, učenica II razreda Matematičke gimnazije u Beogradu
 
-Lana Lejić, učenica III razreda Gimnazije u Modriči
+Lana Lejić, učenica III razreda Gimnazije Jovan Cvijić u Modriči
 
 **Mentori:**
 
