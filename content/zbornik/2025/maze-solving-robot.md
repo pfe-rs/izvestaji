@@ -1,6 +1,7 @@
 ---
 title: Maze solving robot
 summary: Maze solving robot je projekat rađen na letnjem kampu za stare polaznike 2025. godine čiji su autori Anastasija Rajković i Jovana Trkulja.
+svg_image: /images/2025/maze-solving-robot/graficki-apstrakt.svg
 ---
 
 
