@@ -48,6 +48,8 @@ Na ovaj način, projekat ne samo da doprinosi razumevanju procesa autonomnog pra
 
 ## 2. Metodologija
 
+U ovoj sekciji prikazujemo pristup, alate i eksperimentalne procedure korišćene pri izgradnji i evaluaciji simulacionog sistema. Najpre ćemo objasniti proces generisanja terena i modelovanja vidnog polja, zatim detaljno predstaviti implementaciju Kalmanovog filtera za predikciju kretanja cilja i A* algoritma za planiranje putanje, a potom metode detekcije i prevencije sudara. Poseban akcenat dat je na konfiguraciji simulacije u ArduPilot SITL okruženju. Prikazaćemo načine prikupljanja metrika (vidljivost objekta, tačnost predikcije, održavanje sigurnosne distance, broj prekida linije vida) i kriterijumima za ocenu performansi. Svi parametri, pretpostavke i izbori implementacije jasno su dokumentovani kako bi se obezbedila reproduktivnost i mogućnost poređenja sa budućim radovima.
+
 ### 2.1 Generisanje terena i njegova kompleksnost
 
 Za postizanje realistične simulacije, neophodno je definisati trodimenzionalni teren koji uključuje prepreke različitog oblika, položaja i dimenzija. Generisanje ovakvog terena omogućava modeliranje okruženja u kojem se dron i objekti kreću, čime se stvaraju uslovi koji su analogni stvarnim urbanim i prirodnim scenarijima. Prepreke u prostoru imaju ulogu fizičkih barijera koje ograničavaju vidno polje, otežavaju planiranje putanje i direktno utiču na ponašanje algoritma za navigaciju. Tereni korišćeni u simulaciji dizajnirani su ručno, kako bi se omogućila kontrola nad složenošću okruženja i precizno ispitalo ponašanje sistema u različitim uslovima.
@@ -147,7 +149,7 @@ $ R_k $→ šum merenja (nesigurnost senzora)
 
 $ K_k $ → Kalmanovo pojačanje
 
-### 2.4. Astar
+### 2.4. A* algoritam
 
 A\* (A-star) algoritam koristi se za pronalaženje najkraće putanje između dve tačke u prostoru, i predstavlja jednu od najefikasnijih metoda za pretragu u grafovima. U okviru ovog projekta, A\* algoritam je implementiran za određivanje optimalne putanje od trenutne pozicije drona do ciljanog objekta koji se nalazi u njegovom vidnom polju.
 
