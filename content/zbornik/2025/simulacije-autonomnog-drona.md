@@ -1,26 +1,25 @@
 ---
-title: Simulations of an Autonomous Drone for Object Tracking
-summary: A project focused on simulating an autonomous drone for object tracking, conducted at the 2025 Summer Camp for Senior Participants, authored by Ana Bogdanović and Lana Lejić.
+title: Simulacije autonomnog drona za praćenje objekta
+summary : Projekat koji se bavi simulacijama autonomnog drona za praćenje objekata rađen na letnjem kampu za stare polaznike 2025. godine čiji su autori Ana Bogdanović i Lana Lejić.
 svg_image: /images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg
 ---
 
-**Authors:**
+**Autori:**
 
-Ana Bogdanović, 2nd-year student at the Mathematical Grammar School in Belgrade
+Ana Bogdanović, učenica II razreda Matematičke gimnazije u Beogradu
 
-Lana Lejić, 3rd-year student at Jovan Cvijić Grammar School in Modriča
+Lana Lejić, učenica III razreda Gimnazije Jovan Cvijić u Modriči
 
-**Mentors:**
+**Mentori:**
 
-Aleksa Račić,  
+Aleksa Račić, 
 
-Nikola Drakulić,  
+Nikola Drakulić, 
 
-Đorđe Marjanović,  
+Đorđe Marjanović,
 
 
-Keywords: autonomous drone, object tracking, Kalman filter, A* algorithm, simulation, ArduPilot, Gazebo
-
+Ključne reči: autonomni dron, praćenje objekta, Kalmanov filter, A* algoritam, simulacija, ArduPilot, Gazebo
 
 ## Apstrakt
 

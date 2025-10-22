@@ -1,11 +1,26 @@
 ---
 title: Simulations of an Autonomous Drone for Object Tracking
+summary: A project focused on simulating an autonomous drone for object tracking, conducted at the 2025 Summer Camp for Senior Participants, authored by Ana Bogdanović and Lana Lejić.
+svg_image: /images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg
 ---
 
-Authors: Ana Bogdanović and Lana Lejić                    
-Mentors: Aleksa Račić, Nikola Drakulić, and Djordje Marijanović
+**Authors:**
+
+Ana Bogdanović, 2nd-year student at the Mathematical Grammar School in Belgrade
+
+Lana Lejić, 3rd-year student at Jovan Cvijić Grammar School in Modriča
+
+**Mentors:**
+
+Aleksa Račić,  
+
+Nikola Drakulić,  
+
+Đorđe Marjanović,  
+
 
 Keywords: autonomous drone, object tracking, Kalman filter, A* algorithm, simulation, ArduPilot, Gazebo
+
 
 ### **Abstract:**
 
@@ -29,6 +44,8 @@ In this way, the project not only contributes to understanding the process of au
 ### **2\. Methodology**
 
 **—————————————————————————————————————————**
+
+In this section we present the approach, tools, and experimental procedures used to build and evaluate the simulation system. First, we explain the process of terrain generation and the modeling of the field of view; next, we detail the implementation of the Kalman filter for target motion prediction and the A* algorithm for path planning; and then we describe the collision detection and avoidance methods. Special emphasis is placed on the simulation configuration in the ArduPilot SITL environment, the way metrics are collected (object visibility, prediction accuracy, maintenance of safe distance, number of line-of-sight interruptions), and the criteria used for performance evaluation. All key parameters, assumptions, and implementation choices are clearly documented to ensure reproducibility and to enable comparison with future work.
 
 #### **2.1. Terrain Generation and Complexity**
 
