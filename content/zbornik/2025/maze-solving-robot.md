@@ -21,7 +21,7 @@ Ovaj rad prikazuje parcijalnu realizaciju simulacije robota koji rešava lavirin
 This work presents a partial implementation of a maze-solving robot simulation using SLAM algorithms. A simulated LIDAR sensor enables obstacle detection and generation of a point-cloud map, while Split and Merge and Seeded Region Growing algorithms provide line segmentation of maze walls. The robot is initially positioned via mouse click and navigates using a frontier-based exploration strategy. Due to time constraints and non-modular code, the project remains partial, with limited testing and no quantitative evaluation. Nevertheless, the results demonstrate the basic functionality of the system and provide a solid foundation for further development, including map optimization, modular code design, and implementation of performance metrics.
 
 
-![Slika 1. Grafički apstrakt](/images/2025/maze-solving-robot/graficki-apstrakt.svg)
+![Slika 1. Grafički apstrakt](/images/2025/maze-solving-robot/graficki-apstrakt.svg) **Slika 1.** Grafički apstrakt simulacije robota u lavirintu.
 
 
 ## 1. Uvod 
@@ -59,7 +59,7 @@ U ovom poglavlju predstaviće se način na koji je realizovan projekat simulacij
 
 Lavirint je simuliran kao skup povezanih pravougaonika na beloj pozadini, pri čemu su zidovi crni. Algoritam garantuje povezane hodnike i omogućava da robot slobodno istražuje celu mapu. Segmenti zidova čuvaju se kao lista krajnjih tačaka, što olakšava vizuelizaciju u Pygame-u.
 
-![Slika 2. Primer nasumično generisane mape](/images/2025/maze-solving-robot/nasumicno-generisanje-mape.png)
+![Slika 2. Primer nasumično generisane mape](/images/2025/maze-solving-robot/nasumicno-generisanje-mape.png) **Slika 2.** Primer nasumično generisane mape lavirinta.
 
 
 ### 3.2. LIDAR senzor i point-cloud mapa
@@ -78,7 +78,7 @@ Point-cloud (prevedeno oblak tačaka) je skup svih detektovanih tačaka (preprek
   
 Simulacija LIDAR-a je pojednostavljena u odnosu na to kako pravi LIDAR senzor funkcioniše u 3D prostoru, ali je dovoljno precizna da se vidi kako robot detektuje zidove i generiše mapu oblaka tačaka, koja se ažurira u toku kretanja robota.
 
-![Slika 3. Vizuelizacija rada simuliranog LIDAR senzora: robot (roze tačka) generiše oblak tačaka koji označava zidove lavirinta, dok žute ćelije prikazuju već istražene delove mape.](/images/2025/maze-solving-robot/vizuelizacija-lidar-senzora.png)
+![Slika 3. Vizuelizacija rada simuliranog LIDAR senzora: robot (roze tačka) generiše oblak tačaka koji označava zidove lavirinta, dok žute ćelije prikazuju već istražene delove mape.](/images/2025/maze-solving-robot/vizuelizacija-lidar-senzora.png) **Slika 3.** Robot (roze tačka) generiše oblak tačaka koji označava zidove lavirinta, dok žute ćelije prikazuju već istražene delove mape.
 
 
 ### 3.3. Detekcija linijskih segmenata i algoritmi
@@ -97,7 +97,7 @@ Seeded Region Growing (SRG) algoritam se koristi kao dopuna Split and Merge algo
 
 Kratki segmenti koji nastaju segmentacijom spajaju se u duže linije ako su približno kolinearni i blizu jedan drugom. Time se smanjuje broj objekata koje je potrebno čuvati u memoriji i crtati u realnom vremenu. Segmenti se čuvaju i koriste za kasniju lokalizaciju robota.
 
-![Slika 4. Detekcija linijskih segmenata](/images/2025/maze-solving-robot/detekcija-linijskih-segmenata.png)
+![Slika 4. Detekcija linijskih segmenata](/images/2025/maze-solving-robot/detekcija-linijskih-segmenata.png) **Slika 4.** Detekcija linijskih segmenata u mapi.
 
 
 ### 3.5. Kretanje robota i interakcija sa okolinom
