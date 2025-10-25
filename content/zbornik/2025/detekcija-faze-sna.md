@@ -16,9 +16,6 @@ Marija Nedeljković, Univerzitet u Kembridžu \
 Andrej Bantulić, Elektrotehnički fakultet u Beogradu, inženjer elektrotehnike i računarstva
 
 
----
-
-
 ## Apstrakt
 
 Dobar san je ključan za zdravlje i normalno funkcionisanje čoveka. Analiza samog sna, odnosno polisomnografskih signala koji nose sve neophodne informacije za evaluaciju faza, kada je rađena ručno, oduzima dosta vremena, i ne može se zanemariti faktor ljudske greške, odakle dolazi za potrebom automatizacije ovog procesa. Ovaj rad se osvrće na razvoj, posmatranje i upoređivanja rada neuronske mreže kao predstavnika dubokog učenja, i XGBoost modela kao predstavnika Tree klasifikatora. Treniranje i testiranje vršeno je na DREAMT bazi podataka, a kao rezultat dobili smo da je XGBoost brži i precizniji od NN-a, ali da svaki od modela ima svoje prednosti i mane, i bolje detektuje određene faze, te smatramo da je kombinacija ove dve metode optimalna, i da istraživanje treba nastaviti u tom smeru. 
@@ -26,8 +23,6 @@ Dobar san je ključan za zdravlje i normalno funkcionisanje čoveka. Analiza sam
 ## Abstract
 
 Good sleep is essential for health and normal human functioning. The analysis of sleep itself, that is, polysomnographic signals that carry all the necessary information for evaluating the stages, when performed manually, is time-consuming and subject to human error, which creates the need for automating this process. This paper focuses on the development, observation, and comparison of the performance of a neural network as a representative of deep learning, and an XGBoost model as a representative of tree-based classifiers. Training and testing were conducted on the DREAMT database, and the results showed that XGBoost performed slightly better than the neural network. However, each model has its own strengths and weaknesses and detects certain stages more accurately. Therefore, we believe that combining these two methods is the most optimal approach, and that further research should continue in this direction. 
-
----
 
 ## 1 Uvod
 
@@ -43,9 +38,7 @@ Osvrt na rad ogleda se u setu metoda koje se mogu podeliti u nekoliko kategorija
 
 - **Izvlačenje karakteristika** – Iz PSG signala (EEG, EOG, EMG...) izdvojeni su statistički i frekvencijski parametri relevantni za analizu sna.  
 - **Klasifikacija** – Karakteristike su prosleđene *XGBoost* modelu i jednostavnoj neuronskoj mreži za učenje obrazaca.  
-- **Detekcija faza sna** – Svaki vremenski segment klasifikovan je u jednu od pet faza: **W**, **N1**, **N2**, **N3** ili **R**.  
-
----
+- **Detekcija faza sna** – Svaki vremenski segment klasifikovan je u jednu od pet faza: **W**, **N1**, **N2**, **N3** ili **R**.
 
 ## 2 Metod
 
@@ -61,8 +54,6 @@ PSG signali jesu kolekcija signala zabeleženih tokom polisomnografskog snimanja
 - **EKG** (elektrokardiogram): meri rad srca tokom spavanja.  
 - **Dodatni signali**: disanje, zasićenost krvi kiseonikom (SpO₂), pokreti tela.  
 
----
-
 ### 2.2 Predobrada podataka
 
 Na samom začetku, zaključeno je da oko četvrtinu snimaka zauzima period pripreme i postavljanja aparature *(Preparation Stage)*. Ta faza nije korisćena jer ne predstavlja signale spavanja. Takođe su uklonjeni i segmenti označeni kao *Missing*, jer ne sadrže jasne informacije o fazi sna.  
@@ -70,8 +61,6 @@ Na samom začetku, zaključeno je da oko četvrtinu snimaka zauzima period pripr
 Signal je zatim podeljen na epohe od po 30 sekundi. U svakoj epohi praćeno je više signala koji predstavljaju jedan uzorak za klasifikaciju.  
 
 Jedna epoha može biti označena samo jednom fazom, pa je svakoj fazi dodeljena dominantna epoha, odnosno ona epoha koja se najviše javlja u okviru od 30 sekundi. Podaci koji su bili pripremljeni na ovaj način korišćeni su za treniranje modela.  
-
----
 
 ### 2.3 Izvlačenje karakteristika
 
@@ -179,9 +168,9 @@ Iz signala otkucaja srca *(HR)* izvučene su:
 - **Maksimum**: $\max(s_n)$    
 - **Standardna devijacija**: $\sigma = \sqrt{\frac{1}{N} \sum_{n=1}^N (s_n - \mu)^2}$
 
----
-
 ### 2.4 Metode Klasifikacije
+
+U ovom projektu korišćene metode za klasifikaciju faza sna su **neuronske mreže**  *(NN)* i ***XGBoost***. Obe metode primenjene su na isti skup karakteristika dobijenih iz polisomnografskih signala, sa ciljem poređenja njihove tačnosti, otpornosti na šum i efikasnosti pri učenju.
 
 #### 2.4.1 Neuronska mreža (NN)
 
@@ -206,8 +195,6 @@ $$
 
 Uobičajene aktivacione funkcije su **sigmoid**, **ReLU**, **GeLU** i **SoftMax**.
 
----
-
 ##### *Forward pass*
 Podaci se propagiraju kroz slojeve mreže od ulaza ka izlazu, pri čemu se u svakom sloju računa linearna transformacija i aktivacija, kako bi se dobio konačni izlaz $\hat{y}$.
 
@@ -229,8 +216,6 @@ $$
 gde je $\eta$ stopa učenja *(learning rate)*.
 
 Ciklus *forward* i *backward pass*-a se ponavlja kroz više epoha treninga dok model ne postigne zadovoljavajuću preciznost.
-
----
 
 Neuronska mreža u ovom projektu ima **5 potpuno povezanih slojeva**.  
 Ulazni sloj prima vektor dimenzije 103, dok izlazni sloj daje verovatnoće za pripadnost jednoj od 5 faza sna.  
@@ -270,8 +255,6 @@ Funkcija greške je ***cross-entropy***:
 $$
 \mathcal{L}_\mathrm{cross-entropy} = - \sum _{c=1}^C y_c \log(\hat{y}_c)
 $$
-
----
 
 #### 2.4.2 XGBoost
 
@@ -339,14 +322,9 @@ tačnost od oko 89% .
 
 **Slika 4.** Matrica konfuzije *XGBoost - a*.
 
-
----
-
 ## 4 Zaključak
 
 Projekat "Detekcija faza sna" prikazuje rešenja problema analize sna i obeležavanja faza. Testiranjem nad DREAMT bazi podataka, veću tačnost postigao je XGBoost (90%), ali je osetljiviji na promene podataka od neuronske mreže (85–86%), koja je stabilnija pri treniranju i varijabilnosti podataka. Postignuti rezultati rada uporedivi su sa radom Šarme i saradnika [^13], gde je postignuta tačnost 86%.
-
----
 
 ## 5 Literatura
 
