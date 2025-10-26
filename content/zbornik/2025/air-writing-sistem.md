@@ -1,7 +1,7 @@
 ---
 title: Sistem za prepoznavanje slova pisanih u vazduhu (eng. air writing)
 summary: Projekat koji se bavi implementacijom sistema za pisanje i prepoznavanje napisanog u vazduhu. Rađen na letnjem kampu za starije polaznike 2025. godine, radili su Iva Stojanović i Mihailo Pešić. 
-svg_image:
+svg_image: images/zbornik/2025/air-writing-sistem/apstrakt-air-writing.svg
 ---
 
 Mihailo Pešić   
