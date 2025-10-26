@@ -160,8 +160,6 @@ Rezultati YOLO modela na IAM skupu podataka:
 | :---: | :---: | :---: | :---: |
 | YOLOv8n | IAM | 50 | 0.60 |
 
-## 
-
 ## 5.2. Rezultati pri korišćenju
 
 Kao rezultat svih modela za prepoznavanje i segmentaciju, razvijen je interfejs koji je modularan u smislu promene modela, pronalaženja grešaka i uviđanja načina funkcionisanja sistema prepoznavanja slova pisanih u vazduhu. Konkretno se na snimku ekrana vidi primer ispravljanja reči, namerno je napisano progran, a sistem za ispravljanje grešaka je to ispravno prepoznao.  
