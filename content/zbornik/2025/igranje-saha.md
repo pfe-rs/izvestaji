@@ -213,6 +213,8 @@ Kоришћенa је *ClippedReLU* активациона функција из
 
 ## 4. Резултати
 
+Главна метрика која мери успешност одређеног модела или играча у шаху јесте његов ЕЛО[^12] рејтинг. Будући да одређивање ЕЛО рејтинга захтева играње великог броја партија са моделом чији се ЕЛО рејтинг већ познаје, а то изискује велику количину времена одлучено је да се успешност модела мери статистичком методом Кендалов тау.
+
 ### 4.1. Кендалов тау
 
 Кендалов тау[^11] или Кендалов коефицијент корелације рангирања јесте статистичка мера која одређује корелацију две опсервације једне појаве. У случају овог рада Кендалов тау мери однос евалуације задате позиције наведених модела и модела *Stockfish* на дубини претраге 10 чији се резултат сматра истинском вредношћу. Екстремне вредности Кендаловог тау су -1 и 1, где вредност од -1 означава негативну корелацију (конкретно, један модел би одредио евалуацију као +х, а други као -х), вредност 0 означава одсуство било какве корелације док вредност 1 означава позитивну корелацију.
@@ -278,5 +280,6 @@ Kоришћенa је *ClippedReLU* активациона функција из
 [^7]: K. He, X. Zhang, S. Ren, J. Sun, Deep Residual Learning for Image Recognition. Dec 2015  
 [^8]: [Vanishing gradient problem](https://en.wikipedia.org/wiki/Vanishing_gradient_problem)  
 [^9]: M. Świechowski, K. Godlewski, B. Sawicki, J. Mańdziuk, Monte Carlo Tree Search: A Review of Recent Modifications and Applications. March 2021  
-[^10]: S. H. Fuller, J. G. Gaschnig, J. J. Gillogly. Analysis of the alpha-beta pruning algorithm. July 1973\.  
+[^10]: S. H. Fuller, J. G. Gaschnig, J. J. Gillogly. Analysis of the alpha-beta pruning algorithm. July 1973  
 [^11]: [Kendall’s Tau](https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient)
+[^12]: A. Elo. The Proposed USCF Rating System, Its Development, Theory, and Applications. August 1967
