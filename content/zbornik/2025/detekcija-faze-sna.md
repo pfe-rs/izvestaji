@@ -4,8 +4,6 @@ summary : Projekat koji se bavi detekcijom faze sna rađen na letnjem kampu za s
 svg_image: /images/zbornik/2025/detekcija_apstrakt.svg
 ---
 
-# Detekcija faza sna
-
 **Autori:**  
 Lazar Denić, učenik II razreda Gimnazije u Raški  
 Andrej Odri, učenik III razreda Gimnazije "Veljko Petrović" u Somboru  

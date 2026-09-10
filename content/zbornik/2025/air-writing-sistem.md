@@ -6,22 +6,20 @@ svg_image: /images/zbornik/2025/air-writing-sistem/apstrakt-air-writing.svg
 
 Mihailo Pešić   
 Iva Stojanović  
-Mentor: Vladan Bašić
+Mentor: Vladan Bašić, student, Elektrotehnički fakultet u Beogradu
 
-# Apstrakt
+## Apstrakt
 
 U ovom radu predstavljen je sistem za prepoznavanje slova pisanih u vazduhu (eng. air writing) pomoću pokreta kažiprsta detektovanih kamerom. Ideja sistema zasniva se na različitim gestovima prstiju kojima se definiše da li se piše, pauzira ili čuva ispisana reč. Za rešavanje problema prepoznavanja rukopisa korišćeni su različiti modeli: linearna neuronska mreža, konvoluciona neuronska mreža i YOLO arhitektura. Linearna i konvoluciona mreža trenirane su na EMNIST skupu podataka koji sadrži rukom pisana slova, dok je YOLO treniran na IAM skupu sa anotiranim rukopisnim formama. Evaluacija je vršena metrikama prilagođenim tipu modela – accuracy za klasifikacione pristupe i mAP, preciznost, odziv i F1-score za YOLO. Analiza ukazuje da su modeli posebno pouzdani kod češće zastupljenih i jednostavnijih slova, dok složeniji i ređi uzorci zahtevaju dodatne tehnike poput augmentacije ili upotrebe naprednijih arhitektura. Ovim radom ukazuje se na potencijal air writing sistema u oblastima obrazovanja i medicine.
 
-# Abstract
+## Abstract
 
 In this paper, an *air writing* system is presented for recognizing letters written in the air through index finger movements detected by a camera. The idea of the system is based on different finger gestures that define whether writing is active, paused, or when the written word is saved. To address the problem of handwriting recognition, different models were applied: a linear neural network, a convolutional neural network, and the YOLO architecture. The linear and convolutional networks were trained on the EMNIST dataset of handwritten letters, while YOLOv8 was trained on the IAM dataset with annotated handwritten forms. Evaluation was carried out using metrics suited to each model type—accuracy for classification approaches, and mAP, precision, recall, and F1-score for YOLO. The analysis shows that the models are particularly reliable for more frequent and simpler letters, while more complex and less common samples require additional techniques such as augmentation or the use of more advanced architectures. This work highlights the potential of *air writing* systems in fields such as education and medicine.
 
 ![Graphical abstract](/images/zbornik/2025/air-writing-sistem/diagram-air-writing-png.png)
 Graphical abstract
 
-# 
-
-# 1.Uvod
+## 1.Uvod
 
 Tehnologija je danas prisutna u gotovo svim aspektima života. Jedna od zanimljivih oblasti njenog razvoja su sistemi za prepoznavanje pokreta i pisanja u vazduhu, koji nude novi način interakcije između čoveka i računara . Ovi sistemi omogućavaju prenos informacija gestovima, bez potrebe za tastaturom ili papirom.
 
@@ -31,12 +29,12 @@ Ovaj sistem ima široku primenu — u obrazovanju može zameniti fizičke table,
 
 Cilj projekta je razvoj sistema koji pomoću kamere detektuje gestove prstiju za crtanje, pauziranje i čuvanje napisanog, stvarajući intuitivan interfejs pogodan za različite primene. Način funkcionisanja sistema bi bio: Kada je kažiprst podignut \- crta se, kada su podignuti kažiprst i srednji prst \- ne crta se, kada su podignuti kažiprst i mali prst \- sačuva se slika reči. 
 
-# 2. Aparatura
+## 2. Aparatura
 
 Za treniranje jednostavnijih modela korišćeni su procesorski resursi (AMD Ryzen 5 3500U sa Radeon Vega Mobile grafikom), koji su bili dovoljni za manje složene arhitekture poput linearnih i konvolucionih mreža.  
 Za treniranje složenijih modela, kao što je YOLO, korišćeni su grafički resursi dostupni putem platforme Google Colab. Upotrebljen je grafički procesor NVIDIA Tesla T4, koji je značajno ubrzao proces treniranja.
 
-# 3. Skupovi podataka
+## 3. Skupovi podataka
 
 Za treniranje linearne i konvolucione mreže korišćen je EMNIST skup podataka\[2\]. Ova baza podataka sadrži rukom pisana slova i cifre izvedena iz NIST Special Database 19, konvertovana u format slike dimenzija 28×28 piksela, sa sličnom strukturom. 
 
@@ -51,11 +49,11 @@ Za treniranje YOLO mreže korišćen je IAM Handwritten Forms skup podataka\[5\]
 
 Primer slike rukopisa iz IAM skupa podataka (obeleženi ograničavajući okviri)2
 
-# 4. Metod
+## 4. Metod
 
 Problem prepoznavanja rukom napisanih slova rešavan je primenom više različitih pristupa mašinskog učenja. Prilikom izrade su korišćeni modeli linearnih neuronskih mreža, konvolucionih neuronskih mreža (CNN), kao i YOLO (You Only Look Once) arhitektura, kako bi se postiglo što tačnije prepoznavanje i omogućilo poređenje performansi različitih metoda.
 
-## 4.1. Segmentacija slova
+### 4.1. Segmentacija slova
 
 Prvi korak u procesu prepoznavanja rukom pisanih slova jeste njihova segmentacija, odnosno izdvajanje pojedinačnih slova. Za ovaj zadatak primenjen je heuristički pristup koji kombinuje binarizaciju slike, morfološke operacije i prepoznavanje kontura. Ulazna slika se najpre konvertuje u sivu skalu i binarizuje globalnim pragom (vrednost 10\) kako bi se istakli potezi pisanja. Zatim se primenjuje morfološka dilatacija pravougaonim kernelom dimenzija 7×15, koja spaja razmaknute delove linija i stabilizuje konture radi tačnijeg izdvajanja slova.
 
@@ -67,7 +65,7 @@ Na kraju, svako segmentirano slovo se proporcionalno skalira na standardnu veli�
 
 Prikaz toka obrade ulazne slike
 
-## 4.2. Linearna klasifikacija
+### 4.2. Linearna klasifikacija
 
 Linearna mreža sastoji se od sloja koji ulaznu sliku dimenzija 28×28 piksela pretvara u vektor od 784 vrednosti. Nakon toga slede tri linearna sloja između kojih se nalazi ReLU aktivaciona funkcija.  
 Prvi linearni sloj povezuje 784 ulazne vrednosti sa 500 neurona, nakon čega se primenjuje ReLU aktivacija koja uvodi nelinearnost i omogućava mreži da uči složenije obrasce. Drugi linearni sloj takođe sadrži 500 neurona i ponovo je praćen ReLU aktivacijom.  
@@ -75,34 +73,34 @@ Na kraju, izlazni linearni sloj smanjuje broj neurona na 26, pri čemu svaki neu
 ![Grafik slojeva linearne arhitekture](/images/zbornik/2025/air-writing-sistem/grafik-slojeva-linearne-arhitekture.svg)
 Grafik slojeva linearne arhitekture
 
-## 4.3. CNN
+### 4.3. CNN
 
 Konvoluciona mreža korišćena u radu projektovana je za direktnu klasifikaciju ulaznih slika dimenzija 28×28 piksela u 26 klasa. Arhitektura se sastoji od tri uzastopna konvoluciona bloka sa rešetkama 3×3 i maks-poolingom (stride 2), pri čemu se broj kanala postepeno povećava (32 → 64 → 128\) dok se prostorne dimenzije redukuju, što na kraju stvara mapu karakteristika koje se transformiše u vektor karakteristika. U skrivenom potpuno povezanom delu koristi se jedan FC sloj od 128 jedinica sa ReLU aktivacijom i dropout-om (p=0.5) pre izlaznog FC sloja dimenzije 26; model vraća logits koji su pogodni za treniranje pomoću funkcije gubitka unakrsna entropija (eng. CrossEntropy)..  
 ![Grafik slojeva CNN arhitekture](/images/zbornik/2025/air-writing-sistem/grafik-slojeva-cnn-arhitekture.svg) 
 Grafik slojeva CNN arhitekture 
 
-## 4.4. YOLO
+### 4.4. YOLO
 
 YOLO model je treniran na IAM skupu podataka, koji sadrži veliki broj rukom pisanih slova i reči. Ovaj model funkcioniše tako što ulaznu sliku deli na mrežu ćelija, pri čemu svaka ćelija predviđa ograničavajuće okvire, verovatnoću prisustva objekta i njegovu klasu. Na taj način YOLO vrši istovremeno detekciju i klasifikaciju rukom pisanih slova.  
 Za potrebe ovog projekta korišćen je YOLOv8n model, treniran na 50 epoha, sa ulaznom rezolucijom slika 640×640 piksela i batch veličinom 8\. 
 
-## 4.5. Jezički sloj za korekciju reči
+### 4.5. Jezički sloj za korekciju reči
 
 Da bi se smanjile greške koje nastaju prilikom pisanja reči, nakon segmentacije i klasifikacije slova uveden je jezički sloj zasnovan na SymSpell indeksu i frekvencijskom rečniku (eng. wordfreq).  
 Za svaku dobijenu reč pretražuju se kandidati unutar Levenshtein udaljenosti ≤ 2, a svaki kandidat dobija skor definisan kao:
 
 ocena=log(frekvencija)−(kazneni\_faktor×udaljenost)
 
-### 4.5.1. Eksperimentalna procena
+#### 4.5.1. Eksperimentalna procena
 
 S obzirom na to da trenutno ne postoji ručno anotiran skup rukom pisanih reči, sprovedena je simulacija tipičnih grešaka. Iz korpusa je uzeto 2000 najfrekventnijih reči, a na svaku od njih primenjene su 1–2 edit operacije (brisanje, zamena, umetanje ili transpozicija).  
 Na taj način formirani su parovi oblika: „stvarno napisana reč – izmenjen (pogrešan) izlaz“.
 
-### 4.5.2. Metrike
+#### 4.5.2. Metrike
 
 Za svaku vrednost parametra kaznenog faktora u opsegu 0.00–4.00 (sa korakom 0.25) merene su sledeće metrike: tačnost posle korekcije (procenat slučajeva u kojima je jezički sloj uspešno vratio originalnu reči), broj korisnih korekcija (kada je ulazni tekst izmenjen u ispravan oblik), broj štetnih korekcija (kada je korekcija dodatno udaljila reč od originala), broj nepromenjenih slučajeva (kada je sistem odlučio da zadrži postojeći ulaz).
 
-### 4.5.3. Analiza rezultata
+#### 4.5.3. Analiza rezultata
 
 Rezultati pokazuju da je optimum postignut za *kazneni\_faktor* ≈ 0.5, kada tačnost dostiže oko 53–55 %. U tom opsegu odnos korisnih i štetnih korekcija je najpovoljniji, a sistem i dalje interveniše dovoljno često.
 
@@ -117,18 +115,18 @@ Raspodela ishoda po kaznenom faktoru
 ![Uticaj kaznenog faktora na tačnost](/images/zbornik/2025/air-writing-sistem/uticaj-kaznenog-faktora-na-tačnost.svg)   
 Uticaj kaznenog faktora na tačnost
 
-### 4.5.4. Zaključak simulacije i naredni koraci
+#### 4.5.4. Zaključak simulacije i naredni koraci
 
 Ova simulacija omogućava da se mapira ponašanje parametra distance\_penalty pre prikupljanja stvarnih podataka. Sledeći korak podrazumeva izgradnju ručno anotiranog skupa iz direktorijuma Writing\_part/data/ i izračunavanje metrika WER (Word Error Rate) i CER (Character Error Rate), čime će se potvrditi efikasnost jezičkih korekcija na realnim primerima rukopisnih grešaka.
 
-## 4.6. Metrike 
+### 4.6. Metrike 
 
 Performanse linearnog i konvolucionog modela procenjivane su pomoću standardne metrike tačnosti (accuracy).  
 YOLOv8n model, koji je korišćen za detekciju i klasifikaciju rukom pisanih slova, evaluiran je pomoću metrika specifičnih za detekciju objekata. Korišćeni su preciznost (precision), odziv (recall), F1 mera (F1-score), mAP50 i mAP50–95.
 
-# 5. Rezultati
+## 5. Rezultati
 
-## 5.1. Rezultati modela
+### 5.1. Rezultati modela
 
 Linearni model je treniran na 60 epoha, sa prethodno aktiviranim Early stopping-om zbog toga što se tačnost u prethodnih 7 epoha nije povećala više od 0,5%. Model je testiran na test skupu koji je činio 10% slika iz celog skupa podataka.
 
@@ -160,7 +158,7 @@ Rezultati YOLO modela na IAM skupu podataka:
 | :---: | :---: | :---: | :---: |
 | YOLOv8n | IAM | 50 | 0.60 |
 
-## 5.2. Rezultati pri korišćenju
+### 5.2. Rezultati pri korišćenju
 
 Kao rezultat svih modela za prepoznavanje i segmentaciju, razvijen je interfejs koji je modularan u smislu promene modela, pronalaženja grešaka i uviđanja načina funkcionisanja sistema prepoznavanja slova pisanih u vazduhu. Konkretno se na snimku ekrana vidi primer ispravljanja reči, namerno je napisano progran, a sistem za ispravljanje grešaka je to ispravno prepoznao.  
 
@@ -171,13 +169,13 @@ Sa obzirom da je biblioteka sa frekvencijom reči bila na engleskom, nije predvi
 ![Drugi snimak ekrana \- interfejs sistema za prepoznavanje slova pisanih u vazduhu](/images/zbornik/2025/air-writing-sistem/drugi-snimak-ekrana-interfejs-sistema-za-prepoznavanje-slova-pisanih-uvazdu.svg)  
       Drugi snimak ekrana \- interfejs sistema za prepoznavanje slova pisanih u vazduhu
 
-# 6. Diskusija
+## 6. Diskusija
 
 Evaluacija YOLOv8n modela pokazuje da on pouzdano detektuje većinu rukom pisanih slova na IAM skupu podataka, sa ukupnim mAP50 od 0.60 i F1-score od 0.652. Analiza po klasama ukazuje na značajne razlike u performansama: slova koja su češće zastupljena u skupu, poput *d, f, g* i *p*, postižu visoke vrednosti AP@0.5 (\>0.85), dok slova sa malim brojem instanci ili složenijim rukopisom, poput *i, j, k, q, x* i *z*, ostvaruju slabije rezultate (npr. *z*: AP@0.5 \= 0.003).
 
 Ove razlike pokazuju da model najbolje funkcioniše sa uobičajenim i često pojavljivim uzorcima. Slabije performanse kod retkih slova sugerišu da bi povećanje broja primera, upotreba augmentacije, podešavanje hiperparametara ili korišćenje većih modela (poput YOLOv8m/l) moglo dodatno unaprediti detekciju složenijih rukopisa.
 
-# 7. Reference
+## 7. Reference
 
 \[1\] M. Chen, G. AlRegib and B. \-H. Juang, "Air-Writing Recognition—Part I: Modeling and Recognition of Characters, Words, and Connecting Motions," in IEEE Transactions on Human-Machine Systems, vol. 46, no. 3, pp. 403-413, June 2016, doi: 10.1109/THMS.2015.2492598.  
 \[2\] Cohen, Gregory; Afshar, Saeed; Tapson, Jonathan; van Schaik, Andre (2017): Extended MNIST (EMNIST) dataset. Western Sydney University. [https://doi.org/10.26183/zn7s-gh79](https://doi.org/10.26183/zn7s-gh79)  

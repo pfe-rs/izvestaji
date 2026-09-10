@@ -110,10 +110,10 @@ Funkcija pomoću koje se updejtuju target mreže:
 $$\theta'\_{i}=\tau\cdot \theta\_{i}+(1-\tau)\cdot\theta'\_{i}$$
 
 
-### 2.3. Soft Actor Critic (SAC)
+### 2.4. Soft Actor Critic (SAC)
 
 
-_Soft Actor Critic_ je **stohastični** akter-kritičar algoritam koji je napravljen za **kontinualne** probleme sa skoro beskonačnim mogućim brojem stanja i akcija\[6\]. Stohastični algoritam vraća parametre **Gausove raspodele** (srednju vrednost i standardnu devijaciju) iz koje se nasumično izvršava akcija, za razliku od TD3 algoritma, koji bira jednu da vrati samo jednu akciju koja će se izvršiti.
+_Soft Actor Critic_ je **stohastični** akter-kritičar algoritam koji je napravljen za **kontinualne** probleme sa skoro beskonačnim mogućim brojem stanja i akcija[^6]. Stohastični algoritam vraća parametre **Gausove raspodele** (srednju vrednost i standardnu devijaciju) iz koje se nasumično izvršava akcija, za razliku od TD3 algoritma, koji bira jednu da vrati samo jednu akciju koja će se izvršiti.
 
 Stohastična politika SAC algoritma se sastoji iz sledećih mreža: **stohastičkog aktera**, dva **kritičara** i dva **target kritičara**.
 
@@ -143,7 +143,7 @@ Sva iskustva (stanje, akcija, nagrada, sledeće stanje) se kao i u TD3 algoritmu
 Dve mreže kritičara, kao i u TD3 algoritmu, smanjuju precenjivanje Q-vrednosti biranjem manje predikcije, dok njihove target mreže koriste _Soft Update_ mehanizam.
 
 
-### 2.4. TD3 u _Hardcore_ orkuženju
+### 2.5. TD3 u _Hardcore_ orkuženju
 
 
 
@@ -215,7 +215,7 @@ Tokom ovog projekta istraženo je ponašanje tri algoritma za učenje potkreplje
 
 Ovi rezultati dovode do boljeg razumevanja ponašanja naprednih algoritama za učenje potkrepljenjem u zadacima sa kontinualnim problemima i naglašavaju potrebu za daljim istraživanjem hiperparametara, modifikacijom nagradne funkcije i potencijalnog kombinovanja metoda za postizanje stabilnijeg učenja u kompleksnim okruženjima.
 
-## 6. Reference
+## 5. Reference
 
 [^1]: O. Aydogmus and M. Yilmaz, "Comparative Analysis of Reinforcement Learning Algorithms for Bipedal Robot Locomotion," in IEEE Access, vol. 12, pp. 7490-7499, 2024, doi: 10.1109/ACCESS.2023.3344393.
 

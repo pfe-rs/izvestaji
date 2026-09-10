@@ -8,7 +8,13 @@ svg_image: /images/zbornik/2025/maze-solving-robot/graficki-apstrakt.svg
 ###### Autori
 Jovana Trkulja, Anastasija Rajković
 ###### Mentori 
-Bojana Malešević, Vladan Bašić, Dimitrije Pešić, Đorđe Manojlović
+Bojana Malešević, studentkinja, Elektrotehnički fakultet u Beogradu
+
+Vladan Bašić, student, Elektrotehnički fakultet u Beogradu
+
+Dimitrije Pešić, Elektrotehnički fakultet u Beogradu
+
+Đorđe Marjanović, diplomirani inženjer elektrotehnike i računarstva, PFE
 
 
 ## Apstrakt 
@@ -127,7 +133,7 @@ Projekat simulacije robota u lavirintu korišćenjem SLAM principa uspešno prik
 Ovi rezultati pružaju uvid u princip rada autonomnih robotskih sistema i potencijal za dalji razvoj, uključujući modularniji dizajn koda i testiranje na složenijim lavirintima. Integrisanje odometrije bi mogla poboljšati robusnost lokalizacije, dok bi implementacija kvantitativnih metrika omogućila detaljniju evaluaciju performansi. Ovi koraci otvaraju mogućnost za realističniju i efikasniju realizaciju sistema, uključujući prenos algoritama na stvarnog robota ili razvoj kompleksnijih simulacija u 3D okruženju.
 
 
-## 7. Literatura 
+## 6. Literatura 
 
 [^1]: S. Riisgaard i M. R. Blas, “SLAM for Dummies: A Tutorial Approach to Simultaneous Localization and Mapping”, Massachusetts Institute of Technology, 2005.
 

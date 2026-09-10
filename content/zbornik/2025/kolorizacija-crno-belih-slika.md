@@ -12,9 +12,9 @@ Natalija Janković, učenica IV razreda Prve kragujevačke gimnazije
 
 **Mentori:**
 
-Aleksa Račić, 
+Aleksa Račić, diplomirani inženjer softvera, Elektrotehnički fakultet u Beogradu
 
-Andrej Bantulić
+Andrej Bantulić, Elektrotehnički fakultet u Beogradu, inženjer elektrotehnike i računarstva
 
 ![Grafički apstrakt](/images/zbornik/2025/kolorizacija-crno-belih-slika/graficki-apstrakt.svg)
 

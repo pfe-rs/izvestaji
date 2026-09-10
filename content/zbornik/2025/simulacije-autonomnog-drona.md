@@ -2,6 +2,7 @@
 title: Simulacije autonomnog drona za praćenje objekta
 summary : Projekat koji se bavi simulacijama autonomnog drona za praćenje objekata rađen na letnjem kampu za stare polaznike 2025. godine čiji su autori Ana Bogdanović i Lana Lejić.
 svg_image: /images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg
+translationKey: simulacije-autonomnog-drona
 ---
 
 **Autori:**
@@ -12,11 +13,11 @@ Lana Lejić, učenica III razreda Gimnazije Jovan Cvijić u Modriči
 
 **Mentori:**
 
-Aleksa Račić, 
+Aleksa Račić, diplomirani inženjer softvera, Elektrotehnički fakultet u Beogradu
 
-Nikola Drakulić, 
+Nikola Drakulić, student, Elektrotehnički fakultet u Beogradu
 
-Đorđe Marjanović,
+Đorđe Marjanović, diplomirani inženjer elektrotehnike i računarstva, PFE
 
 
 Ključne reči: autonomni dron, praćenje objekta, Kalmanov filter, A* algoritam, simulacija, ArduPilot, Gazebo
@@ -66,7 +67,7 @@ $$
 
 gde $N$ označava broj prepreka, $N\_{max}$maksimalni dozvoljeni broj prepreka, $avg\_{d}$ prosečnu udaljenost između centara prepreka, a $d\_{max}$ maksimalnu moguću udaljenost u okviru mreže. Težinski koeficijenti $\alpha$ i $\beta$ omogućavaju balansiranje uticaja gustine i razuđenosti. Dobijena vrednost $K$ potom se skalarno normalizuje i prevodi u diskretnu ocenu složenosti u rasponu od 1 (najlakše) do 5 (najzahtevnije).
 
-{{< figure "Slika" "Slika 1. Primeri terena sa različitom ocenom kompleksnosti" "teren-kompleksnost" >}}
+{{< figure "Slika" "Primeri terena sa različitom ocenom kompleksnosti" "teren-kompleksnost" >}}
 
 ![Slika 1. Primeri terena sa različitom ocenom kompleksnosti](/images/zbornik/2025/simulacije-autonomnog-drona/slika5.png)
 
@@ -82,7 +83,7 @@ Kada se objekat nalazi unutar vidnog polja, UAV može da registruje njegovo post
 
 Vidno polje ne služi samo kao ograničenje percepcije, već i kao mehanizam za generisanje niza parametara (lokacija, ugao, udaljenost, brzina i predikcija položaja), čime se simulacioni model približava realnim uslovima. Drugim rečima, UAV ne donosi odluke na osnovu „sveznajuće“ perspektive, već na osnovu informacija koje bi zaista imao na raspolaganju u stvarnom okruženju.
 
-{{< figure "Slika" "Slika 2. Grafički prikaz modela vidnog polja drona" "vidno-polje" >}}
+{{< figure "Slika" "Grafički prikaz modela vidnog polja drona" "vidno-polje" >}}
 
 ![Slika 2. Grafički prikaz modela vidnog polja drona](/images/zbornik/2025/simulacije-autonomnog-drona/slika2.png)
 
@@ -183,7 +184,7 @@ Ova metoda omogućava brzo i pouzdano pronalaženje najkraće rute u poznatom ok
 
 U modelu, dron konstantno računa vektor kretanja ka objektu. U obzir uzima trenutnu poziciju objekta i predikcije iz Kalman filtera kada je objekat privremeno van vidnog polja. Minimalna distanca do objekta se održava kroz skaliranje vektora kretanja. Dron ne dostiže tačnu poziciju objekta, već se pozicionira na unapred definisanoj sigurnosnoj udaljenosti. Ovo omogućava kontrolu brzine približavanja: ukoliko dron mora da prati objekat koji se kreće znatno sporije, on usporava kretanje tako da bezbednosna distanca ostane konstantna. U slučaju da objekat stane ili se zabije u prepreku, dron se isto zaustavlja na minimalnoj distanci od njega.
 
-{{< figure "Slika" "Slika 3. Grafički prikaz dobijanja ciljne pozicije drona" "ciljna-pozicija" >}}
+{{< figure "Slika" "Grafički prikaz dobijanja ciljne pozicije drona" "ciljna-pozicija" >}}
 
 ![Slika 3. Grafički prikaz dobijanja ciljne pozicije drona](/images/zbornik/2025/simulacije-autonomnog-drona/slika4.png)
 
@@ -194,7 +195,7 @@ Prevencija sudara sa statičkim preprekama zasniva se na 3D mreži okruženja ko
 
 Ovakav pristup kombinuje prediktivnu logiku, adaptivno planiranje putanje i proveru vidljivosti cilja. Sistem omogućava da dron kontinuirano prati cilj i reaguje na neočekivane prepreke, održavajući sigurnosnu udaljenost i smanjujući rizik od kolizija čak i u složenim trodimenzionalnim okruženjima.
 
-{{< figure "Slika" "Slika 4. Grafički prikaz testiranja mogućih putanja" "testiranje-putanja" >}}
+{{< figure "Slika" "Grafički prikaz testiranja mogućih putanja" "testiranje-putanja" >}}
 
 ![Slika 4. Grafički prikaz testiranja mogućih putanja](/images/zbornik/2025/simulacije-autonomnog-drona/slika3.png)
 
@@ -209,7 +210,7 @@ Korišćenjem ArduPilota u SITL režimu, moguće je simulirati ponašanje drona 
 
 Analiza performansi modela detekcije i prevencije kolizija zasniva se na nekoliko metrika koje omogućavaju kvantifikaciju efikasnosti drona u praćenju objekta i izbegavanju prepreka. Vidljivost objekta u svakom koraku simulacije pokazuje koliko dugo UAV može da registruje cilj unutar svog vidnog polja, što je važno za procenu pouzdanosti senzornog sistema i strategije praćenja. Kada objekat često izlazi iz vidnog polja, dron mora da se osloni na predikciju Kalmanovog filtera, što može povećati rizik od grešaka u kretanju. Udaljenost drona od objekta u svakom koraku pruža uvid u održavanje minimalne sigurnosne zone. Prevelika udaljenost smanjuje preciznost praćenja, dok prebliska može povećati rizik od kolizije. Praćenje greške Kalmanovog filtera, odnosno razlike između predikovanog i stvarnog položaja objekta, omogućava procenu tačnosti prediktivnog modela. To je naročito značajno kada objekat izlazi iz vidnog polja ili se kreće dinamično. Ugao do objekta beleži promene u poziciji cilja u odnosu na dron i odražava manevarske zahteve na UAV, omogućavajući analizu glatkoće i stabilnosti kretanja. Broj prekida linije vida, koji se javlja kada objekat bude zaklonjen ili se udalji od vidnog polja, ukazuje na kompleksnost simulacionog scenarija i efikasnost strategije izbegavanja prepreka. Česti prekidi zahtevaju veću zavisnost od predikcije. Sve ove metrike zajedno omogućavaju sveobuhvatnu evaluaciju performansi autonomnog sistema.
 
-{{< figure "Slika" "Slika 5. Merenja dobijena iz simulacije na terenu kompleksnosti 4.2" "merenja-simulacije" >}}
+{{< figure "Slika" "Merenja dobijena iz simulacije na terenu kompleksnosti 4.2" "merenja-simulacije" >}}
 
 ![Slika 5. Merenja dobijena iz simulacije na terenu kompleksnosti 4.2](/images/zbornik/2025/simulacije-autonomnog-drona/slika6.png)
 

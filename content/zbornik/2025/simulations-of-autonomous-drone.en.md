@@ -2,6 +2,7 @@
 title: Simulations of an Autonomous Drone for Object Tracking
 summary: A project focused on simulating an autonomous drone for object tracking, conducted at the 2025 Summer Camp for Senior Participants, authored by Ana Bogdanović and Lana Lejić.
 svg_image: /images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg
+translationKey: simulacije-autonomnog-drona
 ---
 
 **Authors:**
@@ -12,24 +13,24 @@ Lana Lejić, 3rd-year student at Jovan Cvijić Grammar School in Modriča
 
 **Mentors:**
 
-Aleksa Račić,  
+Aleksa Račić, software engineer, School of Electrical Engineering, University of Belgrade
 
-Nikola Drakulić,  
+Nikola Drakulić, student, School of Electrical Engineering, University of Belgrade
 
-Đorđe Marjanović,  
+Đorđe Marjanović, graduate engineer in electrical and computer engineering, PFE
 
 
 Keywords: autonomous drone, object tracking, Kalman filter, A* algorithm, simulation, ArduPilot, Gazebo
 
 
-### **Abstract:**
+## **Abstract:**
 
 This paper presents the development and evaluation of a simulation system for autonomous object tracking using an unmanned aerial vehicle. The system was developed in a virtual environment that includes terrain generation with varying levels of complexity, modeling of the drone’s field of view, and implementation of motion prediction and path planning algorithms. A Kalman filter was used to predict the target's position when the object leaves the field of view, while the A\* algorithm enabled efficient route planning in the presence of obstacles. The simulation was designed to operate in the ArduPilot environment in SITL mode and visually represented in Gazebo. Performance analysis included metrics such as object visibility, prediction accuracy, maintenance of safe distance, and frequency of line-of-sight interruptions. The obtained results indicate that the developed model can successfully combine predictive and adaptive approaches, laying the foundation for further research and improvements of autonomous tracking systems in real-world conditions.
 
-![](static/images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg)
+![](/images/zbornik/2025/simulacije-autonomnog-drona/grafabs.svg)
 
 
-### **1\. Introduction**
+## **1\. Introduction**
 
 **—————————————————————————————————————————**
 
@@ -41,13 +42,13 @@ This project aims to develop a simulation system for autonomous object tracking 
 
 In this way, the project not only contributes to understanding the process of autonomous object tracking but also creates a foundation for further research toward integrating simulation and real-world systems. The results can serve as a starting point for developing more robust algorithms in real conditions, bringing practical applications of autonomous drones closer. Although many studies explore autonomous tracking using visual and predictive algorithms, relatively few integrate path planning and motion prediction within a unified simulation framework, which is the goal of this research.
 
-### **2\. Methodology**
+## **2\. Methodology**
 
 **—————————————————————————————————————————**
 
 In this section we present the approach, tools, and experimental procedures used to build and evaluate the simulation system. First, we explain the process of terrain generation and the modeling of the field of view; next, we detail the implementation of the Kalman filter for target motion prediction and the A* algorithm for path planning; and then we describe the collision detection and avoidance methods. Special emphasis is placed on the simulation configuration in the ArduPilot SITL environment, the way metrics are collected (object visibility, prediction accuracy, maintenance of safe distance, number of line-of-sight interruptions), and the criteria used for performance evaluation. All key parameters, assumptions, and implementation choices are clearly documented to ensure reproducibility and to enable comparison with future work.
 
-#### **2.1. Terrain Generation and Complexity**
+### **2.1. Terrain Generation and Complexity**
 
 ---
 
@@ -65,9 +66,9 @@ $$
 
 where $N$ is the number of obstacles, $N_{\text{max}}$ the maximum allowed number of obstacles, $d_{\text{avg}}$ the average distance between obstacle centers, and $d_{\text{max}}$ the maximum possible distance within the grid. Weight coefficients $\alpha$ and $\beta$ balance the influence of density and dispersion. The resulting $K$ value is then normalized and converted into a discrete complexity score from 1 (easiest) to 5 (most challenging).
 
-![Figure 1\. Examples of terrains with different complexity ratings](static/images/zbornik/2025/simulacije-autonomnog-drona/slika5.png)
+![Figure 1. Examples of terrains with different complexity ratings](/images/zbornik/2025/simulacije-autonomnog-drona/slika5.png)
 
-#### **2.2. Field of View Model**
+### **2.2. Field of View Model**
 
 ---
 
@@ -79,9 +80,9 @@ When an object is within the FOV, the UAV can register its existence and precise
 
 The FOV serves not only as a perception limit but also as a mechanism to generate a series of parameters (location, angle, distance, speed, and position prediction), bringing the simulation model closer to real-world conditions. In other words, the UAV does not make decisions based on an “omniscient” perspective but on information that it would realistically have in a real environment.
 
-![Figure 2\. Graphical representation of the drone's field of view model][static/images/zbornik/2025/simulacije-autonomnog-drona/slika2.png]
+![Figure 2. Graphical representation of the drone's field of view model](/images/zbornik/2025/simulacije-autonomnog-drona/slika2.png)
 
-#### **2.3. Kalman Filter**
+### **2.3. Kalman Filter**
 
 ---
 
@@ -136,7 +137,7 @@ $ H_k $ → matrix mapping state to measurement
 $ R_k $ → measurement noise (sensor uncertainty)  
 $ K_k $ → Kalman gain
 
-#### **2.4. A* Algorithm**
+### **2.4. A\* Algorithm**
 
 ---
 
@@ -162,33 +163,33 @@ In this project, A\* is used only when the object is within the drone’s FOV, a
 
 This method enables fast and reliable shortest-path finding in a known environment while avoiding obstacles and minimizing travel time.
 
-#### **2.5. Collision Detection and Avoidance**
+### **2.5. Collision Detection and Avoidance**
 
 ---
 
 The drone constantly calculates a movement vector toward the object, considering the current object position and predictions from the Kalman filter when temporarily out of view. Minimum distance is maintained by scaling the movement vector. The drone does not reach the exact object position but maintains a predefined safety distance. This allows controlled approach speed: if the object moves significantly slower, the drone slows to maintain safety distance. If the object stops or collides with an obstacle, the drone also stops at a minimal safe distance.
 
-![Figure 3\. Graphical representation of drone target positioning][static/images/zbornik/2025/simulacije-autonomnog-drona/slika4.png]
+![Figure 3. Graphical representation of drone target positioning](/images/zbornik/2025/simulacije-autonomnog-drona/slika4.png)
 
 Collision avoidance with static obstacles relies on a 3D occupancy grid marking occupied and free space. Each planned step is tested via a collision detection function. If an obstacle exists, alternative movement vectors in neighboring directions (up, down, left, right, forward, backward) are generated. If no alternative exists, the drone halts to prevent collisions.
 
 This approach combines predictive logic, adaptive path planning, and target visibility checks, enabling the drone to continuously track the target, react to unexpected obstacles, maintain safe distance, and minimize collision risk in complex 3D environments.
 
-![Figure 4\. Graphical representation of path testing][static/images/zbornik/2025/simulacije-autonomnog-drona/slika3.png]
+![Figure 4. Graphical representation of path testing](/images/zbornik/2025/simulacije-autonomnog-drona/slika3.png)
 
-#### **2.6. Simulation in Realistic Environment**
+### **2.6. Simulation in Realistic Environment**
 
 Using ArduPilot in SITL mode, it is possible to simulate drone behavior without a physical device. All command signals and sensor data are processed, simulating drone behavior (stabilization, flight, command execution). ArduPilot exchanges data via MAVLink protocol. Commands come from code written in DroneKit. Through DroneKit, users can program autonomous missions and control the drone in real-time. Flight simulation and environment visualization are provided in the Gazebo simulator, allowing users to monitor drone movement and test algorithms safely without physical hardware.
 
-# **3\. Results**
+## **3\. Results**
 
 **—————————————————————————————————————————**
 
 Performance analysis of collision detection and avoidance relies on several metrics to quantify the drone’s tracking efficiency. Object visibility at each simulation step shows how long the UAV can register the target, important for evaluating sensor reliability and tracking strategy. Frequent object loss requires reliance on Kalman filter predictions, which may increase movement error. Drone-object distance provides insight into maintaining minimum safety zone. Excessive distance reduces tracking accuracy, while proximity increases collision risk. Kalman filter error (difference between predicted and actual position) allows evaluation of prediction accuracy, especially when the object leaves FOV or moves dynamically. Angle to the object records changes in target position relative to the drone, reflecting maneuvering demands and allowing analysis of motion smoothness and stability. Line-of-sight interruptions, caused by occlusion or object leaving FOV, indicate scenario complexity and obstacle avoidance efficiency. Frequent interruptions require higher reliance on prediction. These metrics together provide a comprehensive evaluation of the autonomous system.
 
-![Figure 5\. Measurements from simulation on terrain with complexity 4.2][static/images/zbornik/2025/simulacije-autonomnog-drona/slika6.pnggit a]
+![Figure 5. Measurements from simulation on terrain with complexity 4.2](/images/zbornik/2025/simulacije-autonomnog-drona/slika6.png)
 
-# **4\. Discussion**
+## **4\. Discussion**
 
 **—————————————————————————————————————————**
 
@@ -198,7 +199,7 @@ However, it is important to note that the current implementation is not yet full
 
 Additionally, with advanced object detection networks like YOLO or FRCNN, simulations would become even more precise in object recognition and tracking, improving obstacle avoidance so the drone can navigate complex scenarios more efficiently. Ultimately, applying this system on a real drone would be a step toward a fully functional autonomous tracking and recording system in real-world conditions.
 
-# **5\. Conclusion**
+## **5\. Conclusion**
 
 **—————————————————————————————————————————**  
 
@@ -206,7 +207,7 @@ This paper presents a simulation system for autonomous object tracking using an 
 
 The results show that the system can adaptively respond in real-time, maintaining safe distance and efficiently avoiding collisions. Used metrics demonstrated system stability and accuracy under various terrain complexity conditions, indicating potential for real-world application.
 
-# **6\. References**
+## **6\. References**
 
 **—————————————————————————————————————————**
 
