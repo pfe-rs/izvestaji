@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="476.4pt" height="116.4pt" viewBox="0 0 476.4 116.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-21T18:00:53.767697</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 116.4 
+L 476.4 116.4 
+L 476.4 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 28.523077 82.68 
+L 99.6 82.68 
+Q 103.864615 82.68 103.864615 78.6 
+L 103.864615 44.6 
+Q 103.864615 40.52 99.6 40.52 
+L 28.523077 40.52 
+Q 24.258462 40.52 24.258462 44.6 
+L 24.258462 78.6 
+Q 24.258462 82.68 28.523077 82.68 
+z
+" clip-path="url(#pd3adc460e5)" style="fill: #e6f0fa; stroke: #0072b2; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 120.923077 82.68 
+L 192 82.68 
+Q 196.264615 82.68 196.264615 78.6 
+L 196.264615 44.6 
+Q 196.264615 40.52 192 40.52 
+L 120.923077 40.52 
+Q 116.658462 40.52 116.658462 44.6 
+L 116.658462 78.6 
+Q 116.658462 82.68 120.923077 82.68 
+z
+" clip-path="url(#pd3adc460e5)" style="fill: #e6f0fa; stroke: #0072b2; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 213.323077 82.68 
+L 284.4 82.68 
+Q 288.664615 82.68 288.664615 78.6 
+L 288.664615 44.6 
+Q 288.664615 40.52 284.4 40.52 
+L 213.323077 40.52 
+Q 209.058462 40.52 209.058462 44.6 
+L 209.058462 78.6 
+Q 209.058462 82.68 213.323077 82.68 
+z
+" clip-path="url(#pd3adc460e5)" style="fill: #e6f0fa; stroke: #0072b2; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 305.723077 82.68 
+L 376.8 82.68 
+Q 381.064615 82.68 381.064615 78.6 
+L 381.064615 44.6 
+Q 381.064615 40.52 376.8 40.52 
+L 305.723077 40.52 
+Q 301.458462 40.52 301.458462 44.6 
+L 301.458462 78.6 
+Q 301.458462 82.68 305.723077 82.68 
+z
+" clip-path="url(#pd3adc460e5)" style="fill: #e6f0fa; stroke: #0072b2; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 398.123077 82.68 
+L 469.2 82.68 
+Q 473.464615 82.68 473.464615 78.6 
+L 473.464615 44.6 
+Q 473.464615 40.52 469.2 40.52 
+L 398.123077 40.52 
+Q 393.858462 40.52 393.858462 44.6 
+L 393.858462 78.6 
+Q 393.858462 82.68 398.123077 82.68 
+z
+" clip-path="url(#pd3adc460e5)" style="fill: #e8f4ea; stroke: #009e73; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #222222" x="64.061538" y="63.927344" transform="rotate(-0 64.061538 63.927344)">Audio ulaz</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 101.601641 61.6 
+Q 110.264682 61.6 117.80969 61.6 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+    <path d="M 114.60969 60 
+L 117.80969 61.6 
+L 114.60969 63.2 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #222222" x="156.461538" y="63.927344" transform="rotate(-0 156.461538 63.927344)">Chunk 5 s</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 194.001641 61.6 
+Q 202.664682 61.6 210.20969 61.6 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+    <path d="M 207.00969 60 
+L 210.20969 61.6 
+L 207.00969 63.2 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #222222" x="248.861538" y="63.927344" transform="rotate(-0 248.861538 63.927344)">Loudnorm</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 286.401641 61.6 
+Q 295.064682 61.6 302.60969 61.6 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+    <path d="M 299.40969 60 
+L 302.60969 61.6 
+L 299.40969 63.2 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #222222" x="341.261538" y="63.907656" transform="rotate(-0 341.261538 63.907656)">Spektrogram</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 378.801641 61.6 
+Q 387.464682 61.6 395.00969 61.6 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+    <path d="M 391.80969 60 
+L 395.00969 61.6 
+L 391.80969 63.2 
+" style="fill: none; stroke: #444444; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #222222" x="433.661538" y="63.927344" transform="rotate(-0 433.661538 63.927344)">Baza</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #222222" x="238.2" y="26.785938" transform="rotate(-0 238.2 26.785938)">Lanac obrade za prepoznavanje</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 8px; font-family: 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #444444" x="238.2" y="104.481875" transform="rotate(-0 238.2 104.481875)">Dva paralelna puta: matematičko heširanje i CNN embedding.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd3adc460e5">
+   <rect x="7.2" y="7.2" width="462" height="102"/>
+  </clipPath>
+ </defs>
+</svg>
