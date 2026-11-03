@@ -8,13 +8,13 @@ translationKey: "pesmokaz"
 
 **Autori:**
 
-Lazar Aleksic, učenik IV razreda Gimnazije "Bora Stankovic" u Vranju
+Lazar Aleksić, učenik IV razreda Gimnazije "Bora Stanković" u Vranju
 
-Andrej Vasilijevic, učenik IV razreda Prve Kragujevacke Gimnazije
+Andrej Vasiljević, učenik IV razreda Prve kragujevačke gimnazije
 
 **Mentori:**
 
-Andrej Bantulic, Elektrotehnički fakultet u Beogradu
+Andrej Bantulić, Elektrotehnički fakultet u Beogradu
 
 Dimitrije Pešić, Elektrotehnički fakultet u Beogradu
 
@@ -26,11 +26,11 @@ Dimitrije Pešić, Elektrotehnički fakultet u Beogradu
 
 ## Apstrakt
 
-Prepoznavanje muzike iz kratkog audio snimka je problem pronalaženja najbliže pesme u velikoj bazi podataka. Determinističke metode zasnovane na heširanju vremensko frekvencijskih lokalnih maksimuma, kao što je algoritam Wang (2003), otporne su na šum jer najviši energetski lokalni maksimumi preživljavaju maskiranje. Metode zasnovane na dubokom učenju uče funkciju sličnosti u kontinualnom latentnom prostoru i mogu da prepoznaju strukturne mutacije, poput kovera i izvođenja uživo, koje onemogućavaju heširanje. Implementiran je sistem koji poredi ova dva pristupa na istom skupu podataka i istom protokolu evaluacije. Skup podataka čini 776 upotrebljivih pesama (od 1000 izabranih) iz Free Music Archive (FMA) skupa, stratifikovano po 16 žanrova, sa pet nivoa šuma od minus 5 dB do 20 dB. Pesme su iz FMA skupa; 482 je preuzeto sa YouTube-a, 518 iz FMA arhiva. Matematička metoda postiže 97,56 posto tačnosti na prvom mestu i srednji recipročni rang od 0,976 na agregatnom noisy test setu od 7281 upita nad 776 pesama. CNN embedding postiže 81,39 posto tačnosti na prvom mestu i srednji recipročni rang od 0,850. Matematička metoda je tačnija, dok je CNN inferenca oko 20 puta brža. Postoji razumna pretpostavka da bi CNN, uz više epoha i treniranja, mogao da se poboljša i na većim bazama. Oba pristupa su deterministička u okviru istog izvršnog okruženja i hardvera.
+Prepoznavanje muzike iz kratkog audio snimka je problem pronalaženja najbliže pesme u velikoj bazi podataka. Determinističke metode zasnovane na heširanju vremensko frekvencijskih lokalnih maksimuma, kao što je algoritam Wang (2003), otporne su na šum jer najviši energetski lokalni maksimumi preživljavaju maskiranje. Metode zasnovane na dubokom učenju uče funkciju sličnosti u kontinualnom latentnom prostoru i mogu da prepoznaju strukturne mutacije, poput kovera i izvođenja uživo, koje onemogućavaju heširanje. Implementiran je sistem koji poredi ova dva pristupa na istom skupu podataka i istom protokolu evaluacije. Skup podataka čini 776 upotrebljivih pesama (od 1000 izabranih) iz Free Music Archive (FMA) skupa, stratifikovano po 16 žanrova, sa pet nivoa šuma od minus 5 dB do 20 dB. Pesme su iz FMA skupa; 481 je preuzeto sa YouTube-a, 519 iz FMA ZIP arhiva. Matematička metoda postiže 97,56 posto tačnosti na prvom mestu i srednji recipročni rang od 0,976 na agregatnom noisy test setu od 7281 upita nad 776 pesama. CNN embedding postiže 81,39 posto tačnosti na prvom mestu i srednji recipročni rang od 0,850. Matematička metoda je tačnija, dok je CNN inferenca oko 20 puta brža. Dodatno treniranje verovatno ne bi značajno poboljšalo CNN, jer tačnost nakon epohe 26 počinje da opada (preprilagođavanje); verovatniji put ka boljim rezultatima je veći model, za koji zbog brže inference postoji prostor. Oba pristupa su deterministička u okviru istog izvršnog okruženja i hardvera.
 
 ## Abstract
 
-Music recognition from a short audio clip is the problem of finding the closest song in a large database. Deterministic methods based on hashing time frequency peaks, such as the original algorithm by Wang (2003), are robust to noise because the highest energy peaks survive masking. Deep learning methods learn a similarity function in a continuous latent space and can recognize structural mutations, such as covers and concert performances, that break hashing. This paper presents a system that compares these two approaches on the same collection and the same evaluation protocol. The dataset consists of 776 usable songs (out of 1000 selected) from the FMA collection, stratified across 16 genres, with five noise levels from minus 5 dB to 20 dB. The mathematical method reaches 97.56 percent top 1 accuracy and a mean reciprocal rank of 0.976 on an aggregate noisy test set of 7281 queries. The CNN embedding reaches 81.39 percent top 1 accuracy and a mean reciprocal rank of 0.850. The mathematical method is more accurate. Both approaches are deterministic within the same runtime and hardware.
+Music recognition from a short audio clip is the problem of finding the closest song in a large database. Deterministic methods based on hashing time frequency peaks, such as the original algorithm by Wang (2003), are robust to noise because the highest energy peaks survive masking. Deep learning methods learn a similarity function in a continuous latent space and can recognize structural mutations, such as covers and concert performances, that break hashing. This paper presents a system that compares these two approaches on the same collection and the same evaluation protocol. The dataset consists of 776 usable songs (out of 1000 selected) from the FMA collection, stratified across 16 genres, with five noise levels from minus 5 dB to 20 dB. The mathematical method reaches 97.56 percent top 1 accuracy and a mean reciprocal rank of 0.976 on an aggregate noisy test set of 7281 queries over 776 songs. The CNN embedding reaches 81.39 percent top 1 accuracy and a mean reciprocal rank of 0.850. The mathematical method is more accurate, while CNN inference is about 20 times faster. Additional training would probably not improve the CNN significantly, since accuracy starts to decline after epoch 26 (overfitting); a larger model is the more promising direction, and the faster inference leaves room for one. Both approaches are deterministic within the same runtime and hardware.
 
 ## 1. Uvod
 
@@ -101,7 +101,7 @@ Iz tabele 1 se vidi da je skup ravnomerno raspoređen po žanrovima.
 
 ### 2.3. Softversko okruženje
 
-Sistem je implementiran u Python-u. Normalizacija koristi pyloudnorm[^7], koji implementira EBU R128 standard bez poziva eksternog procesa. Inference koristi librosa[^5], faiss-cpu[^6], onnxruntime[^8], numpy i scipy. Treniranje koristi PyTorch, torchvision i pytorch-metric-learning. Modeli su eksportovani u ONNX format i kvantizovani u INT8. Skup podataka se sastoji od pesama iz Free Music Archive (FMA) skupa, licenciranih pod Creative Commons licencama (CC-BY, CC-BY-NC, CC-BY-NC-ND, CC-BY-SA, CC0 i Public Domain). Od 1000 izabranih, 816 je pod nekomercijalnom licencom (CC-BY-NC*), 71 pod CC0/Public Domain, 68 pod CC-BY i 39 pod CC-BY-SA (5 pod CC-BY-ND i 1 pod EFF Open Audio License). Ne-komercijalne licence dozvoljavaju istraživačku upotrebu uz navođenje autora. 400 pesama je pod CC-BY-NC-ND licencom (zabrana derivata); audio fingerprinting analizira audio bez redistribucije samih fajlova, pa to ne predstavlja derivat u smislu licence. Pesme su preuzete sa YouTube-a (482) i iz FMA ZIP arhiva (518); sadržaj je CC-licenciran, a preuzimanje sa YouTube-a služi isključivo za istraživačku reprodukciju, bez redistribucije audio fajlova. Rad je nekomercijalan i ne generiše novu muziku, pa ne krši uslove CC-BY-NC* licenci.
+Sistem je implementiran u Python-u. Normalizacija koristi pyloudnorm[^7], koji implementira EBU R128 standard bez poziva eksternog procesa. Inference koristi librosa[^5], faiss-cpu[^6], onnxruntime[^8], numpy i scipy. Treniranje koristi PyTorch, torchvision i pytorch-metric-learning. Modeli su eksportovani u ONNX format i kvantizovani u INT8. Skup podataka se sastoji od pesama iz Free Music Archive (FMA) skupa, licenciranih pod Creative Commons licencama (CC-BY, CC-BY-NC, CC-BY-NC-ND, CC-BY-SA, CC0 i Public Domain). Od 1000 izabranih, 816 je pod nekomercijalnom licencom (CC-BY-NC*), 71 pod CC0/Public Domain, 68 pod CC-BY i 39 pod CC-BY-SA (5 pod CC-BY-ND i 1 pod EFF Open Audio License). Ne-komercijalne licence dozvoljavaju istraživačku upotrebu uz navođenje autora. 400 pesama je pod CC-BY-NC-ND licencom (zabrana derivata); audio fingerprinting analizira audio bez redistribucije samih fajlova, pa to ne predstavlja derivat u smislu licence. Pesme su preuzete sa YouTube-a (481) i iz FMA ZIP arhiva (519); sadržaj je CC-licenciran, a preuzimanje sa YouTube-a služi isključivo za istraživačku reprodukciju, bez redistribucije audio fajlova. Rad je nekomercijalan i ne generiše novu muziku, pa ne krši uslove CC-BY-NC* licenci.
 
 ### 2.4. Metod
 
@@ -185,7 +185,7 @@ Na slici {{< ref "Slika" "poredjenje" >}} je prikazano poređenje metoda. Matema
 
 {{< figure "Slika" "Konvergencija CNN modela tokom treninga. Prikazana je top 1 tačnost po epohama." "cnn-epochs" >}}
 
-![Grafikon konvergencije CNN modela tokom treninga.](/images/zbornik/2026/pesmokaz/chart-cnn-epochs.png)
+![Grafikon konvergencije CNN modela tokom treninga.](/images/zbornik/2026/pesmokaz/chart-cnn-epochs.svg)
 
 {{</ figure >}}
 
@@ -203,7 +203,7 @@ Ograničenja rada su sledeća. Prvo, evaluacija je agregatna i nije razložena p
 
 ## 5. Zaključak
 
-U radu je predstavljen sistem za prepoznavanje muzike koji poredi determinističko matematičko heširanje i duboko učenje zasnovano na triplet metric learning-u. Na agregatnom noisy test setu od 7281 upita nad 776 pesama matematička metoda postiže 97,56 posto top 1 tačnosti i srednji recipročni rang od 0,976, dok CNN embedding postiže 81,39 posto i 0,850. Matematička metoda je tačnija, dok je CNN inferenca oko 20 puta brža. Postoji razumna pretpostavka da bi CNN, uz više epoha i treniranja, mogao da se poboljša i na većim bazama. Oba pristupa su deterministička u okviru istog izvršnog okruženja i hardvera.
+U radu je predstavljen sistem za prepoznavanje muzike koji poredi determinističko matematičko heširanje i duboko učenje zasnovano na triplet metric learning-u. Na agregatnom noisy test setu od 7281 upita nad 776 pesama matematička metoda postiže 97,56 posto top 1 tačnosti i srednji recipročni rang od 0,976, dok CNN embedding postiže 81,39 posto i 0,850. Matematička metoda je tačnija, dok je CNN inferenca oko 20 puta brža. Dodatno treniranje verovatno ne bi značajno poboljšalo CNN, jer tačnost nakon epohe 26 počinje da opada (preprilagođavanje); verovatniji put ka boljim rezultatima je veći model, za koji zbog brže inference postoji prostor. Oba pristupa su deterministička u okviru istog izvršnog okruženja i hardvera.
 
 Glavni doprinos je implementacija kompletnog lanca obrade sa zajedničkim interfejsom za dve metode i protokolom evaluacije na 776 upotrebljivih pesama. Ograničenje je što strukturne mutacije nisu testirane. Budući rad treba da obuhvati test na koverima i izvođenjima uživo, poređenje arhitektura (ResNet-18 i MobileNetV3), implementaciju korisničkog interfejsa i skalabilnu centralnu bazu.
 
